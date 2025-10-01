@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getInterParkData(page: String) {
         val lastUrl = "bbsno=0&pageno=${page}&stext=&KindOfGoods=&Genre=&sort="
-        val url = BaseUrlUtil.interParkSite + lastUrl
+        val url = BaseUrlUtil.interParkUrl + lastUrl
 
         try {
 //            val doc = Jsoup.connect(url).timeout(1000 * 10).get()
@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             val data = doc.select(".table").select("div").select("tbody").select("tr")
             var type = ""
             for (item in data) {
+                interParkList
                 type = item.select(".type").text()
             }
             Log.e("!!!", type)
