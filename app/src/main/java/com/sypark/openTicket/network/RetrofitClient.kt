@@ -16,6 +16,7 @@ object RetrofitClient {
     class AppInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
             val newRequest = request().newBuilder()
+//                .addHeader("Content-Type", "application/json; charset=euc-kr")
                 .build()
 
             proceed(newRequest)
@@ -59,7 +60,7 @@ object RetrofitClient {
         //   Log.e("Server", "Server URL  $serverURL")
 
         return Retrofit.Builder()
-            .baseUrl(BaseUrlUtil.interParkUrl)
+            .baseUrl(BaseUrlUtil.interParkUrl2)
             .client(provideOkHttpClient(AppInterceptor()))
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

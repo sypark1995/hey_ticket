@@ -2,11 +2,11 @@ package com.sypark.openTicket.dao
 
 data class InterParkDao(
 
-    val type: String,
+    var type: String,
 
-    val subject: String,
+    var subject: String,
 
-    val date: String,
+    var date: String,
 
-    val count: String
+    var count: String
 )
