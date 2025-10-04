@@ -1,9 +1,9 @@
 package com.sypark.openTicket
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.sypark.openTicket.dao.InterParkDao
 import com.sypark.openTicket.network.BaseUrlUtil
@@ -16,7 +16,7 @@ import java.net.URL
 class MainActivity : AppCompatActivity() {
 
     private val interParkList: ArrayList<InterParkDao> = arrayListOf()
-
+    private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,17 +25,19 @@ class MainActivity : AppCompatActivity() {
 
         btn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-//                interParkList.clear()
+                interParkList.clear()
 //                for (i in 0..5) {
 //                    getInterParkData(i)
 //                }
-                call()
+
+                getMelonData(11)
+                Log.e(TAG, "" + interParkList.size)
             }
         }
     }
 
     private fun getInterParkData(page: Int) {
-        val lastUrl = "bbsno=0&pageno=${page}&stext=&KindOfGoods=&Genre=&sort="
+        val lastUrl = "bbsno=0&pageno=${page}&stext=&KindOfGoods=&Genre=&sort=opendate"
         val url = BaseUrlUtil.interParkUrl + lastUrl
 
         try {
@@ -59,7 +61,24 @@ class MainActivity : AppCompatActivity() {
             }
 
         } catch (e: java.lang.Exception) {
-            Log.e("!!!", e.toString())
+            Log.e(TAG, e.toString())
+        }
+    }
+
+    private fun getMelonData(page: Int) {
+        val lastUrl = "&pageIndex=${page}"
+        val url = BaseUrlUtil.melonUrl + lastUrl
+        Log.e(TAG,url)
+        try {
+            val doc = Jsoup.parse(URL(BaseUrlUtil.yes24Url).openStream(), "utf-8", url)
+            val data = doc.select(".noti-tbl").select("tr").select("td")
+            data.forEachIndexed { index, element ->
+                val subject = element.select("")
+            }
+            Log.e(TAG,data.toString())
+//            Log.e(TAG,data.toString())
+        } catch (e: java.lang.Exception) {
+            Log.e("error",e.toString())
         }
     }
 
