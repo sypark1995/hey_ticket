@@ -1,6 +1,6 @@
-package com.sypark.openTicket.dao
+package com.sypark.openTicket.dto
 
-data class Yes24Dao(
+data class Yes24Dto(
     var type: String,
 
     var subject: String,

@@ -1,12 +1,22 @@
 package com.sypark.openTicket.dao
 
-data class InterParkDao(
+import androidx.room.Dao
+import com.sypark.openTicket.dao.base.BaseDao
+import com.sypark.openTicket.dto.InterParkDto
+import androidx.room.Query
 
-    var type: String,
+@Dao
+abstract class InterParkDao: BaseDao<InterParkDto> {
 
-    var subject: String,
+    @Query("select * from InterParkDto")
+    abstract fun getInterParkData()
 
-    var date: String,
+    @Query("DELETE FROM InterParkDto")
+    abstract fun delete()
 
-    var count: String
-)
+    //    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    suspend fun insert(interParkDao: InterParkDao)
+//
+//    @DELETE
+//    suspend fun deleteAll()
+}

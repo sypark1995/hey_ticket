@@ -1,9 +1,7 @@
 package com.sypark.openTicket.network
 
-import okhttp3.ResponseBody
 import org.jsoup.nodes.Document
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface RetrofitService {

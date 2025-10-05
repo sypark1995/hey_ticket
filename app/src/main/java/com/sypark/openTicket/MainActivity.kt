@@ -5,7 +5,7 @@ import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.sypark.openTicket.dao.InterParkDao
+import com.sypark.openTicket.dto.InterParkDto
 import com.sypark.openTicket.network.BaseUrlUtil
 import com.sypark.openTicket.network.RetrofitClient
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ import java.net.URL
 
 class MainActivity : AppCompatActivity() {
 
-    private val interParkList: ArrayList<InterParkDao> = arrayListOf()
+    private val interParkList: ArrayList<InterParkDto> = arrayListOf()
     private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 val count = element.select(".count").text()
 
                 interParkList.add(
-                    InterParkDao(
+                    InterParkDto(
                         type = type,
                         subject = subject,
                         date = date,
