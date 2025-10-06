@@ -1,15 +1,15 @@
 package com.sypark.openTicket.dto
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "interpark_table")
+@Entity
 data class InterParkDto(
-    @PrimaryKey
-    var type: String,
 
+    @PrimaryKey
     var subject: String,
+
+    var type: String,
 
     var date: String,
 
