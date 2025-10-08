@@ -1,18 +1,21 @@
 package com.sypark.openTicket
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.sypark.openTicket.dao.LocalDB
 import com.sypark.openTicket.dto.InterParkDto
 import com.sypark.openTicket.network.BaseUrlUtil
 import com.sypark.openTicket.network.RetrofitClient
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.jsoup.Jsoup
 import java.net.URL
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +24,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        runBlocking {
+            val num1 = async { getValue() }
+            val num2 = async { getValue() }
+            Log.e("","result of num1 + num2 is ${num1.await() + num2.await()}")
+        }
 
         val btn = findViewById<Button>(R.id.btn)
 
@@ -41,6 +50,18 @@ class MainActivity : AppCompatActivity() {
                 Log.e(TAG, "22222")
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val formatter = DateTimeFormatter.ISO_LOCAL_TIME
+    @RequiresApi(Build.VERSION_CODES.O)
+    val time = { formatter.format(LocalDateTime.now()) }
+
+    suspend fun getValue(): Double {
+        Log.e("","entering getValue() at ${time()}")
+        delay(3000)
+        Log.e("","leaving getValue() at ${time()}")
+        return Math.random()
     }
 
     private fun getInterParkData(page: Int) {
