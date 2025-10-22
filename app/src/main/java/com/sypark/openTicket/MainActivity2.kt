@@ -11,12 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import com.sypark.openTicket.base.BaseActivity
+import com.sypark.openTicket.databinding.ActivityMain2Binding
 
-class MainActivity2: AppCompatActivity() {
+class MainActivity2 : BaseActivity<ActivityMain2Binding>(R.layout.activity_main2) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        binding.lifecycleOwner = this
+
+        setSupportActionBar(binding.toolbar)
+
+
     }
 
 }

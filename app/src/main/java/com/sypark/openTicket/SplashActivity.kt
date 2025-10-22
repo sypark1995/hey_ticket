@@ -16,16 +16,19 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         val delayTime = if (BuildConfig.DEBUG) {
-            3000L
+            300L
         } else {
             3000L
         }
 
         lifecycleScope.launch {
             delay(delayTime)
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
+
+            Intent(this@SplashActivity, MainActivity2::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                startActivity(this)
+            }
+
             finish()
         }
     }

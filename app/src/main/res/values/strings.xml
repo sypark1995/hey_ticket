@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">OpenTicket</string>
+    <string name="ticket_name">아이유</string>
+    <string name="ticket_open_time">오픈 예정</string>
+
+    <string name="concert">콘서트</string>
+    <string name="drama">연극</string>
+    <string name="musical">뮤지컬</string>
+
 </resources>

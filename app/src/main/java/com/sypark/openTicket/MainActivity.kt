@@ -25,12 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        runBlocking {
-            val num1 = async { getValue() }
-            val num2 = async { getValue() }
-            Log.e("","result of num1 + num2 is ${num1.await() + num2.await()}")
-        }
-
         val btn = findViewById<Button>(R.id.btn)
 
         btn.setOnClickListener {
