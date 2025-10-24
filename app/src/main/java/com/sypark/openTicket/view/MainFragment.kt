@@ -2,11 +2,14 @@ package com.sypark.openTicket.view
 
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
+import com.sypark.openTicket.network.RetrofitClient
+import kotlinx.coroutines.launch
 
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
     TicketClickListener {
