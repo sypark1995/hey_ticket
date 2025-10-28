@@ -13,11 +13,17 @@ import com.sypark.openTicket.model.MelonTicket
 import com.sypark.openTicket.model.Ticket
 import java.util.ArrayList
 
-class ViewPagerAdapter(private val data: ArrayList<MelonTicket>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ViewPagerAdapter(private val data: ArrayList<MelonTicket>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var binding: ItemViewPagerBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_view_pager, parent, false)
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_view_pager,
+            parent,
+            false
+        )
         return ViewHolder(binding)
     }
 
@@ -31,7 +37,10 @@ class ViewPagerAdapter(private val data: ArrayList<MelonTicket>) : RecyclerView.
         @SuppressLint("CheckResult")
         fun bind(data: MelonTicket) {
             binding.textTicketName.text = data.title
-            Glide.with(itemView.context).load("https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2016/04/2016042414123536a07532-df5d-4d74-a56d-fe159e894112.jpg/melon/").into(binding.imgTicket)
+            binding.openDate.text = data.openDate
+            Glide.with(itemView.context)
+                .load(data.imageUrl)
+                .into(binding.imgTicket)
         }
     }
 }

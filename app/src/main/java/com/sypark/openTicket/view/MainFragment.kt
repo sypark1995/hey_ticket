@@ -1,13 +1,26 @@
 package com.sypark.openTicket.view
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
+import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
 import com.sypark.openTicket.model.MelonTicket
+import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlin.math.abs
 
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
     TicketClickListener {
@@ -66,7 +79,36 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
         binding.viewpager.apply {
             this.adapter = ViewPagerAdapter(melonData)
             this.offscreenPageLimit = 3
+
+            val transfrom = CompositePageTransformer()
+            transfrom.addTransformer(MarginPageTransformer(1))
+            transfrom.addTransformer { view: View, fl: Float ->
+                val v = 1 - abs(fl)
+                view.scaleY = 0.8f + v * 0.2f
+            }
+
+            this.setPageTransformer(
+                transfrom
+            )
         }
+
+        binding.layoutViewpager.apply {
+            Glide.with(this)
+                .load(melonData[0].imageUrl)
+                .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable>?
+                    ) {
+                        binding.layoutViewpager.background = resource
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+
+                })
+        }
+
 
         binding.kindRecyclerview.run {
 
