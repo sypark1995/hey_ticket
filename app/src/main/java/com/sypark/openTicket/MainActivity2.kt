@@ -20,7 +20,6 @@ class MainActivity2 : BaseActivity<ActivityMain2Binding>(R.layout.activity_main2
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
 
-        setSupportActionBar(binding.toolbar)
 
 
     }

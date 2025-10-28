@@ -2,46 +2,70 @@ package com.sypark.openTicket.view
 
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
-import com.sypark.openTicket.network.RetrofitClient
-import kotlinx.coroutines.launch
+import com.sypark.openTicket.model.MelonTicket
 
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
     TicketClickListener {
     private val TAG = "MainFragment"
 
-    // [
-    //    {
-    //        "id": 6819,
-    //        "imageUrl": "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2022/12/202212081028396e28ec63-adab-492e-9bcf-d0c64cef6215.jpg/melon/",
-    //        "title": "2022 이지혜 단독 팬콘서트 〈첫번졔〉 티켓 오픈 안내",
-    //        "date": "",
-    //        "hits": 537
-    //    },
-    //    {
-    //        "id": 6780,
-    //        "imageUrl": "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2022/11/20221129114816d5db630b-419a-4388-b5dd-204ad640523d.jpg/melon/",
-    //        "title": "먼데이프로젝트 시즌5 청춘의 밤［은종 연말 단독 콘서트］티켓 오픈 안내",
-    //        "date": "2022.12.09(금) 20:00",
-    //        "hits": 93
-    //    },
-    //    {
-    //        "id": 6813,
-    //        "imageUrl": "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2022/12/202212071159251851be4c-f256-4f17-ba2f-97575522d9ff.jpg/melon/",
-    //        "title": "파란노을 단독공연 ~ After the Night ~ 티켓 오픈 안내",
-    //        "date": "2022.12.14(수) 18:00",
-    //        "hits": 261
-    //    },
     override fun init(view: View) {
-        binding.viewpager.offscreenPageLimit = 5
+
+//        {
+//            "id": 12,
+//            "image_url": "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2016/04/2016042416055341773396-8a2f-4e4e-8563-5f2a59c94937.jpg/melon/",
+//            "title": "2016 XIA 5th ASIA TOUR CONCERT in SEOUL 1차 티켓 오픈 안내",
+//            "ticket_opening_date": "2016.04.29(금) 20:00",
+//            "registration_date": "2016.04.24",
+//            "hits": 40
+//        }
+        val melonData = ArrayList<MelonTicket>().let {
+            it.apply {
+                add(
+                    MelonTicket(
+                        12,
+                        "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2016/04/2016042416055341773396-8a2f-4e4e-8563-5f2a59c94937.jpg/melon/",
+                        "2016 XIA 5th ASIA TOUR CONCERT in SEOUL 1차 티켓 오픈 안내",
+                        "40",
+                        "",
+                        ""
+                    )
+                )
+
+                add(
+                    MelonTicket(
+                        12,
+                        "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2016/04/2016042416055341773396-8a2f-4e4e-8563-5f2a59c94937.jpg/melon/",
+                        "2016 XIA 5th ASIA TOUR CONCERT in SEOUL 1차 티켓 오픈 안내",
+                        "40",
+                        "",
+                        ""
+                    )
+                )
+
+                add(
+                    MelonTicket(
+                        12,
+                        "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2016/04/2016042416055341773396-8a2f-4e4e-8563-5f2a59c94937.jpg/melon/",
+                        "2016 XIA 5th ASIA TOUR CONCERT in SEOUL 1차 티켓 오픈 안내",
+                        "40",
+                        "",
+                        ""
+                    )
+                )
+            }
+        }
+
+
+//        val pageMarginPx = resources.getDimensionPixelOffset()
 
         binding.viewpager.apply {
-
+            this.adapter = ViewPagerAdapter(melonData)
+            this.offscreenPageLimit = 3
         }
 
         binding.kindRecyclerview.run {

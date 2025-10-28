@@ -2,6 +2,7 @@ package com.sypark.openTicket.network
 
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.sypark.openTicket.base.BaseUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -56,15 +57,16 @@ object RetrofitClient {
             build()
         }
 
-    fun instanceInterPark(): RetrofitService {
+    fun instanceMelon(): RetrofitService {
         //   Log.e("Server", "Server URL  $serverURL")
 
         return Retrofit.Builder()
-            .baseUrl(BaseUrlUtil.interParkUrl2)
+            .baseUrl(BaseUrl.melonUrl)
             .client(provideOkHttpClient(AppInterceptor()))
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
             .create(RetrofitService::class.java)
     }
+
 }

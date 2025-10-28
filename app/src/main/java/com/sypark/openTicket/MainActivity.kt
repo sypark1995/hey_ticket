@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun call() {
         try {
-            val data = RetrofitClient.instanceInterPark().requestInterParkList("0")
+            val data = RetrofitClient.instanceMelon().requestInterParkList("0")
 
             Log.e("!!!", data.toString())
         } catch (e: java.lang.Exception) {

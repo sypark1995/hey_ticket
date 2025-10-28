@@ -7,4 +7,6 @@
     <string name="drama">연극</string>
     <string name="musical">뮤지컬</string>
 
+    <string name="open_ticket">오픈예정 티켓</string>
+    <string name="seller_ticket">판매 티켓</string>
 </resources>

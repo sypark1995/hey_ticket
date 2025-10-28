@@ -1,5 +1,6 @@
 package com.sypark.openTicket.network
 
+import org.json.JSONObject
 import org.jsoup.nodes.Document
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,6 +16,15 @@ interface RetrofitService {
         @Query("Genre") Genre: String? = "",
         @Query("sort") sort: String? = "",
     ): Document
+
+    @GET("melon")
+    suspend fun requestMelonTickList(
+        @Query("orderType") orderType: String? = null,
+        @Query("pageIndex") pageIndex: String? = null,
+        @Query("schGcode") schGcode: String? = null,
+        @Query("schText") schText: String? = null,
+        @Query("schDt") schDt: String? = null,
+    )
 }
 //http://ticket.interpark.com/webzine/paper/TPNoticeList_iFrame.asp?bbsno=0&pageno=0&stext=&KindOfGoods=&Genre=&sort=
 //http://ticket.interpark.com/webzine/paper/TPNoticeList_iFrame.asp?pageno=0&bbsno=0&stext=&KindOfGoods=&Genre=&sort=
