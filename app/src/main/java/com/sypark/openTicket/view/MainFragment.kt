@@ -1,24 +1,20 @@
 package com.sypark.openTicket.view
 
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
-import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
-import com.sypark.openTicket.model.MelonTicket
+import com.sypark.openTicket.model.OpenTicket
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlin.math.abs
 
@@ -36,10 +32,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
 //            "registration_date": "2016.04.24",
 //            "hits": 40
 //        }
-        val melonData = ArrayList<MelonTicket>().let {
+        val melonData = ArrayList<OpenTicket>().let {
             it.apply {
                 add(
-                    MelonTicket(
+                    OpenTicket(
                         12,
                         "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2016/04/2016042416055341773396-8a2f-4e4e-8563-5f2a59c94937.jpg/melon/",
                         "2016 XIA 5th ASIA TOUR CONCERT in SEOUL 1차 티켓 오픈 안내",
@@ -50,7 +46,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                 )
 
                 add(
-                    MelonTicket(
+                    OpenTicket(
                         12,
                         "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2016/04/2016042416055341773396-8a2f-4e4e-8563-5f2a59c94937.jpg/melon/",
                         "2016 XIA 5th ASIA TOUR CONCERT in SEOUL 1차 티켓 오픈 안내",
@@ -61,7 +57,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                 )
 
                 add(
-                    MelonTicket(
+                    OpenTicket(
                         12,
                         "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2016/04/2016042416055341773396-8a2f-4e4e-8563-5f2a59c94937.jpg/melon/",
                         "2016 XIA 5th ASIA TOUR CONCERT in SEOUL 1차 티켓 오픈 안내",
@@ -94,7 +90,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
 
         binding.layoutViewpager.apply {
             Glide.with(this)
-                .load(melonData[0].imageUrl)
+                .load(melonData[0].image_url)
                 .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(

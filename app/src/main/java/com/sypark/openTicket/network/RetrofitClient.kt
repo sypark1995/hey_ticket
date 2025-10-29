@@ -57,7 +57,7 @@ object RetrofitClient {
             build()
         }
 
-    fun instanceMelon(): RetrofitService {
+    fun instanceMelon(): OpenTicketService {
         //   Log.e("Server", "Server URL  $serverURL")
 
         return Retrofit.Builder()
@@ -66,7 +66,7 @@ object RetrofitClient {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
-            .create(RetrofitService::class.java)
+            .create(OpenTicketService::class.java)
     }
 
 }
