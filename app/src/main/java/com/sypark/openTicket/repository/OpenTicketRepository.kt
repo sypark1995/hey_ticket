@@ -8,8 +8,8 @@ import retrofit2.Response
 interface OpenTicketRepository {
     suspend fun requestMelonOpenTicket(request: Request): Flow<List<OpenTicket>>
 
-    suspend fun getInterParkOpenData(): Flow<List<OpenTicket>>
+    suspend fun getInterParkOpenData(request: Request): Flow<List<OpenTicket>>
 
-    suspend fun getYes24OpenData(): Flow<List<OpenTicket>>
+    suspend fun getYes24OpenData(request: Request): Flow<List<OpenTicket>>
 
 }
