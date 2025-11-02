@@ -3,8 +3,9 @@ package com.sypark.openTicket
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.sypark.openTicket.dao.LocalDB
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class MyApplication: Application() {
 
     companion object {

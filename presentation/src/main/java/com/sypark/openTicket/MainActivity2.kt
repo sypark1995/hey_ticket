@@ -13,7 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import com.sypark.openTicket.base.BaseActivity
 import com.sypark.openTicket.databinding.ActivityMain2Binding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity2 : BaseActivity<ActivityMain2Binding>(R.layout.activity_main2) {
 
     override fun onCreate(savedInstanceState: Bundle?) {

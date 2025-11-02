@@ -1,10 +1,10 @@
-package com.sypark.openTicket.dao
+package com.sypark.openTicket
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sypark.openTicket.MyApplication
+import com.sypark.openTicket.dao.InterParkDao
 import com.sypark.openTicket.dto.InterParkDto
 
 @Database(entities = [InterParkDto::class], version = 1 ,exportSchema = true)
