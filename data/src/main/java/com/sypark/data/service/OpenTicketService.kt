@@ -1,4 +1,4 @@
-package com.sypark.data.api
+package com.sypark.data.service
 
 import com.sypark.domain.model.OpenTicket
 import com.sypark.domain.model.Request
@@ -16,7 +16,7 @@ interface OpenTicketService {
     @GET("/interpark")
     suspend fun requestInterParkTicket(
         @Body request: Request
-    ): Flow<List<OpenTicket>>
+    ): Flow<List<OpenTicket>>?
 
     @GET("/yes24")
     suspend fun requestYes24Ticket(
