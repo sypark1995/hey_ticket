@@ -4,7 +4,7 @@ import com.sypark.domain.model.OpenTicket
 import com.sypark.domain.model.Request
 import kotlinx.coroutines.flow.Flow
 
-interface OpenTicketRepository {
+interface MainRepository {
 
     suspend fun requestMelonOpenTicket(request: Request): Flow<List<OpenTicket>>
 

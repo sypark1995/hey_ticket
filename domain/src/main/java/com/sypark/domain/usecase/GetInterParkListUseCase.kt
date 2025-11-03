@@ -2,10 +2,10 @@ package com.sypark.domain.usecase
 
 import com.sypark.domain.model.OpenTicket
 import com.sypark.domain.model.Request
-import com.sypark.domain.repository.OpenTicketRepository
+import com.sypark.domain.repository.MainRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetInterParkListUseCase(private val repository: OpenTicketRepository) {
+class GetInterParkListUseCase(private val repository: MainRepository) {
 
     /**
      * invoke 를 사용하게 되면, 호출 부에서 해당 메소드 이름을 호출하지 않고, class 이름만으로 호출이 가능
