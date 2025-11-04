@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.sypark.domain.model.OpenTicket
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemViewPagerBinding
-import java.util.ArrayList
 
 class ViewPagerAdapter(private val data: ArrayList<OpenTicket>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
