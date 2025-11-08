@@ -17,7 +17,4 @@ data class OpenTicket(
 
     @SerializedName("image_url")
     var image_url: String? = null,
-
-    @SerializedName("registration_date")
-    var registration_date: String? = null,
 )

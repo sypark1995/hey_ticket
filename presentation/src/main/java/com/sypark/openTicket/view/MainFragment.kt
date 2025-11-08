@@ -84,15 +84,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
             this.adapter = ViewPagerAdapter(melonData)
             this.offscreenPageLimit = 3
 
-            val transfrom = CompositePageTransformer()
-            transfrom.addTransformer(MarginPageTransformer(1))
-            transfrom.addTransformer { view: View, fl: Float ->
-                val v = 1 - abs(fl)
-                view.scaleY = 0.8f + v * 0.2f
-            }
-
-            this.setPageTransformer(
-                transfrom
+            setPageTransformer(
+                CompositePageTransformer().apply {
+                    addTransformer(MarginPageTransformer(1))
+                    addTransformer { view: View, fl: Float ->
+                        val v = 1 - abs(fl)
+                        view.scaleY = 0.8f + v * 0.2f
+                    }
+                }
             )
 
             registerOnPageChangeCallback(object : OnPageChangeCallback() {
