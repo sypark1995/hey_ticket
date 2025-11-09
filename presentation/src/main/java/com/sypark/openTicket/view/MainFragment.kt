@@ -49,7 +49,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                         "2016.04.29(금) 20:00",
                         "40",
                         "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2016/04/2016042416055341773396-8a2f-4e4e-8563-5f2a59c94937.jpg/melon/",
-                        ""
                     )
                 )
 
@@ -60,7 +59,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                         "2016.04.29(금) 20:00",
                         "40",
                         "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2022/12/202212081028396e28ec63-adab-492e-9bcf-d0c64cef6215.jpg/melon/",
-                        ""
                     )
                 )
 
@@ -71,7 +69,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                         "2016.04.29(금) 20:00",
                         "40",
                         "https://cdnticket.melon.co.kr/resource/image/upload/ticketopen/2022/11/20221129114816d5db630b-419a-4388-b5dd-204ad640523d.jpg/melon/",
-                        ""
                     )
                 )
             }
@@ -145,6 +142,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                 )
                 setTicketClickListener(this@MainFragment)
             }
+        }
+        binding.btn.setOnClickListener {
+            viewModel.getData()
         }
     }
 

@@ -9,8 +9,8 @@ import com.sypark.data.db.entity.OpenTicketEntity
 @Dao
 interface InterParkOpenTicketDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertInterParkTicket()
+    suspend fun insertInterParkTicket(openTicketEntity: OpenTicketEntity)
 
     @Query("SELECT * FROM OpenTicketEntity")
-    suspend fun getInterParkOpenTicketList(): List<OpenTicketEntity>
+    suspend fun getAllInterParkOpenTicketList(): List<OpenTicketEntity>
 }

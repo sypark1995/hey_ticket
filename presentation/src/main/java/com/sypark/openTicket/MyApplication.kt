@@ -21,6 +21,6 @@ class MyApplication: Application() {
 
         context = applicationContext
 
-        LocalDB.getInstance(context)
+//        LocalDB.getInstance(context)
     }
 }
