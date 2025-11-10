@@ -8,8 +8,9 @@ import com.sypark.data.db.entity.OpenTicketEntity
 
 @Dao
 interface MelonOpenTicketDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMelonTicket()
+    suspend fun insertMelonTicket(openTicketEntity: OpenTicketEntity)
 
     @Query("SELECT * FROM OpenTicketEntity")
     suspend fun getMelonOpenTicketList(): List<OpenTicketEntity>

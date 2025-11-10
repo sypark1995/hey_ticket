@@ -10,7 +10,7 @@ import com.sypark.data.db.entity.OpenTicketEntity
 interface Yes24OpenTicketDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertYes24Ticket()
+    suspend fun insertYes24Ticket(openTicketEntity: OpenTicketEntity)
 
     @Query("SELECT * FROM OpenTicketEntity")
     suspend fun getYes24OpenTicketList(): List<OpenTicketEntity>

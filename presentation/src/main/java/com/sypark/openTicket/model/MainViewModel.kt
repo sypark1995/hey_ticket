@@ -23,7 +23,6 @@ class MainViewModel @Inject constructor(
     var isLoading: Boolean = false
     var toastMessage: String = " "
 
-    @Binds
     fun setBackgroundPosition(position: Int) {
         _backgroundPos.postValue(position)
     }

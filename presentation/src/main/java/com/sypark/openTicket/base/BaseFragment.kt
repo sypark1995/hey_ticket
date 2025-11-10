@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutResId: Int) : Fragment() {
 
     private var _binding: T? = null

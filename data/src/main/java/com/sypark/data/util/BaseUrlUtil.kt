@@ -1,5 +1,5 @@
 package com.sypark.data.util
 
 object BaseUrlUtil {
-    const val baseUrl = ""
+    const val baseUrl = "http://localhost:4000/"
 }

@@ -21,8 +21,7 @@ object DatabaseModule {
     fun provideAppDatabase(
         application: Application,
     ): TicketDatabase {
-        return Room
-            .databaseBuilder(application, TicketDatabase::class.java, "Ticket.db")
+        return Room.databaseBuilder(application, TicketDatabase::class.java, "Ticket.db")
             .fallbackToDestructiveMigration()
             .build()
     }

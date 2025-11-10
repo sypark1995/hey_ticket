@@ -144,6 +144,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
             }
         }
         binding.btn.setOnClickListener {
+            Log.e("!!!", "click")
             viewModel.getData()
         }
     }
