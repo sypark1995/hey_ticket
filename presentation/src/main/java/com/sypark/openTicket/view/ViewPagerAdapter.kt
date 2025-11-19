@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.sypark.domain.model.OpenTicket
+import com.sypark.data.db.entity.OpenTicketEntity
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemViewPagerBinding
 
-class ViewPagerAdapter(private val data: ArrayList<OpenTicket>) :
+class ViewPagerAdapter(private val data: ArrayList<OpenTicketEntity>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var binding: ItemViewPagerBinding
 
@@ -32,9 +32,9 @@ class ViewPagerAdapter(private val data: ArrayList<OpenTicket>) :
 
     inner class ViewHolder(binding: ItemViewPagerBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("CheckResult")
-        fun bind(data: OpenTicket) {
+        fun bind(data: OpenTicketEntity) {
             binding.textTicketName.text = data.title
-            binding.openDate.text = data.ticket_open_date
+            binding.openDate.text = data.ticket_opening_date
             Glide.with(itemView.context)
                 .load(data.image_url)
                 .into(binding.imgTicket)

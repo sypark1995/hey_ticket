@@ -1,6 +1,6 @@
 package com.sypark.data.service
 
-import com.sypark.domain.model.OpenTicket
+import com.sypark.data.db.entity.OpenTicketEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ class OpenTicketClient @Inject constructor(
         order: String,
         pageIndex: String,
         size: String?,
-    ): Flow<List<OpenTicket>>? = openTicketService.requestInterParkTicket(
+    ): List<OpenTicketEntity>? = openTicketService.requestInterParkTicket(
         genre,
         order,
         pageIndex,

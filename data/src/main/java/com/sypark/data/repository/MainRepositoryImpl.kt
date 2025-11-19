@@ -1,15 +1,14 @@
 package com.sypark.data.repository
 
+import android.util.Log
+import androidx.annotation.WorkerThread
 import com.sypark.data.AppDispatchers
 import com.sypark.data.Dispatcher
 import com.sypark.data.db.InterParkOpenTicketDao
 import com.sypark.data.db.MelonOpenTicketDao
 import com.sypark.data.db.Yes24OpenTicketDao
-import com.sypark.data.mapper.asDomain
-import com.sypark.data.mapper.asEntity
+import com.sypark.data.db.entity.OpenTicketEntity
 import com.sypark.data.service.OpenTicketClient
-import com.sypark.domain.model.OpenTicket
-import com.sypark.domain.repository.MainRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -19,7 +18,7 @@ class MainRepositoryImpl @Inject constructor(
     private val interParkOpenTicketDao: InterParkOpenTicketDao,
 //    private val melonOpenTicketDao: MelonOpenTicketDao,
 //    private val yes24OpenTicketDao: Yes24OpenTicketDao,
-    @Dispatcher(AppDispatchers.IO) private val ioDispatcher: CoroutineDispatcher
+//    @Dispatcher(AppDispatchers.IO) private val ioDispatcher: CoroutineDispatcher
 ) : MainRepository {
 
     override suspend fun getMelonOpenTicket(
@@ -30,12 +29,13 @@ class MainRepositoryImpl @Inject constructor(
         onStart: () -> Unit,
         onComplete: () -> Unit,
         onError: (String?) -> Unit
-    ): Flow<List<OpenTicket>> {
+    ): Flow<List<OpenTicketEntity>> {
         return flow {
 
         }
     }
 
+    @WorkerThread
     override suspend fun getInterParkOpenTicket(
         genre: String,
         order: String,
@@ -45,28 +45,27 @@ class MainRepositoryImpl @Inject constructor(
         onComplete: () -> Unit,
         onError: (String?) -> Unit
     ) = flow {
-        val list = interParkOpenTicketDao.getAllInterParkOpenTicketList().asDomain()
+        val list = interParkOpenTicketDao.getAllInterParkOpenTicketList()
 
         if (list.isEmpty()) {
             runCatching {
                 openTicketClient.requestInterParkTicket(genre, order, pageIndex, size)
-            }.onSuccess {
+            }.onSuccess { it ->
                 if (it == null) {
                     onError("")
                 } else {
-                    it.collect { data ->
-                        data.asEntity().forEach { item ->
-                            interParkOpenTicketDao.insertInterParkTicket(item)
-                        }
-
+                    it.forEach { item ->
+                        interParkOpenTicketDao.insertInterParkTicket(item)
                     }
-
-                    emit(interParkOpenTicketDao.getAllInterParkOpenTicketList().asDomain())
                 }
-
+                emit(interParkOpenTicketDao.getAllInterParkOpenTicketList())
             }.onFailure {
-                onError(it.toString())
+                Log.e("!!!!",it.toString())
             }
+
+        } else {
+            emit(list)
+        }
 //            try {
 //                val response =
 //                    openTicketClient.requestInterParkTicket(genre, order, pageIndex, size)
@@ -84,22 +83,19 @@ class MainRepositoryImpl @Inject constructor(
 //            } catch (e: Exception) {
 //                onError(e.toString())
 //            }
-        } else {
-            emit(list)
-        }
-    }.onStart { onStart() }.onCompletion { onComplete() }.flowOn(ioDispatcher)
+    }.onStart { onStart() }.onCompletion { onComplete() }
 
 
-    override suspend fun getYes24OpenTicket1(
-        genre: String,
-        order: String,
-        pageIndex: String,
-        size: String?,
-        onStart: () -> Unit,
-        onComplete: () -> Unit,
-        onError: (String?) -> Unit
-    ): Flow<List<OpenTicket>> {
-        TODO("Not yet implemented")
-    }
+override suspend fun getYes24OpenTicket1(
+    genre: String,
+    order: String,
+    pageIndex: String,
+    size: String?,
+    onStart: () -> Unit,
+    onComplete: () -> Unit,
+    onError: (String?) -> Unit
+): Flow<List<OpenTicketEntity>> {
+    TODO("Not yet implemented")
+}
 
 }

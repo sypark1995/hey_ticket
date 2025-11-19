@@ -1,5 +1,6 @@
 package com.sypark.data.di
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.sypark.data.service.OpenTicketService
 import com.sypark.data.interceptor.HttpRequestInterceptor
@@ -10,20 +11,27 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+    val TAG = "NetworkModule"
 
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(HttpRequestInterceptor())
+            .addInterceptor(loggingInterceptor())
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
             .build()
     }
 
@@ -36,6 +44,21 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun loggingInterceptor(): HttpLoggingInterceptor {
+        val interceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+                Log.i(TAG, message + "")
+            }
+        })
+
+        // BASIC
+        // HEADERS
+        // BODY
+        return interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
     @Provides

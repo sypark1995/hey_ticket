@@ -1,7 +1,7 @@
 package com.sypark.data.di
 
+import com.sypark.data.repository.MainRepository
 import com.sypark.data.repository.MainRepositoryImpl
-import com.sypark.domain.repository.MainRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.sypark.domain.model.OpenTicket
+import com.sypark.data.db.entity.OpenTicketEntity
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
@@ -40,10 +40,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
 //            "registration_date": "2016.04.24",
 //            "hits": 40
 //        }
-        val melonData = ArrayList<OpenTicket>().let {
+        val melonData = ArrayList<OpenTicketEntity>().let {
             it.apply {
                 add(
-                    OpenTicket(
+                    OpenTicketEntity(
                         12,
                         "2016 XIA 5th ASIA TOUR CONCERT in SEOUL 1차 티켓 오픈 안내",
                         "2016.04.29(금) 20:00",
@@ -53,7 +53,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                 )
 
                 add(
-                    OpenTicket(
+                    OpenTicketEntity(
                         12,
                         "2022 이지혜 단독 팬콘서트 〈첫번졔〉 티켓 오픈 안내",
                         "2016.04.29(금) 20:00",
@@ -63,7 +63,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                 )
 
                 add(
-                    OpenTicket(
+                    OpenTicketEntity(
                         12,
                         "2016 XIA 5th ASIA TOUR CONCERT in SEOUL 1차 티켓 오픈 안내",
                         "2016.04.29(금) 20:00",
