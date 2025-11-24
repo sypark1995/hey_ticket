@@ -17,4 +17,16 @@ class OpenTicketClient @Inject constructor(
         pageIndex,
         size
     )
+
+    suspend fun requestMelonTicket(
+        genre: String,
+        order: String,
+        pageIndex: String,
+        size: String?,
+    ): List<OpenTicket>? = openTicketService.requestMelonOpenTicket(
+        genre,
+        order,
+        pageIndex,
+        size
+    )
 }

@@ -31,12 +31,12 @@ object DatabaseModule {
     fun provideInterParkTicketDao(appDatabase: TicketDatabase): InterParkOpenTicketDao {
         return appDatabase.interParkDao()
     }
-//
-//    @Provides
-//    @Singleton
-//    fun provideMelonDao(appDatabase: TicketDatabase): MelonOpenTicketDao {
-//        return appDatabase.melonDao()
-//    }
+
+    @Provides
+    @Singleton
+    fun provideMelonDao(appDatabase: TicketDatabase): MelonOpenTicketDao {
+        return appDatabase.melonDao()
+    }
 //
 //    @Provides
 //    @Singleton

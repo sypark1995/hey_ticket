@@ -20,7 +20,7 @@ interface OpenTicketService {
 
         @Query("size")
         size: String?,
-    ): Flow<List<OpenTicket>>
+    ): List<OpenTicket>
 
     @GET("/interpark")
     suspend fun requestInterParkTicket(
@@ -35,7 +35,7 @@ interface OpenTicketService {
 
         @Query("size")
         size: String?,
-    ): List<OpenTicket>
+    ): List<OpenTicket>?
 
     @GET("/yes24")
     suspend fun requestYes24Ticket(

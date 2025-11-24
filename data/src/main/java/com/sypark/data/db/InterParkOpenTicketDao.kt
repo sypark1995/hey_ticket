@@ -13,4 +13,8 @@ interface InterParkOpenTicketDao {
 
     @Query("SELECT * FROM OpenTicket")
     suspend fun getAllInterParkOpenTicketList(): List<OpenTicket>
+
+    @Query("SELECT * FROM OpenTicket order by hits asc limit 10")
+    suspend fun getHitsInterParkList(): List<OpenTicket>
+
 }

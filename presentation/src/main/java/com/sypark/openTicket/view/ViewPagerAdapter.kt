@@ -10,7 +10,7 @@ import com.sypark.data.db.entity.OpenTicket
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemViewPagerBinding
 
-class ViewPagerAdapter(private val data: ArrayList<OpenTicket>) :
+class ViewPagerAdapter(private val data: List<OpenTicket>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var binding: ItemViewPagerBinding
 
