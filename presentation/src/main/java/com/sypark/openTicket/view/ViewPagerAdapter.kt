@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.sypark.data.db.entity.OpenTicketEntity
+import com.sypark.data.db.entity.OpenTicket
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemViewPagerBinding
 
-class ViewPagerAdapter(private val data: ArrayList<OpenTicketEntity>) :
+class ViewPagerAdapter(private val data: ArrayList<OpenTicket>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var binding: ItemViewPagerBinding
 
@@ -32,7 +32,7 @@ class ViewPagerAdapter(private val data: ArrayList<OpenTicketEntity>) :
 
     inner class ViewHolder(binding: ItemViewPagerBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("CheckResult")
-        fun bind(data: OpenTicketEntity) {
+        fun bind(data: OpenTicket) {
             binding.textTicketName.text = data.title
             binding.openDate.text = data.ticket_opening_date
             Glide.with(itemView.context)

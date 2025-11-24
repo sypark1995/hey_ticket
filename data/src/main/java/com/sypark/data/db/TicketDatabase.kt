@@ -2,9 +2,9 @@ package com.sypark.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.sypark.data.db.entity.OpenTicketEntity
+import com.sypark.data.db.entity.OpenTicket
 
-@Database(entities = [OpenTicketEntity::class], version = 1, exportSchema = true)
+@Database(entities = [OpenTicket::class], version = 1, exportSchema = true)
 abstract class TicketDatabase : RoomDatabase() {
 
     abstract fun interParkDao(): InterParkOpenTicketDao

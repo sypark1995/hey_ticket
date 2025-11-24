@@ -4,13 +4,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sypark.data.db.entity.OpenTicketEntity
+import com.sypark.data.db.entity.OpenTicket
 
 @Dao
 interface InterParkOpenTicketDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertInterParkTicket(openTicketEntity: OpenTicketEntity)
+    suspend fun insertInterParkTicket(openTicketEntity: OpenTicket)
 
-    @Query("SELECT * FROM OpenTicketEntity")
-    suspend fun getAllInterParkOpenTicketList(): List<OpenTicketEntity>
+    @Query("SELECT * FROM OpenTicket")
+    suspend fun getAllInterParkOpenTicketList(): List<OpenTicket>
 }

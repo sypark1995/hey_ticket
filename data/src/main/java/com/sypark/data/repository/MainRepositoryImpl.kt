@@ -2,14 +2,9 @@ package com.sypark.data.repository
 
 import android.util.Log
 import androidx.annotation.WorkerThread
-import com.sypark.data.AppDispatchers
-import com.sypark.data.Dispatcher
 import com.sypark.data.db.InterParkOpenTicketDao
-import com.sypark.data.db.MelonOpenTicketDao
-import com.sypark.data.db.Yes24OpenTicketDao
-import com.sypark.data.db.entity.OpenTicketEntity
+import com.sypark.data.db.entity.OpenTicket
 import com.sypark.data.service.OpenTicketClient
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -29,7 +24,7 @@ class MainRepositoryImpl @Inject constructor(
         onStart: () -> Unit,
         onComplete: () -> Unit,
         onError: (String?) -> Unit
-    ): Flow<List<OpenTicketEntity>> {
+    ): Flow<List<OpenTicket>> {
         return flow {
 
         }
@@ -94,7 +89,7 @@ override suspend fun getYes24OpenTicket1(
     onStart: () -> Unit,
     onComplete: () -> Unit,
     onError: (String?) -> Unit
-): Flow<List<OpenTicketEntity>> {
+): Flow<List<OpenTicket>> {
     TODO("Not yet implemented")
 }
 
