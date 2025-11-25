@@ -37,19 +37,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
             viewModel.getHitsMelonData()
 
             binding.viewpager.apply {
-                Log.e("!!!!", "222222")
+                this.offscreenPageLimit = 3
+
                 viewModel.melonList.observe(this@MainFragment) {
                     this.adapter = ViewPagerAdapter(it)
                 }
 
-                this.offscreenPageLimit = 10
+
 
                 setPageTransformer(
                     CompositePageTransformer().apply {
                         addTransformer(MarginPageTransformer(1))
                         addTransformer { view: View, fl: Float ->
                             val v = 1 - abs(fl)
-                            view.scaleY = 0.8f + v * 0.2f
+                            view.scaleY = 0.85f + v * 0.15f
                         }
                     }
                 )
@@ -58,7 +59,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
                         Log.e(TAG, position.toString())
-                        viewModel.setBackgroundPosition(position)
+                        viewModel.getViewPagerPosition(position)
                     }
 
                     override fun onPageScrollStateChanged(state: Int) {
@@ -67,7 +68,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                 })
             }
 
-            viewModel.backgroundPos.observe(this@MainFragment, Observer {
+            viewModel.viewPagerPosition.observe(this@MainFragment, Observer {
                 Log.e(TAG, "observe")
 
                 binding.layoutViewpager.apply {
