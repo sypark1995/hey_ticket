@@ -1,10 +1,12 @@
 package com.sypark.openTicket.view
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.sypark.data.db.entity.OpenTicket
 import com.sypark.openTicket.R
@@ -28,8 +30,6 @@ class ViewPagerAdapter(private val data: List<OpenTicket>) :
         ViewHolder(binding).bind(data[position])
     }
 
-    override fun getItemCount(): Int = data.size
-
     inner class ViewHolder(binding: ItemViewPagerBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("CheckResult")
         fun bind(data: OpenTicket) {
@@ -40,4 +40,6 @@ class ViewPagerAdapter(private val data: List<OpenTicket>) :
                 .into(binding.imgTicket)
         }
     }
+
+    override fun getItemCount(): Int = data.size
 }

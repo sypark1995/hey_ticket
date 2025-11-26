@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.sypark.data.db.entity.OpenTicket
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
@@ -23,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.coroutines.launch
 import kotlin.math.abs
+import kotlin.math.ceil
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
@@ -37,13 +39,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
             viewModel.getHitsMelonData()
 
             binding.viewpager.apply {
-                this.offscreenPageLimit = 3
 
-                viewModel.melonList.observe(this@MainFragment) {
-                    this.adapter = ViewPagerAdapter(it)
-                }
+                offscreenPageLimit = 3
+                clipChildren = false
+                clipToPadding = false
 
-
+                getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
                 setPageTransformer(
                     CompositePageTransformer().apply {
@@ -55,11 +56,30 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                     }
                 )
 
+                adapter = viewModel.melonList.value?.let {
+                    ViewPagerAdapter(it)
+                }
+
                 registerOnPageChangeCallback(object : OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
-                        Log.e(TAG, position.toString())
-                        viewModel.getViewPagerPosition(position)
+
+                        binding.layoutViewpager.apply {
+                            Glide.with(this)
+                                .load(viewModel.melonList.value!![position].image_url)
+                                .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
+                                .into(object : CustomTarget<Drawable>() {
+                                    override fun onResourceReady(
+                                        resource: Drawable,
+                                        transition: Transition<in Drawable>?
+                                    ) {
+                                        binding.layoutViewpager.background = resource
+                                    }
+
+                                    override fun onLoadCleared(placeholder: Drawable?) {}
+
+                                })
+                        }
                     }
 
                     override fun onPageScrollStateChanged(state: Int) {
@@ -67,27 +87,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                     }
                 })
             }
-
-            viewModel.viewPagerPosition.observe(this@MainFragment, Observer {
-                Log.e(TAG, "observe")
-
-                binding.layoutViewpager.apply {
-                    Glide.with(this)
-                        .load(viewModel.melonList.value!![it].image_url)
-                        .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
-                        .into(object : CustomTarget<Drawable>() {
-                            override fun onResourceReady(
-                                resource: Drawable,
-                                transition: Transition<in Drawable>?
-                            ) {
-                                binding.layoutViewpager.background = resource
-                            }
-
-                            override fun onLoadCleared(placeholder: Drawable?) {}
-
-                        })
-                }
-            })
         }
 
         binding.kindRecyclerview.run {
@@ -107,6 +106,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
                 setTicketClickListener(this@MainFragment)
             }
         }
+
         binding.btn.setOnClickListener {
             Log.e("!!!", "click")
         }

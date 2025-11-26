@@ -17,16 +17,8 @@ class MainViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ) : BaseViewModel() {
 
-    private val _viewpagerPosition = MutableLiveData<Int>()
-    val viewPagerPosition: LiveData<Int>
-        get() = _viewpagerPosition
-
     var isLoading: Boolean = false
     var toastMessage: String = ""
-
-    fun getViewPagerPosition(position: Int) {
-        _viewpagerPosition.postValue(position)
-    }
 
     private var _interParkList = MutableLiveData<List<OpenTicket>>()
 
@@ -75,7 +67,7 @@ class MainViewModel @Inject constructor(
                 Log.e("catch", e.toString())
             }.collect {
                 Log.e("!!!!!!", it.toString())
-                _melonList.postValue(it)
+                _melonList.value = it
             }
     }
 
