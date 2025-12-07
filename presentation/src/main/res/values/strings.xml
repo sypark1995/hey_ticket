@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">OpenTicket</string>
+    <string name="top_title">HEY TICKET</string>
     <string name="ticket_name">아이유</string>
     <string name="ticket_open_time">오픈 예정</string>
 
@@ -9,4 +10,9 @@
 
     <string name="open_ticket">오픈예정 티켓</string>
     <string name="seller_ticket">판매 티켓</string>
+    <string name="main_home">홈</string>
+    <string name="main_recommend">추천</string>
+    <string name="main_open_this_week">이번 주 공연 예정</string>
+    <string name="main_more">더보기</string>
+    <string name="main_top">공연 랭킹</string>
 </resources>
