@@ -9,7 +9,7 @@ interface MainRepository {
 //    suspend fun getInterParkOpenTicket(): Flow<List<OpenTicket>>
 //    suspend fun getYes24OpenTicket(request: Request): Flow<List<OpenTicket>>
 
-    suspend fun getMelonOpenTicket(
+    fun getMelonOpenTicket(
         genre: String,
         order: String,
         pageIndex: String,

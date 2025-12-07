@@ -17,7 +17,7 @@ class MainRepositoryImpl @Inject constructor(
 //    @Dispatcher(AppDispatchers.IO) private val ioDispatcher: CoroutineDispatcher
 ) : MainRepository {
 
-    override suspend fun getMelonOpenTicket(
+    override fun getMelonOpenTicket(
         genre: String,
         order: String,
         pageIndex: String,

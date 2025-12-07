@@ -17,7 +17,9 @@ class MainViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ) : BaseViewModel() {
 
-    var isLoading: Boolean = false
+    private var _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     var toastMessage: String = ""
 
     private var _interParkList = MutableLiveData<List<OpenTicket>>()
@@ -40,8 +42,8 @@ class MainViewModel @Inject constructor(
             order = "viewed",
             pageIndex = "1",
             size = null,
-            onStart = { isLoading = true },
-            onComplete = { isLoading = false },
+            onStart = { _isLoading.value = true },
+            onComplete = { _isLoading.value = false },
             onError = {}
         )!!.flowOn(Dispatchers.IO)
             .catch { e ->
@@ -59,13 +61,14 @@ class MainViewModel @Inject constructor(
             order = "viewed",
             pageIndex = "1",
             size = null,
-            onStart = { isLoading = true },
-            onComplete = { isLoading = false },
+            onStart = { _isLoading.postValue(true) },
+            onComplete = { _isLoading.postValue(false) },
             onError = {}
         )!!.flowOn(Dispatchers.IO)
             .catch { e ->
                 Log.e("catch", e.toString())
             }.collect {
+                Log.e("_isLoading",_isLoading.value.toString())
                 Log.e("!!!!!!", it.toString())
                 _melonList.value = it
             }

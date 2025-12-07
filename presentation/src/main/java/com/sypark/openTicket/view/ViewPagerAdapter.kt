@@ -3,6 +3,7 @@ package com.sypark.openTicket.view
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,10 +14,22 @@ import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemViewPagerBinding
 
 class ViewPagerAdapter(private val data: List<OpenTicket>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<ViewPagerAdapter.ViewHolder>() {
     lateinit var binding: ItemViewPagerBinding
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    inner class ViewHolder(binding: ItemViewPagerBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("CheckResult")
+        fun bind(data: OpenTicket) {
+            binding.textTicketName.text = data.title
+            binding.textTicketName.visibility = View.VISIBLE
+            binding.openDate.text = data.ticket_opening_date
+            Glide.with(itemView.context)
+                .load(data.image_url)
+                .into(binding.imgTicket)
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerAdapter.ViewHolder {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.item_view_pager,
@@ -26,20 +39,9 @@ class ViewPagerAdapter(private val data: List<OpenTicket>) :
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        ViewHolder(binding).bind(data[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(data[position % 10])
     }
 
-    inner class ViewHolder(binding: ItemViewPagerBinding) : RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("CheckResult")
-        fun bind(data: OpenTicket) {
-            binding.textTicketName.text = data.title
-            binding.openDate.text = data.ticket_opening_date
-            Glide.with(itemView.context)
-                .load(data.image_url)
-                .into(binding.imgTicket)
-        }
-    }
-
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = Int.MAX_VALUE
 }

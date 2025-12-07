@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -33,83 +34,96 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
 
     private val viewModel: MainViewModel by viewModels()
 
+    private var list = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    private var currentPosition = Int.MAX_VALUE / 2
     override fun init(view: View) {
 //        val pageMarginPx = resources.getDimensionPixelOffset()
         lifecycleScope.launch {
             viewModel.getHitsMelonData()
+//            viewModel.melonList.value?.let {
+//                binding.viewpager.adapter = InfiniteAdapter(it)
+//            }
+//
+//            binding.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+//            binding.viewpager.setCurrentItem(currentPosition, false)
+//
+//            binding.viewpager.apply {
 
-            binding.viewpager.apply {
+//                offscreenPageLimit = 3
+//                clipChildren = false
+//                clipToPadding = false
+//
+//                getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+//
+//                setPageTransformer(
+//                    CompositePageTransformer().apply {
+//                        addTransformer(MarginPageTransformer(1))
+//                        addTransformer { view: View, fl: Float ->
+//                            val v = 1 - abs(fl)
+//                            view.scaleY = 0.85f + v * 0.15f
+//                        }
+//                    }
+//                )
 
-                offscreenPageLimit = 3
-                clipChildren = false
-                clipToPadding = false
+//                viewModel.melonList.value.apply {
+//                    adapter = InfiniteAdapter(this!!)
+//                }
+//                setCurrentItem(Int.MAX_VALUE / 2, false)
 
-                getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+//                adapter = viewModel.melonList.value?.let {
+//                    ViewPagerAdapter(it)
+//                }
 
-                setPageTransformer(
-                    CompositePageTransformer().apply {
-                        addTransformer(MarginPageTransformer(1))
-                        addTransformer { view: View, fl: Float ->
-                            val v = 1 - abs(fl)
-                            view.scaleY = 0.85f + v * 0.15f
-                        }
-                    }
-                )
-
-                adapter = viewModel.melonList.value?.let {
-                    ViewPagerAdapter(it)
-                }
-
-                registerOnPageChangeCallback(object : OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-
-                        binding.layoutViewpager.apply {
-                            Glide.with(this)
-                                .load(viewModel.melonList.value!![position].image_url)
-                                .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
-                                .into(object : CustomTarget<Drawable>() {
-                                    override fun onResourceReady(
-                                        resource: Drawable,
-                                        transition: Transition<in Drawable>?
-                                    ) {
-                                        binding.layoutViewpager.background = resource
-                                    }
-
-                                    override fun onLoadCleared(placeholder: Drawable?) {}
-
-                                })
-                        }
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-                        super.onPageScrollStateChanged(state)
-                    }
-                })
-            }
+//                registerOnPageChangeCallback(object : OnPageChangeCallback() {
+//                    override fun onPageSelected(position: Int) {
+//                        super.onPageSelected(position)
+//
+//                        binding.layoutViewpager.apply {
+//                            Glide.with(this)
+//                                .load(viewModel.melonList.value!![position].image_url)
+//                                .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
+//                                .into(object : CustomTarget<Drawable>() {
+//                                    override fun onResourceReady(
+//                                        resource: Drawable,
+//                                        transition: Transition<in Drawable>?
+//                                    ) {
+//                                        binding.layoutViewpager.background = resource
+//                                    }
+//
+//                                    override fun onLoadCleared(placeholder: Drawable?) {}
+//
+//                                })
+//                        }
+//                    }
+//
+//                    override fun onPageScrollStateChanged(state: Int) {
+//                        super.onPageScrollStateChanged(state)
+//                    }
+//                })
+//            }
         }
 
-        binding.kindRecyclerview.run {
+//        binding.kindRecyclerview.run {
+//
+//            layoutManager = LinearLayoutManager(view.context).apply {
+//                orientation = RecyclerView.HORIZONTAL
+//            }
+//
+//            adapter = SortTicketAdapter().apply {
+//                setListInfo(
+//                    arrayListOf(
+//                        getString(R.string.concert),
+//                        getString(R.string.drama),
+//                        getString(R.string.musical)
+//                    )
+//                )
+//                setTicketClickListener(this@MainFragment)
+//            }
+//        }
 
-            layoutManager = LinearLayoutManager(view.context).apply {
-                orientation = RecyclerView.HORIZONTAL
-            }
-
-            adapter = SortTicketAdapter().apply {
-                setListInfo(
-                    arrayListOf(
-                        getString(R.string.concert),
-                        getString(R.string.drama),
-                        getString(R.string.musical)
-                    )
-                )
-                setTicketClickListener(this@MainFragment)
-            }
-        }
-
-        binding.btn.setOnClickListener {
-            Log.e("!!!", "click")
-        }
+//        binding.btn.setOnClickListener {
+//            Log.e("!!!", "click")
+//        }
     }
 
     override fun onClick(string: String) {
