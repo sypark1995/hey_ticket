@@ -37,22 +37,39 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="55dp"
+                    <RadioGroup
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/round_51_black"
-                        android:gravity="center"
-                        android:text="@string/main_home"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="75dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/main_recommend"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        <RadioButton
+                            android:id="@+id/radio_home"
+                            android:layout_width="55dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/selector_radio_button"
+                            android:button="@null"
+                            android:checked="true"
+                            android:padding="0dp"
+                            android:paddingLeft="30dp"
+                            android:paddingRight="30dp"
+                            android:text="@string/main_home"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/selector_radio_text" />
+
+                        <RadioButton
+                            android:id="@+id/radio_recommend"
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/selector_radio_button"
+                            android:button="@null"
+                            android:checked="true"
+                            android:padding="0dp"
+                            android:paddingLeft="30dp"
+                            android:paddingRight="30dp"
+                            android:text="@string/main_recommend"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/selector_radio_text" />
+                    </RadioGroup>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -128,6 +145,7 @@
                         android:layout_marginStart="16dp">
 
                         <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/open_kind_recyclerview"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/round_12"
