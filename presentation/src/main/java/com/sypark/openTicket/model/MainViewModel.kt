@@ -36,6 +36,9 @@ class MainViewModel @Inject constructor(
         melonList = _melonList
     }
 
+    private var _mainSelector = MutableLiveData(false)
+    val mainSelector: LiveData<Boolean> = _mainSelector
+
     suspend fun getHitsInterParkData() {
         mainRepository.getInterParkOpenTicket(
             genre = "all",

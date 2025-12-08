@@ -37,6 +37,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
     private var list = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
     private var currentPosition = Int.MAX_VALUE / 2
     override fun init(view: View) {
+
+        binding.openKindRecyclerview.adapter.apply {
+
+        }
 //        val pageMarginPx = resources.getDimensionPixelOffset()
         lifecycleScope.launch {
             viewModel.getHitsMelonData()
