@@ -1,31 +1,16 @@
 package com.sypark.openTicket.view
 
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
-import com.sypark.data.db.entity.OpenTicket
+import androidx.navigation.fragment.findNavController
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
 import com.sypark.openTicket.model.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.coroutines.launch
-import kotlin.math.abs
-import kotlin.math.ceil
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
@@ -38,9 +23,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
     private var currentPosition = Int.MAX_VALUE / 2
     override fun init(view: View) {
 
-        binding.openKindRecyclerview.adapter.apply {
-
-        }
+//        binding.openKindRecyclerview.adapter.apply {
+//
+//        }
 //        val pageMarginPx = resources.getDimensionPixelOffset()
         lifecycleScope.launch {
             viewModel.getHitsMelonData()
