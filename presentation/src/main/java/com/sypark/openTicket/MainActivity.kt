@@ -29,6 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             navGraph.setStartDestination(R.id.recommendFragment)
         }
 
+        //todo_sypark 수정 해야 될 듯...
         binding.layoutSelector.radioGroupMain.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_home -> {
