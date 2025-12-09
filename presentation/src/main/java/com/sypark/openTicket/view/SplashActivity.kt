@@ -1,13 +1,13 @@
-package com.sypark.openTicket
+package com.sypark.openTicket.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.sypark.openTicket.BuildConfig
+import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseActivity
 import com.sypark.openTicket.databinding.ActivitySplashBinding
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
