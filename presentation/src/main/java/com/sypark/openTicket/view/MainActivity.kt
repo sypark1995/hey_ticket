@@ -36,7 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             when (checkedId) {
                 R.id.radio_home -> {
                     supportFragmentManager.beginTransaction()
-                        .add(R.id.nav_host_fragment, MainFragment())
+                        .replace(R.id.nav_host_fragment, MainFragment())
                         .commit()
                 }
                 R.id.radio_recommend -> {
