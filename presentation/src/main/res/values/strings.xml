@@ -15,4 +15,6 @@
     <string name="main_open_this_week">이번 주 공연 예정</string>
     <string name="main_more">더보기</string>
     <string name="main_top">공연 랭킹</string>
+
+    <string name="recommend_register">회원 가입</string>
 </resources>
