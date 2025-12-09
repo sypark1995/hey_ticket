@@ -29,6 +29,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             navGraph.setStartDestination(R.id.recommendFragment)
         }
 
+        binding.layoutSelector.radioGroupMain.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radio_home -> {
+                    supportFragmentManager.beginTransaction().add(R.id.nav_host_fragment, MainFragment())
+                        .commit()
+                }
+                R.id.radio_recommend -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, RecommendFragment())
+                        .commit()
+                }
+            }
+        }
+
         navController.graph = navGraph
     }
 
