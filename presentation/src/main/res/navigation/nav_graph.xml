@@ -9,5 +9,23 @@
         android:id="@+id/mainFragment"
         android:name="com.sypark.openTicket.view.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main"></fragment>
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_mainFragment_to_recommendFragment"
+            app:destination="@id/recommendFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/recommendFragment"
+        android:name="com.sypark.openTicket.view.RecommendFragment"
+        android:label="RecommendFragment"
+        tools:layout="@layout/fragment_recommend">
+
+        <action
+            android:id="@+id/action_recommendFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+
+    </fragment>
 </navigation>
