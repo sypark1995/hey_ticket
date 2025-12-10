@@ -75,16 +75,14 @@
             </RadioGroup>
         </LinearLayout>
 
-        <RelativeLayout
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_search_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/layout_category"
-            android:layout_marginTop="30dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
+            android:layout_marginTop="30dp"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/search_nav_graph" />
     </RelativeLayout>
 </layout>

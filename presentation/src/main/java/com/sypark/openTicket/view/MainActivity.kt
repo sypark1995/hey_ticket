@@ -2,7 +2,6 @@ package com.sypark.openTicket.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View.OnClickListener
 import androidx.navigation.fragment.NavHostFragment
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseActivity
@@ -17,7 +16,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.lifecycleOwner = this
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.nav_host_main_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
@@ -36,12 +35,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             when (checkedId) {
                 R.id.radio_home -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_fragment, MainFragment())
+                        .replace(R.id.nav_host_main_fragment, MainFragment())
                         .commit()
                 }
                 R.id.radio_recommend -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_fragment, RecommendFragment())
+                        .replace(R.id.nav_host_main_fragment, RecommendFragment())
                         .commit()
                 }
             }
