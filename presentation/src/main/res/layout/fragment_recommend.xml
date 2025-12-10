@@ -8,7 +8,9 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/recommend_register" />
+            android:background="@drawable/round_51_white"
+            android:text="@string/recommend_register"
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 </layout>

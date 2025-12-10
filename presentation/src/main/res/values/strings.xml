@@ -17,5 +17,8 @@
     <string name="main_top">공연 랭킹</string>
 
     <string name="recommend_register">회원 가입</string>
-    <string name="search_edit_text">공연명,출연지,아티스트 검색</string>
+    <string name="search_edit_text">공연명, 출연진, 아티스트 검색</string>
+    <string name="search_performance">공연</string>
+    <string name="search_exhibition">전시</string>
+    <string name="search_sport">스포츠</string>
 </resources>

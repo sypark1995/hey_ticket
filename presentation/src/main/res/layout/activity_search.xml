@@ -1,33 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/layout_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/recommend_register"
-                app:boxStrokeColor="@color/gray_F7F8F9"
-                app:hintEnabled="false"
-                app:startIconDrawable="@drawable/icon_search_edit">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/recommend_register"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="40dp"
+                android:background="@drawable/round_8"
+                android:drawableStart="@drawable/icon_search_edit"
+                android:drawablePadding="12dp"
+                android:hint="@string/search_edit_text"
+                android:paddingStart="12dp"
+                android:textColor="@color/gray_B7BBBF"
+                tools:ignore="RtlSymmetry" />
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_category"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_search"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_performance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:text="@string/search_performance"
+                    android:textColor="@drawable/selector_radio_text_black_gray"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_exhibition"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/search_exhibition"
+                    android:textColor="@drawable/selector_radio_text_black_gray"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_sport"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/search_sport"
+                    android:textColor="@drawable/selector_radio_text_black_gray"
+                    android:textSize="20sp" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_category"
+            android:layout_marginTop="30dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
     </RelativeLayout>
 </layout>
