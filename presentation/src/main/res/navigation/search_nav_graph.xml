@@ -9,5 +9,21 @@
         android:id="@+id/searchPerformanceFragment"
         android:name="com.sypark.openTicket.view.SearchPerformanceFragment"
         android:label="SearchPerformanceFragment"
-        tools:layout="@layout/fragment_search_performance" />
+        tools:layout="@layout/fragment_search_performance" >
+        <action
+            android:id="@+id/action_searchPerformanceFragment_to_searchSportFragment"
+            app:destination="@id/searchSportFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchSportFragment"
+        android:name="com.sypark.openTicket.view.SearchSportFragment"
+        android:label="SearchSportFragment"
+        tools:layout="@layout/fragment_search_sport" >
+        <action
+            android:id="@+id/action_searchSportFragment_to_searchPerformanceFragment"
+            app:destination="@id/searchPerformanceFragment" />
+    </fragment>
+
+
 </navigation>

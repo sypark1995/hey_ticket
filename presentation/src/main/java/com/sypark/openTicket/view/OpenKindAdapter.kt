@@ -6,20 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sypark.openTicket.R
 
-class OpenKindAdapter(val serverList: List<String>): RecyclerView.Adapter<MyViewHolder>() {
+class OpenKindAdapter(val serverList: List<String>) : RecyclerView.Adapter<PerformanceHolder>() {
 
     private var selectCheck: ArrayList<Int> = arrayListOf()
 
     init {
 
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PerformanceHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val listItem = layoutInflater.inflate(R.layout.item_kind_open,parent,false)
-        return MyViewHolder(listItem)
+        val listItem = layoutInflater.inflate(R.layout.item_kind_open, parent, false)
+        return PerformanceHolder(listItem)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PerformanceHolder, position: Int) {
         val list = serverList[position]
     }
 
@@ -28,6 +29,6 @@ class OpenKindAdapter(val serverList: List<String>): RecyclerView.Adapter<MyView
     }
 }
 
-class MyViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
 }
