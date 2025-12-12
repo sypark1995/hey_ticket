@@ -2,6 +2,7 @@ package com.sypark.openTicket.view
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseActivity
@@ -11,13 +12,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_main_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
 
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
 
@@ -34,14 +37,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.layoutSelector.radioGroupMain.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_home -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_main_fragment, MainFragment())
-                        .commit()
+                    navController.navigate(RecommendFragmentDirections.actionRecommendFragmentToMainFragment())
                 }
                 R.id.radio_recommend -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_main_fragment, RecommendFragment())
-                        .commit()
+                    navController.navigate(MainFragmentDirections.actionMainFragmentToRecommendFragment())
                 }
             }
         }
