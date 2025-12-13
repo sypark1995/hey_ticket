@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
@@ -21,14 +22,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
 
     private var list = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
     private var currentPosition = Int.MAX_VALUE / 2
+
     override fun init(view: View) {
+        binding.layoutBottom.navigationBottom.menu.getItem(0).isChecked = true
+
+        binding.textRecommend.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToRecommendFragment())
+        }
 
 //        binding.openKindRecyclerview.adapter.apply {
 //
 //        }
 //        val pageMarginPx = resources.getDimensionPixelOffset()
         lifecycleScope.launch {
-            viewModel.getHitsMelonData()
+//            viewModel.getHitsMelonData()
 //            viewModel.melonList.value?.let {
 //                binding.viewpager.adapter = InfiniteAdapter(it)
 //            }

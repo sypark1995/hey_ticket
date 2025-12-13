@@ -32,22 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             navGraph.setStartDestination(R.id.recommendFragment)
         }
         navController.graph = navGraph
-
-        //todo_sypark 수정 해야 될 듯...
-        binding.layoutSelector.radioGroupMain.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.radio_home -> {
-                    navController.navigate(RecommendFragmentDirections.actionRecommendFragmentToMainFragment())
-                }
-                R.id.radio_recommend -> {
-                    navController.navigate(MainFragmentDirections.actionMainFragmentToRecommendFragment())
-                }
-            }
-        }
-
-        binding.topTitle.imgSearch.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
-        }
     }
 
 }
