@@ -24,6 +24,7 @@
                 android:hint="@string/search_edit_text"
                 android:paddingStart="12dp"
                 android:textColor="@color/gray_B7BBBF"
+                android:textColorHint="@color/gray_B7BBBF"
                 tools:ignore="RtlSymmetry" />
         </RelativeLayout>
 
