@@ -33,6 +33,6 @@
 
         <include
             android:id="@+id/layout_bottom"
-            layout="@layout/bottom_menu" />
+            layout="@layout/include_nav_button" />
     </RelativeLayout>
 </layout>
