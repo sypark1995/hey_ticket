@@ -4,9 +4,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigationBottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:itemIconTint="@color/selector_navigation_color"
