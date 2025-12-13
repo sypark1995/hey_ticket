@@ -49,7 +49,11 @@
         android:id="@+id/categoryDetailFragment"
         android:name="com.sypark.openTicket.view.fragments.CategoryDetailFragment"
         android:label="CategoryDetailFragment"
-        tools:layout="@layout/fragment_category_detail" />
+        tools:layout="@layout/fragment_category_detail" >
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
 
 
 </navigation>
