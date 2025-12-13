@@ -1,4 +1,4 @@
-package com.sypark.openTicket.view
+package com.sypark.openTicket.view.fragments
 
 import android.view.View
 import androidx.navigation.fragment.findNavController

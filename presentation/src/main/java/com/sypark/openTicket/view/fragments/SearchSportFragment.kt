@@ -1,10 +1,8 @@
-package com.sypark.openTicket.view
+package com.sypark.openTicket.view.fragments
 
 import android.graphics.Color
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentSearchSportBinding

@@ -1,10 +1,8 @@
-package com.sypark.openTicket.view
+package com.sypark.openTicket.view.fragments
 
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
@@ -14,8 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
-    TicketClickListener {
+class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val TAG = "MainFragment"
 
     private val viewModel: MainViewModel by viewModels()
@@ -121,20 +118,4 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main),
 //            Log.e("!!!", "click")
 //        }
     }
-
-    override fun onClick(string: String) {
-        when (string) {
-            getString(R.string.concert) -> {
-                Log.e(TAG, "concert")
-
-            }
-            getString(R.string.drama) -> {
-                Log.e(TAG, "drama")
-            }
-            getString(R.string.musical) -> {
-                Log.e(TAG, "musical")
-            }
-        }
-    }
-
 }

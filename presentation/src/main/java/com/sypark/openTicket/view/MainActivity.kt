@@ -1,6 +1,5 @@
 package com.sypark.openTicket.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment

@@ -23,4 +23,10 @@
     <string name="search_performance">공연</string>
     <string name="search_exhibition">전시</string>
     <string name="search_sport">스포츠</string>
+
+    <string name="category_detail_book">예매순</string>
+    <string name="category_detail_recency">최신순</string>
+    <string name="category_detail_view">조회수순</string>
+    <string name="category_detail_">기대평순</string>
+
 </resources>

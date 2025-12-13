@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchPerformanceFragment"
-        android:name="com.sypark.openTicket.view.SearchPerformanceFragment"
+        android:name="com.sypark.openTicket.view.fragments.SearchPerformanceFragment"
         android:label="SearchPerformanceFragment"
         tools:layout="@layout/fragment_search_performance" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/searchSportFragment"
-        android:name="com.sypark.openTicket.view.SearchSportFragment"
+        android:name="com.sypark.openTicket.view.fragments.SearchSportFragment"
         android:label="SearchSportFragment"
         tools:layout="@layout/fragment_search_sport" >
         <action
