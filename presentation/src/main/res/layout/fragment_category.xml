@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/layout_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/round_8"
+                android:drawableStart="@drawable/icon_search_edit"
+                android:drawablePadding="12dp"
+                android:hint="@string/search_edit_text"
+                android:paddingStart="12dp"
+                android:textColor="@color/gray_B7BBBF"
+                android:textColorHint="@color/gray_B7BBBF"
+                tools:ignore="RtlSymmetry" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_category"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_search"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:id="@+id/radio_group_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_performance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:text="@string/search_performance"
+                    android:textColor="@drawable/selector_radio_text_black_gray"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_exhibition"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/search_exhibition"
+                    android:textColor="@drawable/selector_radio_text_black_gray"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_sport"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/search_sport"
+                    android:textColor="@drawable/selector_radio_text_black_gray"
+                    android:textSize="20sp" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_search_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/layout_bottom"
+            android:layout_below="@+id/layout_category"
+            android:layout_marginTop="30dp"
+            app:navGraph="@navigation/search_nav_graph" />
+
+        <include
+            android:id="@+id/layout_bottom"
+            layout="@layout/include_nav_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</layout>
