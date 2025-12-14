@@ -10,6 +10,7 @@
             android:id="@+id/navigationBottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             app:itemIconTint="@color/selector_navigation_color"
             app:itemTextColor="@color/selector_navigation_color"
             app:labelVisibilityMode="labeled"
