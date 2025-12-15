@@ -20,9 +20,13 @@ class CategoryDetailFragment :
 
     private val categoryDetailViewModel: CategoryDetailViewModel by viewModels()
 
-    val sortList = listOf<CategoryDetailSort>(
-//        CategoryDetailSort(,"")
+    private val sortList = listOf(
+        CategoryDetailSort("최신순"),
+        CategoryDetailSort("예매순"),
+        CategoryDetailSort("조회수순"),
+        CategoryDetailSort("기대평순")
     )
+
     override fun init(view: View) {
 
         binding.imgBack.setOnClickListener {
@@ -45,7 +49,23 @@ class CategoryDetailFragment :
 
         binding.layoutSort.sortRecyclerview.apply {
             layoutManager = LinearLayoutManager(view.context)
-            adapter = CategorySortAdapter()
+            adapter = CategorySortAdapter(sortList) { selectedItem: CategoryDetailSort ->
+                listItemClicked(selectedItem)
+            }
+        }
+
+        binding.layoutSort.btnConfirm.setOnClickListener {
+            Log.e("!!!!","click")
+            binding.textSort.text =
+//            categoryDetailViewModel.sortType.observe(this) {
+//                binding.textSort.text = it
+//            }
         }
     }
+
+    private fun listItemClicked(list: CategoryDetailSort) {
+        categoryDetailViewModel.setSortType(list.sort)
+        Log.e("!!!!", list.sort)
+    }
+
 }
