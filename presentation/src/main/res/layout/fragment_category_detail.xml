@@ -93,6 +93,6 @@
         <include
             android:id="@+id/layout_sort"
             layout="@layout/include_category_detail_sort"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </RelativeLayout>
 </layout>

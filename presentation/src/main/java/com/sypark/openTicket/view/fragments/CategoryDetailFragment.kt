@@ -1,12 +1,12 @@
 package com.sypark.openTicket.view.fragments
 
-import android.opengl.Visibility
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sypark.data.db.entity.CategoryDetailSort
+import com.sypark.openTicket.Preferences
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentCategoryDetailBinding
@@ -19,53 +19,60 @@ class CategoryDetailFragment :
     BaseFragment<FragmentCategoryDetailBinding>(R.layout.fragment_category_detail) {
 
     private val categoryDetailViewModel: CategoryDetailViewModel by viewModels()
+    private lateinit var categorySortAdapter: CategorySortAdapter
 
     private val sortList = listOf(
-        CategoryDetailSort("최신순"),
+        CategoryDetailSort("최근 등록순"),
         CategoryDetailSort("예매순"),
-        CategoryDetailSort("조회수순"),
-        CategoryDetailSort("기대평순")
+        CategoryDetailSort("조회수순")
     )
 
     override fun init(view: View) {
 
         binding.imgBack.setOnClickListener {
             findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToCategoryFragment())
+            Preferences.sortPosition = 1
         }
 
         binding.sortLayout.setOnClickListener {
-            Log.e("sortLayout", "클릭")
-            categoryDetailViewModel.setIsOpen(true)
-            Log.e("sortLayout", categoryDetailViewModel.isOpen.value.toString())
-//            binding.layoutSort.layoutDetailSort.visibility = View.VISIBLE
+            binding.layoutSort.layoutDetailSort.visibility =
+                View.VISIBLE   //todo_sypark viewmodel로 한번에 관리
         }
 
         binding.layoutSort.imgClose.setOnClickListener {
-            Log.e("imgClose", "클릭")
-            categoryDetailViewModel.setIsOpen(false)
-            Log.e("imgClose", categoryDetailViewModel.isOpen.value.toString())
-//            binding.layoutSort.layoutDetailSort.visibility = View.GONE
+            binding.layoutSort.layoutDetailSort.visibility =
+                View.GONE  //todo_sypark viewmodel로 한번에 관리
+
+            Preferences.sortPosition = 1
         }
 
         binding.layoutSort.sortRecyclerview.apply {
             layoutManager = LinearLayoutManager(view.context)
-            adapter = CategorySortAdapter(sortList) { selectedItem: CategoryDetailSort ->
-                listItemClicked(selectedItem)
+            categorySortAdapter = CategorySortAdapter { position ->
+                onItemClicked(position)
+                Preferences.sortPosition = position
             }
+
+            categorySortAdapter.submitList(sortList)
+            adapter = categorySortAdapter
+            categorySortAdapter.setSelectedPosition(1)
         }
 
         binding.layoutSort.btnConfirm.setOnClickListener {
-            Log.e("!!!!","click")
-            binding.textSort.text =
-//            categoryDetailViewModel.sortType.observe(this) {
-//                binding.textSort.text = it
-//            }
+            binding.layoutSort.layoutDetailSort.visibility =
+                View.GONE  //todo_sypark viewmodel로 한번에 관리
+
+            binding.textSort.text = sortList[Preferences.sortPosition].sort
         }
     }
 
-    private fun listItemClicked(list: CategoryDetailSort) {
-        categoryDetailViewModel.setSortType(list.sort)
-        Log.e("!!!!", list.sort)
+    private fun onItemClicked(position: Int) {
+        categorySortAdapter.setSelectedPosition(position)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Preferences.sortPosition = 1
     }
 
 }
