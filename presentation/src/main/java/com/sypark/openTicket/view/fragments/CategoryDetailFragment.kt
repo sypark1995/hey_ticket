@@ -19,6 +19,7 @@ class CategoryDetailFragment :
 
     private val categoryDetailViewModel: CategoryDetailViewModel by viewModels()
     private lateinit var categorySortAdapter: CategorySortAdapter
+    private lateinit var categoryFilterAreaAdapter: CategoryFilterAreaAdapter
 
     private val sortList = listOf(
         CategoryDetailSort("최근 등록순"),
@@ -70,6 +71,14 @@ class CategoryDetailFragment :
 
         binding.includeLayoutFilter.imgClose.setOnClickListener {
             binding.includeLayoutFilter.root.visibility = View.GONE
+        }
+
+        binding.includeLayoutFilter.recyclerviewArea.apply {
+            layoutManager = LinearLayoutManager(view.context)
+            categoryFilterAreaAdapter = CategoryFilterAreaAdapter()
+            adapter = categoryFilterAreaAdapter
+            val itemList = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
+            categoryFilterAreaAdapter.submitList(itemList)
         }
     }
 
