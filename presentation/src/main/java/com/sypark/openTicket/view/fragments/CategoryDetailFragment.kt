@@ -1,6 +1,5 @@
 package com.sypark.openTicket.view.fragments
 
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -35,18 +34,18 @@ class CategoryDetailFragment :
         }
 
         binding.sortLayout.setOnClickListener {
-            binding.layoutSort.layoutDetailSort.visibility =
+            binding.includeLayoutSort.layoutDetailSort.visibility =
                 View.VISIBLE   //todo_sypark viewmodel로 한번에 관리
         }
 
-        binding.layoutSort.imgClose.setOnClickListener {
-            binding.layoutSort.layoutDetailSort.visibility =
+        binding.includeLayoutSort.imgClose.setOnClickListener {
+            binding.includeLayoutSort.layoutDetailSort.visibility =
                 View.GONE  //todo_sypark viewmodel로 한번에 관리
 
             Preferences.sortPosition = 1
         }
 
-        binding.layoutSort.sortRecyclerview.apply {
+        binding.includeLayoutSort.sortRecyclerview.apply {
             layoutManager = LinearLayoutManager(view.context)
             categorySortAdapter = CategorySortAdapter { position ->
                 onItemClicked(position)
@@ -58,11 +57,19 @@ class CategoryDetailFragment :
             categorySortAdapter.setSelectedPosition(1)
         }
 
-        binding.layoutSort.btnConfirm.setOnClickListener {
-            binding.layoutSort.layoutDetailSort.visibility =
+        binding.includeLayoutSort.btnConfirm.setOnClickListener {
+            binding.includeLayoutSort.layoutDetailSort.visibility =
                 View.GONE  //todo_sypark viewmodel로 한번에 관리
 
             binding.textSort.text = sortList[Preferences.sortPosition].sort
+        }
+
+        binding.imgFilter.setOnClickListener {
+            binding.includeLayoutFilter.root.visibility = View.VISIBLE
+        }
+
+        binding.includeLayoutFilter.imgClose.setOnClickListener {
+            binding.includeLayoutFilter.root.visibility = View.GONE
         }
     }
 

@@ -29,6 +29,10 @@
     <string name="category_detail_sort">정렬</string>
     <string name="category_detail_recency">최신순</string>
     <string name="category_detail_view">조회수순</string>
-    <string name="category_detail_">기대평순</string>
 
+    <string name="category_detail_filter">필터</string>
+    <string name="category_detail_filter_area">지역</string>
+    <string name="category_detail_filter_performance_day">공연일</string>
+    <string name="category_detail_filter_progress_status">진행 상태</string>
+    <string name="category_detail_filter_reservation_price">예매 가격</string>
 </resources>

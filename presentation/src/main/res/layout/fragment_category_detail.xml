@@ -91,8 +91,13 @@
         </RelativeLayout>
 
         <include
-            android:id="@+id/layout_sort"
+            android:id="@+id/include_layout_sort"
             layout="@layout/include_category_detail_sort"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/include_layout_filter"
+            layout="@layout/include_category_detail_filter"
             android:visibility="gone" />
     </RelativeLayout>
 </layout>
