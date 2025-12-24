@@ -35,4 +35,10 @@
     <string name="category_detail_filter_performance_day">공연일</string>
     <string name="category_detail_filter_progress_status">진행 상태</string>
     <string name="category_detail_filter_reservation_price">예매 가격</string>
+
+    <string name="category_detail_filter_performance_day_select">선택한 날짜 이후의 공연이 보여져요.</string>
+    <string name="category_detail_filter_reset">초기화</string>
+    <string name="category_detail_filter_planned_performance">공연 예정</string>
+    <string name="category_detail_filter_during_performance">공연 중</string>
+    <string name="category_detail_filter_finish_performance">공연 종료</string>
 </resources>

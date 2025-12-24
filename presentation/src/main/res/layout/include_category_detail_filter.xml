@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/layout_detail_sort"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#b3000000"
-        android:clickable="true"
-        android:focusable="true">
+        android:background="#b3000000">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -108,8 +107,9 @@
                 android:id="@+id/layout_filter_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/btn_confirm"
-                android:layout_below="@id/layout_filter_title">
+                android:layout_above="@+id/layout_filter_bottom"
+                android:layout_below="@id/layout_filter_title"
+                android:visibility="gone">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_area"
@@ -118,19 +118,177 @@
                     android:orientation="vertical" />
             </RelativeLayout>
 
+            <!--            <RelativeLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_above="@+id/layout_filter_bottom"-->
+            <!--                android:layout_below="@id/layout_filter_title"-->
+            <!--                android:layout_marginStart="16dp"-->
+            <!--                android:layout_marginEnd="16dp">-->
 
-            <Button
-                android:id="@+id/btn_confirm"
+            <!--                <TextView-->
+            <!--                    android:id="@+id/text_select_performance_day"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="@string/category_detail_filter_performance_day_select"-->
+            <!--                    android:textColor="@color/orange_FB912F" />-->
+
+            <!--                <com.prolificinteractive.materialcalendarview.MaterialCalendarView-->
+            <!--                    android:id="@+id/performance_calendar_view"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_below="@+id/text_select_performance_day"-->
+            <!--                    android:layout_marginTop="10dp"-->
+            <!--                    app:mcv_selectionColor="@color/black" />-->
+            <!--            </RelativeLayout>-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/layout_filter_bottom"
+                android:layout_below="@id/layout_filter_title"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+                <RelativeLayout
+                    android:id="@+id/layout_planned"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:gravity="center_vertical">
+
+                    <CheckBox
+                        android:id="@+id/checkbox_planned"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/icon_checkbox"
+                        android:button="@null"
+                        android:checked="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_toEndOf="@id/checkbox_planned"
+                        android:checked="true"
+                        android:gravity="center_vertical"
+                        android:text="@string/category_detail_filter_planned_performance"
+                        android:textColor="@drawable/selector_text_black_gray" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_EFEFEF" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_during"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_below="@id/layout_planned"
+                    android:gravity="center_vertical">
+
+                    <CheckBox
+                        android:id="@+id/checkbox_during"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/icon_checkbox"
+                        android:button="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_toEndOf="@id/checkbox_during"
+                        android:gravity="center_vertical"
+                        android:text="@string/category_detail_filter_during_performance"
+                        android:textColor="@drawable/selector_text_black_gray" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_EFEFEF" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_finish"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_below="@id/layout_during"
+                    android:gravity="center_vertical">
+
+                    <CheckBox
+                        android:id="@+id/checkbox_finish"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/icon_checkbox"
+                        android:button="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_toEndOf="@id/checkbox_finish"
+                        android:gravity="center_vertical"
+                        android:text="@string/category_detail_filter_finish_performance"
+                        android:textColor="@drawable/selector_text_black_gray" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_EFEFEF" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_filter_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/round_8_black"
-                android:text="@string/category_detail_sort_apply"
-                android:textColor="@color/white" />
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/img_reset"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/icon_reset" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/img_reset"
+                        android:gravity="center_vertical"
+                        android:text="@string/category_detail_filter_reset"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/btn_confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/round_8_black"
+                    android:text="@string/category_detail_sort_apply"
+                    android:textColor="@color/white" />
+            </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
 </layout>

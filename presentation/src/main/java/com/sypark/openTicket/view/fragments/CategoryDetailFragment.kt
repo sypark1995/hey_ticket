@@ -1,5 +1,6 @@
 package com.sypark.openTicket.view.fragments
 
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -80,6 +81,11 @@ class CategoryDetailFragment :
             val itemList = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
             categoryFilterAreaAdapter.submitList(itemList)
         }
+
+//        binding.includeLayoutFilter.performanceCalendarView.setOnDateChangedListener { widget, date, selected ->
+//            date.apply {
+//            }
+//        }
     }
 
     private fun onItemClicked(position: Int) {
