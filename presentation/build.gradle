@@ -164,4 +164,6 @@ dependencies {
 
     // material
     implementation 'com.google.android.material:material:<version>'
+
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }
