@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sypark.data.db.entity.OpenTicket
@@ -14,7 +13,7 @@ class InfiniteAdapter(val list: List<OpenTicket>) :
     RecyclerView.Adapter<InfiniteAdapter.InfiniteViewHolder>() {
 
     inner class InfiniteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imageView_banner = itemView.findViewById<ImageView>(R.id.text)
+        var imageView_banner = itemView.findViewById<ImageView>(R.id.text_performance_finish)
 
         fun onBind(data: OpenTicket) {
             Glide.with(itemView.context)

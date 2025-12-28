@@ -86,6 +86,64 @@ class CategoryDetailFragment :
 //            date.apply {
 //            }
 //        }
+
+        binding.includeLayoutFilter.textPerformancePlanned.setOnClickListener {
+            categoryDetailViewModel.isPlanedChecked()
+        }
+        binding.includeLayoutFilter.checkboxPlanned.setOnClickListener {
+            categoryDetailViewModel.isPlanedChecked()
+        }
+
+        binding.includeLayoutFilter.textPerformanceDuring.setOnClickListener {
+            categoryDetailViewModel.isDuringChecked()
+        }
+        binding.includeLayoutFilter.checkboxDuring.setOnClickListener {
+            categoryDetailViewModel.isDuringChecked()
+        }
+
+        binding.includeLayoutFilter.textPerformanceFinish.setOnClickListener {
+            categoryDetailViewModel.isFinishedChecked()
+        }
+        binding.includeLayoutFilter.checkboxFinish.setOnClickListener {
+            categoryDetailViewModel.isFinishedChecked()
+        }
+
+        categoryDetailViewModel.isPlaned.observe(this) {
+            binding.includeLayoutFilter.textPerformancePlanned.isSelected = it
+            binding.includeLayoutFilter.checkboxPlanned.isSelected = it
+        }
+
+        categoryDetailViewModel.isFinished.observe(this) {
+            binding.includeLayoutFilter.textPerformanceFinish.isSelected = it
+            binding.includeLayoutFilter.checkboxFinish.isSelected = it
+        }
+
+        categoryDetailViewModel.isDuring.observe(this) {
+            binding.includeLayoutFilter.textPerformanceDuring.isSelected = it
+            binding.includeLayoutFilter.checkboxDuring.isSelected = it
+        }
+
+        binding.includeLayoutFilter.radioFilterArea.setOnClickListener {
+
+            binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
+            binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+        }
+
+        binding.includeLayoutFilter.radioFilterDay.setOnClickListener {
+
+            binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
+            binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+        }
+
+        binding.includeLayoutFilter.radioFilterStatus.setOnClickListener {
+            binding.includeLayoutFilter.layoutPerformanceState.visibility = View.VISIBLE
+            binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
+        }
+
+        binding.includeLayoutFilter.radioFilterPrice.setOnClickListener {
+            binding.includeLayoutFilter.layoutFilterPrice.visibility = View.VISIBLE
+            binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+        }
     }
 
     private fun onItemClicked(position: Int) {
@@ -96,5 +154,4 @@ class CategoryDetailFragment :
         super.onDestroyView()
         Preferences.sortPosition = 1
     }
-
 }

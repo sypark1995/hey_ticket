@@ -41,4 +41,23 @@
     <string name="category_detail_filter_planned_performance">공연 예정</string>
     <string name="category_detail_filter_during_performance">공연 중</string>
     <string name="category_detail_filter_finish_performance">공연 종료</string>
+
+    <string name="category_detail_filter_low_price">낮은 예매가 기준으로 적용돼요.</string>
+    <string name="category_detail_filter_price_all">전체</string>
+    <string name="category_detail_filter_price_1">1만원 미만</string>
+    <string name="category_detail_filter_price_4">1 ~ 4만원</string>
+    <string name="category_detail_filter_price_7">4 ~ 7만원</string>
+    <string name="category_detail_filter_price_10">7 ~ 10만원</string>
+    <string name="category_detail_filter_price_over">10만원 이상</string>
+
+    <string name="category_detail_filter_area_all">전체</string>
+    <string name="category_detail_filter_area_seoul">서울</string>
+    <string name="category_detail_filter_area_gyeonggi">경기도</string>
+    <string name="category_detail_filter_area_gangwon">강원도</string>
+    <string name="category_detail_filter_area_chungcheongbuk">충청북도</string>
+    <string name="category_detail_filter_area_chungcheongnam">충청남도</string>
+    <string name="category_detail_filter_area_jeollabuk">전라북도</string>
+    <string name="category_detail_filter_area_Jeollanam">전라남도</string>
+    <string name="category_detail_filter_area_gyeongsangbuk">경상북도</string>
+    <string name="category_detail_filter_area_gyeongsangnam">경상남도</string>
 </resources>

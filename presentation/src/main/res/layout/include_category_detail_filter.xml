@@ -2,6 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.sypark.openTicket.model.CategoryDetailViewModel" />
+    </data>
+
     <RelativeLayout
         android:id="@+id/layout_detail_sort"
         android:layout_width="match_parent"
@@ -148,7 +157,45 @@
                 android:layout_above="@id/layout_filter_bottom"
                 android:layout_below="@id/layout_filter_title"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp">
+                
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:id="@+id/layout_area_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/text_seoul"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/category_detail_filter_planned_performance"
+                            android:textColor="@drawable/selector_text_black_gray" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/gray_EFEFEF" />
+                    </RelativeLayout>
+                </ScrollView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_performance_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/layout_filter_bottom"
+                android:layout_below="@id/layout_filter_title"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:id="@+id/layout_planned"
@@ -161,16 +208,16 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/icon_checkbox"
+                        android:background="@drawable/selector_checkbox"
                         android:button="@null"
-                        android:checked="true" />
+                        android:checked="@={viewModel.isPlaned}" />
 
                     <TextView
+                        android:id="@+id/text_performance_planned"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
                         android:layout_toEndOf="@id/checkbox_planned"
-                        android:checked="true"
                         android:gravity="center_vertical"
                         android:text="@string/category_detail_filter_planned_performance"
                         android:textColor="@drawable/selector_text_black_gray" />
@@ -194,10 +241,12 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/icon_checkbox"
-                        android:button="@null" />
+                        android:background="@drawable/selector_checkbox"
+                        android:button="@null"
+                        android:checked="@={viewModel.isDuring}" />
 
                     <TextView
+                        android:id="@+id/text_performance_during"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
@@ -225,10 +274,12 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/icon_checkbox"
-                        android:button="@null" />
+                        android:background="@drawable/selector_checkbox"
+                        android:button="@null"
+                        android:checked="@={viewModel.isFinished}" />
 
                     <TextView
+                        android:id="@+id/text_performance_finish"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
@@ -243,6 +294,139 @@
                         android:layout_alignParentBottom="true"
                         android:background="@color/gray_EFEFEF" />
                 </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_filter_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/layout_filter_bottom"
+                android:layout_below="@id/layout_filter_title"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/text_show_low_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:text="@string/category_detail_filter_low_price"
+                    android:textColor="@color/orange_FB912F" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_below="@+id/text_show_low_price"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/radio_filter_price_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:button="@drawable/selector_radio_filter_price"
+                        android:checked="true"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="@string/category_detail_filter_price_all"
+                        android:textColor="@drawable/selector_radio_text_black_gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_EFEFEF" />
+
+                    <RadioButton
+                        android:id="@+id/radio_filter_price_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:button="@drawable/selector_radio_filter_price"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="@string/category_detail_filter_price_1"
+                        android:textColor="@drawable/selector_radio_text_black_gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_EFEFEF" />
+
+                    <RadioButton
+                        android:id="@+id/radio_filter_price_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:button="@drawable/selector_radio_filter_price"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="@string/category_detail_filter_price_4"
+                        android:textColor="@drawable/selector_radio_text_black_gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_EFEFEF" />
+
+                    <RadioButton
+                        android:id="@+id/radio_filter_price_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:button="@drawable/selector_radio_filter_price"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="@string/category_detail_filter_price_7"
+                        android:textColor="@drawable/selector_radio_text_black_gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_EFEFEF" />
+
+                    <RadioButton
+                        android:id="@+id/radio_filter_price_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:button="@drawable/selector_radio_filter_price"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="@string/category_detail_filter_price_10"
+                        android:textColor="@drawable/selector_radio_text_black_gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_EFEFEF" />
+
+                    <RadioButton
+                        android:id="@+id/radio_filter_price_over"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:button="@drawable/selector_radio_filter_price"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="@string/category_detail_filter_price_over"
+                        android:textColor="@drawable/selector_radio_text_black_gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_EFEFEF" />
+
+                </RadioGroup>
 
             </RelativeLayout>
 

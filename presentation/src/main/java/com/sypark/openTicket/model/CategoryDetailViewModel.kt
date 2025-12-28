@@ -25,4 +25,19 @@ class CategoryDetailViewModel @Inject constructor(
 //        _sortType.postValue(type)
     }
 
+    var isPlaned = MutableLiveData(false)
+    val isDuring = MutableLiveData(false)
+    val isFinished = MutableLiveData(false)
+
+    fun isPlanedChecked() {
+        isPlaned.value = isPlaned.value == false
+    }
+
+    fun isDuringChecked() {
+        isDuring.value = isDuring.value == false
+    }
+
+    fun isFinishedChecked() {
+        isFinished.value = isFinished.value == false
+    }
 }
