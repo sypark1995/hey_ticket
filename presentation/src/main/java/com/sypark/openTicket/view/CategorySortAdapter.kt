@@ -14,7 +14,7 @@ import com.sypark.openTicket.R
 
 
 class CategorySortAdapter(private val onItemClickListener: (Int) -> Unit) :
-    ListAdapter<CategoryDetailSort, CategorySortAdapter.ViewHolder>(MyItemCallback()) {
+    ListAdapter<CategoryDetailSort, ViewHolder>(MyItemCallback()) {
 
     private var selectedPosition: Int = RecyclerView.NO_POSITION
 
@@ -26,26 +26,6 @@ class CategorySortAdapter(private val onItemClickListener: (Int) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item, position == selectedPosition, onItemClickListener)
-    }
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(
-            item: CategoryDetailSort,
-            isSelected: Boolean,
-            onItemClickListener: (Int) -> Unit
-        ) {
-            itemView.setOnClickListener { onItemClickListener(adapterPosition) }
-            // 선택 여부에 따라서 UI 업데이트
-            itemView.isSelected = isSelected
-
-            itemView.findViewById<TextView>(R.id.text_sort).text = item.sort
-
-            if (itemView.isSelected) {
-                itemView.findViewById<ImageView>(R.id.img_check).visibility = View.VISIBLE
-            } else {
-                itemView.findViewById<ImageView>(R.id.img_check).visibility = View.GONE
-            }
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -71,3 +51,22 @@ class CategorySortAdapter(private val onItemClickListener: (Int) -> Unit) :
     }
 }
 
+class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun bind(
+        item: CategoryDetailSort,
+        isSelected: Boolean,
+        onItemClickListener: (Int) -> Unit
+    ) {
+        itemView.setOnClickListener { onItemClickListener(adapterPosition) }
+        // 선택 여부에 따라서 UI 업데이트
+        itemView.isSelected = isSelected
+
+        itemView.findViewById<TextView>(R.id.text_sort).text = item.sort
+
+        if (itemView.isSelected) {
+            itemView.findViewById<ImageView>(R.id.img_check).visibility = View.VISIBLE
+        } else {
+            itemView.findViewById<ImageView>(R.id.img_check).visibility = View.GONE
+        }
+    }
+}

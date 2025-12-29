@@ -1,49 +1,123 @@
-package com.sypark.openTicket.view.fragments
+package com.sypark.openTicket.view
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.openTicket.R
+import com.sypark.openTicket.databinding.ItemFilterAreaBinding
 
-class CategoryFilterAreaAdapter() : ListAdapter<String, ItemViewHolder>(ItemDiffCallback()) {
+class CategoryFilterAreaAdapter :
+    ListAdapter<CategoryDetailArea, CategoryFilterAreaAdapter.ViewHolder>(DiffUtils()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_filter_area, parent, false)
-        return ItemViewHolder(itemView)
+    private var selectedArea = arrayListOf<CategoryDetailArea>()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemFilterAreaBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.itemText.text = item
-        holder.itemCheckbox.isChecked = true
-        holder.itemCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            // handle checkbox state change
-            Log.e("지역", holder.itemText.text.toString())
-            Log.e("isChecked", isChecked.toString())
+    class ViewHolder(val binding: ItemFilterAreaBinding) : RecyclerView.ViewHolder(binding.root)
+
+
+//    class ItemViewHolder(private val binding: ItemFilterAreaBinding) :
+//        RecyclerView.ViewHolder(binding.root) {
+//
+//        fun binding(categoryDetailArea: CategoryDetailArea) {
+//            with(binding) {
+//                itemText.text = categoryDetailArea.area
+//
+//                getItem(adapterPosition)
+//                this.root.setOnClickListener {
+//                    if (adapterPosition == 0) {
+//
+//                    } else {
+//                        applySelection(binding, categoryDetailArea)
+//                    }
+//
+//                    onItemClickListener?.let { it(categoryDetailArea) }
+//                }
+//            }
+//        }
+//    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        with(holder.binding) {
+            itemText.text = getItem(position).area
+
+            itemText.setOnClickListener {
+                applySelection(this, getItem(position))
+                onItemClickListener?.let { it(getItem(position)) }
+            }
         }
     }
 
-    class ItemDiffCallback : DiffUtil.ItemCallback<String>() {
-
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
+    private class DiffUtils : DiffUtil.ItemCallback<CategoryDetailArea>() {
+        override fun areItemsTheSame(
+            oldItem: CategoryDetailArea,
+            newItem: CategoryDetailArea
+        ): Boolean {
+            return oldItem.area == newItem.area
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(
+            oldItem: CategoryDetailArea,
+            newItem: CategoryDetailArea
+        ): Boolean {
             return oldItem == newItem
         }
+    }
+
+    private var onItemClickListener: ((CategoryDetailArea) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (CategoryDetailArea) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    fun selectedList(): ArrayList<CategoryDetailArea> {
+        return selectedArea
+    }
+
+    fun clear() {
+        selectedArea.clear()
+    }
+
+
+    private fun applySelection(
+        binding: ItemFilterAreaBinding,
+        categoryDetailArea: CategoryDetailArea
+    ) {
+        if (selectedArea.contains(categoryDetailArea)) {
+            selectedArea.remove(categoryDetailArea)
+            changeTextColor(binding, R.color.gray_B7B7B7)
+            binding.itemCheckbox.visibility = View.GONE
+        } else {
+            selectedArea.add(categoryDetailArea)
+            changeTextColor(binding, R.color.black)
+            binding.itemCheckbox.visibility = View.VISIBLE
+        }
+    }
+
+    private fun changeTextColor(binding: ItemFilterAreaBinding, resId: Int) {
+        binding.itemText.setTextColor(
+            ContextCompat.getColor(
+                binding.root.context,
+                resId
+            )
+        )
     }
 }
 
-class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val itemText: TextView = itemView.findViewById(R.id.item_text)
-    val itemCheckbox: CheckBox = itemView.findViewById(R.id.item_checkbox)
-}
+
+
 

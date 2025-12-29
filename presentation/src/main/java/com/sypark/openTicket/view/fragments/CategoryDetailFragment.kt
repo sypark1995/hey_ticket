@@ -2,15 +2,18 @@ package com.sypark.openTicket.view.fragments
 
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.db.entity.CategoryDetailSort
 import com.sypark.openTicket.Preferences
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentCategoryDetailBinding
 import com.sypark.openTicket.model.CategoryDetailViewModel
+import com.sypark.openTicket.view.CategoryFilterAreaAdapter
 import com.sypark.openTicket.view.CategorySortAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +29,18 @@ class CategoryDetailFragment :
         CategoryDetailSort("최근 등록순"),
         CategoryDetailSort("예매순"),
         CategoryDetailSort("조회수순")
+    )
+
+    private val categoryDetailAreaList = listOf(
+        CategoryDetailArea("서울시"),
+        CategoryDetailArea("경기도"),
+        CategoryDetailArea("강원도"),
+        CategoryDetailArea("충청북도"),
+        CategoryDetailArea("충청남도"),
+        CategoryDetailArea("전라북도"),
+        CategoryDetailArea("전라남도"),
+        CategoryDetailArea("경상남도"),
+        CategoryDetailArea("경상북도"),
     )
 
     override fun init(view: View) {
@@ -78,8 +93,46 @@ class CategoryDetailFragment :
             layoutManager = LinearLayoutManager(view.context)
             categoryFilterAreaAdapter = CategoryFilterAreaAdapter()
             adapter = categoryFilterAreaAdapter
-            val itemList = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
-            categoryFilterAreaAdapter.submitList(itemList)
+            categoryFilterAreaAdapter.submitList(categoryDetailAreaList)
+
+            categoryFilterAreaAdapter.setOnItemClickListener {
+                if (categoryFilterAreaAdapter.selectedList().size == 0) {
+                    binding.includeLayoutFilter.textAreaAll.setTextColor(
+                        ContextCompat.getColor(
+                            this.context,
+                            R.color.black
+                        )
+                    )
+                    binding.includeLayoutFilter.checkboxAreaAll.visibility = View.VISIBLE
+                } else {
+                    binding.includeLayoutFilter.textAreaAll.setTextColor(
+                        ContextCompat.getColor(
+                            this.context,
+                            R.color.gray_B7B7B7
+                        )
+                    )
+                    binding.includeLayoutFilter.checkboxAreaAll.visibility = View.GONE
+                }
+            }
+
+        }
+
+        binding.includeLayoutFilter.textAreaAll.setOnClickListener {
+
+            binding.includeLayoutFilter.recyclerviewArea.removeAllViewsInLayout()
+            categoryFilterAreaAdapter.apply {
+                clear()
+                submitList(categoryDetailAreaList)
+            }
+
+            binding.includeLayoutFilter.textAreaAll.setTextColor(
+                ContextCompat.getColor(
+                    it.context,
+                    R.color.black
+                )
+            )
+            binding.includeLayoutFilter.checkboxAreaAll.visibility = View.VISIBLE
+
         }
 
 //        binding.includeLayoutFilter.performanceCalendarView.setOnDateChangedListener { widget, date, selected ->

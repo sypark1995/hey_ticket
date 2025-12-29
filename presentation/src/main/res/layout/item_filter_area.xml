@@ -2,8 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -13,11 +11,12 @@
 
         <TextView
             android:id="@+id/item_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
             android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
             android:text="서울시"
             android:textColor="@color/selector_navigation_color"
             android:textSize="16sp" />
@@ -29,7 +28,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
             android:button="@drawable/icon_check"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"
