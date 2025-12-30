@@ -2,6 +2,8 @@ package com.sypark.openTicket.view.fragments
 
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -113,16 +115,43 @@ class CategoryDetailFragment :
                     )
                     binding.includeLayoutFilter.checkboxAreaAll.visibility = View.GONE
                 }
+
+                categoryDetailViewModel.setFilterAreaList(categoryFilterAreaAdapter.selectedList())
             }
+        }
+
+        categoryDetailViewModel.filterAreaData.observe(this) {
 
         }
 
+        binding.includeLayoutFilter.btnConfirm.setOnClickListener {
+            Log.e("!!!", categoryDetailViewModel.filterAreaData.value.toString())
+            Log.e("isPlaned", categoryDetailViewModel.isPlaned.value.toString())
+            Log.e("isDuring", categoryDetailViewModel.isDuring.value.toString())
+            Log.e("isFinished", categoryDetailViewModel.isFinished.value.toString())
+            Log.e("price", categoryDetailViewModel.filterPrice.value.toString())
+
+            binding.includeLayoutFilter.root.visibility = View.GONE
+
+//            binding.textArea.layoutParams = LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//            )
+//            binding.textArea.text = "1111111111111"
+//
+//            binding.textArea.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+//            val width = binding.textArea.measuredWidth
+//            val height = binding.textArea.measuredHeight
+//
+//            binding.textArea.layoutParams = LinearLayout.LayoutParams(width, height)
+        }
         binding.includeLayoutFilter.textAreaAll.setOnClickListener {
 
             binding.includeLayoutFilter.recyclerviewArea.removeAllViewsInLayout()
             categoryFilterAreaAdapter.apply {
                 clear()
                 submitList(categoryDetailAreaList)
+                notifyDataSetChanged()
             }
 
             binding.includeLayoutFilter.textAreaAll.setTextColor(
@@ -177,25 +206,50 @@ class CategoryDetailFragment :
         }
 
         binding.includeLayoutFilter.radioFilterArea.setOnClickListener {
-
+            binding.includeLayoutFilter.layoutFilterArea.visibility = View.VISIBLE
             binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
             binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
         }
 
         binding.includeLayoutFilter.radioFilterDay.setOnClickListener {
-
+            binding.includeLayoutFilter.layoutFilterArea.visibility = View.GONE
             binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
             binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
         }
 
         binding.includeLayoutFilter.radioFilterStatus.setOnClickListener {
+            binding.includeLayoutFilter.layoutFilterArea.visibility = View.GONE
             binding.includeLayoutFilter.layoutPerformanceState.visibility = View.VISIBLE
             binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
         }
 
         binding.includeLayoutFilter.radioFilterPrice.setOnClickListener {
+            binding.includeLayoutFilter.layoutFilterArea.visibility = View.GONE
             binding.includeLayoutFilter.layoutFilterPrice.visibility = View.VISIBLE
             binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+        }
+
+        binding.includeLayoutFilter.radioGroupFilterPrice.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radio_filter_price_all -> {
+                    categoryDetailViewModel.setFilterPrice("all")
+                }
+                R.id.radio_filter_price_1 -> {
+                    categoryDetailViewModel.setFilterPrice("1")
+                }
+                R.id.radio_filter_price_4 -> {
+                    categoryDetailViewModel.setFilterPrice("4")
+                }
+                R.id.radio_filter_price_7 -> {
+                    categoryDetailViewModel.setFilterPrice("7")
+                }
+                R.id.radio_filter_price_10 -> {
+                    categoryDetailViewModel.setFilterPrice("10")
+                }
+                R.id.radio_filter_price_over -> {
+                    categoryDetailViewModel.setFilterPrice("over")
+                }
+            }
         }
     }
 
