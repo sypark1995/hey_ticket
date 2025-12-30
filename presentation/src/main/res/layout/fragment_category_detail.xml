@@ -63,9 +63,9 @@
 
                     <TextView
                         android:id="@+id/text_area"
-                        android:background="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:background="@color/black"
                         android:gravity="center"
                         android:text="@string/category_detail_filter_area"
                         android:textColor="@color/gray_949494"

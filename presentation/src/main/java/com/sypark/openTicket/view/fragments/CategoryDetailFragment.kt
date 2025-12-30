@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -133,17 +134,20 @@ class CategoryDetailFragment :
 
             binding.includeLayoutFilter.root.visibility = View.GONE
 
-//            binding.textArea.layoutParams = LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.WRAP_CONTENT,
-//                LinearLayout.LayoutParams.WRAP_CONTENT
-//            )
-//            binding.textArea.text = "1111111111111"
-//
-//            binding.textArea.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-//            val width = binding.textArea.measuredWidth
-//            val height = binding.textArea.measuredHeight
-//
-//            binding.textArea.layoutParams = LinearLayout.LayoutParams(width, height)
+            // 높이와 너비를 WRAP_CONTENT로 설정합니다.
+            binding.textArea.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            binding.textArea.text = "1111111111111"
+
+            // 새로운 크기를 설정합니다.
+            binding.textArea.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+            val width = binding.textArea.measuredWidth
+            val height = binding.textArea.measuredHeight
+
+            binding.textArea.layoutParams = LinearLayout.LayoutParams(width, height)
+            setTextViewSize(binding.textArea, "1111111111")
         }
         binding.includeLayoutFilter.textAreaAll.setOnClickListener {
 
@@ -260,5 +264,22 @@ class CategoryDetailFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         Preferences.sortPosition = 1
+    }
+
+    private fun setTextViewSize(textView: TextView, data: String) {
+        // 높이와 너비를 WRAP_CONTENT로 설정합니다.
+        textView.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        textView.text = data
+
+        // 새로운 크기를 설정합니다.
+        textView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val width = textView.measuredWidth
+        val height = textView.measuredHeight
+
+        textView.layoutParams = LinearLayout.LayoutParams(width, height)
     }
 }
