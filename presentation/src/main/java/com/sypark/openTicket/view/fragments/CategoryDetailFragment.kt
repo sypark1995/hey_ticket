@@ -145,7 +145,7 @@ class CategoryDetailFragment :
             binding.textArea.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
             val width = binding.textArea.measuredWidth
             val height = binding.textArea.measuredHeight
-
+            Log.e("!!!!", width.toString())
             binding.textArea.layoutParams = LinearLayout.LayoutParams(width, height)
             setTextViewSize(binding.textArea, "1111111111")
         }
