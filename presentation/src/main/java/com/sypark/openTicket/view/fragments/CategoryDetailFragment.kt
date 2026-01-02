@@ -259,7 +259,7 @@ class CategoryDetailFragment :
 
         binding.includeLayoutFilter.performanceCalendarView.setOnDateChangedListener { widget, date, selected ->
             date.apply {
-                Log.e()
+//                Log.e()
             }
         }
 
