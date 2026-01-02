@@ -1,5 +1,7 @@
 package com.sypark.openTicket.view.fragments
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.db.entity.CategoryDetailSort
 import com.sypark.openTicket.Preferences
@@ -19,6 +22,7 @@ import com.sypark.openTicket.model.CategoryDetailViewModel
 import com.sypark.openTicket.view.CategoryFilterAreaAdapter
 import com.sypark.openTicket.view.CategorySortAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import org.jsoup.internal.StringUtil
 
 @AndroidEntryPoint
 class CategoryDetailFragment :
@@ -125,53 +129,139 @@ class CategoryDetailFragment :
 
         }
 
+
         binding.includeLayoutFilter.btnConfirm.setOnClickListener {
+
             Log.e("!!!", categoryDetailViewModel.filterAreaData.value.toString())
             Log.e("isPlaned", categoryDetailViewModel.isPlaned.value.toString())
             Log.e("isDuring", categoryDetailViewModel.isDuring.value.toString())
             Log.e("isFinished", categoryDetailViewModel.isFinished.value.toString())
-            Log.e("price", categoryDetailViewModel.filterPrice.value.toString())
+//            Log.e("price", categoryDetailViewModel.filterPrice.value.toString())
 
-            binding.includeLayoutFilter.root.visibility = View.GONE
-
-            // 높이와 너비를 WRAP_CONTENT로 설정합니다.
-            binding.textArea.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            binding.textArea.text = "1111111111111"
-
-            // 새로운 크기를 설정합니다.
-            binding.textArea.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-            val width = binding.textArea.measuredWidth
-            val height = binding.textArea.measuredHeight
-            Log.e("!!!!", width.toString())
-            binding.textArea.layoutParams = LinearLayout.LayoutParams(width, height)
-            setTextViewSize(binding.textArea, "1111111111")
-        }
-        binding.includeLayoutFilter.textAreaAll.setOnClickListener {
-
-            binding.includeLayoutFilter.recyclerviewArea.removeAllViewsInLayout()
-            categoryFilterAreaAdapter.apply {
-                clear()
-                submitList(categoryDetailAreaList)
-                notifyDataSetChanged()
+            if (categoryDetailViewModel.filterAreaData.value != null && categoryDetailViewModel.filterAreaData.value!!.size > 0) {
+                setChipTrue(it.context, binding.chipArea)
+                when (categoryDetailViewModel.filterAreaData.value?.size) {
+                    null, 0 -> {
+                        binding.chipArea.text = "전체"
+                    }
+                    1 -> {
+                        binding.chipArea.text =
+                            categoryDetailViewModel.filterAreaData.value!![0].area
+                    }
+                    else -> {
+                        binding.chipArea.text =
+                            "지역 ${categoryDetailViewModel.filterAreaData.value?.size}"
+                    }
+                }
+            } else {
+                setChipTrue(it.context, binding.chipArea)
+                binding.chipArea.text = "전체"
             }
 
-            binding.includeLayoutFilter.textAreaAll.setTextColor(
-                ContextCompat.getColor(
-                    it.context,
-                    R.color.black
-                )
-            )
-            binding.includeLayoutFilter.checkboxAreaAll.visibility = View.VISIBLE
+            if (categoryDetailViewModel.statusList.value?.size == 0) {
+                setChipFalse(it.context, binding.chipStatus, "진행 상태")
+            } else {
+                setChipTrue(it.context, binding.chipStatus)
+                binding.chipStatus.text =
+                    StringUtil.join(categoryDetailViewModel.statusList.value, ", ").toString()
+            }
 
+            if (categoryDetailViewModel.filterPriceData.value.toString() == "예매 가격" || categoryDetailViewModel.filterPriceData.value == null) {
+//                setChipFalse(it.context, binding.chipPrice, "예매 가격")
+                setChipTrue(it.context, binding.chipPrice)
+                binding.chipPrice.text = "전체"
+            } else if (categoryDetailViewModel.filterPriceData.value == null) {
+
+            } else {
+                setChipTrue(it.context, binding.chipPrice)
+                binding.chipPrice.text = categoryDetailViewModel.filterPriceData.value.toString()
+            }
+
+            binding.includeLayoutFilter.root.visibility = View.GONE
         }
 
-//        binding.includeLayoutFilter.performanceCalendarView.setOnDateChangedListener { widget, date, selected ->
-//            date.apply {
-//            }
-//        }
+        binding.chipArea.apply {
+
+            setOnClickListener {
+                binding.includeLayoutFilter.radioFilterArea.isChecked = true
+                binding.includeLayoutFilter.root.visibility = View.VISIBLE
+
+                binding.includeLayoutFilter.layoutFilterArea.visibility = View.VISIBLE
+                binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
+                binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+                binding.includeLayoutFilter.layoutFilterDay.visibility = View.GONE
+            }
+
+            setOnCloseIconClickListener {
+                setChipFalse(it.context, this, "지역")
+                initFilterArea(it.context)
+            }
+        }
+        binding.chipDay.apply {
+            setOnClickListener {
+                binding.includeLayoutFilter.radioFilterDay.isChecked = true
+                binding.includeLayoutFilter.root.visibility = View.VISIBLE
+
+                binding.includeLayoutFilter.layoutFilterArea.visibility = View.GONE
+                binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
+                binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+                binding.includeLayoutFilter.layoutFilterDay.visibility = View.VISIBLE
+            }
+            setOnCloseIconClickListener {
+                setChipFalse(it.context, this, "공연일")
+            }
+        }
+
+        binding.chipStatus.apply {
+
+            setOnClickListener {
+                binding.includeLayoutFilter.radioFilterStatus.isChecked = true
+                binding.includeLayoutFilter.root.visibility = View.VISIBLE
+
+                binding.includeLayoutFilter.layoutFilterArea.visibility = View.GONE
+                binding.includeLayoutFilter.layoutPerformanceState.visibility = View.VISIBLE
+                binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
+                binding.includeLayoutFilter.layoutFilterDay.visibility = View.GONE
+            }
+
+            setOnCloseIconClickListener {
+                setChipFalse(it.context, this, "진행상태")
+                initFilterStatus()
+            }
+        }
+
+        binding.includeLayoutFilter.layoutFilterReset.setOnClickListener {
+            initFilterArea(it.context)
+            initFilterStatus()
+            initFilterPrice()
+        }
+
+        binding.includeLayoutFilter.textAreaAll.setOnClickListener {
+            initFilterArea(it.context)
+        }
+
+        binding.chipPrice.apply {
+            setOnClickListener {
+                binding.includeLayoutFilter.radioFilterPrice.isChecked = true
+                binding.includeLayoutFilter.root.visibility = View.VISIBLE
+
+                binding.includeLayoutFilter.layoutFilterArea.visibility = View.GONE
+                binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+                binding.includeLayoutFilter.layoutFilterPrice.visibility = View.VISIBLE
+                binding.includeLayoutFilter.layoutFilterDay.visibility = View.GONE
+            }
+
+            setOnCloseIconClickListener {
+                setChipFalse(it.context, this, "예매 가격")
+                initFilterPrice()
+            }
+        }
+
+        binding.includeLayoutFilter.performanceCalendarView.setOnDateChangedListener { widget, date, selected ->
+            date.apply {
+                Log.e()
+            }
+        }
 
         binding.includeLayoutFilter.textPerformancePlanned.setOnClickListener {
             categoryDetailViewModel.isPlanedChecked()
@@ -194,64 +284,93 @@ class CategoryDetailFragment :
             categoryDetailViewModel.isFinishedChecked()
         }
 
+        val statusList = ArrayList<String>()
+
         categoryDetailViewModel.isPlaned.observe(this) {
             binding.includeLayoutFilter.textPerformancePlanned.isSelected = it
             binding.includeLayoutFilter.checkboxPlanned.isSelected = it
+            if (it) {
+                statusList.add(binding.includeLayoutFilter.textPerformancePlanned.text.toString())
+                categoryDetailViewModel.setFilterStatus(statusList)
+            } else {
+                statusList.remove(binding.includeLayoutFilter.textPerformancePlanned.text.toString())
+                categoryDetailViewModel.setFilterStatus(statusList)
+            }
         }
 
         categoryDetailViewModel.isFinished.observe(this) {
             binding.includeLayoutFilter.textPerformanceFinish.isSelected = it
             binding.includeLayoutFilter.checkboxFinish.isSelected = it
+
+            if (it) {
+                statusList.add(binding.includeLayoutFilter.textPerformanceFinish.text.toString())
+                categoryDetailViewModel.setFilterStatus(statusList)
+            } else {
+                statusList.remove(binding.includeLayoutFilter.textPerformanceFinish.text.toString())
+                categoryDetailViewModel.setFilterStatus(statusList)
+            }
         }
 
         categoryDetailViewModel.isDuring.observe(this) {
             binding.includeLayoutFilter.textPerformanceDuring.isSelected = it
             binding.includeLayoutFilter.checkboxDuring.isSelected = it
+
+            if (it) {
+                statusList.add(binding.includeLayoutFilter.textPerformanceDuring.text.toString())
+                categoryDetailViewModel.setFilterStatus(statusList)
+            } else {
+                statusList.remove(binding.includeLayoutFilter.textPerformanceDuring.text.toString())
+                categoryDetailViewModel.setFilterStatus(statusList)
+            }
         }
 
         binding.includeLayoutFilter.radioFilterArea.setOnClickListener {
             binding.includeLayoutFilter.layoutFilterArea.visibility = View.VISIBLE
             binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
             binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+            binding.includeLayoutFilter.layoutFilterDay.visibility = View.GONE
         }
 
         binding.includeLayoutFilter.radioFilterDay.setOnClickListener {
             binding.includeLayoutFilter.layoutFilterArea.visibility = View.GONE
             binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
             binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+            binding.includeLayoutFilter.layoutFilterDay.visibility = View.VISIBLE
         }
 
         binding.includeLayoutFilter.radioFilterStatus.setOnClickListener {
             binding.includeLayoutFilter.layoutFilterArea.visibility = View.GONE
             binding.includeLayoutFilter.layoutPerformanceState.visibility = View.VISIBLE
             binding.includeLayoutFilter.layoutFilterPrice.visibility = View.GONE
+            binding.includeLayoutFilter.layoutFilterDay.visibility = View.GONE
         }
 
         binding.includeLayoutFilter.radioFilterPrice.setOnClickListener {
             binding.includeLayoutFilter.layoutFilterArea.visibility = View.GONE
             binding.includeLayoutFilter.layoutFilterPrice.visibility = View.VISIBLE
             binding.includeLayoutFilter.layoutPerformanceState.visibility = View.GONE
+            binding.includeLayoutFilter.layoutFilterDay.visibility = View.GONE
         }
 
         binding.includeLayoutFilter.radioGroupFilterPrice.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.radio_filter_price_all -> {
-                    categoryDetailViewModel.setFilterPrice("all")
+                    categoryDetailViewModel.setFilterPrice("전체")
                 }
                 R.id.radio_filter_price_1 -> {
-                    categoryDetailViewModel.setFilterPrice("1")
+                    categoryDetailViewModel.setFilterPrice("1만원 미만")
                 }
                 R.id.radio_filter_price_4 -> {
-                    categoryDetailViewModel.setFilterPrice("4")
+                    categoryDetailViewModel.setFilterPrice("1~4만원")
                 }
                 R.id.radio_filter_price_7 -> {
-                    categoryDetailViewModel.setFilterPrice("7")
+                    categoryDetailViewModel.setFilterPrice("4~7만원")
                 }
                 R.id.radio_filter_price_10 -> {
-                    categoryDetailViewModel.setFilterPrice("10")
+                    categoryDetailViewModel.setFilterPrice("7~10만원")
                 }
                 R.id.radio_filter_price_over -> {
-                    categoryDetailViewModel.setFilterPrice("over")
+                    categoryDetailViewModel.setFilterPrice("10만원 이상")
                 }
             }
         }
@@ -281,5 +400,64 @@ class CategoryDetailFragment :
         val height = textView.measuredHeight
 
         textView.layoutParams = LinearLayout.LayoutParams(width, height)
+    }
+
+    private fun setChipTrue(context: Context, chip: Chip) {
+        chip.chipBackgroundColor =
+            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.black_111111))
+        chip.chipStrokeColor =
+            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.black_111111))
+        chip.isCloseIconVisible = true
+        chip.setTextColor(ContextCompat.getColor(context, R.color.white))
+    }
+
+    private fun setChipFalse(context: Context, chip: Chip, text: String) {
+        chip.chipBackgroundColor =
+            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+        chip.chipStrokeColor =
+            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.gray_EFEFEF))
+        chip.isCloseIconVisible = false
+        chip.setTextColor(ContextCompat.getColor(context, R.color.gray_949494))
+        chip.text = text
+    }
+
+    // 필터 지역 초기화
+    private fun initFilterArea(context: Context) {
+        binding.includeLayoutFilter.recyclerviewArea.removeAllViewsInLayout()
+        categoryFilterAreaAdapter.apply {
+            clear()
+            submitList(categoryDetailAreaList)
+            notifyDataSetChanged()
+        }
+
+        binding.includeLayoutFilter.textAreaAll.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.black
+            )
+        )
+        categoryDetailViewModel.filterAreaData.value?.clear()
+        binding.includeLayoutFilter.checkboxAreaAll.visibility = View.VISIBLE
+    }
+
+    // 필터 진행상태 초기화
+    private fun initFilterStatus() {
+        binding.includeLayoutFilter.checkboxDuring.isSelected = false
+        binding.includeLayoutFilter.checkboxPlanned.isSelected = false
+        binding.includeLayoutFilter.checkboxFinish.isSelected = false
+        binding.includeLayoutFilter.textPerformanceDuring.isSelected = false
+        binding.includeLayoutFilter.textPerformancePlanned.isSelected = false
+        binding.includeLayoutFilter.textPerformanceFinish.isSelected = false
+        categoryDetailViewModel.statusList.value?.clear()
+    }
+
+    private fun initFilterPrice() {
+        binding.includeLayoutFilter.radioFilterPriceAll.isChecked = true
+        binding.includeLayoutFilter.radioFilterPrice1.isChecked = false
+        binding.includeLayoutFilter.radioFilterPrice4.isChecked = false
+        binding.includeLayoutFilter.radioFilterPrice7.isChecked = false
+        binding.includeLayoutFilter.radioFilterPrice10.isChecked = false
+        binding.includeLayoutFilter.radioFilterPriceOver.isChecked = false
+        categoryDetailViewModel.setFilterPrice("예매 가격")
     }
 }

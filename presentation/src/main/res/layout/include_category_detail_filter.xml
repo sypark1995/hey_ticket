@@ -171,65 +171,67 @@
             </ScrollView>
 
 
-            <!--            <RelativeLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_above="@+id/layout_filter_bottom"-->
-            <!--                android:layout_below="@id/layout_filter_title"-->
-            <!--                android:layout_marginStart="16dp"-->
-            <!--                android:layout_marginEnd="16dp">-->
+            <RelativeLayout
+                android:id="@+id/layout_filter_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/layout_filter_bottom"
+                android:layout_below="@id/layout_filter_title"
+                android:layout_marginStart="16dp"
+                android:visibility="gone"
+                android:layout_marginEnd="16dp">
 
-            <!--                <TextView-->
-            <!--                    android:id="@+id/text_select_performance_day"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:text="@string/category_detail_filter_performance_day_select"-->
-            <!--                    android:textColor="@color/orange_FB912F" />-->
+                <TextView
+                    android:id="@+id/text_select_performance_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_detail_filter_performance_day_select"
+                    android:textColor="@color/orange_FB912F" />
 
-            <!--                <com.prolificinteractive.materialcalendarview.MaterialCalendarView-->
-            <!--                    android:id="@+id/performance_calendar_view"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_below="@+id/text_select_performance_day"-->
-            <!--                    android:layout_marginTop="10dp"-->
-            <!--                    app:mcv_selectionColor="@color/black" />-->
-            <!--            </RelativeLayout>-->
+                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                    android:id="@+id/performance_calendar_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_select_performance_day"
+                    android:layout_marginTop="10dp"
+                    app:mcv_selectionColor="@color/black" />
+            </RelativeLayout>
 
-            <!--            <RelativeLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_above="@id/layout_filter_bottom"-->
-            <!--                android:layout_below="@id/layout_filter_title"-->
-            <!--                android:layout_marginStart="16dp"-->
-            <!--                android:layout_marginEnd="16dp"-->
-            <!--                android:layout_marginBottom="10dp">-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/layout_filter_bottom"
+                android:layout_below="@id/layout_filter_title"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp">
 
-            <!--                <ScrollView-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="match_parent">-->
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <!--                    <RelativeLayout-->
-            <!--                        android:id="@+id/layout_area_all"-->
-            <!--                        android:layout_width="match_parent"-->
-            <!--                        android:layout_height="50dp"-->
-            <!--                        android:gravity="center_vertical">-->
+                    <RelativeLayout
+                        android:id="@+id/layout_area_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical">
 
-            <!--                        <TextView-->
-            <!--                            android:id="@+id/text_seoul"-->
-            <!--                            android:layout_width="wrap_content"-->
-            <!--                            android:layout_height="50dp"-->
-            <!--                            android:gravity="center_vertical"-->
-            <!--                            android:text="@string/category_detail_filter_area_all"-->
-            <!--                            android:textColor="@drawable/selector_text_black_gray" />-->
+                        <TextView
+                            android:id="@+id/text_seoul"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/category_detail_filter_area_all"
+                            android:textColor="@drawable/selector_text_black_gray" />
 
-            <!--                        <View-->
-            <!--                            android:layout_width="match_parent"-->
-            <!--                            android:layout_height="2dp"-->
-            <!--                            android:layout_alignParentBottom="true"-->
-            <!--                            android:background="@color/gray_EFEFEF" />-->
-            <!--                    </RelativeLayout>-->
-            <!--                </ScrollView>-->
-            <!--            </RelativeLayout>-->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/gray_EFEFEF" />
+                    </RelativeLayout>
+                </ScrollView>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/layout_performance_state"
@@ -487,6 +489,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:id="@+id/layout_filter_reset"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1">

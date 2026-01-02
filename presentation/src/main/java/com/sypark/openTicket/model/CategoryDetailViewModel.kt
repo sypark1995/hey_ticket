@@ -35,6 +35,8 @@ class CategoryDetailViewModel @Inject constructor(
     val isDuring = MutableLiveData(false)
     val isFinished = MutableLiveData(false)
 
+    private var _statusList = MutableLiveData<ArrayList<String>>()
+    val statusList: LiveData<ArrayList<String>> = _statusList
 
     val filterArea: LiveData<Boolean>
         get() = _filterArea
@@ -76,4 +78,5 @@ class CategoryDetailViewModel @Inject constructor(
 
     fun setFilterAreaList(list: ArrayList<CategoryDetailArea>) = _filterAreaData.postValue(list)
     fun setFilterPrice(price: String) = _filterPriceData.postValue(price)
+    fun setFilterStatus(status: ArrayList<String>) = _statusList.postValue(status)
 }
