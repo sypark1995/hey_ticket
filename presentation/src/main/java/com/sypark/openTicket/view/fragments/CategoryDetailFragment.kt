@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -24,6 +23,10 @@ import com.sypark.openTicket.view.CategoryFilterAreaAdapter
 import com.sypark.openTicket.view.CategorySortAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import org.jsoup.internal.StringUtil
+import org.threeten.bp.format.TextStyle
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class CategoryDetailFragment :
@@ -173,6 +176,13 @@ class CategoryDetailFragment :
                 binding.chipPrice.text = categoryDetailViewModel.filterPriceData.value.toString()
             }
 
+            if (categoryDetailViewModel.selectedDay.value.isNullOrEmpty()) {
+                setChipFalse(it.context, binding.chipDay, "공연일")
+            } else {
+                setChipTrue(it.context, binding.chipDay)
+                binding.chipDay.text = categoryDetailViewModel.selectedDay.value.toString()
+            }
+
             binding.includeLayoutFilter.root.visibility = View.GONE
         }
 
@@ -205,6 +215,7 @@ class CategoryDetailFragment :
             }
             setOnCloseIconClickListener {
                 setChipFalse(it.context, this, "공연일")
+                initFilterDay()
             }
         }
 
@@ -230,6 +241,7 @@ class CategoryDetailFragment :
             initFilterArea(it.context)
             initFilterStatus()
             initFilterPrice()
+            initFilterDay()
         }
 
         binding.includeLayoutFilter.textAreaAll.setOnClickListener {
@@ -258,7 +270,15 @@ class CategoryDetailFragment :
 
         binding.includeLayoutFilter.performanceCalendarView.setOnDateChangedListener { widget, date, selected ->
             date.apply {
-//                Log.e()
+                if (selected) {
+                    val selectedDay = "${date.month}.${date.day}(${
+                        date.date.dayOfWeek.getDisplayName(
+                            TextStyle.NARROW,
+                            Locale.KOREAN
+                        )
+                    })"
+                    categoryDetailViewModel.setSelectedDay(selectedDay)
+                }
             }
         }
 
@@ -455,6 +475,11 @@ class CategoryDetailFragment :
         binding.includeLayoutFilter.radioFilterPrice10.isChecked = false
         binding.includeLayoutFilter.radioFilterPriceOver.isChecked = false
         categoryDetailViewModel.clearFilterPrice()
+    }
+
+    private fun initFilterDay() {
+        categoryDetailViewModel.clearSelectedDay()
+        binding.includeLayoutFilter.performanceCalendarView.clearSelection()
     }
 
     private fun backpressed() {

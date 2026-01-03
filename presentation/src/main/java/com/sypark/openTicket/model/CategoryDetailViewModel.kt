@@ -58,6 +58,10 @@ class CategoryDetailViewModel @Inject constructor(
     val filterPriceData: LiveData<String?>
         get() = _filterPriceData
 
+    private var _selectedDay = MutableLiveData<String?>()
+    val selectedDay: LiveData<String?>
+        get() = _selectedDay
+
 
     fun isPlanedChecked() {
         isPlaned.value = isPlaned.value == false
@@ -83,4 +87,9 @@ class CategoryDetailViewModel @Inject constructor(
     }
 
     fun setFilterStatus(status: ArrayList<String>) = _statusList.postValue(status)
+
+    fun setSelectedDay(day: String) = _selectedDay.postValue(day)
+    fun clearSelectedDay() {
+        _selectedDay.value = null
+    }
 }
