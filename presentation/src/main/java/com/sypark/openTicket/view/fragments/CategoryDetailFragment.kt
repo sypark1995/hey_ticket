@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -51,7 +52,7 @@ class CategoryDetailFragment :
     )
 
     override fun init(view: View) {
-
+        backpressed()
         binding.imgBack.setOnClickListener {
             findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToCategoryFragment())
             Preferences.sortPosition = 1
@@ -454,5 +455,18 @@ class CategoryDetailFragment :
         binding.includeLayoutFilter.radioFilterPrice10.isChecked = false
         binding.includeLayoutFilter.radioFilterPriceOver.isChecked = false
         categoryDetailViewModel.clearFilterPrice()
+    }
+
+    private fun backpressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.includeLayoutFilter.root.visibility == View.VISIBLE) {
+                    binding.includeLayoutFilter.root.visibility = View.GONE
+                } else {
+                    findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToCategoryFragment())
+                }
+            }
+
+        })
     }
 }
