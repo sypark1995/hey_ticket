@@ -281,6 +281,9 @@ class CategoryDetailFragment :
                 }
             }
         }
+        binding.includeLayoutFilter.layoutPlanned.setOnClickListener {
+            categoryDetailViewModel.isPlanedChecked()
+        }
 
         binding.includeLayoutFilter.textPerformancePlanned.setOnClickListener {
             categoryDetailViewModel.isPlanedChecked()
@@ -289,11 +292,18 @@ class CategoryDetailFragment :
             categoryDetailViewModel.isPlanedChecked()
         }
 
+        binding.includeLayoutFilter.layoutDuring.setOnClickListener {
+            categoryDetailViewModel.isDuringChecked()
+        }
         binding.includeLayoutFilter.textPerformanceDuring.setOnClickListener {
             categoryDetailViewModel.isDuringChecked()
         }
         binding.includeLayoutFilter.checkboxDuring.setOnClickListener {
             categoryDetailViewModel.isDuringChecked()
+        }
+
+        binding.includeLayoutFilter.layoutFinish.setOnClickListener {
+            categoryDetailViewModel.isFinishedChecked()
         }
 
         binding.includeLayoutFilter.textPerformanceFinish.setOnClickListener {
