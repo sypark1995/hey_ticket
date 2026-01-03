@@ -1,5 +1,6 @@
 package com.sypark.openTicket.view.fragments
 
+import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,10 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
             adapter = SearchPerformanceAdapter {
                 itemClicked()
             }
+        }
+
+        binding.textSearch.setOnClickListener {
+            Log.e("!!!", "setOnClickListener")
         }
     }
 
