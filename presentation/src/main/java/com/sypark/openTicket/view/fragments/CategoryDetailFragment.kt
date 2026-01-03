@@ -136,7 +136,7 @@ class CategoryDetailFragment :
             Log.e("isPlaned", categoryDetailViewModel.isPlaned.value.toString())
             Log.e("isDuring", categoryDetailViewModel.isDuring.value.toString())
             Log.e("isFinished", categoryDetailViewModel.isFinished.value.toString())
-//            Log.e("price", categoryDetailViewModel.filterPrice.value.toString())
+            Log.e("price", categoryDetailViewModel.filterPriceData.value.toString())
 
             if (categoryDetailViewModel.filterAreaData.value != null && categoryDetailViewModel.filterAreaData.value!!.size > 0) {
                 setChipTrue(it.context, binding.chipArea)
@@ -154,8 +154,7 @@ class CategoryDetailFragment :
                     }
                 }
             } else {
-                setChipTrue(it.context, binding.chipArea)
-                binding.chipArea.text = "전체"
+                setChipFalse(it.context, binding.chipArea, "지역")
             }
 
             if (categoryDetailViewModel.statusList.value?.size == 0) {
@@ -166,12 +165,8 @@ class CategoryDetailFragment :
                     StringUtil.join(categoryDetailViewModel.statusList.value, ", ").toString()
             }
 
-            if (categoryDetailViewModel.filterPriceData.value.toString() == "예매 가격" || categoryDetailViewModel.filterPriceData.value == null) {
-//                setChipFalse(it.context, binding.chipPrice, "예매 가격")
-                setChipTrue(it.context, binding.chipPrice)
-                binding.chipPrice.text = "전체"
-            } else if (categoryDetailViewModel.filterPriceData.value == null) {
-
+            if (categoryDetailViewModel.filterPriceData.value.isNullOrEmpty()) {
+                setChipFalse(it.context, binding.chipPrice, "예매가격")
             } else {
                 setChipTrue(it.context, binding.chipPrice)
                 binding.chipPrice.text = categoryDetailViewModel.filterPriceData.value.toString()
@@ -255,6 +250,9 @@ class CategoryDetailFragment :
                 setChipFalse(it.context, this, "예매 가격")
                 initFilterPrice()
             }
+        }
+        binding.includeLayoutFilter.performanceCalendarView.apply {
+
         }
 
         binding.includeLayoutFilter.performanceCalendarView.setOnDateChangedListener { widget, date, selected ->
@@ -354,9 +352,6 @@ class CategoryDetailFragment :
 
         binding.includeLayoutFilter.radioGroupFilterPrice.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.radio_filter_price_all -> {
-                    categoryDetailViewModel.setFilterPrice("전체")
-                }
                 R.id.radio_filter_price_1 -> {
                     categoryDetailViewModel.setFilterPrice("1만원 미만")
                 }
@@ -458,6 +453,6 @@ class CategoryDetailFragment :
         binding.includeLayoutFilter.radioFilterPrice7.isChecked = false
         binding.includeLayoutFilter.radioFilterPrice10.isChecked = false
         binding.includeLayoutFilter.radioFilterPriceOver.isChecked = false
-        categoryDetailViewModel.setFilterPrice("예매 가격")
+        categoryDetailViewModel.clearFilterPrice()
     }
 }

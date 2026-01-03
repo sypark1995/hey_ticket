@@ -54,8 +54,8 @@ class CategoryDetailViewModel @Inject constructor(
     val filterAreaData: LiveData<ArrayList<CategoryDetailArea>>
         get() = _filterAreaData
 
-    private var _filterPriceData = MutableLiveData<String>()
-    val filterPriceData: LiveData<String>
+    private var _filterPriceData = MutableLiveData<String?>()
+    val filterPriceData: LiveData<String?>
         get() = _filterPriceData
 
 
@@ -78,5 +78,9 @@ class CategoryDetailViewModel @Inject constructor(
 
     fun setFilterAreaList(list: ArrayList<CategoryDetailArea>) = _filterAreaData.postValue(list)
     fun setFilterPrice(price: String) = _filterPriceData.postValue(price)
+    fun clearFilterPrice() {
+        _filterPriceData.value = null
+    }
+
     fun setFilterStatus(status: ArrayList<String>) = _statusList.postValue(status)
 }
