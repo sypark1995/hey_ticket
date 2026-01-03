@@ -239,9 +239,16 @@ class CategoryDetailFragment :
 
         binding.includeLayoutFilter.layoutFilterReset.setOnClickListener {
             initFilterArea(it.context)
+            setChipFalse(it.context, binding.chipArea, "지역")
+
             initFilterStatus()
+            setChipFalse(it.context, binding.chipStatus, "진행상태")
+
             initFilterPrice()
+            setChipFalse(it.context, binding.chipPrice, "예매가격")
+
             initFilterDay()
+            setChipFalse(it.context, binding.chipDay, "공연일")
         }
 
         binding.includeLayoutFilter.textAreaAll.setOnClickListener {
