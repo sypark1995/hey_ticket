@@ -27,6 +27,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToRecommendFragment())
         }
 
+        binding.topTitle.imgSearch.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
+        }
+
 //        binding.openKindRecyclerview.adapter.apply {
 //
 //        }

@@ -1,7 +1,7 @@
 package com.sypark.openTicket.view.fragments
 
-import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sypark.openTicket.R
@@ -24,7 +24,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
         }
 
         binding.textSearch.setOnClickListener {
-            Log.e("!!!", "setOnClickListener")
+            findNavController().navigate(CategoryFragmentDirections.actionCategoryFragmentToSearchFragment())
         }
     }
 

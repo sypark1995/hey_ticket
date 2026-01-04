@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="45dp"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:background="@color/white">
+    android:layout_marginEnd="16dp">
 
     <TextView
         android:id="@+id/text_top_title"
@@ -20,7 +19,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:orientation="horizontal">
@@ -28,14 +27,14 @@
         <ImageView
             android:id="@+id/img_search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/icon_search" />
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_search" />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginStart="28dp"
-            android:background="@drawable/icon_noti" />
+            android:src="@drawable/icon_noti" />
     </LinearLayout>
 </RelativeLayout>

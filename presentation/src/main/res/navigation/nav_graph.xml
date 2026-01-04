@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_mainFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
 
     </fragment>
 
@@ -43,6 +46,9 @@
         <action
             android:id="@+id/action_categoryFragment_to_categoryDetailFragment"
             app:destination="@id/categoryDetailFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -55,6 +61,11 @@
             android:id="@+id/action_categoryDetailFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.sypark.openTicket.view.fragments.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
 
 
 </navigation>
