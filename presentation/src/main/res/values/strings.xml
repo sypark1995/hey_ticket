@@ -60,4 +60,9 @@
     <string name="category_detail_filter_area_Jeollanam">전라남도</string>
     <string name="category_detail_filter_area_gyeongsangbuk">경상북도</string>
     <string name="category_detail_filter_area_gyeongsangnam">경상남도</string>
+
+    <string name="search_recently">최근 검색어</string>
+    <string name="search_cancel">취소</string>
+    <string name="search_edit">편집</string>
+    <string name="search_delete_all">전체 삭제</string>
 </resources>
