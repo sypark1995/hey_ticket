@@ -22,12 +22,25 @@ class CategorySearchViewModel @Inject constructor(
     val searchWord: LiveData<String>
         get() = _searchWord
 
+    private val _editLayoutVisibility = MutableLiveData(false)
+    val editLayoutVisibility: LiveData<Boolean>
+        get() = _editLayoutVisibility
+
+    fun changeVisibility(isVisibility: Boolean) = viewModelScope.launch {
+        _editLayoutVisibility.postValue(isVisibility)
+    }
+
     fun insertWord(data: String) {
         viewModelScope.launch {
             searchRepository.insert(SearchWord(data))
         }
     }
 
+    fun deleteAllWords() {
+        viewModelScope.launch {
+            searchRepository.delete()
+        }
+    }
 //    fun setWord(word: String) = _searchWord.postValue(word)
 
     fun setWord(word: String) {

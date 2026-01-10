@@ -74,10 +74,31 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             words.let { searchWordListAdapter.submitList(it) }
         }
 
-        binding.textEdit.setOnClickListener {
-            activity?.showSearchDeletePopup {
-
+        categorySearchViewModel.editLayoutVisibility.observe(this) {
+            if (it) {
+                binding.layoutCancel.visibility = View.GONE
+                binding.layoutEdit.visibility = View.VISIBLE
+            } else {
+                binding.layoutCancel.visibility = View.VISIBLE
+                binding.layoutEdit.visibility = View.GONE
             }
+        }
+
+        binding.textEdit.setOnClickListener {
+            categorySearchViewModel.changeVisibility(true)
+        }
+
+        binding.textCancel.setOnClickListener {
+            categorySearchViewModel.changeVisibility(false)
+        }
+
+        binding.textDeleteAll.setOnClickListener {
+            activity?.showSearchDeletePopup({
+                Log.e("!!!!", "취소")
+            }, {
+                Log.e("!!!!", "확인")
+                categorySearchViewModel.deleteAllWords()
+            })
         }
     }
 }
