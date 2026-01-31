@@ -7,10 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.sypark.data.db.entity.SearchWord
 import com.sypark.data.repository.SearchRepository
 import com.sypark.openTicket.base.BaseViewModel
-import com.sypark.openTicket.view.SearchWordListAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,17 +21,16 @@ class CategorySearchViewModel @Inject constructor(
     val searchWord: LiveData<String>
         get() = _searchWord
 
-    private val _editLayoutVisibility = MutableLiveData(false)
-    val editLayoutVisibility: LiveData<Boolean>
-        get() = _editLayoutVisibility
-
-    fun changeVisibility(isVisibility: Boolean) = viewModelScope.launch {
-        _editLayoutVisibility.postValue(isVisibility)
-    }
-
-    fun insertWord(data: String) {
+    /** insert시 count 구해서 10개 이상이면 가장 처음 인덱스 삭제후 데이터 넣기
+     * */
+    fun insertWord(data: String, registerDate: Date) {
         viewModelScope.launch {
-            searchRepository.insert(SearchWord(data))
+            if (allWords.value!!.size == 10) {
+                searchRepository.deleteFirstItem()
+                searchRepository.insert(SearchWord(data, registerDate))
+            } else {
+                searchRepository.insert(SearchWord(data, registerDate))
+            }
         }
     }
 
@@ -41,7 +39,6 @@ class CategorySearchViewModel @Inject constructor(
             searchRepository.delete()
         }
     }
-//    fun setWord(word: String) = _searchWord.postValue(word)
 
     fun setWord(word: String) {
         _searchWord.postValue(word)

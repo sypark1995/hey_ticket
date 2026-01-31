@@ -49,4 +49,9 @@ class SearchWordListAdapter :
             }
         }
     }
+
+    fun setItem(itemView: View) {
+        itemView.findViewById<Chip>(R.id.chip_area).isCloseIconVisible = true
+    }
 }
+

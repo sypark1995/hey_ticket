@@ -1,12 +1,13 @@
 package com.sypark.openTicket.view.fragments
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,8 @@ import com.sypark.openTicket.model.CategorySearchViewModel
 import com.sypark.openTicket.popups.showSearchDeletePopup
 import com.sypark.openTicket.view.SearchWordListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
@@ -35,8 +38,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                     s: CharSequence?,
                     start: Int,
                     count: Int,
-                    after: Int
-                ) {
+                    after: Int) {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -50,9 +52,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
         binding.textSearch.setOnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                Log.e("!!", categorySearchViewModel.searchWord.value.toString())
                 if (!categorySearchViewModel.searchWord.value.isNullOrEmpty()) {
-                    categorySearchViewModel.insertWord(categorySearchViewModel.searchWord.value!!)
+                    categorySearchViewModel.insertWord(
+                        categorySearchViewModel.searchWord.value!!,
+                        Calendar.getInstance().time
+                    )
+                }
+                (view.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?).apply {
+                    this!!.hideSoftInputFromWindow(
+                        view.windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
                 }
                 true
             } else {
@@ -74,25 +84,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             words.let { searchWordListAdapter.submitList(it) }
         }
 
-        categorySearchViewModel.editLayoutVisibility.observe(this) {
-            if (it) {
-                binding.layoutCancel.visibility = View.GONE
-                binding.layoutEdit.visibility = View.VISIBLE
-            } else {
-                binding.layoutCancel.visibility = View.VISIBLE
-                binding.layoutEdit.visibility = View.GONE
-            }
-        }
-
-        binding.textEdit.setOnClickListener {
-            categorySearchViewModel.changeVisibility(true)
-        }
-
-        binding.textCancel.setOnClickListener {
-            categorySearchViewModel.changeVisibility(false)
-        }
-
-        binding.textDeleteAll.setOnClickListener {
+        binding.textDelete.setOnClickListener {
             activity?.showSearchDeletePopup({
                 Log.e("!!!!", "취소")
             }, {

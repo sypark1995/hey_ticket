@@ -10,4 +10,6 @@ interface SearchRepository {
     suspend fun delete()
 
     fun selectAllWords(): Flow<List<SearchWord>>
+
+    suspend fun deleteFirstItem()
 }

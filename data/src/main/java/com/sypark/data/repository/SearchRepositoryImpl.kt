@@ -19,4 +19,8 @@ class SearchRepositoryImpl @Inject constructor(
     override fun selectAllWords(): Flow<List<SearchWord>> {
         return searchWordDao.getAlphabetizedWords()
     }
+
+    override suspend fun deleteFirstItem() {
+        searchWordDao.deleteFirstItem()
+    }
 }
