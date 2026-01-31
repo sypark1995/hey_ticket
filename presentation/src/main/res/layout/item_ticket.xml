@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="16dp">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/img_poster"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_weight="2">
+
+        <ImageView
+            android:id="@+id/img_ticket_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/icon_ticket_performance" />
+
+        <TextView
+            android:id="@+id/text_ticket_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_ticket_status"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="갈매기" />
+
+        <TextView
+            android:id="@+id/text_ticket_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_ticket_name"
+            android:layout_marginTop="4dp"
+            android:textSize="15sp"
+            tools:text="서울 광진구 유니버설아트센터" />
+
+        <TextView
+            android:id="@+id/text_ticket_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_ticket_location"
+            android:textSize="15sp"
+            tools:text="2022.12.21(수) ~ 2023.02.05(일)" />
+
+        <TextView
+            android:id="@+id/text_ticket_standard_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/text_ticket_price"
+            android:layout_marginBottom="2dp"
+            tools:text="예매가" />
+
+        <TextView
+            android:id="@+id/text_ticket_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            tools:text="22,000 ~ 44,000" />
+    </RelativeLayout>
+</LinearLayout>
