@@ -3,15 +3,18 @@ package com.sypark.openTicket.model
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.sypark.data.db.entity.CategoryDetailArea
+import com.sypark.data.repository.PagingRepository
 import com.sypark.openTicket.base.BaseViewModel
 import com.sypark.openTicket.base.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import androidx.paging.cachedIn
 import javax.inject.Inject
 
 @HiltViewModel
 class CategoryDetailViewModel @Inject constructor(
-
+    private val repository: PagingRepository
 ) : BaseViewModel() {
     private var _isOpen = MutableLiveData(false)
     val isOpen: LiveData<Boolean> = _isOpen
@@ -25,6 +28,8 @@ class CategoryDetailViewModel @Inject constructor(
         _sortType.value = type
 //        _sortType.postValue(type)
     }
+
+    val pagingData = repository.getPagingData().cachedIn(viewModelScope)
 
     private var _filterArea = MutableLiveData(true)
     private var _filterDay = MutableLiveData(false)

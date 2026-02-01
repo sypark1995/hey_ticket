@@ -168,4 +168,16 @@ dependencies {
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
 
+    //todo_sypark domain에서 이미 gradle 설정을 해줬는데 presentation에서 paging gradle 설정???? 확인 예정
+    def paging_version = "3.0.0"
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    // optional - RxJava2 support
+    implementation "androidx.paging:paging-rxjava2:$paging_version"
+
+    // optional - RxJava3 support
+    implementation "androidx.paging:paging-rxjava3:$paging_version"
+
+    // optional - Guava ListenableFuture support
+    implementation "androidx.paging:paging-guava:$paging_version"
+
 }

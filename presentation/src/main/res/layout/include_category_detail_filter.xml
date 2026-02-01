@@ -190,14 +190,14 @@
                     android:text="@string/category_detail_filter_performance_day_select"
                     android:textColor="@color/orange_FB912F" />
 
-<!--                <com.prolificinteractive.materialcalendarview.MaterialCalendarView-->
-<!--                    android:id="@+id/performance_calendar_view"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@+id/text_select_performance_day"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:layout_marginEnd="10dp"-->
-<!--                    app:mcv_selectionColor="@color/black" />-->
+                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                    android:id="@+id/performance_calendar_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_select_performance_day"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:mcv_selectionColor="@color/black" />
             </RelativeLayout>
 
             <RelativeLayout

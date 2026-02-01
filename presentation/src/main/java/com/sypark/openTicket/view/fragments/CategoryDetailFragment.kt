@@ -24,9 +24,7 @@ import com.sypark.openTicket.view.CategorySortAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import org.jsoup.internal.StringUtil
 import org.threeten.bp.format.TextStyle
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class CategoryDetailFragment :
