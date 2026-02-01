@@ -1,6 +1,7 @@
 package com.sypark.data.service
 
 import com.sypark.data.db.entity.OpenTicket
+import com.sypark.data.db.entity.Ticket
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -51,4 +52,13 @@ interface OpenTicketService {
         @Query("size")
         size: String?,
     ): Flow<List<OpenTicket>>
+
+    @GET("/performances")
+    suspend fun requestPerformances(
+        @Query("page")
+        page: Int,
+
+        @Query("size")
+        size: Int
+    ): Flow<List<Ticket>>
 }
