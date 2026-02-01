@@ -80,7 +80,8 @@
                         app:closeIcon="@drawable/icon_vector_close"
                         app:closeIconSize="14dp"
                         app:closeIconTint="@color/gray_B7B7B7"
-                        app:closeIconVisible="false" />
+                        app:closeIconVisible="false"
+                        bind:ignore="TouchTargetSizeCheck" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_day"
@@ -98,7 +99,8 @@
                         app:closeIcon="@drawable/icon_vector_close"
                         app:closeIconSize="14dp"
                         app:closeIconTint="@color/gray_B7B7B7"
-                        app:closeIconVisible="false" />
+                        app:closeIconVisible="false"
+                        bind:ignore="TouchTargetSizeCheck" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_status"
@@ -116,7 +118,8 @@
                         app:closeIcon="@drawable/icon_vector_close"
                         app:closeIconSize="14dp"
                         app:closeIconTint="@color/gray_B7B7B7"
-                        app:closeIconVisible="false" />
+                        app:closeIconVisible="false"
+                        bind:ignore="TouchTargetSizeCheck" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_price"
@@ -134,7 +137,8 @@
                         app:closeIcon="@drawable/icon_vector_close"
                         app:closeIconSize="14dp"
                         app:closeIconTint="@color/gray_B7B7B7"
-                        app:closeIconVisible="false" />
+                        app:closeIconVisible="false"
+                        bind:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
 
@@ -173,6 +177,20 @@
                 android:textColor="@color/black_111111"
                 android:textSize="13sp"
                 android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/sort_layout"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_ticket"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
         </RelativeLayout>
 
         <include
