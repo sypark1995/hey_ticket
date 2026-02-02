@@ -4,9 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "ticket_table")
+
 data class Ticket(
-    @PrimaryKey
     @SerializedName("mt20id")
     var mt20id: String,
 
@@ -56,7 +55,7 @@ data class Ticket(
     var state: String,
 
     @SerializedName("openrun")
-    var openrun: String,
+    var openrun: Boolean,
 
     @SerializedName("styurls")
     var styurls: ArrayList<Detail>,

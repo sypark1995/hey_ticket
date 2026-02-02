@@ -53,12 +53,12 @@ interface OpenTicketService {
         size: String?,
     ): Flow<List<OpenTicket>>
 
-    @GET("/performances")
+    @GET("/api/v1/performances")
     suspend fun requestPerformances(
         @Query("page")
         page: Int,
 
         @Query("size")
         size: Int
-    ): Flow<List<Ticket>>
+    ): List<Ticket>
 }

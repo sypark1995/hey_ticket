@@ -1,10 +1,12 @@
 package com.sypark.data.repository
 
+import android.util.Log
 import androidx.lifecycle.asLiveData
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.sypark.data.db.entity.Ticket
 import com.sypark.data.service.OpenTicketService
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class PagingSource @Inject constructor(
@@ -13,15 +15,17 @@ class PagingSource @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Ticket> {
         return try {
-            val next = params.key ?: 1
+            delay(1000)
+            val next = params.key ?: 0
             val item = service.requestPerformances(next, params.loadSize)
 
             LoadResult.Page(
-                data = item.asLiveData().value!!,
+                data = item,
                 prevKey = if (next == 0) null else next - 1,
                 nextKey = next + 1
             )
         } catch (e: Exception) {
+            Log.e("!!!!!",e.toString())
             LoadResult.Error(e)
         }
     }

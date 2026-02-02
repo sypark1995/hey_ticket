@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
@@ -21,7 +22,10 @@ import com.sypark.openTicket.databinding.FragmentCategoryDetailBinding
 import com.sypark.openTicket.model.CategoryDetailViewModel
 import com.sypark.openTicket.view.CategoryFilterAreaAdapter
 import com.sypark.openTicket.view.CategorySortAdapter
+import com.sypark.openTicket.view.PagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.jsoup.internal.StringUtil
 import org.threeten.bp.format.TextStyle
 import java.util.*
@@ -405,6 +409,24 @@ class CategoryDetailFragment :
                 }
             }
         }
+
+//        binding.recyclerviewTicket.adapter = PagingAdapter()
+        binding.recyclerviewTicket.apply {
+            layoutManager = LinearLayoutManager(view.context)
+            adapter = PagingAdapter()
+        }
+
+        lifecycleScope.launch {
+            categoryDetailViewModel.pagingData.collectLatest {
+                PagingAdapter().submitData(it)
+            }
+        }
+
+//        lifecycleScope.launch {
+//            categoryDetailViewModel.pagingData.collectLatest {
+//                PagingAdapter().submitData(it)
+//            }
+//        }
     }
 
     private fun onItemClicked(position: Int) {
