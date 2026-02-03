@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 import com.sypark.data.db.entity.Ticket
 import com.sypark.openTicket.databinding.ItemTicketBinding
 
-class PagingAdapter: PagingDataAdapter<Ticket,PagingViewHolder>(diffCallback) {
+class PagingAdapter(private val clickListener: (String) -> Unit) :
+    PagingDataAdapter<Ticket, PagingViewHolder>(diffCallback) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<Ticket>() {
@@ -27,7 +28,7 @@ class PagingAdapter: PagingDataAdapter<Ticket,PagingViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: PagingViewHolder, position: Int) {
         getItem(position)?.let {
-            holder.binding(it)
+            holder.binding(it, clickListener)
         }
     }
 
@@ -45,23 +46,18 @@ class PagingAdapter: PagingDataAdapter<Ticket,PagingViewHolder>(diffCallback) {
 
 class PagingViewHolder(
     private val binding: ItemTicketBinding
-): RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) {
     @SuppressLint("SetTextI18n")
-    fun binding(data: Ticket) {
-//        when (data.state) {
-//            "" -> {
-//
-//            }
-//        }
-//
-//        binding.imgTicketStatus
-        Log.e("!!!!","binding")
+    fun binding(data: Ticket, clickListener: (String) -> Unit) {
         binding.apply {
             textTicketName.text = data.title
             textTicketLocation.text = data.place
             textTicketDate.text = "${data.startDate} ~ ${data.endDate}"
             textTicketPrice.text = data.pcseguidance
             Glide.with(binding.root.context).load(data.poster).into(imgPoster)
+            root.setOnClickListener {
+                clickListener(data.mt20id)
+            }
         }
     }
 }

@@ -414,31 +414,23 @@ class CategoryDetailFragment :
 //        binding.recyclerviewTicket.adapter = PagingAdapter()
         binding.recyclerviewTicket.apply {
             layoutManager = LinearLayoutManager(view.context)
-            pagingAdapter = PagingAdapter()
+            pagingAdapter = PagingAdapter {
+                itemClicked()
+            }
+
             adapter = pagingAdapter
             setHasFixedSize(true)
-            Log.e("!!!!","aaaaaa")
         }
 
         lifecycleScope.launch {
             categoryDetailViewModel.pagingData.collectLatest {
-                Log.e("!!","333")
                 try {
                     pagingAdapter.submitData(it)
                 } catch (e: Exception) {
                     Log.e("!!!",e.toString())
                 }
-                Log.e("!!","222")
             }
         }
-
-
-
-//        lifecycleScope.launch {
-//            categoryDetailViewModel.pagingData.collectLatest {
-//                PagingAdapter().submitData(it)
-//            }
-//        }
     }
 
     private fun onItemClicked(position: Int) {
@@ -542,5 +534,9 @@ class CategoryDetailFragment :
             }
 
         })
+    }
+
+    private fun itemClicked() {
+
     }
 }
