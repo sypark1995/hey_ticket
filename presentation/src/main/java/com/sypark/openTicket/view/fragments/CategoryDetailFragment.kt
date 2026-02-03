@@ -35,6 +35,7 @@ class CategoryDetailFragment :
     BaseFragment<FragmentCategoryDetailBinding>(R.layout.fragment_category_detail) {
 
     private val categoryDetailViewModel: CategoryDetailViewModel by viewModels()
+    private lateinit var pagingAdapter: PagingAdapter
     private lateinit var categorySortAdapter: CategorySortAdapter
     private lateinit var categoryFilterAreaAdapter: CategoryFilterAreaAdapter
 
@@ -413,14 +414,25 @@ class CategoryDetailFragment :
 //        binding.recyclerviewTicket.adapter = PagingAdapter()
         binding.recyclerviewTicket.apply {
             layoutManager = LinearLayoutManager(view.context)
-            adapter = PagingAdapter()
+            pagingAdapter = PagingAdapter()
+            adapter = pagingAdapter
+            setHasFixedSize(true)
+            Log.e("!!!!","aaaaaa")
         }
 
         lifecycleScope.launch {
             categoryDetailViewModel.pagingData.collectLatest {
-                PagingAdapter().submitData(it)
+                Log.e("!!","333")
+                try {
+                    pagingAdapter.submitData(it)
+                } catch (e: Exception) {
+                    Log.e("!!!",e.toString())
+                }
+                Log.e("!!","222")
             }
         }
+
+
 
 //        lifecycleScope.launch {
 //            categoryDetailViewModel.pagingData.collectLatest {

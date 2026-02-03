@@ -61,7 +61,7 @@ class PagingViewHolder(
             textTicketLocation.text = data.place
             textTicketDate.text = "${data.startDate} ~ ${data.endDate}"
             textTicketPrice.text = data.pcseguidance
-//            Glide.with(binding.root.context).load(data.poster).into(imgPoster)
+            Glide.with(binding.root.context).load(data.poster).into(imgPoster)
         }
     }
 }
