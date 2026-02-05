@@ -58,7 +58,6 @@ class CategoryDetailFragment :
     )
 
     override fun init(view: View) {
-        backpressed()
         binding.imgBack.setOnClickListener {
             findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToCategoryFragment())
             Preferences.sortPosition = 1
@@ -427,10 +426,12 @@ class CategoryDetailFragment :
                 try {
                     pagingAdapter.submitData(it)
                 } catch (e: Exception) {
-                    Log.e("!!!",e.toString())
+                    Log.e("!!!", e.toString())
                 }
             }
         }
+
+        backPressed()
     }
 
     private fun onItemClicked(position: Int) {
@@ -523,17 +524,19 @@ class CategoryDetailFragment :
         binding.includeLayoutFilter.performanceCalendarView.clearSelection()
     }
 
-    private fun backpressed() {
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+    private fun backPressed() {
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (binding.includeLayoutFilter.root.visibility == View.VISIBLE) {
+                if (binding.includeLayoutFilter.root.visibility == View.VISIBLE || binding.includeLayoutSort.root.visibility == View.VISIBLE) {
                     binding.includeLayoutFilter.root.visibility = View.GONE
+                    binding.includeLayoutSort.root.visibility = View.GONE
                 } else {
                     findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToCategoryFragment())
                 }
             }
+        }
 
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun itemClicked() {
