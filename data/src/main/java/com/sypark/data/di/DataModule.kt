@@ -1,9 +1,6 @@
 package com.sypark.data.di
 
-import com.sypark.data.repository.MainRepository
-import com.sypark.data.repository.MainRepositoryImpl
-import com.sypark.data.repository.SearchRepository
-import com.sypark.data.repository.SearchRepositoryImpl
+import com.sypark.data.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,4 +19,9 @@ interface DataModule {
     fun bindsSearchRepository(
         searchRepositoryImpl: SearchRepositoryImpl
     ): SearchRepository
+
+    @Binds
+    fun bindsTicketDetailRepository(
+        ticketDetailRepositoryImpl: TicketDetailRepositoryImpl
+    ): TicketDetailRepository
 }

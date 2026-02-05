@@ -5,6 +5,7 @@ import androidx.annotation.WorkerThread
 import com.sypark.data.db.InterParkOpenTicketDao
 import com.sypark.data.db.MelonOpenTicketDao
 import com.sypark.data.db.entity.OpenTicket
+import com.sypark.data.db.entity.TicketDetail
 import com.sypark.data.service.OpenTicketClient
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -47,6 +48,9 @@ class MainRepositoryImpl @Inject constructor(
             emit(list)
         }
     }.onStart { onStart() }.onCompletion { onComplete() }
+
+
+
 
     @WorkerThread
     override suspend fun getInterParkOpenTicket(
@@ -110,5 +114,10 @@ class MainRepositoryImpl @Inject constructor(
     ): Flow<List<OpenTicket>> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getTicketDetail(mt20id: String): TicketDetail {
+        return openTicketClient.requestTicketDetail(mt20id)
+    }
+
 
 }

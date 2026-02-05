@@ -1,6 +1,7 @@
 package com.sypark.data.service
 
 import com.sypark.data.db.entity.OpenTicket
+import com.sypark.data.db.entity.TicketDetail
 import javax.inject.Inject
 
 class OpenTicketClient @Inject constructor(
@@ -28,5 +29,11 @@ class OpenTicketClient @Inject constructor(
         order,
         pageIndex,
         size
+    )
+
+    suspend fun requestTicketDetail(
+        mt20id: String
+    ):TicketDetail = openTicketService.requestPerformancesDetail(
+        mt20id
     )
 }

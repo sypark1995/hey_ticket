@@ -60,12 +60,26 @@
         <action
             android:id="@+id/action_categoryDetailFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_ticketDetailFragment"
+            app:destination="@id/ticketDetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.sypark.openTicket.view.fragments.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/ticketDetailFragment"
+        android:name="com.sypark.openTicket.view.fragments.TicketDetailFragment"
+        android:label="TicketDetailFragment"
+        tools:layout="@layout/fragment_ticket_detail">
+
+        <argument
+            android:name="data"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>

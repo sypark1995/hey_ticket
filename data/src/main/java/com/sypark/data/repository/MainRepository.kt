@@ -1,6 +1,7 @@
 package com.sypark.data.repository
 
 import com.sypark.data.db.entity.OpenTicket
+import com.sypark.data.db.entity.TicketDetail
 import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
@@ -38,5 +39,9 @@ interface MainRepository {
         onComplete: () -> Unit,
         onError: (String?) -> Unit
     ): Flow<List<OpenTicket>>?
+
+    suspend fun getTicketDetail(
+        mt20id: String
+    ): TicketDetail
 
 }

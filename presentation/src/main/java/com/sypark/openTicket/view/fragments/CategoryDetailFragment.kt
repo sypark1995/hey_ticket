@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -414,7 +415,7 @@ class CategoryDetailFragment :
         binding.recyclerviewTicket.apply {
             layoutManager = LinearLayoutManager(view.context)
             pagingAdapter = PagingAdapter {
-                itemClicked()
+                itemClicked(it)
             }
 
             adapter = pagingAdapter
@@ -539,7 +540,7 @@ class CategoryDetailFragment :
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
-    private fun itemClicked() {
-
+    private fun itemClicked(data: String) {
+        findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToTicketDetailFragment(data))
     }
 }
