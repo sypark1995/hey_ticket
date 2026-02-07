@@ -219,15 +219,14 @@
                                 tools:text="공연 주소" />
                         </RelativeLayout>
 
-                        <RelativeLayout
+                        <fragment
                             android:id="@+id/layout_information_map"
+                            android:name="com.naver.maps.map.MapFragment"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
                             android:layout_below="@id/layout_information_place"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="24dp"
-                            android:background="@color/gray_f5f5f5" />
-
+                            android:layout_marginBottom="24dp"/>
                     </RelativeLayout>
 
                     <RelativeLayout

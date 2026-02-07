@@ -180,4 +180,6 @@ dependencies {
     // optional - Guava ListenableFuture support
     implementation "androidx.paging:paging-guava:$paging_version"
 
+    implementation 'com.naver.maps:map-sdk:3.16.2'
+
 }
