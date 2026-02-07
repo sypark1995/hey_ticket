@@ -16,12 +16,12 @@ class PagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Ticket> {
         return try {
             delay(1000)
-            val next = params.key ?: 0
+            val next = params.key ?: 1
             val item = service.requestPerformances(next, params.loadSize)
 
             LoadResult.Page(
                 data = item,
-                prevKey = if (next == 0) null else next - 1,
+                prevKey = if (next == 1) null else next - 1,
                 nextKey = next + 1
             )
         } catch (e: Exception) {

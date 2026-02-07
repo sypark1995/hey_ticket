@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -113,6 +114,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
+                            android:text="@string/ticket_detail_information"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -129,6 +131,7 @@
                                 android:id="@+id/text_information_title_date"
                                 android:layout_width="60dp"
                                 android:layout_height="wrap_content"
+                                android:text="@string/ticket_detail_information_date"
                                 android:textSize="13sp"
                                 tools:text="기간" />
 
@@ -151,10 +154,12 @@
                                 android:id="@+id/text_information_title_cast"
                                 android:layout_width="60dp"
                                 android:layout_height="wrap_content"
+                                android:text="@string/ticket_detail_information_cast"
                                 android:textSize="13sp"
                                 tools:text="출연진" />
 
                             <TextView
+                                android:id="@+id/text_information_cast"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toEndOf="@+id/text_information_title_cast"
@@ -172,6 +177,7 @@
                                 android:id="@+id/text_information_title_price"
                                 android:layout_width="60dp"
                                 android:layout_height="wrap_content"
+                                android:text="@string/ticket_detail_information_price"
                                 tools:text="예매가" />
 
                             <TextView
@@ -193,6 +199,7 @@
                                 android:id="@+id/text_information_title_place"
                                 android:layout_width="60dp"
                                 android:layout_height="wrap_content"
+                                android:text="@string/ticket_detail_information_place"
                                 tools:text="공연장" />
 
                             <TextView
@@ -241,6 +248,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
+                            android:text="@string/ticket_detail_information_detail"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -262,6 +270,7 @@
                             android:layout_alignParentBottom="true"
                             android:background="@drawable/round_10_white"
                             android:stateListAnimator="@null"
+                            android:text="@string/ticket_detail_information_detail_more"
                             android:translationY="-16dp"
                             tools:text="공연 상세 더 보기" />
                     </RelativeLayout>
@@ -283,6 +292,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
+                            android:text="@string/ticket_detail_information_detail_different_ticket"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -307,6 +317,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
+                            android:text="@string/ticket_detail_information_detail_etc"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -327,6 +338,7 @@
                                     android:id="@+id/text_information_title_host"
                                     android:layout_width="60dp"
                                     android:layout_height="wrap_content"
+                                    android:text="@string/ticket_detail_information_detail_host"
                                     tools:text="주최/기획" />
 
                                 <TextView
@@ -349,6 +361,7 @@
                                     android:id="@+id/text_information_title_inquiry"
                                     android:layout_width="60dp"
                                     android:layout_height="wrap_content"
+                                    android:text="@string/ticket_detail_information_detail_inquiry"
                                     tools:text="고객문의" />
 
                                 <TextView
@@ -371,6 +384,7 @@
                                     android:id="@+id/text_information_title_age"
                                     android:layout_width="60dp"
                                     android:layout_height="wrap_content"
+                                    android:text="@string/ticket_detail_information_detail_age"
                                     tools:text="관람 등급" />
 
                                 <TextView
@@ -393,6 +407,7 @@
                                     android:id="@+id/text_information_title_etc_cast"
                                     android:layout_width="60dp"
                                     android:layout_height="wrap_content"
+                                    android:text="@string/ticket_detail_information_detail_etc_cast"
                                     tools:text="작가/출연진" />
 
                                 <TextView

@@ -70,4 +70,19 @@
     <string name="cancel">취소</string>
     <string name="delete">삭제</string>
     <string name="delete_recently_search">최근 검색어를 모두 삭제하시겠어요?</string>
+
+    <string name="ticket_detail_information">공연 정보</string>
+    <string name="ticket_detail_information_date">기간</string>
+    <string name="ticket_detail_information_cast">출연진</string>
+    <string name="ticket_detail_information_price">예매가</string>
+    <string name="ticket_detail_information_place">공연장</string>
+    <string name="ticket_detail_information_detail">공연 상세</string>
+    <string name="ticket_detail_information_detail_more">공연 상세 더 보기</string>
+    <string name="ticket_detail_information_detail_different_ticket">이런 공연은 어때요?</string>
+    <string name="ticket_detail_information_detail_etc">기타 정보</string>
+    <string name="ticket_detail_information_detail_host">주최/기획</string>
+    <string name="ticket_detail_information_detail_inquiry">고객문의</string>
+    <string name="ticket_detail_information_detail_age">관람 등급</string>
+    <string name="ticket_detail_information_detail_etc_cast">작가/출연진</string>
+
 </resources>

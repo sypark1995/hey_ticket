@@ -201,7 +201,6 @@
         <include
             android:id="@+id/include_layout_filter"
             layout="@layout/include_category_detail_filter"
-            android:visibility="gone"
-            bind:viewModel="@{viewModel}" />
+            android:visibility="gone" />
     </RelativeLayout>
 </layout>
