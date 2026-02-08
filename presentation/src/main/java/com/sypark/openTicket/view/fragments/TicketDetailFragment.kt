@@ -1,18 +1,28 @@
 package com.sypark.openTicket.view.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.MapFragment
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.overlay.Marker
 import com.sypark.data.db.entity.Ticket
+import com.sypark.openTicket.BaseUtil
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentTicketDetailBinding
 import com.sypark.openTicket.model.TicketDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class TicketDetailFragment :
@@ -91,6 +101,32 @@ class TicketDetailFragment :
                         layoutInformationAge.visibility = View.GONE
                     } else {
                         textInformationAge.text = it.age
+                    }
+
+                    if (it.crew.trim().isEmpty()) {
+                        layoutInformationEtcCrew.visibility = View.GONE
+                    } else {
+                        textInformationEtcCrew.text = it.crew
+                    }
+
+                    if (it.styurls.isEmpty()) {
+                        layoutInformationDetail.visibility = View.GONE
+                    } else {
+                        val bitmapList = mutableListOf<Bitmap>()
+                        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+
+                            it.styurls.forEachIndexed { index, detail ->
+                                bitmapList.add(index, BaseUtil.convertBitmapFromURL(detail.url)!!)
+                            }
+
+                            val mergeBitmap = BaseUtil.mergeBitmapsVertical(
+                                bitmapList
+                            )
+                            withContext(Dispatchers.Main) {
+                                binding.imgInformationDetail.setImageBitmap(mergeBitmap)
+                            }
+                        }
+
                     }
 
                 }

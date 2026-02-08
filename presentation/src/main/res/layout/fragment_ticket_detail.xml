@@ -223,10 +223,10 @@
                             android:id="@+id/layout_information_map"
                             android:name="com.naver.maps.map.MapFragment"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="130dp"
                             android:layout_below="@id/layout_information_place"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="24dp"/>
+                            android:layout_marginBottom="24dp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -396,26 +396,26 @@
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:id="@+id/layout_information_etc_cast"
+                                android:id="@+id/layout_information_etc_crew"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/layout_information_age"
                                 android:layout_marginTop="12dp">
 
                                 <TextView
-                                    android:id="@+id/text_information_title_etc_cast"
+                                    android:id="@+id/text_information_title_etc_crew"
                                     android:layout_width="60dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ticket_detail_information_detail_etc_cast"
                                     tools:text="작가/출연진" />
 
                                 <TextView
-                                    android:id="@+id/text_information_etc_cast"
+                                    android:id="@+id/text_information_etc_crew"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginBottom="24dp"
-                                    android:layout_toEndOf="@+id/text_information_title_etc_cast"
+                                    android:layout_toEndOf="@+id/text_information_title_etc_crew"
                                     tools:text="홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동" />
                             </RelativeLayout>
 
