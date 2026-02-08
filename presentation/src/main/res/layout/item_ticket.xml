@@ -16,8 +16,8 @@
             android:id="@+id/img_poster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true" />
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -39,6 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/img_ticket_status"
             android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -50,6 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_ticket_name"
             android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="15sp"
             tools:text="서울 광진구 유니버설아트센터" />
 
@@ -58,6 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_ticket_location"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="15sp"
             tools:text="2022.12.21(수) ~ 2023.02.05(일)" />
 
@@ -67,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/text_ticket_price"
             android:layout_marginBottom="2dp"
+            android:text="@string/ticket_detail_information_price"
             tools:text="예매가" />
 
         <TextView
@@ -74,6 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="15sp"
             tools:text="22,000 ~ 44,000" />

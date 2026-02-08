@@ -14,7 +14,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val mainRepository: MainRepository
 ) : BaseViewModel() {
 
     private var _isLoading = MutableLiveData(false)
@@ -39,42 +38,42 @@ class MainViewModel @Inject constructor(
     private var _mainSelector = MutableLiveData(false)
     val mainSelector: LiveData<Boolean> = _mainSelector
 
-    suspend fun getHitsInterParkData() {
-        mainRepository.getInterParkOpenTicket(
-            genre = "all",
-            order = "viewed",
-            pageIndex = "1",
-            size = null,
-            onStart = { _isLoading.value = true },
-            onComplete = { _isLoading.value = false },
-            onError = {}
-        )!!.flowOn(Dispatchers.IO)
-            .catch { e ->
-                Log.e("catch", e.toString())
-            }.collect {
-                Log.e("!!!!!!!!", it.toString())
-//                _interParkList.value?.addAll(it)
-
-            }
-    }
-
-    suspend fun getHitsMelonData() {
-        mainRepository.getMelonOpenTicket(
-            genre = "all",
-            order = "viewed",
-            pageIndex = "1",
-            size = null,
-            onStart = { _isLoading.postValue(true) },
-            onComplete = { _isLoading.postValue(false) },
-            onError = {}
-        )!!.flowOn(Dispatchers.IO)
-            .catch { e ->
-                Log.e("catch", e.toString())
-            }.collect {
-                Log.e("_isLoading",_isLoading.value.toString())
-                Log.e("!!!!!!", it.toString())
-                _melonList.value = it
-            }
-    }
+//    suspend fun getHitsInterParkData() {
+//        mainRepository.getInterParkOpenTicket(
+//            genre = "all",
+//            order = "viewed",
+//            pageIndex = "1",
+//            size = null,
+//            onStart = { _isLoading.value = true },
+//            onComplete = { _isLoading.value = false },
+//            onError = {}
+//        )!!.flowOn(Dispatchers.IO)
+//            .catch { e ->
+//                Log.e("catch", e.toString())
+//            }.collect {
+//                Log.e("!!!!!!!!", it.toString())
+////                _interParkList.value?.addAll(it)
+//
+//            }
+//    }
+//
+//    suspend fun getHitsMelonData() {
+//        mainRepository.getMelonOpenTicket(
+//            genre = "all",
+//            order = "viewed",
+//            pageIndex = "1",
+//            size = null,
+//            onStart = { _isLoading.postValue(true) },
+//            onComplete = { _isLoading.postValue(false) },
+//            onError = {}
+//        )!!.flowOn(Dispatchers.IO)
+//            .catch { e ->
+//                Log.e("catch", e.toString())
+//            }.collect {
+//                Log.e("_isLoading",_isLoading.value.toString())
+//                Log.e("!!!!!!", it.toString())
+//                _melonList.value = it
+//            }
+//    }
 
 }
