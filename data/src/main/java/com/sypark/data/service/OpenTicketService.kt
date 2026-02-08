@@ -1,6 +1,7 @@
 package com.sypark.data.service
 
 import com.sypark.data.db.entity.OpenTicket
+import com.sypark.data.db.entity.PlaceDetail
 import com.sypark.data.db.entity.Ticket
 import com.sypark.data.db.entity.TicketDetail
 import kotlinx.coroutines.flow.Flow
@@ -69,4 +70,10 @@ interface OpenTicketService {
         @Path("mt20id")
         mt20id: String
     ): TicketDetail
+
+    @GET("/api/v1/places/{mt10id}")
+    suspend fun requestPerformancesPlaceDetail(
+        @Path("mt10id")
+        mt10id: String
+    ): PlaceDetail
 }

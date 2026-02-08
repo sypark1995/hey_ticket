@@ -1,12 +1,12 @@
 package com.sypark.openTicket.view.fragments
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.sypark.data.db.entity.Ticket
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentTicketDetailBinding
@@ -84,6 +84,10 @@ class TicketDetailFragment :
 
                 }
             }
+        }
+
+        viewModel.placeDetail.observe(this) {
+
         }
     }
 }

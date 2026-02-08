@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.sypark.data.db.entity.Ticket
 import com.sypark.openTicket.databinding.ItemTicketBinding
 
-class PagingAdapter(private val clickListener: (String) -> Unit) :
+class PagingAdapter(private val clickListener: (Ticket) -> Unit) :
     PagingDataAdapter<Ticket, PagingViewHolder>(diffCallback) {
 
     companion object {
@@ -48,7 +48,7 @@ class PagingViewHolder(
     private val binding: ItemTicketBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     @SuppressLint("SetTextI18n")
-    fun binding(data: Ticket, clickListener: (String) -> Unit) {
+    fun binding(data: Ticket, clickListener: (Ticket) -> Unit) {
         binding.apply {
             textTicketName.text = data.title
             textTicketLocation.text = data.place
@@ -56,7 +56,7 @@ class PagingViewHolder(
             textTicketPrice.text = data.pcseguidance
             Glide.with(binding.root.context).load(data.poster).into(imgPoster)
             root.setOnClickListener {
-                clickListener(data.mt20id)
+                clickListener(data)
             }
         }
     }

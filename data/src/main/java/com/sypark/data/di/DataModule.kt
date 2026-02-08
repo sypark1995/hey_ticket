@@ -24,4 +24,9 @@ interface DataModule {
     fun bindsTicketDetailRepository(
         ticketDetailRepositoryImpl: TicketDetailRepositoryImpl
     ): TicketDetailRepository
+
+    @Binds
+    fun bindsPlaceDetailRepository(
+        placeDetailRepositoryImpl: PlaceDetailRepositoryImpl
+    ): PlaceDetailRepository
 }
