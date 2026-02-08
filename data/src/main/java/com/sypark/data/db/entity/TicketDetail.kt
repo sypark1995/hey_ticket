@@ -1,6 +1,7 @@
 package com.sypark.data.db.entity
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class TicketDetail(
     @SerializedName("mt20id")
@@ -58,4 +59,4 @@ data class TicketDetail(
 
     @SerializedName("dtguidance")
     var dtguidance: String
-)
+) : Serializable

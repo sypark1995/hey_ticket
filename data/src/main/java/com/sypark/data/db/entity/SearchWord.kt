@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.sypark.data.db.RoomTypeConverter
+import java.io.Serializable
 import java.util.*
 
 @Entity(tableName = "word_table")
@@ -16,4 +17,4 @@ data class SearchWord(
 
     @TypeConverters(RoomTypeConverter::class)
     val registerDate: Date
-)
+) : Serializable

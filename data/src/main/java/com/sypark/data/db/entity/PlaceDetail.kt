@@ -1,6 +1,7 @@
 package com.sypark.data.db.entity
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class PlaceDetail(
     @SerializedName("name")
@@ -35,4 +36,4 @@ data class PlaceDetail(
 
     @SerializedName("longitude")
     var longitude: Double
-)
+) : Serializable

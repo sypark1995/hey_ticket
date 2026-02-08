@@ -20,9 +20,20 @@ class TicketDetailFragment :
 
     private val args by navArgs<TicketDetailFragmentArgs>()
     private val viewModel: TicketDetailViewModel by viewModels()
+    private lateinit var naverMap: NaverMap
 
     @SuppressLint("SetTextI18n")
     override fun init(view: View) {
+        val fm = childFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.layout_information_map) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(R.id.layout_information_map, it).commit()
+            }
+
+        mapFragment.getMapAsync {
+            naverMap = it
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
 
             viewModel.getTicketDetailData((args.item as Ticket).mt20id)
@@ -87,7 +98,28 @@ class TicketDetailFragment :
         }
 
         viewModel.placeDetail.observe(this) {
+            binding.apply {
+                if (it.address.isEmpty()) {
+                    layoutInformationPlace.visibility = View.GONE
+                } else {
+                    textInformationLatLng.text = it.address
+                }
 
+                if (it.phoneNumber.isEmpty()) {
+                    layoutInformationInquiry.visibility = View.GONE
+                } else {
+                    textInformationInquiry.text = it.phoneNumber
+                }
+
+                Marker().apply {
+                    position = LatLng(it.latitude, it.longitude)
+                    width = 50
+                    height = 80
+                    iconTintColor = Color.rgb(0, 0, 0)
+                    naverMap.moveCamera(CameraUpdate.scrollTo(position))
+                    map = naverMap
+                }
+            }
         }
     }
 }

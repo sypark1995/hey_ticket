@@ -3,6 +3,7 @@ package com.sypark.data.db.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity
 data class OpenTicket(
@@ -22,4 +23,4 @@ data class OpenTicket(
 
     @SerializedName("image_url")
     var image_url: String? = null,
-)
+) : Serializable
