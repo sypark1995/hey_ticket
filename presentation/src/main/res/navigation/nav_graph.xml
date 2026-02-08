@@ -70,6 +70,7 @@
         android:name="com.sypark.openTicket.view.fragments.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search" />
+
     <fragment
         android:id="@+id/ticketDetailFragment"
         android:name="com.sypark.openTicket.view.fragments.TicketDetailFragment"
@@ -77,8 +78,8 @@
         tools:layout="@layout/fragment_ticket_detail">
 
         <argument
-            android:name="data"
-            app:argType="string" />
+            android:name="item"
+            app:argType="com.sypark.data.db.entity.Ticket" />
     </fragment>
 
 

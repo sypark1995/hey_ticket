@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.db.entity.CategoryDetailSort
+import com.sypark.data.db.entity.Ticket
 import com.sypark.openTicket.Preferences
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
@@ -540,7 +540,7 @@ class CategoryDetailFragment :
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
-    private fun itemClicked(data: String) {
+    private fun itemClicked(data: Ticket) {
         findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToTicketDetailFragment(data))
     }
 }

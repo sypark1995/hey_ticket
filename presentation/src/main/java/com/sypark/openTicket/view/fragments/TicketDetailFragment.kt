@@ -23,10 +23,10 @@ class TicketDetailFragment :
 
     @SuppressLint("SetTextI18n")
     override fun init(view: View) {
-        Log.e("!!!!", args.data)
-
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getTicketDetailData(args.data)
+
+            viewModel.getTicketDetailData((args.item as Ticket).mt20id)
+            viewModel.getPlaceDetailData((args.item as Ticket).mt10id)
         }
 
         viewModel.ticketDetail.observe(this) {

@@ -1,8 +1,7 @@
 package com.sypark.data.db.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class Ticket(
@@ -62,4 +61,4 @@ data class Ticket(
 
     @SerializedName("dtguidance")
     var dtguidance: String
-)
+) : Serializable
