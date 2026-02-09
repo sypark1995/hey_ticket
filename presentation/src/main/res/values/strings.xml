@@ -78,6 +78,7 @@
     <string name="ticket_detail_information_place">공연장</string>
     <string name="ticket_detail_information_detail">공연 상세</string>
     <string name="ticket_detail_information_detail_more">공연 상세 더 보기</string>
+    <string name="ticket_detail_information_detail_close">공연 상세 닫기</string>
     <string name="ticket_detail_information_detail_different_ticket">이런 공연은 어때요?</string>
     <string name="ticket_detail_information_detail_etc">기타 정보</string>
     <string name="ticket_detail_information_detail_host">주최/기획</string>

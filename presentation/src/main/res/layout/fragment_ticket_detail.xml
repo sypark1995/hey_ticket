@@ -261,7 +261,18 @@
                             android:layout_height="370dp"
                             android:layout_below="@+id/text_information_detail"
                             android:layout_marginTop="10dp"
+                            android:layout_marginBottom="40dp"
                             android:scaleType="fitXY" />
+
+                        <androidx.constraintlayout.utils.widget.ImageFilterView
+                            android:id="@+id/img_information_detail_full"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/text_information_detail"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="40dp"
+                            android:scaleType="fitXY"
+                            android:visibility="gone" />
 
                         <Button
                             android:id="@+id/btn_information_detail"

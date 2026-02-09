@@ -31,6 +31,7 @@ class TicketDetailFragment :
     private val args by navArgs<TicketDetailFragmentArgs>()
     private val viewModel: TicketDetailViewModel by viewModels()
     private lateinit var naverMap: NaverMap
+    private lateinit var bitmap: Bitmap
 
     @SuppressLint("SetTextI18n")
     override fun init(view: View) {
@@ -67,7 +68,7 @@ class TicketDetailFragment :
                         textDate.text = "${it.startDate} ~ ${it.endDate}"
                     }
 
-                    if (it.cast.isEmpty()) {
+                    if (it.cast.trim().isEmpty()) {
                         layoutInformationCast.visibility = View.GONE
                     } else {
                         textInformationCast.text = it.cast
@@ -116,19 +117,68 @@ class TicketDetailFragment :
                         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
 
                             it.styurls.forEachIndexed { index, detail ->
-                                bitmapList.add(index, BaseUtil.convertBitmapFromURL(detail.url)!!)
+                                bitmapList.add(
+                                    index,
+                                    BaseUtil.convertBitmapFromURL(
+                                        detail.url,
+                                        imgInformationDetail.width,
+                                        imgInformationDetail.height
+                                    )!!
+                                )
                             }
 
+                            // todo_sypark 이미지 2개로 처리하는거 이상함;; 나중에 처리예정
                             val mergeBitmap = BaseUtil.mergeBitmapsVertical(
                                 bitmapList
                             )
+
+                            val cropBitmap =
+                                if (mergeBitmap.height <= imgInformationDetail.height) {
+                                    Bitmap.createBitmap(
+                                        mergeBitmap,
+                                        0,
+                                        0,
+                                        mergeBitmap.width,
+                                        mergeBitmap.height
+                                    )
+                                } else {
+                                    Bitmap.createBitmap(
+                                        mergeBitmap,
+                                        0,
+                                        0,
+                                        mergeBitmap.width,
+                                        imgInformationDetail.height
+                                    )
+                                }
+
                             withContext(Dispatchers.Main) {
-                                binding.imgInformationDetail.setImageBitmap(mergeBitmap)
+
+                                if (mergeBitmap.height <= imgInformationDetail.height) {
+                                    btnInformationDetail.visibility = View.GONE
+                                }
+                                imgInformationDetailFull.setImageBitmap(mergeBitmap)
+                                imgInformationDetail.setImageBitmap(cropBitmap)
                             }
                         }
 
                     }
 
+
+                    btnInformationDetail.setOnClickListener {
+                        //todo_sypark viewmodel로 처리 예정
+                        if (imgInformationDetail.visibility == View.VISIBLE) {
+                            btnInformationDetail.text =
+                                resources.getString(R.string.ticket_detail_information_detail_close)
+                            imgInformationDetail.visibility = View.GONE
+                            imgInformationDetailFull.visibility = View.VISIBLE
+                        } else {
+                            btnInformationDetail.text =
+                                resources.getString(R.string.ticket_detail_information_detail_more)
+                            imgInformationDetail.visibility = View.VISIBLE
+                            imgInformationDetailFull.visibility = View.GONE
+                        }
+
+                    }
                 }
             }
         }
