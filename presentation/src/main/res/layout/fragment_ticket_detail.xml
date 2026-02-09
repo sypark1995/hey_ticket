@@ -241,6 +241,7 @@
                         android:background="@drawable/round_8"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
+                        android:paddingBottom="16dp"
                         android:visibility="visible">
 
                         <TextView
@@ -260,8 +261,7 @@
                             android:layout_height="370dp"
                             android:layout_below="@+id/text_information_detail"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="50dp"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="fitXY" />
 
                         <Button
                             android:id="@+id/btn_information_detail"
@@ -271,7 +271,6 @@
                             android:background="@drawable/round_10_white"
                             android:stateListAnimator="@null"
                             android:text="@string/ticket_detail_information_detail_more"
-                            android:translationY="-16dp"
                             tools:text="공연 상세 더 보기" />
                     </RelativeLayout>
 
@@ -310,7 +309,8 @@
                         android:layout_marginBottom="27dp"
                         android:background="@drawable/round_8_white"
                         android:paddingStart="20dp"
-                        android:paddingEnd="20dp">
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="24dp">
 
                         <TextView
                             android:id="@+id/text_information_title_etc"
@@ -415,7 +415,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
-                                    android:layout_marginBottom="24dp"
                                     android:layout_toEndOf="@+id/text_information_title_etc_crew"
                                     tools:text="홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동,홍길동" />
                             </RelativeLayout>
