@@ -1,8 +1,11 @@
 package com.sypark.openTicket.view.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.net.URLEncoder
 
 @AndroidEntryPoint
 class TicketDetailFragment :
@@ -214,7 +218,67 @@ class TicketDetailFragment :
                     }
                     map = naverMap
                 }
+                val encodeAddress = URLEncoder.encode(it.address, "UTF-8")
+                naverMap.setOnMapClickListener { pointF, latLng ->
+                    openExternalApp(
+                        view.context, it.latitude, it.longitude,
+                        encodeAddress
+                    )
+                }
             }
         }
+    }
+
+    private fun openExternalApp(context: Context, lat: Double, lng: Double, address: String) {
+        // "nmap://actionPath?lat={$lat}&lng={$lng}&appname={com.sypark.openTicket}"
+        val url =
+            "nmap://route/public?dlat=$lat&dlng=$lng&dname=$address&appname=com.example.myapp"        //   대중교통 길찾기
+//        val url = "nmap://place?lat=$lat&lng=$lng&name=$address&appname=com.sypark.openTicket"            //   마커 url
+//        val url = "nmap://actionPath?parameter=value&appname={com.sypark.openTicket}"
+
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        intent.addCategory(Intent.CATEGORY_BROWSABLE)
+
+        if (isInstalledExternalApp(context, "com.nhn.android.nmap")) {
+            context.startActivity(intent)
+        } else {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=com.nhn.android.nmap")
+                )
+            )
+        }
+    }
+
+
+    /**default 앱 to 앱
+     * */
+    private fun openExternalApp(context: Context, intent: Intent) {
+        if (isInstalledExternalApp(context, "com.nhn.android.nmap")) {
+            context.startActivity(intent)
+        } else {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=com.nhn.android.nmap")
+                )
+            )
+        }
+    }
+
+    private fun isInstalledExternalApp(context: Context, packageName: String): Boolean {
+        var isInstalled = false
+        val mainIntent = Intent(Intent.ACTION_MAIN, null)
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+        val packageManager = context.packageManager
+        val installedApps = packageManager.queryIntentActivities(mainIntent, 0)
+        for (resolveInfo in installedApps) {
+            if (resolveInfo.activityInfo.packageName.contains(packageName)) {
+                isInstalled = true
+                break
+            }
+        }
+        return isInstalled
     }
 }
