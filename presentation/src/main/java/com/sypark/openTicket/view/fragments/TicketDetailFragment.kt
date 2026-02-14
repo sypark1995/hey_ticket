@@ -203,6 +203,15 @@ class TicketDetailFragment :
                     height = 80
                     iconTintColor = Color.rgb(0, 0, 0)
                     naverMap.moveCamera(CameraUpdate.scrollTo(position))
+                    naverMap.uiSettings.apply {
+                        isScaleBarEnabled = false
+                        isZoomControlEnabled = false
+                        isScrollGesturesEnabled = false
+                        isZoomGesturesEnabled = false
+                        isTiltGesturesEnabled = false
+                        isRotateGesturesEnabled = false
+                        isStopGesturesEnabled = false
+                    }
                     map = naverMap
                 }
             }
