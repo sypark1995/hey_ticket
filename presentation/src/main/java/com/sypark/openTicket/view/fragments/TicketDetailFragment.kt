@@ -70,8 +70,14 @@ class TicketDetailFragment :
                     if ((item.startDate.isEmpty() || item.endDate.isEmpty())) {
                         layoutInformationDate.visibility = View.GONE
                     } else {
-                        textInformationDate.text = "${item.startDate}${Common.getDayOfWeek(item.startDate)} ~ ${item.endDate}${Common.getDayOfWeek(item.endDate)}"
-                        textDate.text = "${item.startDate}${Common.getDayOfWeek(item.startDate)} ~ ${item.endDate}${Common.getDayOfWeek(item.endDate)}"
+                        textInformationDate.text =
+                            "${item.startDate}${Common.getDayOfWeek(item.startDate)} ~ ${item.endDate}${
+                                Common.getDayOfWeek(item.endDate)
+                            }"
+                        textDate.text =
+                            "${item.startDate}${Common.getDayOfWeek(item.startDate)} ~ ${item.endDate}${
+                                Common.getDayOfWeek(item.endDate)
+                            }"
                     }
 
                     if (item.cast.trim().isEmpty()) {
@@ -172,18 +178,21 @@ class TicketDetailFragment :
 
                     btnInformationDetail.setOnClickListener {
                         //todo_sypark viewmodel로 처리 예정
-                        if (imgInformationDetail.visibility == View.VISIBLE) {
-                            btnInformationDetail.text =
-                                resources.getString(R.string.ticket_detail_information_detail_close)
-                            imgInformationDetail.visibility = View.GONE
-                            imgInformationDetailFull.visibility = View.VISIBLE
-                        } else {
-                            btnInformationDetail.text =
-                                resources.getString(R.string.ticket_detail_information_detail_more)
-                            imgInformationDetail.visibility = View.VISIBLE
-                            imgInformationDetailFull.visibility = View.GONE
-                        }
+//                        if (imgInformationDetail.visibility == View.VISIBLE) {
+//                            btnInformationDetail.text =
+//                                resources.getString(R.string.ticket_detail_information_detail_close)
+//                            imgInformationDetail.visibility = View.GONE
+//                            imgInformationDetailFull.visibility = View.VISIBLE
+//                        } else {
+//                            btnInformationDetail.text =
+//                                resources.getString(R.string.ticket_detail_information_detail_more)
+//                            imgInformationDetail.visibility = View.VISIBLE
+//                            imgInformationDetailFull.visibility = View.GONE
+//                        }
 
+                        btnInformationDetail.visibility = View.GONE
+                        imgInformationDetail.visibility = View.GONE
+                        imgInformationDetailFull.visibility = View.VISIBLE
                     }
 
                     btnWebView.setOnClickListener {
@@ -247,7 +256,8 @@ class TicketDetailFragment :
         // "nmap://actionPath?lat={$lat}&lng={$lng}&appname={com.sypark.openTicket}"
 //        val url =
 //            "nmap://route/public?dlat=$lat&dlng=$lng&dname=$address&appname=com.example.myapp"        //   대중교통 길찾기
-        val url = "nmap://place?lat=$lat&lng=$lng&name=$address&appname=com.sypark.openTicket"            //   마커 url
+        val url =
+            "nmap://place?lat=$lat&lng=$lng&name=$address&appname=com.sypark.openTicket"            //   마커 url
 //        val url = "nmap://actionPath?parameter=value&appname={com.sypark.openTicket}"
 
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
