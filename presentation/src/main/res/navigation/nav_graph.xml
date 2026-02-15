@@ -80,6 +80,21 @@
         <argument
             android:name="item"
             app:argType="com.sypark.data.db.entity.Ticket" />
+        <action
+            android:id="@+id/action_ticketDetailFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.sypark.openTicket.view.fragments.WebViewFragment"
+        android:label="WebViewFragment"
+        tools:layout="@layout/fragment_webview">
+
+        <argument
+            android:name="item"
+            app:argType="string" />
+
     </fragment>
 
 

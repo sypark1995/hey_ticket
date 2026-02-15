@@ -9,6 +9,7 @@ import android.net.Uri
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.naver.maps.geometry.LatLng
@@ -55,72 +56,72 @@ class TicketDetailFragment :
             viewModel.getPlaceDetailData((args.item as Ticket).mt10id)
         }
 
-        viewModel.ticketDetail.observe(this) {
-            if (it == null) {
+        viewModel.ticketDetail.observe(this) { item ->
+            if (item == null) {
 
             } else {
                 binding.apply {
-                    textTitle.text = it.title
+                    textTitle.text = item.title
 
                     Glide.with(view.context)
-                        .load(it.poster).into(imgPoster)
+                        .load(item.poster).into(imgPoster)
 
-                    if ((it.startDate.isEmpty() || it.endDate.isEmpty())) {
+                    if ((item.startDate.isEmpty() || item.endDate.isEmpty())) {
                         layoutInformationDate.visibility = View.GONE
                     } else {
-                        textInformationDate.text = "${it.startDate} ~ ${it.endDate}"
-                        textDate.text = "${it.startDate} ~ ${it.endDate}"
+                        textInformationDate.text = "${item.startDate} ~ ${item.endDate}"
+                        textDate.text = "${item.startDate} ~ ${item.endDate}"
                     }
 
-                    if (it.cast.trim().isEmpty()) {
+                    if (item.cast.trim().isEmpty()) {
                         layoutInformationCast.visibility = View.GONE
                     } else {
-                        textInformationCast.text = it.cast
+                        textInformationCast.text = item.cast
                     }
 
-                    if (it.pcseguidance.isEmpty()) {
+                    if (item.pcseguidance.isEmpty()) {
                         layoutInformationPrice.visibility = View.GONE
                     } else {
-                        textInformationPrice.text = it.pcseguidance
+                        textInformationPrice.text = item.pcseguidance
                     }
 
-                    if (it.place.isEmpty()) {
+                    if (item.place.isEmpty()) {
                         layoutInformationPlace.visibility = View.GONE
                     } else {
-                        textInformationPlace.text = it.place
+                        textInformationPlace.text = item.place
                     }
 
-                    if (it.styurls.isEmpty()) {
+                    if (item.styurls.isEmpty()) {
                         layoutInformationDetail.visibility = View.GONE
                     } else {
                         //todo_sypark 유섭이한테 이미지 어떻게 뿌렸는지 확인 예정
                     }
 
-                    if (it.entrpsnm.trim().isEmpty()) {
+                    if (item.entrpsnm.trim().isEmpty()) {
                         layoutInformationHost.visibility = View.GONE
                     } else {
-                        textInformationHost.text = it.entrpsnm
+                        textInformationHost.text = item.entrpsnm
                     }
 
-                    if (it.age.isEmpty()) {
+                    if (item.age.isEmpty()) {
                         layoutInformationAge.visibility = View.GONE
                     } else {
-                        textInformationAge.text = it.age
+                        textInformationAge.text = item.age
                     }
 
-                    if (it.crew.trim().isEmpty()) {
+                    if (item.crew.trim().isEmpty()) {
                         layoutInformationEtcCrew.visibility = View.GONE
                     } else {
-                        textInformationEtcCrew.text = it.crew
+                        textInformationEtcCrew.text = item.crew
                     }
 
-                    if (it.styurls.isEmpty()) {
+                    if (item.styurls.isEmpty()) {
                         layoutInformationDetail.visibility = View.GONE
                     } else {
                         val bitmapList = mutableListOf<Bitmap>()
                         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
 
-                            it.styurls.forEachIndexed { index, detail ->
+                            item.styurls.forEachIndexed { index, detail ->
                                 bitmapList.add(
                                     index,
                                     BaseUtil.convertBitmapFromURL(
@@ -182,6 +183,10 @@ class TicketDetailFragment :
                             imgInformationDetailFull.visibility = View.GONE
                         }
 
+                    }
+
+                    btnWebView.setOnClickListener {
+                        findNavController().navigate(TicketDetailFragmentDirections.actionTicketDetailFragmentToWebViewFragment(item.title))
                     }
                 }
             }
