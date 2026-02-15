@@ -31,10 +31,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
+                android:text="@string/ticket_detail_genre"
                 android:textColor="@color/black"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                tools:text="연극" />
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <ScrollView
@@ -68,7 +68,7 @@
                         android:layout_below="@id/img_poster"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
-                        tools:text="진행중" />
+                        android:text="@string/ticket_detail_status" />
 
                     <TextView
                         android:id="@+id/text_title"

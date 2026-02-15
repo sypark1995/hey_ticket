@@ -85,5 +85,7 @@
     <string name="ticket_detail_information_detail_inquiry">고객문의</string>
     <string name="ticket_detail_information_detail_age">관람 등급</string>
     <string name="ticket_detail_information_detail_etc_cast">작가/출연진</string>
+    <string name="ticket_detail_genre">데이터가 안내려와요ㅠㅠ</string>
+    <string name="ticket_detail_status">D - day 데이터가 안내려와요ㅠㅠ</string>
 
 </resources>
