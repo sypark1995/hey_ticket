@@ -98,6 +98,7 @@ proguard/
 # Log Files
 
 # Android Studio
+/local.properties
 /*/build/
 /*/local.properties
 /*/out
@@ -124,6 +125,7 @@ obj/
 # IntelliJ IDEA
 *.iws
 /out/
+
 
 # User-specific configurations
 /.idea
