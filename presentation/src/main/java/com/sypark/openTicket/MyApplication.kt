@@ -3,6 +3,7 @@ package com.sypark.openTicket
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -22,7 +23,7 @@ class MyApplication : Application() {
         Preferences.init(this)
 
         context = applicationContext
-
+        KakaoSdk.init(this, BuildConfig.KAKAO_API_KEY)
 //        LocalDB.getInstance(context)
     }
 }
