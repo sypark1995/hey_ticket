@@ -1,14 +1,16 @@
 package com.sypark.openTicket.view
 
 import android.annotation.SuppressLint
-import android.util.Log
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sypark.data.db.entity.Ticket
+import com.sypark.openTicket.Common
 import com.sypark.openTicket.databinding.ItemTicketBinding
 
 class PagingAdapter(private val clickListener: (Ticket) -> Unit) :
@@ -26,6 +28,7 @@ class PagingAdapter(private val clickListener: (Ticket) -> Unit) :
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: PagingViewHolder, position: Int) {
         getItem(position)?.let {
             holder.binding(it, clickListener)
@@ -47,12 +50,16 @@ class PagingAdapter(private val clickListener: (Ticket) -> Unit) :
 class PagingViewHolder(
     private val binding: ItemTicketBinding
 ) : RecyclerView.ViewHolder(binding.root) {
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     fun binding(data: Ticket, clickListener: (Ticket) -> Unit) {
         binding.apply {
             textTicketName.text = data.title
             textTicketLocation.text = data.place
-            textTicketDate.text = "${data.startDate} ~ ${data.endDate}"
+            textTicketDate.text =
+                "${data.startDate}${Common.getDayOfWeek(data.startDate)} ~ ${data.endDate}${
+                    Common.getDayOfWeek(data.endDate)
+                }"
             textTicketPrice.text = data.pcseguidance
             Glide.with(binding.root.context).load(data.poster).into(imgPoster)
             root.setOnClickListener {

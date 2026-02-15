@@ -296,7 +296,7 @@
                         android:background="@drawable/round_8_white"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
