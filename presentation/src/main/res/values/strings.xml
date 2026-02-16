@@ -87,5 +87,9 @@
     <string name="ticket_detail_information_detail_etc_cast">작가/출연진</string>
     <string name="ticket_detail_genre">데이터가 안내려와요ㅠㅠ</string>
     <string name="ticket_detail_status">D - day 데이터가 안내려와요ㅠㅠ</string>
+    <string name="kakao_share_title">이 공연 어때요? ❤❤</string>
+    <string name="kakao_not_install">카카오톡이 설치되어 있지 않습니다.</string>
+<!--    <string name="kakao_share_">공연 정보</string>-->
+<!--    <string name="kakao_share_">공연장 위치보기</string>-->
 
 </resources>

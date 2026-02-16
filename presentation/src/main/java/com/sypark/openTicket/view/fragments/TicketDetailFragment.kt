@@ -6,18 +6,24 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.kakao.sdk.share.ShareClient
+import com.kakao.sdk.template.model.*
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
+import com.sypark.data.db.entity.PlaceDetail
 import com.sypark.data.db.entity.Ticket
+import com.sypark.data.db.entity.TicketDetail
 import com.sypark.openTicket.BaseUtil
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
@@ -203,8 +209,12 @@ class TicketDetailFragment :
                         )
                     }
 
-                    binding.imgClose.setOnClickListener {
+                    imgClose.setOnClickListener {
                         findNavController().popBackStack()
+                    }
+
+                    imgShare.setOnClickListener {
+                        isKakaoInstall(it.context,item,null)
                     }
                 }
             }
@@ -249,6 +259,56 @@ class TicketDetailFragment :
                     )
                 }
             }
+        }
+    }
+
+    private fun kakaoShare(
+        ticketDetail: TicketDetail,
+        placeItem: PlaceDetail?
+    ): LocationTemplate {
+        return LocationTemplate(
+            address = ticketDetail.place,
+            addressTitle = "공연장",
+            content = Content(
+                title = ticketDetail.title,
+                imageUrl = ticketDetail.poster,
+                link = Link(
+                    webUrl = "https://developers.com",
+                    mobileWebUrl = "https://developers.kakao.com"
+                )
+            ),
+            social = null
+        )
+    }
+
+    private fun isKakaoInstall(
+        context: Context,
+        ticketDetail: TicketDetail,
+        placeItem: PlaceDetail?
+    ) {
+        if (ShareClient.instance.isKakaoTalkSharingAvailable(context)) {
+            // 카카오톡으로 카카오톡 공유 가능
+            ShareClient.instance.shareDefault(
+                context,
+                kakaoShare(ticketDetail, placeItem)
+            ) { sharingResult, error ->
+                if (error != null) {
+                    Log.e("TAG", "카카오톡 공유 실패", error)
+                } else if (sharingResult != null) {
+                    Log.e("TAG", "카카오톡 공유 성공 ${sharingResult.intent}")
+                    startActivity(sharingResult.intent)
+
+                    // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
+                    Log.e("TAG", "Warning Msg: ${sharingResult.warningMsg}")
+                    Log.e("TAG", "Argument Msg: ${sharingResult.argumentMsg}")
+                }
+            }
+        } else {
+            Toast.makeText(
+                context,
+                resources.getString(R.string.kakao_not_install),
+                Toast.LENGTH_SHORT
+            )
         }
     }
 
