@@ -214,7 +214,7 @@
                                 android:id="@+id/text_information_lat_lng"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/text_information_title_place"
+                                android:layout_below="@+id/text_information_place"
                                 android:layout_marginTop="4dp"
                                 android:layout_toEndOf="@id/text_information_title_place"
                                 tools:text="공연 주소" />
