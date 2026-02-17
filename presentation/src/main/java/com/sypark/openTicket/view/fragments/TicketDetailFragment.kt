@@ -214,11 +214,12 @@ class TicketDetailFragment :
                     }
 
                     imgShare.setOnClickListener {
-                        isKakaoInstall(it.context,item,null)
+                        isKakaoInstall(it.context, item, viewModel.placeDetail.value)
                     }
                 }
             }
         }
+
 
         viewModel.placeDetail.observe(this) {
             binding.apply {
@@ -278,6 +279,43 @@ class TicketDetailFragment :
                 )
             ),
             social = null
+        )
+    }
+
+    private fun kakaoShare2(
+        ticketDetail: TicketDetail,
+        placeItem: PlaceDetail?
+    ): FeedTemplate {
+        Log.e("address",URLEncoder.encode(placeItem?.address, "UTF-8"))
+        return FeedTemplate(
+            content = Content(
+                title = ticketDetail.title,
+                imageUrl = ticketDetail.poster,
+                link = Link(
+                    webUrl = "https://developers.com",
+                    mobileWebUrl = "https://developers.kakao.com"
+                )
+            ),
+            buttons = listOf(
+                Button(
+                    title = getString(R.string.kakao_share_performance_information),
+                    Link(
+                        androidExecutionParams = mapOf(
+
+                        ),
+                        webUrl = null,
+                        mobileWebUrl = null
+                    )
+                ),
+                Button(
+                    title = getString(R.string.kakao_share_location),
+                    Link(
+                        androidExecutionParams = mapOf(),
+//                        webUrl = "nmap://place?lat=${placeItem?.latitude}&lng=${placeItem?.longitude}&name=${placeItem?.address}&appname=com.sypark.openTicket",
+//                        mobileWebUrl = "nmap://place?lat=${placeItem?.latitude}&lng=${placeItem?.longitude}&name=${placeItem?.address}&appname=com.sypark.openTicket"
+                    )
+                )
+            )
         )
     }
 
