@@ -14,7 +14,7 @@
     <string name="main_recommend">추천</string>
     <string name="main_open_this_week">이번 주 공연 예정</string>
     <string name="main_more">더보기</string>
-    <string name="main_top">공연 랭킹</string>
+    <string name="main_ranking">공연 랭킹</string>
     <string name="main_category">카테고리</string>
     <string name="main_my">마이</string>
 
@@ -91,5 +91,6 @@
     <string name="kakao_not_install">카카오톡이 설치되어 있지 않습니다.</string>
     <string name="kakao_share_performance_information">공연 정보</string>
     <string name="kakao_share_location">공연장 위치보기</string>
+
 
 </resources>

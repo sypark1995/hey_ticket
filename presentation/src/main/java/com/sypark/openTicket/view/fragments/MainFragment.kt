@@ -23,9 +23,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun init(view: View) {
         binding.layoutBottom.navigationBottom.menu.getItem(0).isChecked = true
 
-        binding.textRecommend.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToRecommendFragment())
-        }
+//        binding.textRecommend.setOnClickListener {
+//            findNavController().navigate(MainFragmentDirections.actionMainFragmentToRecommendFragment())
+//        }
 
         binding.topTitle.imgSearch.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())

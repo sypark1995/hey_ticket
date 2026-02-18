@@ -30,66 +30,94 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/layout_selector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_top"
-            android:layout_marginTop="30dp"
-            android:gravity="center">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/text_home"
-                    android:layout_width="55dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shape_clicked_black"
-                    android:gravity="center"
-                    android:padding="0dp"
-                    android:text="@string/main_home"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/text_recommend"
-                    android:layout_width="75dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shape_clicked_white"
-                    android:gravity="center"
-                    android:padding="0dp"
-                    android:text="@string/main_recommend"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-        </RelativeLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/layout_bottom"
-            android:layout_below="@+id/layout_selector"
-            android:layout_marginTop="20dp">
+            android:layout_below="@+id/layout_top"
+            android:layout_marginTop="14dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
+                    android:id="@+id/layout_recommand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/img_recommand"
+                        android:layout_width="match_parent"
+                        android:layout_height="85dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/icon_banner" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/layout_viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:layout_below="@+id/layout_recommand">
 
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/viewpager"
+                    <TextView
+                        android:id="@+id/text_ranking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/main_ranking"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_ranking_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="21.5dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/text_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/main_more"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_toEndOf="@+id/text_more"
+                            android:src="@drawable/icon_more" />
+
+                    </RelativeLayout>
+
+                    <!--                    <androidx.viewpager2.widget.ViewPager2-->
+                    <!--                        android:id="@+id/viewpager"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="match_parent"-->
+                    <!--                        android:background="@drawable/round_12"-->
+                    <!--                        android:orientation="horizontal"-->
+                    <!--                        android:requiresFadingEdge="horizontal" />-->
+
+                    <RelativeLayout
+                        android:id="@+id/layout_ranking_filter"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/round_12"
-                        android:orientation="horizontal"
-                        android:requiresFadingEdge="horizontal" />
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/text_ranking"
+                        android:layout_marginTop="10dp">
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
@@ -190,7 +218,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="6"
-                            android:text="@string/main_top"
+                            android:text="@string/main_ranking"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
