@@ -2,16 +2,14 @@ package com.sypark.openTicket.view.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sypark.data.db.entity.Genre
 import com.sypark.openTicket.R
+import com.sypark.openTicket.databinding.ItemRankingBinding
 
 class RankingAdapter(private val onItemClickListener: (Int, Genre) -> Unit) :
     ListAdapter<Genre, ViewHolder>(MyItemCallback()) {
@@ -19,8 +17,8 @@ class RankingAdapter(private val onItemClickListener: (Int, Genre) -> Unit) :
     private var selectedPosition: Int = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_ranking, parent, false)
-        return ViewHolder(view)
+        val binding = ItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -51,7 +49,7 @@ class RankingAdapter(private val onItemClickListener: (Int, Genre) -> Unit) :
     }
 }
 
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("CutPasteId")
     fun bind(
@@ -59,23 +57,21 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         isSelected: Boolean,
         onItemClickListener: (Int, Genre) -> Unit
     ) {
-        itemView.findViewById<RadioButton>(R.id.text_genre)
-            .setOnClickListener { onItemClickListener(bindingAdapterPosition, item) }
-        itemView.isSelected = isSelected
+        binding.textGenre.apply {
+            setOnClickListener {
+                onItemClickListener(bindingAdapterPosition, item)
+            }
 
-        itemView.findViewById<RadioButton>(R.id.text_genre).text = item.genrenm
+            this.isSelected = isSelected
+            text = item.genrenm
 
-        if (itemView.isSelected) {
-            itemView.findViewById<RadioButton>(R.id.text_genre)
-                .setBackgroundResource(R.drawable.round_16_black)
-            itemView.findViewById<RadioButton>(R.id.text_genre)
-                .setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-        } else {
-            itemView.findViewById<TextView>(R.id.text_genre)
-                .setBackgroundResource(R.drawable.round_16_gray)
-            itemView.findViewById<TextView>(R.id.text_genre)
-                .setTextColor(ContextCompat.getColor(itemView.context, R.color.gray_989CA1))
+            if (this.isSelected) {
+                setBackgroundResource(R.drawable.round_16_black)
+                setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
+            } else {
+                setBackgroundResource(R.drawable.round_16_gray)
+                setTextColor(ContextCompat.getColor(binding.root.context, R.color.gray_989CA1))
+            }
         }
-
     }
 }
