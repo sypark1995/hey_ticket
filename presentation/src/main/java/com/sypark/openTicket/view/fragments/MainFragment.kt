@@ -1,13 +1,16 @@
 package com.sypark.openTicket.view.fragments
 
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.sypark.data.db.entity.Genre
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
 import com.sypark.openTicket.model.MainViewModel
+import com.sypark.openTicket.view.adapter.RankingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -16,9 +19,19 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val TAG = "MainFragment"
 
     private val viewModel: MainViewModel by viewModels()
-
-    private var list = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-    private var currentPosition = Int.MAX_VALUE / 2
+    private lateinit var rankingAdapter: RankingAdapter
+    private val rankingList = listOf(
+        Genre("AAAA", "전체"),
+        Genre("AAAA", "연극"),
+        Genre("BBBC", "무용(서양/한국무용)"),
+        Genre("BBBE", "대중무용"),
+        Genre("CCCA", "클래식(서양음악)"),
+        Genre("CCCC", "국악(한국음악)"),
+        Genre("CCCD", "대중음악"),
+        Genre("EEEA", "복합"),
+        Genre("EEEB", "서커스/마술"),
+        Genre("GGGA", "뮤지컬")
+    )
 
     override fun init(view: View) {
         binding.layoutBottom.navigationBottom.menu.getItem(0).isChecked = true
@@ -29,6 +42,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         binding.topTitle.imgSearch.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
+        }
+
+        binding.recyclerviewRanking.apply {
+            rankingAdapter = RankingAdapter { position, item ->
+                Log.e("!!!!", item.toString())
+                onItemClicked(position)
+            }
+
+            rankingAdapter.submitList(rankingList)
+            adapter = rankingAdapter
+            rankingAdapter.setSelectedPosition(0)
         }
 
 //        binding.openKindRecyclerview.adapter.apply {
@@ -121,5 +145,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 //        binding.btn.setOnClickListener {
 //            Log.e("!!!", "click")
 //        }
+    }
+
+    private fun onItemClicked(position: Int) {
+        rankingAdapter.setSelectedPosition(position)
     }
 }
