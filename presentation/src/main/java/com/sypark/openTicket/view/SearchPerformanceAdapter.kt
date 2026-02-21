@@ -11,12 +11,6 @@ import com.sypark.openTicket.R
 class SearchPerformanceAdapter(private val clickListener: () -> Unit) :
     RecyclerView.Adapter<PerformanceHolder>() {
 
-    private var selectCheck: ArrayList<Int> = arrayListOf()
-
-    init {
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PerformanceHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val listItem = layoutInflater.inflate(R.layout.item_performance_category, parent, false)
