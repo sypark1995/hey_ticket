@@ -10,8 +10,8 @@ import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
 import com.sypark.openTicket.model.MainViewModel
+import com.sypark.openTicket.view.adapter.GenreAdapter
 import com.sypark.openTicket.view.adapter.RankingAdapter
-import com.sypark.openTicket.view.adapter.RankingFilterAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,9 +20,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val TAG = "MainFragment"
 
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var rankingFilterAdapter: RankingFilterAdapter
-    private lateinit var newFilterAdapter: RankingFilterAdapter
-    private val rankingList = listOf(
+
+    private lateinit var genreAdapter: GenreAdapter
+    private lateinit var newFilterAdapter: GenreAdapter
+
+    private val genreList = listOf(
         Genre("AAAA", "전체"),
         Genre("AAAA", "연극"),
         Genre("BBBC", "무용(서양/한국무용)"),
@@ -49,14 +51,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
 
         binding.recyclerviewRankingFilter.apply {
-            rankingFilterAdapter = RankingFilterAdapter { position, item ->
+            genreAdapter = GenreAdapter { position, item ->
                 Log.e("!!!!", item.toString())
-                onItemClicked(position)
+                rankingFilterItemClicked(position)
             }
 
-            rankingFilterAdapter.submitList(rankingList)
-            adapter = rankingFilterAdapter
-            rankingFilterAdapter.setSelectedPosition(0)
+            genreAdapter.submitList(genreList)
+            adapter = genreAdapter
+            genreAdapter.setSelectedPosition(0)
         }
 
         binding.recyclerviewRanking.apply {
@@ -69,11 +71,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
 
         binding.recyclerviewNewTicketFilter.apply {
-            newFilterAdapter = RankingFilterAdapter { position, item ->
+            newFilterAdapter = GenreAdapter { position, item ->
                 Log.e("newFilterAdapter", item.toString())
-                onItemClicked1(position)
+                newFilterItemClicked(position)
             }
-            newFilterAdapter.submitList(rankingList)
+
+            newFilterAdapter.submitList(genreList)
             adapter = newFilterAdapter
             newFilterAdapter.setSelectedPosition(0)
         }
@@ -170,11 +173,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 //        }
     }
 
-    private fun onItemClicked(position: Int) {
-        rankingFilterAdapter.setSelectedPosition(position)
+    private fun rankingFilterItemClicked(position: Int) {
+        genreAdapter.setSelectedPosition(position)
     }
 
-    private fun onItemClicked1(position: Int) {
+    private fun newFilterItemClicked(position: Int) {
         newFilterAdapter.setSelectedPosition(position)
     }
 }

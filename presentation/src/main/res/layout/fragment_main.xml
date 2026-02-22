@@ -123,7 +123,7 @@
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:listitem="@layout/item_ranking_filter" />
+                            tools:listitem="@layout/item_genre_filter" />
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -195,7 +195,7 @@
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:listitem="@layout/item_ranking_filter" />
+                            tools:listitem="@layout/item_genre_filter" />
                     </RelativeLayout>
 
                 </RelativeLayout>
