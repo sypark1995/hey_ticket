@@ -44,8 +44,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
         }
 
-        binding.recyclerviewRanking.apply {
-            rankingAdapter = RankingAdapter { position, item ->
+        binding.recyclerviewRankingFilter.apply {
+            rankingAdapter = RankingFilterAdapter { position, item ->
                 Log.e("!!!!", item.toString())
                 onItemClicked(position)
             }

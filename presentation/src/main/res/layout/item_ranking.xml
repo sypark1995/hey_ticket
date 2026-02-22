@@ -1,24 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_marginStart="8dp"
+        android:background="@color/gray_616161"
+        android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/text_genre"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/round_16_gray"
-            android:button="@null"
-            android:gravity="center"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textColor="@color/gray_989CA1"
-            android:textSize="14sp"
-            tools:text="한국 무용" />
+        <RelativeLayout
+            android:id="@+id/layout_poster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_poster"
+                android:layout_width="match_parent"
+                android:layout_height="210dp" />
+
+            <TextView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/round_6_black_cc"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                tools:text="1" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/gray_949494"
+                android:textSize="12sp"
+                tools:text="용산구 블루 스퀘어" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/black_111111"
+                android:textSize="14sp"
+                tools:text="파우스트" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/text_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                tools:text="공연 중" />
+
+            <TextView
+                android:id="@+id/text_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@+id/text_status"
+                android:textColor="@color/gray_949494"
+                android:textSize="12sp"
+                tools:text="3월 31일 (금) 종료" />
+        </RelativeLayout>
     </LinearLayout>
 </layout>
