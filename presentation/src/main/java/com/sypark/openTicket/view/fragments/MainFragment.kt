@@ -10,7 +10,7 @@ import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
 import com.sypark.openTicket.model.MainViewModel
-import com.sypark.openTicket.view.adapter.RankingAdapter
+import com.sypark.openTicket.view.adapter.RankingFilterAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -19,7 +19,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val TAG = "MainFragment"
 
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var rankingAdapter: RankingAdapter
+    private lateinit var rankingAdapter: RankingFilterAdapter
     private val rankingList = listOf(
         Genre("AAAA", "전체"),
         Genre("AAAA", "연극"),

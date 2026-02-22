@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sypark.data.db.entity.Genre
 import com.sypark.openTicket.R
-import com.sypark.openTicket.databinding.ItemRankingBinding
+import com.sypark.openTicket.databinding.ItemRankingFilterBinding
 
-class RankingAdapter(private val onItemClickListener: (Int, Genre) -> Unit) :
+class RankingFilterAdapter(private val onItemClickListener: (Int, Genre) -> Unit) :
     ListAdapter<Genre, ViewHolder>(MyItemCallback()) {
 
     private var selectedPosition: Int = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemRankingFilterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -49,7 +49,7 @@ class RankingAdapter(private val onItemClickListener: (Int, Genre) -> Unit) :
     }
 }
 
-class ViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
+class ViewHolder(val binding: ItemRankingFilterBinding) : RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("CutPasteId")
     fun bind(
