@@ -21,6 +21,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var rankingFilterAdapter: RankingFilterAdapter
+    private lateinit var newFilterAdapter: RankingFilterAdapter
     private val rankingList = listOf(
         Genre("AAAA", "전체"),
         Genre("AAAA", "연극"),
@@ -65,6 +66,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
 //            rankingAdapter.submitList()
             adapter = rankingAdapter
+        }
+
+        binding.recyclerviewNewTicketFilter.apply {
+            newFilterAdapter = RankingFilterAdapter { position, item ->
+                Log.e("newFilterAdapter", item.toString())
+                onItemClicked1(position)
+            }
+            newFilterAdapter.submitList(rankingList)
+            adapter = newFilterAdapter
+            newFilterAdapter.setSelectedPosition(0)
         }
 
 //        binding.openKindRecyclerview.adapter.apply {
@@ -161,5 +172,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun onItemClicked(position: Int) {
         rankingFilterAdapter.setSelectedPosition(position)
+    }
+
+    private fun onItemClicked1(position: Int) {
+        newFilterAdapter.setSelectedPosition(position)
     }
 }
