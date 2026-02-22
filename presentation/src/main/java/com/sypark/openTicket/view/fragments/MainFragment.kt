@@ -10,6 +10,7 @@ import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
 import com.sypark.openTicket.model.MainViewModel
+import com.sypark.openTicket.view.adapter.RankingAdapter
 import com.sypark.openTicket.view.adapter.RankingFilterAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -19,7 +20,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val TAG = "MainFragment"
 
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var rankingAdapter: RankingFilterAdapter
+    private lateinit var rankingFilterAdapter: RankingFilterAdapter
     private val rankingList = listOf(
         Genre("AAAA", "전체"),
         Genre("AAAA", "연극"),
@@ -33,6 +34,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         Genre("GGGA", "뮤지컬")
     )
 
+    private lateinit var rankingAdapter: RankingAdapter
+
     override fun init(view: View) {
         binding.layoutBottom.navigationBottom.menu.getItem(0).isChecked = true
 
@@ -45,14 +48,23 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
 
         binding.recyclerviewRankingFilter.apply {
-            rankingAdapter = RankingFilterAdapter { position, item ->
+            rankingFilterAdapter = RankingFilterAdapter { position, item ->
                 Log.e("!!!!", item.toString())
                 onItemClicked(position)
             }
 
-            rankingAdapter.submitList(rankingList)
+            rankingFilterAdapter.submitList(rankingList)
+            adapter = rankingFilterAdapter
+            rankingFilterAdapter.setSelectedPosition(0)
+        }
+
+        binding.recyclerviewRanking.apply {
+            rankingAdapter = RankingAdapter {
+
+            }
+
+//            rankingAdapter.submitList()
             adapter = rankingAdapter
-            rankingAdapter.setSelectedPosition(0)
         }
 
 //        binding.openKindRecyclerview.adapter.apply {
@@ -148,6 +160,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun onItemClicked(position: Int) {
-        rankingAdapter.setSelectedPosition(position)
+        rankingFilterAdapter.setSelectedPosition(position)
     }
 }

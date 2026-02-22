@@ -16,9 +16,12 @@
             <ImageView
                 android:id="@+id/img_poster"
                 android:layout_width="match_parent"
-                android:layout_height="210dp" />
+                android:layout_height="210dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
 
             <TextView
+                android:id="@+id/text_ranking"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentStart="true"
@@ -39,6 +42,7 @@
             android:layout_marginTop="10dp">
 
             <TextView
+                android:id="@+id/text_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -54,6 +58,7 @@
             android:layout_marginTop="4dp">
 
             <TextView
+                android:id="@+id/text_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
