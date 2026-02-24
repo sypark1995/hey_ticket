@@ -20,6 +20,11 @@
     <string name="main_etc_ticket">발레 공연 맞을까여????</string>
     <string name="main_category">카테고리</string>
     <string name="main_my">마이</string>
+    <string name="recommend_selector_title">관심 카테고리 선택</string>
+    <string name="recommend_selector_content">선택한 카테고리 기준으로 공연을 추천해 드려요</string>
+    <string name="recommend_selector_area">지역</string>
+    <string name="recommend_selector_area_content">복수 선택 가능해요</string>
+    <string name="recommend_selector_genre">공연 장르</string>
 
     <string name="recommend_register">회원 가입</string>
     <string name="search_edit_text">공연명, 출연진, 아티스트 검색</string>
