@@ -5,13 +5,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#007AFF">
+        android:background="@color/black">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="200dp"
-            android:layout_height="79dp"
-            android:src="@drawable/ic_launcher_foreground"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_splash"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

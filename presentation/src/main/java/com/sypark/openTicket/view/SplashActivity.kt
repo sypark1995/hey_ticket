@@ -26,7 +26,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
 
         lifecycleScope.launch {
-            delay(delayTime)
+            delay(3000L)
 
             Intent(this@SplashActivity, MainActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
