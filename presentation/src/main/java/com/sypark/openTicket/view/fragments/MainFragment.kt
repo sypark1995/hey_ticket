@@ -11,6 +11,7 @@ import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
 import com.sypark.openTicket.model.MainViewModel
 import com.sypark.openTicket.view.adapter.GenreAdapter
+import com.sypark.openTicket.view.adapter.MainDefaultAdapter
 import com.sypark.openTicket.view.adapter.RankingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,6 +39,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     )
 
     private lateinit var rankingAdapter: RankingAdapter
+    private lateinit var newTicketAdapter: MainDefaultAdapter
+    private lateinit var etcTicketAdapter: MainDefaultAdapter
+    private lateinit var campusTicketAdapter: MainDefaultAdapter
 
     override fun init(view: View) {
         binding.layoutBottom.navigationBottom.menu.getItem(0).isChecked = true
@@ -80,6 +84,31 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             adapter = newFilterAdapter
             newFilterAdapter.setSelectedPosition(0)
         }
+
+        binding.recyclerviewNewTicket.apply {
+            newTicketAdapter = MainDefaultAdapter {
+
+            }
+//            mainDefaultAdapter.submitList()
+            adapter = newTicketAdapter
+        }
+
+        binding.recyclerviewCampusTicket.apply {
+            campusTicketAdapter = MainDefaultAdapter {
+
+            }
+//            campusTicketAdapter.submitList()
+            adapter = campusTicketAdapter
+        }
+
+        binding.recyclerviewEtcTicket.apply {
+            etcTicketAdapter = MainDefaultAdapter {
+
+            }
+//            etcTicketAdapter.submitList()
+            adapter = etcTicketAdapter
+        }
+
 
 //        binding.openKindRecyclerview.adapter.apply {
 //

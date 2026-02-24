@@ -16,6 +16,8 @@
     <string name="main_more">더보기</string>
     <string name="main_ranking">공연 랭킹</string>
     <string name="main_new_ticket">새로 나온 공연</string>
+    <string name="main_campus_ticket">대학로 공연</string>
+    <string name="main_etc_ticket">발레 공연 맞을까여????</string>
     <string name="main_category">카테고리</string>
     <string name="main_my">마이</string>
 
