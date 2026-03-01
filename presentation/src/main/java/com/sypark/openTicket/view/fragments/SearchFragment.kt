@@ -28,69 +28,87 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     lateinit var searchWordListAdapter: SearchWordListAdapter
     override fun init(view: View) {
 
-        binding.imgClose.setOnClickListener {
-            findNavController().popBackStack()
-        }
+        binding.apply {
+            imgClose.setOnClickListener {
+                findNavController().popBackStack()
+            }
 
-        binding.textSearch.apply {
-            this.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int) {
-                }
+            textSearch.apply {
+                this.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                    }
 
-                override fun afterTextChanged(s: Editable?) {
-                    categorySearchViewModel.setWord(s.toString())
-                }
-            })
-        }
+                    override fun afterTextChanged(s: Editable?) {
+                        categorySearchViewModel.setWord(s.toString())
+                    }
+                })
 
-        binding.textSearch.setOnKeyListener { v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                if (!categorySearchViewModel.searchWord.value.isNullOrEmpty()) {
-                    categorySearchViewModel.insertWord(
-                        categorySearchViewModel.searchWord.value!!,
-                        Calendar.getInstance().time
-                    )
+                setOnKeyListener { v, keyCode, event ->
+                    if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                        if (!categorySearchViewModel.searchWord.value.isNullOrEmpty()) {
+                            categorySearchViewModel.insertWord(
+                                categorySearchViewModel.searchWord.value!!,
+                                Calendar.getInstance().time
+                            )
+                        }
+                        (view.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?).apply {
+                            this!!.hideSoftInputFromWindow(
+                                view.windowToken,
+                                InputMethodManager.HIDE_NOT_ALWAYS
+                            )
+                        }
+                        true
+                    } else {
+                        false
+                    }
                 }
-                (view.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?).apply {
-                    this!!.hideSoftInputFromWindow(
-                        view.windowToken,
-                        InputMethodManager.HIDE_NOT_ALWAYS
-                    )
-                }
-                true
-            } else {
-                false
+            }
+
+            recyclerviewRecentlySearch.apply {
+                searchWordListAdapter = SearchWordListAdapter()
+                adapter = searchWordListAdapter
+
+                layoutManager = LinearLayoutManager(
+                    this@SearchFragment.context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            }
+
+            textDelete.setOnClickListener {
+                activity?.showSearchDeletePopup({
+                    Log.e("!!!!", "취소")
+                }, {
+                    Log.e("!!!!", "확인")
+                    categorySearchViewModel.deleteAllWords()
+                })
             }
         }
 
-        binding.recyclerviewRecentlySearch.apply {
-            searchWordListAdapter = SearchWordListAdapter()
-            adapter = searchWordListAdapter
-            layoutManager = LinearLayoutManager(
-                this@SearchFragment.context,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-        }
-
         categorySearchViewModel.allWords.observe(owner = this) { words ->
-            words.let { searchWordListAdapter.submitList(it) }
+            words.let {
+                if (words.isEmpty()) {
+                    binding.layoutRecentlySearch.visibility = View.GONE
+                } else {
+                    binding.layoutRecentlySearch.visibility = View.VISIBLE
+                }
+
+                searchWordListAdapter.submitList(it)
+            }
         }
 
-        binding.textDelete.setOnClickListener {
-            activity?.showSearchDeletePopup({
-                Log.e("!!!!", "취소")
-            }, {
-                Log.e("!!!!", "확인")
-                categorySearchViewModel.deleteAllWords()
-            })
-        }
     }
 }

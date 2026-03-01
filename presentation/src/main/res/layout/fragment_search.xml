@@ -42,8 +42,9 @@
                 android:layout_marginBottom="10dp"
                 android:layout_toEndOf="@id/img_close"
                 android:background="@drawable/round_8"
-                android:drawableStart="@drawable/icon_search_edit"
-                android:drawablePadding="12dp"
+                android:drawableStart="@drawable/drawable_left_search_customise"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/pretendard_medium"
                 android:hint="@string/search_edit_text"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
@@ -73,6 +74,7 @@
                     android:layout_height="20dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/pretendard_medium"
                     android:gravity="center"
                     android:text="@string/search_recently"
                     android:textColor="@color/black"
@@ -90,6 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/pretendard_medium"
                         android:gravity="center"
                         android:text="@string/search_delete_all"
                         android:textColor="@color/gray_B7B7B7"
@@ -107,7 +110,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_recently_search"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_search" />
             </RelativeLayout>
         </RelativeLayout>
 

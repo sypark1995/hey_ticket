@@ -7,24 +7,24 @@ import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentCategoryBinding
-import com.sypark.openTicket.view.SearchPerformanceAdapter
+import com.sypark.openTicket.view.CategoryGenreAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment_category) {
 
-    private lateinit var searchPerformanceAdapter: SearchPerformanceAdapter
+    private lateinit var categoryGenreAdapter: CategoryGenreAdapter
     override fun init(view: View) {
         binding.layoutBottom.navigationBottom.menu.getItem(1).isChecked = true
 
         binding.recyclerviewPerformance.apply {
             layoutManager = LinearLayoutManager(view.context)
-            searchPerformanceAdapter = SearchPerformanceAdapter {
+            categoryGenreAdapter = CategoryGenreAdapter {
                 itemClicked()
             }
 
-            searchPerformanceAdapter.submitList(Common.categoryList)
-            adapter = searchPerformanceAdapter
+            categoryGenreAdapter.submitList(Common.categoryList)
+            adapter = categoryGenreAdapter
         }
 
         binding.textSearch.setOnClickListener {

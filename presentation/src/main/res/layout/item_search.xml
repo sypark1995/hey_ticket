@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="1dp"
-    android:layout_marginEnd="1dp"
-    android:orientation="vertical">
+<layout>
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip_area"
-        style="@style/Widget.MaterialComponents.Chip.Entry"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:text="@string/category_detail_filter_area"
-        android:textColor="@color/gray_949494"
-        android:textSize="14sp"
-        app:checkedIcon="@null"
-        app:chipBackgroundColor="@color/white"
-        app:chipStrokeColor="@color/gray_EFEFEF"
-        app:chipStrokeWidth="1dp"
-        app:closeIcon="@drawable/icon_vector_close"
-        app:closeIconSize="14dp"
-        app:closeIconTint="@color/gray_B7B7B7"
-        app:closeIconVisible="false" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_area"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/round_16_gray"
+            android:fontFamily="@font/pretendard_light"
+            android:gravity="center"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="@string/category_detail_filter_area"
+            android:textColor="@color/gray_949494"
+            android:textSize="14sp" />
+    </LinearLayout>
+</layout>

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sypark.data.db.entity.Genre
 import com.sypark.openTicket.databinding.ItemCategoryBinding
 
-class SearchPerformanceAdapter(private val clickListener: () -> Unit) :
+class CategoryGenreAdapter(private val clickListener: () -> Unit) :
     ListAdapter<Genre, CategoryHolder>(MyItemCallback()) {
 
     class MyItemCallback : DiffUtil.ItemCallback<Genre>() {
