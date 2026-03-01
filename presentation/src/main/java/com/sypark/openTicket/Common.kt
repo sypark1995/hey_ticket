@@ -2,6 +2,7 @@ package com.sypark.openTicket
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.sypark.data.db.entity.Genre
 import java.time.LocalDate
 
 object Common {
@@ -51,4 +52,29 @@ object Common {
         }
         return ""
     }
+
+    val genreList = listOf(
+        Genre("AAAA", "전체"),
+        Genre("AAAA", "연극"),
+        Genre("BBBC", "무용(서양/한국무용)"),
+        Genre("BBBE", "대중무용"),
+        Genre("CCCA", "클래식(서양음악)"),
+        Genre("CCCC", "국악(한국음악)"),
+        Genre("CCCD", "대중음악"),
+        Genre("EEEA", "복합"),
+        Genre("EEEB", "서커스/마술"),
+        Genre("GGGA", "뮤지컬")
+    )
+
+    val categoryList = listOf(
+        Genre("AAAA", "연극"),
+        Genre("BBBC", "무용(서양/한국무용)"),
+        Genre("BBBE", "대중무용"),
+        Genre("CCCA", "클래식(서양음악)"),
+        Genre("CCCC", "국악(한국음악)"),
+        Genre("CCCD", "대중음악"),
+        Genre("EEEA", "복합"),
+        Genre("EEEB", "서커스/마술"),
+        Genre("GGGA", "뮤지컬")
+    )
 }
