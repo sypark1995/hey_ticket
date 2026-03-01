@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,8 @@ class GenreAdapter(private val onItemClickListener: (Int, Genre) -> Unit) :
     private var selectedPosition: Int = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemGenreFilterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemGenreFilterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -65,10 +67,15 @@ class ViewHolder(val binding: ItemGenreFilterBinding) : RecyclerView.ViewHolder(
             this.isSelected = isSelected
             text = item.genrenm
 
+            val boldFont = ResourcesCompat.getFont(binding.root.context, R.font.pretendard_bold)
+            val lightFont = ResourcesCompat.getFont(binding.root.context, R.font.pretendard_light)
+
             if (this.isSelected) {
+                typeface = boldFont
                 setBackgroundResource(R.drawable.round_16_black)
                 setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
             } else {
+                typeface = lightFont
                 setBackgroundResource(R.drawable.round_16_gray)
                 setTextColor(ContextCompat.getColor(binding.root.context, R.color.gray_989CA1))
             }

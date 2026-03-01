@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.sypark.data.db.entity.Genre
+import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
@@ -25,19 +25,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private lateinit var genreAdapter: GenreAdapter
     private lateinit var newFilterAdapter: GenreAdapter
 
-    private val genreList = listOf(
-        Genre("AAAA", "전체"),
-        Genre("AAAA", "연극"),
-        Genre("BBBC", "무용(서양/한국무용)"),
-        Genre("BBBE", "대중무용"),
-        Genre("CCCA", "클래식(서양음악)"),
-        Genre("CCCC", "국악(한국음악)"),
-        Genre("CCCD", "대중음악"),
-        Genre("EEEA", "복합"),
-        Genre("EEEB", "서커스/마술"),
-        Genre("GGGA", "뮤지컬")
-    )
-
     private lateinit var rankingAdapter: RankingAdapter
     private lateinit var newTicketAdapter: MainDefaultAdapter
     private lateinit var etcTicketAdapter: MainDefaultAdapter
@@ -46,21 +33,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun init(view: View) {
         binding.layoutBottom.navigationBottom.menu.getItem(0).isChecked = true
 
-//        binding.textRecommend.setOnClickListener {
-//            findNavController().navigate(MainFragmentDirections.actionMainFragmentToRecommendFragment())
-//        }
-
         binding.topTitle.imgSearch.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
         }
 
         binding.recyclerviewRankingFilter.apply {
             genreAdapter = GenreAdapter { position, item ->
-                Log.e("!!!!", item.toString())
                 rankingFilterItemClicked(position)
             }
 
-            genreAdapter.submitList(genreList)
+            genreAdapter.submitList(Common.genreList)
             adapter = genreAdapter
             genreAdapter.setSelectedPosition(0)
         }
@@ -80,7 +62,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 newFilterItemClicked(position)
             }
 
-            newFilterAdapter.submitList(genreList)
+            newFilterAdapter.submitList(Common.genreList)
             adapter = newFilterAdapter
             newFilterAdapter.setSelectedPosition(0)
         }

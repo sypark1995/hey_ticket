@@ -73,6 +73,7 @@
                         android:layout_marginTop="20dp"
                         android:text="@string/main_ranking"
                         android:textColor="@color/black"
+                        android:fontFamily="@font/pretendard_bold"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -91,6 +92,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:text="@string/main_more"
+                            android:fontFamily="@font/pretendard_light"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
 
@@ -150,6 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
+                        android:fontFamily="@font/pretendard_bold"
                         android:text="@string/main_new_ticket"
                         android:textColor="@color/black"
                         android:textSize="18sp"
@@ -170,6 +173,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:text="@string/main_more"
+                            android:fontFamily="@font/pretendard_light"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
 
@@ -223,6 +227,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
                         android:text="@string/main_campus_ticket"
+                        android:fontFamily="@font/pretendard_bold"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -243,6 +248,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/main_more"
                             android:textColor="@color/gray"
+                            android:fontFamily="@font/pretendard_light"
                             android:textSize="14sp" />
 
                         <ImageView
@@ -279,6 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
+                        android:fontFamily="@font/pretendard_bold"
                         android:text="@string/main_etc_ticket"
                         android:textColor="@color/black"
                         android:textSize="18sp"
@@ -299,6 +306,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:text="@string/main_more"
+                            android:fontFamily="@font/pretendard_light"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
 

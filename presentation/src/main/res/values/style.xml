@@ -8,4 +8,9 @@
         <item name="closeIconVisible">false</item>
         <item name="checkedIcon">@null</item>
     </style>
+
+    <style name="bottomNavigationView"
+        parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/pretendard_light</item>
+    </style>
 </resources>
