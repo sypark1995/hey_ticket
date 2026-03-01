@@ -15,6 +15,7 @@
             android:id="@+id/search_category_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_bold"
             android:text="뮤지컬"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -30,9 +31,9 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/icon_more" />
+            android:background="@drawable/icon_ticket_category_more" />
     </RelativeLayout>
 </RelativeLayout>
