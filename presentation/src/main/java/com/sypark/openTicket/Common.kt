@@ -2,6 +2,8 @@ package com.sypark.openTicket
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.sypark.data.db.entity.CategoryDetailArea
+import com.sypark.data.db.entity.CategoryDetailSort
 import com.sypark.data.db.entity.Genre
 import java.time.LocalDate
 
@@ -76,5 +78,23 @@ object Common {
         Genre("EEEA", "복합"),
         Genre("EEEB", "서커스/마술"),
         Genre("GGGA", "뮤지컬")
+    )
+
+    val categoryDetailAreaList = listOf(
+        CategoryDetailArea("서울시"),
+        CategoryDetailArea("경기도"),
+        CategoryDetailArea("강원도"),
+        CategoryDetailArea("충청북도"),
+        CategoryDetailArea("충청남도"),
+        CategoryDetailArea("전라북도"),
+        CategoryDetailArea("전라남도"),
+        CategoryDetailArea("경상남도"),
+        CategoryDetailArea("경상북도"),
+    )
+
+    val sortList = listOf(
+        CategoryDetailSort("최근 등록순"),
+        CategoryDetailSort("예매순"),
+        CategoryDetailSort("조회수순")
     )
 }

@@ -14,8 +14,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.sypark.data.db.entity.CategoryDetailArea
-import com.sypark.data.db.entity.CategoryDetailSort
 import com.sypark.data.db.entity.Ticket
+import com.sypark.openTicket.Common
 import com.sypark.openTicket.Preferences
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
@@ -40,74 +40,80 @@ class CategoryDetailFragment :
     private lateinit var categorySortAdapter: CategorySortAdapter
     private lateinit var categoryFilterAreaAdapter: CategoryFilterAreaAdapter
 
-    private val sortList = listOf(
-        CategoryDetailSort("최근 등록순"),
-        CategoryDetailSort("예매순"),
-        CategoryDetailSort("조회수순")
-    )
 
-    private val categoryDetailAreaList = listOf(
-        CategoryDetailArea("서울시"),
-        CategoryDetailArea("경기도"),
-        CategoryDetailArea("강원도"),
-        CategoryDetailArea("충청북도"),
-        CategoryDetailArea("충청남도"),
-        CategoryDetailArea("전라북도"),
-        CategoryDetailArea("전라남도"),
-        CategoryDetailArea("경상남도"),
-        CategoryDetailArea("경상북도"),
-    )
+//    private fun setUpObserver() {
+//        categoryDetailViewModel.isDetailSortVisibility.observe(this,)
+//    }
 
     override fun init(view: View) {
-        binding.imgBack.setOnClickListener {
-            findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToCategoryFragment())
-            Preferences.sortPosition = 1
-        }
+//        setUpObserver()
+        binding.apply {
 
-        binding.sortLayout.setOnClickListener {
-            binding.includeLayoutSort.layoutDetailSort.visibility =
-                View.VISIBLE   //todo_sypark viewmodel로 한번에 관리
-        }
-
-        binding.includeLayoutSort.imgClose.setOnClickListener {
-            binding.includeLayoutSort.layoutDetailSort.visibility =
-                View.GONE  //todo_sypark viewmodel로 한번에 관리
-
-            Preferences.sortPosition = 1
-        }
-
-        binding.includeLayoutSort.sortRecyclerview.apply {
-            layoutManager = LinearLayoutManager(view.context)
-            categorySortAdapter = CategorySortAdapter { position ->
-                onItemClicked(position)
-                Preferences.sortPosition = position
+            categoryDetailViewModel.isDetailSortVisibility.observe(viewLifecycleOwner) {
+                if (it) {
+                    includeLayoutSort.layoutDetailSort.visibility =
+                        View.VISIBLE
+                } else {
+                    includeLayoutSort.layoutDetailSort.visibility =
+                        View.GONE
+                }
             }
 
-            categorySortAdapter.submitList(sortList)
-            adapter = categorySortAdapter
-            categorySortAdapter.setSelectedPosition(1)
-        }
+            categoryDetailViewModel.isFilterLayoutVisibility.observe(viewLifecycleOwner) {
+                if (it) {
+                    includeLayoutFilter.root.visibility = View.VISIBLE
+                } else {
+                    includeLayoutFilter.root.visibility = View.GONE
+                }
+            }
 
-        binding.includeLayoutSort.btnConfirm.setOnClickListener {
-            binding.includeLayoutSort.layoutDetailSort.visibility =
-                View.GONE  //todo_sypark viewmodel로 한번에 관리
+            imgBack.setOnClickListener {
+                findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToCategoryFragment())
+                Preferences.sortPosition = 1
+            }
 
-            binding.textSort.text = sortList[Preferences.sortPosition].sort
-        }
+//            sortLayout.setOnClickListener {
+//                categoryDetailViewModel.setDetailSortLayoutVisibility(true)
+//            }
 
-        binding.imgFilter.setOnClickListener {
-            binding.includeLayoutFilter.root.visibility = View.VISIBLE
-        }
+            includeLayoutSort.imgClose.setOnClickListener {
+                categoryDetailViewModel.setDetailSortLayoutVisibility(false)
+                Preferences.sortPosition = 1
+            }
 
-        binding.includeLayoutFilter.imgClose.setOnClickListener {
-            binding.includeLayoutFilter.root.visibility = View.GONE
+            includeLayoutSort.btnConfirm.setOnClickListener {
+                categoryDetailViewModel.setDetailSortLayoutVisibility(false)
+                textSort.text = Common.sortList[Preferences.sortPosition].sort
+            }
+
+            imgFilter.setOnClickListener {
+                categoryDetailViewModel.setFilterLayoutVisibility(true)
+            }
+
+            includeLayoutFilter.imgClose.setOnClickListener {
+                categoryDetailViewModel.setFilterLayoutVisibility(false)
+            }
+
+            includeLayoutSort.sortRecyclerview.apply {
+                layoutManager = LinearLayoutManager(view.context)
+                categorySortAdapter = CategorySortAdapter { position ->
+                    onItemClicked(position)
+                    Preferences.sortPosition = position
+                }
+
+                categorySortAdapter.submitList(Common.sortList)
+                adapter = categorySortAdapter
+                categorySortAdapter.setSelectedPosition(1)
+            }
+
+
         }
 
         binding.includeLayoutFilter.recyclerviewArea.apply {
             layoutManager = LinearLayoutManager(view.context)
             categoryFilterAreaAdapter = CategoryFilterAreaAdapter()
             adapter = categoryFilterAreaAdapter
-            categoryFilterAreaAdapter.submitList(categoryDetailAreaList)
+            categoryFilterAreaAdapter.submitList(Common.categoryDetailAreaList)
 
             categoryFilterAreaAdapter.setOnItemClickListener {
                 if (categoryFilterAreaAdapter.selectedList().size == 0) {
@@ -132,45 +138,9 @@ class CategoryDetailFragment :
             }
         }
 
-        categoryDetailViewModel.filterAreaData.observe(this) {
-
-        }
-
-
         binding.includeLayoutFilter.btnConfirm.setOnClickListener {
-
-            Log.e("!!!", categoryDetailViewModel.filterAreaData.value.toString())
-            Log.e("isPlaned", categoryDetailViewModel.isPlaned.value.toString())
-            Log.e("isDuring", categoryDetailViewModel.isDuring.value.toString())
-            Log.e("isFinished", categoryDetailViewModel.isFinished.value.toString())
-            Log.e("price", categoryDetailViewModel.filterPriceData.value.toString())
-
-            if (categoryDetailViewModel.filterAreaData.value != null && categoryDetailViewModel.filterAreaData.value!!.size > 0) {
-                setChipTrue(it.context, binding.chipArea)
-                when (categoryDetailViewModel.filterAreaData.value?.size) {
-                    null, 0 -> {
-                        binding.chipArea.text = "전체"
-                    }
-                    1 -> {
-                        binding.chipArea.text =
-                            categoryDetailViewModel.filterAreaData.value!![0].area
-                    }
-                    else -> {
-                        binding.chipArea.text =
-                            "지역 ${categoryDetailViewModel.filterAreaData.value?.size}"
-                    }
-                }
-            } else {
-                setChipFalse(it.context, binding.chipArea, "지역")
-            }
-
-            if (categoryDetailViewModel.statusList.value?.size == 0) {
-                setChipFalse(it.context, binding.chipStatus, "진행 상태")
-            } else {
-                setChipTrue(it.context, binding.chipStatus)
-                binding.chipStatus.text =
-                    StringUtil.join(categoryDetailViewModel.statusList.value, ", ").toString()
-            }
+            Log.e("!!!!", "includeLayoutFilter")
+            setUpObserver()
 
             if (categoryDetailViewModel.filterPriceData.value.isNullOrEmpty()) {
                 setChipFalse(it.context, binding.chipPrice, "예매가격")
@@ -480,12 +450,38 @@ class CategoryDetailFragment :
         chip.text = text
     }
 
+
+    private fun setChipTrue1(chip: Chip) {
+        context?.let {
+            chip.chipBackgroundColor =
+                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.black_111111))
+            chip.chipStrokeColor =
+                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.black_111111))
+            chip.setTextColor(ContextCompat.getColor(it, R.color.white))
+        }
+
+        chip.isCloseIconVisible = true
+    }
+
+    private fun setChipFalse1(chip: Chip, text: String) {
+        context?.let {
+            chip.chipBackgroundColor =
+                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.white))
+            chip.chipStrokeColor =
+                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.gray_EFEFEF))
+            chip.setTextColor(ContextCompat.getColor(it, R.color.gray_949494))
+        }
+
+        chip.isCloseIconVisible = false
+        chip.text = text
+    }
+
     // 필터 지역 초기화
     private fun initFilterArea(context: Context) {
         binding.includeLayoutFilter.recyclerviewArea.removeAllViewsInLayout()
         categoryFilterAreaAdapter.apply {
             clear()
-            submitList(categoryDetailAreaList)
+            submitList(Common.categoryDetailAreaList)
             notifyDataSetChanged()
         }
 
@@ -541,6 +537,48 @@ class CategoryDetailFragment :
     }
 
     private fun itemClicked(data: Ticket) {
-        findNavController().navigate(CategoryDetailFragmentDirections.actionCategoryDetailFragmentToTicketDetailFragment(data))
+        findNavController().navigate(
+            CategoryDetailFragmentDirections.actionCategoryDetailFragmentToTicketDetailFragment(
+                data
+            )
+        )
+    }
+
+    private fun setUpObserver() {
+        categoryDetailViewModel.filterAreaData.observe(viewLifecycleOwner, ::isFilterAreaWatcher)
+        categoryDetailViewModel.statusList.observe(viewLifecycleOwner, ::isFilterChipWatcher)
+    }
+
+    private fun isFilterAreaWatcher(list: ArrayList<CategoryDetailArea>) {
+        if (list.isEmpty()) {
+            setChipFalse1(binding.chipArea, "지역")
+        } else {
+            setChipTrue1(binding.chipArea)
+
+            when (list.size) {
+                0 -> {
+                    binding.chipArea.text = "전체"
+                }
+                1 -> {
+                    binding.chipArea.text =
+                        categoryDetailViewModel.filterAreaData.value!![0].area
+                }
+                else -> {
+                    binding.chipArea.text =
+                        "지역 ${categoryDetailViewModel.filterAreaData.value?.size}"
+                }
+            }
+        }
+    }
+
+    private fun isFilterChipWatcher(list: ArrayList<String>) {
+        if (list.isEmpty()) {
+            setChipFalse1(binding.chipStatus, "진행 상태")
+        } else {
+            setChipTrue1(binding.chipStatus)
+            binding.chipStatus.text =
+                StringUtil.join(list, ", ").toString()
+        }
     }
 }
+

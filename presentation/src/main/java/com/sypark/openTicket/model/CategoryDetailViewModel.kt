@@ -1,15 +1,14 @@
 package com.sypark.openTicket.model
 
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.repository.PagingRepository
 import com.sypark.openTicket.base.BaseViewModel
 import com.sypark.openTicket.base.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import androidx.paging.cachedIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +22,20 @@ class CategoryDetailViewModel @Inject constructor(
 
     private var _sortType = SingleLiveEvent<String>()
     val sortType: LiveData<String> = _sortType
+
+    private var _isDetailSortLayoutVisibility = MutableLiveData(false)
+    val isDetailSortVisibility: LiveData<Boolean> = _isDetailSortLayoutVisibility
+
+    private var _isFilterLayoutVisibility = MutableLiveData(false)
+    val isFilterLayoutVisibility: LiveData<Boolean> = _isFilterLayoutVisibility
+
+    fun setDetailSortLayoutVisibility(isVisibility: Boolean) {
+        _isDetailSortLayoutVisibility.value = isVisibility
+    }
+
+    fun setFilterLayoutVisibility(isVisibility: Boolean) {
+        _isFilterLayoutVisibility.value = isVisibility
+    }
 
     fun setSortType(type: String) {
         _sortType.value = type
