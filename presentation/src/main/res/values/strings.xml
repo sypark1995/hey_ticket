@@ -100,5 +100,9 @@
     <string name="kakao_share_performance_information">공연 정보</string>
     <string name="kakao_share_location">공연장 위치보기</string>
 
+    <string name="login_email_address">이메일 주소</string>
+    <string name="login_email_button">이메일로 계속하기</string>
+    <string name="login_kakao_button">카카오로 계속하기</string>
+
 
 </resources>

@@ -13,4 +13,23 @@
         parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/pretendard_light</item>
     </style>
+
+    <style name="EditTextGreyStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <item name="colorControlNormal">@color/gray_DFDFDF</item>  // unFocus 상태일때 밑줄 색.
+        <item name="boxStrokeColor">@color/gray_DFDFDF</item> // Focus 상태일때 밑줄 색.
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="android:strokeColor">@color/gray_DFDFDF</item>
+
+        <item name="android:textCursorDrawable">@color/gray_DFDFDF</item>  // cursor 색.
+
+        <item name="android:textColorHint">@color/gray_DFDFDF</item>  // hint 색
+        <item name="hintTextColor">@color/gray_DFDFDF</item>   // floating hint 색
+
+        <item name="helperTextTextColor">@color/gray_DFDFDF</item>
+
+        <item name="errorTextColor">@color/red_FF334B</item>
+
+    </style>
 </resources>

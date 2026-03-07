@@ -37,6 +37,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
         }
 
+        binding.layoutRecommand.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToLoginFirstFragment())
+        }
+
         binding.recyclerviewRankingFilter.apply {
             genreAdapter = GenreAdapter { position, item ->
                 rankingFilterItemClicked(position)

@@ -26,4 +26,10 @@
     <color name="gray_e8e8e8">#e8e8e8</color>
     <color name="gray_989CA1">#989CA1</color>
     <color name="gray_F2F3F5">#F2F3F5</color>
+    <color name="gray_DFDFDF">#DFDFDF</color>
+    <color name="yellow_FFE141">#FFE141</color>
+    <color name="gray_777777">#777777</color>
+    <color name="red_FF334B">#FF334B</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#DFDFDF</color>
+    <!--   mtrl_textinput_default_box_stroke_color -> 예약어 -->
 </resources>

@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_loginFirstFragment"
+            app:destination="@id/loginFirstFragment" />
 
     </fragment>
 
@@ -96,6 +99,11 @@
             app:argType="string" />
 
     </fragment>
+    <fragment
+        android:id="@+id/loginFirstFragment"
+        android:name="com.sypark.openTicket.view.fragments.LoginFirstFragment"
+        android:label="LoginFirstFragment"
+        tools:layout="@layout/fragment_login_first" />
 
 
 </navigation>

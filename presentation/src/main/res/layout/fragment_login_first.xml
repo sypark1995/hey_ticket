@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layout_login_top"
+            layout="@layout/include_login_top" />
+
+        <TextView
+            android:id="@+id/text_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_login_top"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/pretendard_extra_bold"
+            android:gravity="center_horizontal"
+            android:text="@string/top_title"
+            android:textColor="@color/black_111111"
+            android:textSize="32sp" />
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/layout_login_edit"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"-->
+        <!--            app:errorIconDrawable="@null"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@id/text_logo"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="36dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:hint="@string/login_email_address"-->
+        <!--            app:boxBackgroundColor="@android:color/transparent"-->
+        <!--            app:boxStrokeWidth="0dp"-->
+        <!--            app:boxStrokeWidthFocused="0dp"-->
+        <!--            app:errorEnabled="true"-->
+        <!--            app:hintTextColor="@color/gray_777777">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/edit_email"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:background="@drawable/round_12_gray_white"-->
+        <!--                android:fontFamily="@font/pretendard_medium"-->
+        <!--                android:textColor="@color/black_111111" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_login_edit"
+            style="@style/EditTextGreyStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_logo"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/login_email_address"
+            app:errorEnabled="true"
+            app:errorIconTint="@null">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_medium"
+                android:textColor="@color/black_111111" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/layout_login_edit"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_12_gray"
+            android:fontFamily="@font/pretendard_medium"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:stateListAnimator="@null"
+            android:text="@string/login_email_button"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/btn_email"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="220dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_12_yellow"
+            android:fontFamily="@font/pretendard_medium"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:stateListAnimator="@null"
+            android:text="@string/login_kakao_button"
+            android:textColor="@color/black_2A2A2A"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</layout>
