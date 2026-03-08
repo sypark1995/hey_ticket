@@ -4,6 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
@@ -30,6 +31,11 @@ class LoginSecondFragment :
                 binding.btnLogin.setBackgroundResource(R.drawable.round_12_gray)
                 binding.btnLogin.isEnabled = false
             }
+        }
+
+
+        binding.layoutLoginTop.imgBack.setOnClickListener {
+            findNavController().popBackStack()
         }
 
         binding.editPw.addTextChangedListener(object : TextWatcher {
