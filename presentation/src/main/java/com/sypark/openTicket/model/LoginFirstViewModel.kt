@@ -10,7 +10,7 @@ import javax.inject.Inject
 class LoginFirstViewModel @Inject constructor(
 ) : BaseViewModel() {
 
-    var mutableEmailAddress = MutableLiveData<String>()
+    private var mutableEmailAddress = MutableLiveData<String>()
     var emailAddress: LiveData<String>
         get() = mutableEmailAddress
 

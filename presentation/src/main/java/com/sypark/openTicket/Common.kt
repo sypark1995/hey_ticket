@@ -6,6 +6,7 @@ import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.db.entity.CategoryDetailSort
 import com.sypark.data.db.entity.Genre
 import java.time.LocalDate
+import java.util.regex.Pattern
 
 object Common {
 
@@ -97,4 +98,9 @@ object Common {
         CategoryDetailSort("예매순"),
         CategoryDetailSort("조회수순")
     )
+
+    fun setPattern(pw: String): Boolean {
+        val pwPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+        return Pattern.compile(pwPattern).matcher(pw).find()
+    }
 }

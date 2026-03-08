@@ -109,5 +109,7 @@
     <string name="login_pw">비밀번호</string>
     <string name="login_pw_sample1">비밀번호 입력</string>
     <string name="login_pw_sample2">영문 대문자, 소문자, 숫자 포함 8자 이상</string>
+    <string name="login_pw_find"><u>비밀번호 찾기</u></string>
+
     <string name="login">로그인</string>
 </resources>

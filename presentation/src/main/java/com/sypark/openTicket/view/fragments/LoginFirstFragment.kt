@@ -50,8 +50,13 @@ class LoginFirstFragment : BaseFragment<FragmentLoginFirstBinding>(R.layout.frag
         }
 
         binding.btnEmail.setOnClickListener {
-            findNavController()
+            findNavController().navigate(
+                LoginFirstFragmentDirections.actionLoginFirstFragmentToLoginSecondFragment(
+                    viewModel.emailAddress.value.toString()
+                )
+            )
         }
+
         binding.editEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -64,8 +69,6 @@ class LoginFirstFragment : BaseFragment<FragmentLoginFirstBinding>(R.layout.frag
 
             }
         })
-
-
 
 
     }

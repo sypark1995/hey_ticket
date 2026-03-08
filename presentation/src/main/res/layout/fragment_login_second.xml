@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layout_login_top"
+            layout="@layout/include_login_top" />
+
+        <TextView
+            android:id="@+id/text_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_login_top"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/pretendard_extra_bold"
+            android:gravity="center_horizontal"
+            android:text="@string/top_title"
+            android:textColor="@color/black_111111"
+            android:textSize="32sp" />
+
+        <FrameLayout
+            android:id="@+id/layout_login_edit"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_below="@id/text_logo"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_12_gray_gray">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_email_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/pretendard_light"
+                    android:text="@string/login_email_address"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/text_email_address"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:hint="@string/login_email_sample"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/layout_pw_edit"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_below="@id/layout_login_edit"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_12_gray_white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_pw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/pretendard_light"
+                    android:text="@string/login_pw"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/edit_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/text_pw"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@null"
+                    android:fontFamily="@font/pretendard_light"
+                    android:gravity="center_vertical"
+                    android:hint="@string/login_pw_sample1"
+                    android:inputType="textPassword"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@+id/text_pw"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/icon_pw_open" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/text_pw_sample"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_pw_edit"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/pretendard_light"
+            android:text="@string/login_pw_sample2"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/text_pw_sample"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_12_gray"
+            android:enabled="false"
+            android:fontFamily="@font/pretendard_medium"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:stateListAnimator="@null"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/text_find_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:gravity="center_horizontal"
+            android:text="@string/login_pw_find"
+            android:textColor="@color/gray_949494"
+            android:textSize="14sp" />
+    </RelativeLayout>
+</layout>

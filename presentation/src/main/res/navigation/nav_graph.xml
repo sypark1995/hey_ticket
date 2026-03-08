@@ -103,7 +103,21 @@
         android:id="@+id/loginFirstFragment"
         android:name="com.sypark.openTicket.view.fragments.LoginFirstFragment"
         android:label="LoginFirstFragment"
-        tools:layout="@layout/fragment_login_first" />
+        tools:layout="@layout/fragment_login_first">
+        <action
+            android:id="@+id/action_loginFirstFragment_to_loginSecondFragment"
+            app:destination="@id/loginSecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginSecondFragment"
+        android:name="com.sypark.openTicket.view.fragments.LoginSecondFragment"
+        android:label="LoginSecondFragment"
+        tools:layout="@layout/fragment_login_second">
+
+        <argument
+            android:name="item"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>
