@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sypark.openTicket.model.LoginFirstViewModel" />
+    </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -23,64 +30,67 @@
             android:textColor="@color/black_111111"
             android:textSize="32sp" />
 
-        <!--        <com.google.android.material.textfield.TextInputLayout-->
-        <!--            android:id="@+id/layout_login_edit"-->
-        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"-->
-        <!--            app:errorIconDrawable="@null"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_below="@id/text_logo"-->
-        <!--            android:layout_marginStart="16dp"-->
-        <!--            android:layout_marginTop="36dp"-->
-        <!--            android:layout_marginEnd="16dp"-->
-        <!--            android:hint="@string/login_email_address"-->
-        <!--            app:boxBackgroundColor="@android:color/transparent"-->
-        <!--            app:boxStrokeWidth="0dp"-->
-        <!--            app:boxStrokeWidthFocused="0dp"-->
-        <!--            app:errorEnabled="true"-->
-        <!--            app:hintTextColor="@color/gray_777777">-->
-
-        <!--            <com.google.android.material.textfield.TextInputEditText-->
-        <!--                android:id="@+id/edit_email"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                android:background="@drawable/round_12_gray_white"-->
-        <!--                android:fontFamily="@font/pretendard_medium"-->
-        <!--                android:textColor="@color/black_111111" />-->
-        <!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-        <com.google.android.material.textfield.TextInputLayout
+        <FrameLayout
             android:id="@+id/layout_login_edit"
-            style="@style/EditTextGreyStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_below="@id/text_logo"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="16dp"
-            app:placeholderText="@string/login_email_sample"
-            android:hint="@string/login_email_address"
-            app:errorEnabled="true"
-            app:errorIconTint="@null">
+            android:background="@drawable/round_12_gray_white">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_email"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_medium"
-                android:textColor="@color/black_111111" />
+                android:layout_height="match_parent">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/text_email_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/pretendard_light"
+                    android:text="@string/login_email_address"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/text_email_address"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:hint="@string/login_email_sample"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/text_email_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_login_edit"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/pretendard_light"
+            android:text="@string/login_email_error"
+            android:textColor="@color/red_FF334B"
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@id/layout_login_edit"
+            android:layout_below="@id/text_email_error"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/round_12_gray"
+            android:enabled="false"
             android:fontFamily="@font/pretendard_medium"
             android:minWidth="0dp"
             android:minHeight="0dp"
