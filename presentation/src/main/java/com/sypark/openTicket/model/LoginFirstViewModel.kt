@@ -16,6 +16,7 @@ class LoginFirstViewModel @Inject constructor(
 
     init {
         emailAddress = mutableEmailAddress
+
     }
 
     fun setEmailAddress(email: String) {
