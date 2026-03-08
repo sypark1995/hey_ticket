@@ -12,10 +12,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14b57553-e3ae-4cc7-8589-156af099a613" name="Changes" comment="Add : gitignore setting">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="14b57553-e3ae-4cc7-8589-156af099a613" name="Changes" comment="feat : LoginFragment 검증 두번째 뷰 create 60%">
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/sha1-checksums.bin" afterDir="false" />
@@ -27,20 +24,20 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/presentation/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/presentation/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/MyApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/MyApplication.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/view/fragments/TicketDetailFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/view/fragments/TicketDetailFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/view/CategorySortAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/view/CategorySortAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/view/fragments/LoginSecondFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/view/fragments/LoginSecondFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/src/main/res/values/colors.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[172.18.12.225:5555]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[172.18.12.247:5555]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -49,10 +46,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="resourceFile" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Object" />
+        <option value="Kotlin Script" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -98,6 +96,7 @@
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;SHOW_ALL_PROCESSES&quot;: &quot;true&quot;,
+    &quot;android-custom-view/Users/sypark/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.2.0/3e159bfab49c7e6495fe374e6e5e1e989ee21dcf/recyclerview-1.2.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED&quot;: &quot;RecyclerView&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;/Users/sypark/android/hey_ticket/presentation/src/main/res/drawable&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/sypark/android/hey_ticket/presentation/src/main/res/drawable&quot;
@@ -106,6 +105,7 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/presentation/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/presentation/src/main/res/font" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.presentation">
@@ -235,160 +235,6 @@
       <option name="presentableId" value="Default" />
       <updated>1670238822348</updated>
     </task>
-    <task id="LOCAL-00001" summary="Add : SplashActivity 구성 완료">
-      <created>1670251947291</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1670251947292</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Add : Y data 추출 완료">
-      <created>1670255326931</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1670255326931</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Add : glide gradle push">
-      <created>1671958618218</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1671958618218</updated>
-    </task>
-    <task id="LOCAL-00004" summary="reformat">
-      <created>1671959339573</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1671959339573</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Add : viewPager2 적용 중">
-      <created>1672281876394</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1672281876394</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Add : usecase 적용중 , return flow 적용 중">
-      <created>1672637533193</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1672637533193</updated>
-    </task>
-    <task id="LOCAL-00007" summary="test">
-      <created>1674910555094</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1674910555094</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Add: Paging3 resource, repository create">
-      <created>1680610288300</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1680610288300</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Add: Paging3 create , UI 뿌려주는 작업 진행 예정">
-      <created>1680699654682</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1680699654682</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Add: Paging3 create UI 뿌려주는 작업 진행 완료">
-      <created>1680771363375</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1680771363375</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Add: performance detail xml create 진행 중 50%">
-      <created>1680781983195</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1680781983195</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Add: paging3 작업 완료 / adapter listener 작업 진행 중">
-      <created>1680782053895</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1680782053895</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Add: ticket 상세페이지 xml create">
-      <created>1680932154118</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1680932154118</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Add: ticket 상세페이지 color create">
-      <created>1680932294391</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1680932294391</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Fix : fragment에 includelayout visibility 시 layout gone 처리 에러 수정">
-      <created>1680938359817</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1680938359817</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Add: 티켓 상세 페이지 api response create">
-      <created>1680943680908</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1680943680908</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Add: 티켓 상세 페이지 api response 로 xml 데이터 뿌리는 중">
-      <created>1681119439228</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1681119439228</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Add: naver map sdk 작업 중 30%">
-      <created>1681121801817</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1681121801817</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Fix : fragment args string -&gt; data class reformat">
-      <created>1681203822274</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1681203822274</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Add: placeDetail api create">
-      <created>1681203898706</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1681203898706</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Fix : 미사용 코드 제거 및 reformat">
-      <created>1681203929246</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1681203929246</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Add : naver map api create완료 티켓 상세 페이지에 그리기">
-      <created>1681217257224</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1681217257224</updated>
-    </task>
     <task id="LOCAL-00023" summary="Add : 다중 url bitmap으로 변환 및 세로로 이어 붙여서 view create 작업 완료">
       <created>1681217356974</created>
       <option name="number" value="00023" />
@@ -480,7 +326,259 @@
       <option name="project" value="LOCAL" />
       <updated>1681812584665</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Add : gitignore setting">
+      <created>1681812687684</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1681812687684</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Add : gitignore setting">
+      <created>1681812831641</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1681812831641</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Add : kakao sdk install">
+      <created>1681817381698</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1681817381698</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Fix : date format reformat">
+      <created>1681818900149</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1681818900150</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fix : naver map api 수정 / button handling 수정">
+      <created>1681820110310</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1681820110310</updated>
+    </task>
+    <task id="LOCAL-00041" summary="test">
+      <created>1681820738560</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1681820738560</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Add : kakao shared sdk 작업중">
+      <created>1681905423439</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1681905423439</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Add : kakao shared sdk deeplink 작업중 (20%)">
+      <created>1681989969146</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1681989969146</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Fix : string reformat">
+      <created>1681990510598</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1681990510598</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Fix : main fragment 리뉴얼">
+      <created>1682044865900</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1682044865900</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Add : main ranking adapter 작업 완료">
+      <created>1682340751213</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1682340751213</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Add : main ranking xml 추가">
+      <created>1682340776153</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1682340776153</updated>
+    </task>
+    <task id="LOCAL-00048" summary="fix : reformat 미사용 제거">
+      <created>1682340836426</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1682340836426</updated>
+    </task>
+    <task id="LOCAL-00049" summary="fix : binding adapter로 변경 완료">
+      <created>1682341312703</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1682341312703</updated>
+    </task>
+    <task id="LOCAL-00050" summary="fix : recyclerview item gravity center 정렬">
+      <created>1682410134276</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1682410134277</updated>
+    </task>
+    <task id="LOCAL-00051" summary="fix : icon image 교체">
+      <created>1682410994103</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1682410994103</updated>
+    </task>
+    <task id="LOCAL-00052" summary="fix : ranking filter rename">
+      <created>1682416258537</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1682416258538</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Add : ranking item xml create">
+      <created>1682416292781</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1682416292781</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Add : rankingAdapter create api 더미데이터 연결 예정">
+      <created>1682420985532</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1682420985532</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Add : rankingAdapter create api 더미데이터 연결 예정">
+      <created>1682420994676</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1682420994676</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Add : 신규 티켓 xml create / 기존 아답터 연결">
+      <created>1682423781350</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1682423781350</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Fix : rename">
+      <created>1682424092050</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1682424092050</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Add : Main 공연 item create xml">
+      <created>1682588275850</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1682588275851</updated>
+    </task>
+    <task id="LOCAL-00059" summary="design : splash logo change">
+      <created>1682592832784</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1682592832784</updated>
+    </task>
+    <task id="LOCAL-00060" summary="feat : recommend category layout create 50%">
+      <created>1682597708757</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1682597708757</updated>
+    </task>
+    <task id="LOCAL-00061" summary="refactor : Main font 적용">
+      <created>1683017084925</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1683017084925</updated>
+    </task>
+    <task id="LOCAL-00062" summary="refactor : category font 적용">
+      <created>1683017691600</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1683017691601</updated>
+    </task>
+    <task id="LOCAL-00063" summary="refactor : category search icon 적용 및 font 추가적용">
+      <created>1683018201931</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1683018201931</updated>
+    </task>
+    <task id="LOCAL-00064" summary="refactor : category recyclerview listadapter로 변경 / binding 추가">
+      <created>1683019596561</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1683019596562</updated>
+    </task>
+    <task id="LOCAL-00065" summary="refactor : SearchFragment font 적용 / Adapter binding 적용 완료">
+      <created>1683022079467</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1683022079467</updated>
+    </task>
+    <task id="LOCAL-00066" summary="refactor : CategoryDetailFragment 리팩토링 40%">
+      <created>1683202769929</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1683202769930</updated>
+    </task>
+    <task id="LOCAL-00067" summary="refactor : CategoryDetailFragment 리팩토링 50%">
+      <created>1683275328745</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1683275328745</updated>
+    </task>
+    <task id="LOCAL-00068" summary="feat : LoginFragment create(30%)">
+      <created>1683548167651</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1683548167652</updated>
+    </task>
+    <task id="LOCAL-00069" summary="feat : LoginFragment create(30%) hint / label 추가">
+      <created>1683548695798</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1683548695798</updated>
+    </task>
+    <task id="LOCAL-00070" summary="feat : LoginFragment 검증 첫번째 뷰 create">
+      <created>1683628525336</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1683628525337</updated>
+    </task>
+    <task id="LOCAL-00071" summary="feat : LoginFragment 검증 두번째 뷰 create 60%">
+      <created>1683632660497</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1683632660497</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -495,45 +593,45 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="test" />
-    <MESSAGE value="Add: Paging3 resource, repository create" />
-    <MESSAGE value="Add: Paging3 create , UI 뿌려주는 작업 진행 예정" />
-    <MESSAGE value="Add: Paging3 create UI 뿌려주는 작업 진행 완료" />
-    <MESSAGE value="Add: performance detail xml create 진행 중 50%" />
-    <MESSAGE value="Add: paging3 작업 완료 / adapter listener 작업 진행 중" />
-    <MESSAGE value="Add: ticket 상세페이지 xml create" />
-    <MESSAGE value="Add: ticket 상세페이지 color create" />
-    <MESSAGE value="Fix : fragment에 includelayout visibility 시 layout gone 처리 에러 수정" />
-    <MESSAGE value="Add: 티켓 상세 페이지 api response create" />
-    <MESSAGE value="Add: 티켓 상세 페이지 api response 로 xml 데이터 뿌리는 중" />
-    <MESSAGE value="Add: naver map sdk 작업 중 30%" />
-    <MESSAGE value="Fix : fragment args string -&gt; data class reformat" />
-    <MESSAGE value="Add: placeDetail api create" />
-    <MESSAGE value="Fix : 미사용 코드 제거 및 reformat" />
-    <MESSAGE value="Add : naver map api create완료 티켓 상세 페이지에 그리기" />
-    <MESSAGE value="Add : 다중 url bitmap으로 변환 및 세로로 이어 붙여서 view create 작업 완료" />
-    <MESSAGE value="Fix : Ticket detail poster imageview size reformat" />
-    <MESSAGE value="Fix : Ticket detail xml 수정 중" />
-    <MESSAGE value="Fix : Ticket detail 이미지 bitmap 나열 수정 완료 bitmap resize 예정" />
-    <MESSAGE value="Add : user인터페이스 핸들링 막기" />
-    <MESSAGE value="Add : URL scheme naver map 연동 완료" />
-    <MESSAGE value="Add : naver webview 연동 create" />
-    <MESSAGE value="Add : gitignore" />
-    <MESSAGE value="Add : gitignore setting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add : gitignore setting" />
+    <MESSAGE value="Add : main ranking xml 추가" />
+    <MESSAGE value="fix : reformat 미사용 제거" />
+    <MESSAGE value="fix : binding adapter로 변경 완료" />
+    <MESSAGE value="fix : recyclerview item gravity center 정렬" />
+    <MESSAGE value="fix : icon image 교체" />
+    <MESSAGE value="fix : ranking filter rename" />
+    <MESSAGE value="Add : ranking item xml create" />
+    <MESSAGE value="Add : rankingAdapter create api 더미데이터 연결 예정" />
+    <MESSAGE value="Add : 신규 티켓 xml create / 기존 아답터 연결" />
+    <MESSAGE value="Fix : rename" />
+    <MESSAGE value="Add : Main 공연 item create xml" />
+    <MESSAGE value="design : splash logo change" />
+    <MESSAGE value="feat : recommend category layout create 50%" />
+    <MESSAGE value="refactor : Main font 적용" />
+    <MESSAGE value="refactor : category font 적용" />
+    <MESSAGE value="refactor : category font 추가적용" />
+    <MESSAGE value="refactor : category search icon 적용 및 font 추가적용" />
+    <MESSAGE value="refactor : category recyclerview listadapter로 변경 / binding 추가" />
+    <MESSAGE value="refactor : SearchFragment font 적용 / Adapter binding 적용 완료" />
+    <MESSAGE value="refactor : CategoryDetailFragment 리팩토링 40%" />
+    <MESSAGE value="refactor : CategoryDetailFragment 리팩토링 50%" />
+    <MESSAGE value="feat : LoginFragment create(30%)" />
+    <MESSAGE value="feat : LoginFragment create(30%) hint / label 추가" />
+    <MESSAGE value="feat : LoginFragment 검증 첫번째 뷰 create" />
+    <MESSAGE value="feat : LoginFragment 검증 두번째 뷰 create 60%" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : LoginFragment 검증 두번째 뷰 create 60%" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/BaseUtil.kt</url>
-          <line>66</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/view/fragments/TicketDetailFragment.kt</url>
+          <line>288</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/BaseUtil.kt</url>
-          <line>59</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/presentation/src/main/java/com/sypark/openTicket/view/fragments/TicketDetailFragment.kt</url>
+          <line>314</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -57,7 +57,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         isSelected: Boolean,
         onItemClickListener: (Int) -> Unit
     ) {
-        itemView.setOnClickListener { onItemClickListener(adapterPosition) }
+        itemView.setOnClickListener { onItemClickListener(bindingAdapterPosition) }
         // 선택 여부에 따라서 UI 업데이트
         itemView.isSelected = isSelected
 
