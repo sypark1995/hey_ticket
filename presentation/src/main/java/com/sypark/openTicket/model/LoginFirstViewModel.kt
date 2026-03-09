@@ -12,6 +12,7 @@ class LoginFirstViewModel @Inject constructor(
 
     private var mutableEmailAddress = MutableLiveData<String>()
     var emailAddress: LiveData<String>
+
         get() = mutableEmailAddress
 
     init {
