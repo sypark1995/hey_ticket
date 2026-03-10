@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -86,29 +86,28 @@
                     android:text="@string/login_pw"
                     android:textSize="12sp" />
 
-                <EditText
-                    android:id="@+id/edit_pw"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_pw_input"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_below="@+id/text_pw"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_pw"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="40dp"
-                    android:background="@null"
-                    android:fontFamily="@font/pretendard_light"
-                    android:gravity="center_vertical"
-                    android:hint="@string/login_pw_sample1"
-                    android:inputType="textPassword"
-                    android:textSize="14sp" />
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/gray_B7BBBF">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_below="@+id/text_pw"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="12dp"
-                    android:src="@drawable/icon_pw_open" />
+                    <EditText
+                        android:id="@+id/edit_pw"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@null"
+                        android:fontFamily="@font/pretendard_light"
+                        android:gravity="center_vertical"
+                        android:hint="@string/login_pw_sample1"
+                        android:inputType="textPassword"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
         </FrameLayout>
 
@@ -141,17 +140,22 @@
             android:textColor="@color/white"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/text_find_pw"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="40dp"
-            android:gravity="center_horizontal"
-            android:text="@string/login_pw_find"
-            android:textColor="@color/gray_949494"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/text_find_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="80dp"
+                android:text="@string/login_pw_find"
+                android:textAlignment="center"
+                android:textColor="@color/gray_949494"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+
     </RelativeLayout>
 </layout>

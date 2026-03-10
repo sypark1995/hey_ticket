@@ -3,6 +3,7 @@ package com.sypark.openTicket.view.fragments
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -51,5 +52,13 @@ class LoginSecondFragment :
 
             }
         })
+
+        binding.btnLogin.setOnClickListener {
+            if (Common.byPass) {
+                binding.textPwSample.setTextColor(ContextCompat.getColor(it.context, R.color.black))
+            } else {
+                binding.textPwSample.setTextColor(ContextCompat.getColor(it.context, R.color.red_FF334B))
+            }
+        }
     }
 }
