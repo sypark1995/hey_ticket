@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.sypark.openTicket.model.RegisterFirstViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layout_login_top"
+            layout="@layout/include_login_top" />
+
+        <TextView
+            android:id="@+id/text_register_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_login_top"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/register_send_email_code_title"
+            android:textAlignment="center"
+            android:textColor="@color/black_111111"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/text_register_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_register_title"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/register_send_email_code_content"
+            android:textAlignment="center" />
+
+        <FrameLayout
+            android:id="@+id/layout_login_edit"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_below="@id/text_register_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_12_gray_gray">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_email_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/pretendard_light"
+                    android:text="@string/login_email_address"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/text_email_address"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:hint="@string/login_email_sample"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/layout_code_edit"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_below="@id/layout_login_edit"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_12_gray_white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/pretendard_light"
+                    android:text="@string/register_send_email_code"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_code"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_code_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.8"
+                        app:hintEnabled="false">
+
+                        <EditText
+                            android:id="@+id/edit_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:background="@null"
+                            android:fontFamily="@font/pretendard_light"
+                            android:gravity="center_vertical"
+                            android:hint="@string/register_send_email_code_6"
+                            android:inputType="number"
+                            android:maxLength="6"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/text_email_code_timer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/pretendard_light"
+                        android:maxLines="1"
+                        android:textColor="@color/orange_FB912F"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/text_email_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_code_edit"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/pretendard_light"
+            android:text="@string/register_send_email_code_error"
+            android:textColor="@color/red_FF334B"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/text_email_code_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_email_error"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/pretendard_light"
+            android:text="@string/register_send_email_code_again"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:id="@+id/layout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/round_12_gray"
+                android:enabled="false"
+                android:fontFamily="@font/pretendard_medium"
+                android:stateListAnimator="@null"
+                android:text="@string/pw_next"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

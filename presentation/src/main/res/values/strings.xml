@@ -112,4 +112,19 @@
     <string name="login_pw_find"><u>비밀번호 찾기</u></string>
 
     <string name="login">로그인</string>
+
+    <string name="register_send_email_code_title">인증 메일이 발송되었어요</string>
+    <string name="register_send_email_code_content">입력하신 이메일 주소로 인증 코드가 발송되었어요.\n인증 코드를 입력해 주세요.</string>
+    <string name="register_send_email_code">인증코드 입력</string>
+    <string name="register_send_email_code_again"><u>인증 코드 다시 받기</u></string>
+    <string name="register_send_email_code_6">6자리 입력</string>
+    <string name="register_send_email_code_error">인증코드가 일치하지 않아요. 다시 입력해 주세요.</string>
+    <string name="register_send_email_timer">유효시간</string>
+    <string name="register_send_email_timer_out">유효 시간이 지났어요.</string>
+    <string name="register_send_email_code_again_toast">인증 코드를 다시 보내드렸어요.</string>
+
+    <string name="pw_title">비밀번호 찾기</string>
+    <string name="pw_content">입력한 이메일로 인증코드를 전송해 드릴게요</string>
+    <string name="pw_next">다음</string>
+    <string name="pw_content2">이메일 주소가 기억나지 않으시면\n다시 가입해 주세요.</string>
 </resources>

@@ -107,12 +107,39 @@
         <action
             android:id="@+id/action_loginFirstFragment_to_loginSecondFragment"
             app:destination="@id/loginSecondFragment" />
+        <action
+            android:id="@+id/action_loginFirstFragment_to_registerFirstFragment"
+            app:destination="@id/registerFirstFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginSecondFragment"
         android:name="com.sypark.openTicket.view.fragments.LoginSecondFragment"
         android:label="LoginSecondFragment"
         tools:layout="@layout/fragment_login_second">
+
+        <argument
+            android:name="item"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_loginSecondFragment_to_loginFindPwFragment"
+            app:destination="@id/loginFindPwFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFindPwFragment"
+        android:name="com.sypark.openTicket.view.fragments.LoginFindPwFragment"
+        android:label="LoginFindPwFragment"
+        tools:layout="@layout/fragment_find_pw">
+
+        <argument
+            android:name="item"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFirstFragment"
+        android:name="com.sypark.openTicket.view.fragments.RegisterFirstFragment"
+        android:label="RegisterFirstFragment"
+        tools:layout="@layout/fragment_register_first">
 
         <argument
             android:name="item"
