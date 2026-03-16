@@ -144,7 +144,15 @@
         <argument
             android:name="item"
             app:argType="string" />
+        <action
+            android:id="@+id/action_registerFirstFragment_to_registerPasswordFragment"
+            app:destination="@id/registerPasswordFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/registerPasswordFragment"
+        android:name="com.sypark.openTicket.view.fragments.RegisterPasswordFragment"
+        android:label="RegisterPasswordFragment"
+        tools:layout="@layout/fragment_register_password" />
 
 
 </navigation>
