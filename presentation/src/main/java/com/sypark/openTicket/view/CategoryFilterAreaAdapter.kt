@@ -1,17 +1,17 @@
 package com.sypark.openTicket.view
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemFilterAreaBinding
 
+//todo_sypark RecommendAreaAdapter처럼 변경 예정
 class CategoryFilterAreaAdapter :
     ListAdapter<CategoryDetailArea, CategoryFilterAreaAdapter.ViewHolder>(DiffUtils()) {
 
@@ -27,28 +27,6 @@ class CategoryFilterAreaAdapter :
     }
 
     class ViewHolder(val binding: ItemFilterAreaBinding) : RecyclerView.ViewHolder(binding.root)
-
-
-//    class ItemViewHolder(private val binding: ItemFilterAreaBinding) :
-//        RecyclerView.ViewHolder(binding.root) {
-//
-//        fun binding(categoryDetailArea: CategoryDetailArea) {
-//            with(binding) {
-//                itemText.text = categoryDetailArea.area
-//
-//                getItem(adapterPosition)
-//                this.root.setOnClickListener {
-//                    if (adapterPosition == 0) {
-//
-//                    } else {
-//                        applySelection(binding, categoryDetailArea)
-//                    }
-//
-//                    onItemClickListener?.let { it(categoryDetailArea) }
-//                }
-//            }
-//        }
-//    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
