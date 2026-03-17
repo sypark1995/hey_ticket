@@ -127,4 +127,18 @@
     <string name="pw_content">입력한 이메일로 인증코드를 전송해 드릴게요</string>
     <string name="pw_next">다음</string>
     <string name="pw_content2">이메일 주소가 기억나지 않으시면\n다시 가입해 주세요.</string>
+
+    <string name="register_send_email_finish">이메일 인증이 확인되었어요</string>
+    <string name="register_close_popup">이 페이지에서 나가면 가입을 다시 진행해야 해요. 페이지에서 나갈까요?</string>
+    <string name="register_close_confirm">확인</string>
+
+    <string name="register_password_title">비밀번호를 입력해 주세요</string>
+    <string name="register_email_confirm_finish">이메일 인증이 확인되었어요</string>
+
+    <string name="register_recommend">관심 카테고리 선택</string>
+    <string name="register_recommend_content">선택한 카테고리 기준으로 공연을 추천해 드려요</string>
+    <string name="register_recommend_area_title">지역</string>
+    <string name="register_recommend_area_content">복수 선택 가능해요</string>
+    <string name="register_recommend_genre_title">공연 장르</string>
+    <string name="register_recommend_genre_content">복수 선택 가능해요</string>
 </resources>

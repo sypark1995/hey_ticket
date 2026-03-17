@@ -10,10 +10,6 @@
         android:name="com.sypark.openTicket.view.fragments.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
-
-        <action
-            android:id="@+id/action_mainFragment_to_recommendFragment"
-            app:destination="@id/recommendFragment" />
         <action
             android:id="@+id/action_mainFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
@@ -26,17 +22,7 @@
 
     </fragment>
 
-    <fragment
-        android:id="@+id/recommendFragment"
-        android:name="com.sypark.openTicket.view.fragments.RecommendFragment"
-        android:label="RecommendFragment"
-        tools:layout="@layout/fragment_recommend">
 
-        <action
-            android:id="@+id/action_recommendFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-
-    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.sypark.openTicket.view.fragments.CategoryFragment"
@@ -152,7 +138,16 @@
         android:id="@+id/registerPasswordFragment"
         android:name="com.sypark.openTicket.view.fragments.RegisterPasswordFragment"
         android:label="RegisterPasswordFragment"
-        tools:layout="@layout/fragment_register_password" />
+        tools:layout="@layout/fragment_register_password">
+        <action
+            android:id="@+id/action_registerPasswordFragment_to_recommendFragment"
+            app:destination="@id/recommendFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recommendFragment"
+        android:name="com.sypark.openTicket.view.fragments.RecommendFragment"
+        android:label="RecommendFragment"
+        tools:layout="@layout/fragment_recommend_category" />
 
 
 </navigation>
