@@ -83,11 +83,11 @@ object Common {
 
     val categoryDetailAreaList = listOf(
         CategoryDetailArea("서울시"),
-        CategoryDetailArea("경기도"),
-        CategoryDetailArea("강원도"),
         CategoryDetailArea("충청북도"),
         CategoryDetailArea("충청남도"),
+        CategoryDetailArea("경기도"),
         CategoryDetailArea("전라북도"),
+        CategoryDetailArea("강원도"),
         CategoryDetailArea("전라남도"),
         CategoryDetailArea("경상남도"),
         CategoryDetailArea("경상북도"),
@@ -103,4 +103,29 @@ object Common {
         val pwPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
         return Pattern.compile(pwPattern).matcher(pw).find()
     }
+
+    val byPass = false
+
+    val recommendAreaList = listOf(
+        CategoryDetailArea("서울"),
+        CategoryDetailArea("부산"),
+        CategoryDetailArea("대구"),
+        CategoryDetailArea("인천"),
+        CategoryDetailArea("광주"),
+        CategoryDetailArea("대전"),
+        CategoryDetailArea("울산"),
+        CategoryDetailArea("세종"),
+        CategoryDetailArea("경기도"),
+        CategoryDetailArea("강원도"),
+        CategoryDetailArea("충청북도"),
+        CategoryDetailArea("충청남도"),
+        CategoryDetailArea("전라북도"),
+        CategoryDetailArea("전라남도"),
+        CategoryDetailArea("경상북도"),
+        CategoryDetailArea("경상남도"),
+        CategoryDetailArea("제주특별자치도")
+    )
+
+    val selectedAreaList = arrayListOf<CategoryDetailArea>()
+    val selectedGenreList = arrayListOf<Genre>()
 }

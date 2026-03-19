@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sypark.data.db.entity.CategoryDetailArea
+import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemRecommendAreaBinding
 
@@ -44,8 +45,6 @@ class RecommendAreaAdapter(private val onItemClickListener: (ArrayList<CategoryD
 class RecommendAreaHolder(val binding: ItemRecommendAreaBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    private var selectedArea = arrayListOf<CategoryDetailArea>()
-
     fun bind(
         item: CategoryDetailArea,
         onItemClickListener: (ArrayList<CategoryDetailArea>) -> Unit
@@ -53,27 +52,22 @@ class RecommendAreaHolder(val binding: ItemRecommendAreaBinding) :
         binding.apply {
             this.root.setOnClickListener {
                 applySelection(binding, item)
-                onItemClickListener(selectedList())
+                onItemClickListener(Common.selectedAreaList)
             }
-
-            this.textArea.text = item.area
+            textArea.text = item.area
         }
-    }
-
-    private fun selectedList(): ArrayList<CategoryDetailArea> {
-        return selectedArea
     }
 
     private fun applySelection(
         binding: ItemRecommendAreaBinding,
         categoryDetailArea: CategoryDetailArea
     ) {
-        if (selectedArea.contains(categoryDetailArea)) {
-            selectedArea.remove(categoryDetailArea)
+        if (Common.selectedAreaList.contains(categoryDetailArea)) {
+            Common.selectedAreaList.remove(categoryDetailArea)
             changeTextColor(binding, R.color.gray_B7B7B7)
             binding.textArea.setBackgroundResource(R.drawable.round_16_gray_white)
         } else {
-            selectedArea.add(categoryDetailArea)
+            Common.selectedAreaList.add(categoryDetailArea)
             changeTextColor(binding, R.color.white)
             binding.textArea.setBackgroundResource(R.drawable.round_16_black)
         }
