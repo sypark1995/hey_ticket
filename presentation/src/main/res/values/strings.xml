@@ -141,4 +141,19 @@
     <string name="register_recommend_area_content">복수 선택 가능해요</string>
     <string name="register_recommend_genre_title">공연 장르</string>
     <string name="register_recommend_genre_content">복수 선택 가능해요</string>
+
+    <string name="register_recommend_keyword">관심 키워드 등록</string>
+    <string name="register_recommend_keyword_content">입력한 키워드의 공연이 열리면 바로 알려드려요</string>
+    <string name="register_recommend_edit_hint">공연, 출연진 입력</string>
+    <string name="register_recommend_keyword_registration">등록</string>
+    <string name="register_recommend_keyword_registration_sample1">이런 키워드를 등록할 수 있어요</string>
+    <string name="register_performance_sample">공연</string>
+    <string name="register_performance_sample_kind">캣츠, 아기상어, 베토벤, 맘마미아, 미스터트롯 등</string>
+    <string name="register_performance_cast_sample">출연진</string>
+    <string name="register_performance_cast_sample_kind">김윤아, 아이유, 박효신, 이은결, 최현우, 국립발레단 등</string>
+    <string name="register_agree_push">관심 키워드 등록 시 키워드 알림 수신(앱 푸시, 카카오톡 알림톡)에 동의합니다.</string>
+    <string name="register_provision"><u>회원 이용 약관</u></string>
+    <string name="register_personal_information"><u>개인정보 처리 방침</u></string>
+    <string name="register_personal_information_next">을 확인하고 동의합니다.</string>
+    <string name="register_finish">가입완료</string>
 </resources>
