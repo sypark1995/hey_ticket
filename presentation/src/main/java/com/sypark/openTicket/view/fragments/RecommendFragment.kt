@@ -2,6 +2,7 @@ package com.sypark.openTicket.view.fragments
 
 import android.util.Log
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -25,9 +26,9 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             flexWrap = FlexWrap.WRAP
             flexDirection = FlexDirection.ROW
             justifyContent = JustifyContent.CENTER
-        }.let {flexboxLayoutManager ->
+        }.let {
             binding.recyclerviewArea.apply {
-                layoutManager = flexboxLayoutManager
+                layoutManager = it
                 recommendAreaAdapter = RecommendAreaAdapter {
                     Log.e("!!!!", it.toString())
                 }
@@ -55,5 +56,8 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             }
         }
 
+        binding.btnNext.setOnClickListener {
+            findNavController().navigate(RecommendFragmentDirections.actionRecommendFragmentToRecommendKeywordFragment())
+        }
     }
 }
