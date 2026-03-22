@@ -95,7 +95,6 @@ class RecommendKeywordFragment :
     private fun setKeywordData() {
         if (!viewModel.keywordText.value.isNullOrEmpty()) {
             keyWordList.add(viewModel.keywordText.value.toString())
-            val reversedList = keyWordList.asReversed()
             recommendKeywordAdapter.add(viewModel.keywordText.value.toString())
         }
     }

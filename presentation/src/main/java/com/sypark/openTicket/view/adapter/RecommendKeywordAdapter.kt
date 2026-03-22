@@ -33,13 +33,17 @@ class RecommendKeywordAdapter(private val onItemClickListener: (String) -> Unit)
 
     fun add(string: String) {
         val newList = mutableListOf<String>()
-        if (currentList.size == 10) {
-            currentList.removeLast()
-        }
+
 
         newList.addAll(currentList)
         newList.add(0, string)
-        submitList(newList)
+
+        //todo_sypark 로직 수정 예정 10개까지만 데이터 입력 가능하게....
+        if (newList.size == 11) {
+            newList.removeAt(newList.size - 1)
+        }
+
+        submitList(newList.distinct())
     }
 }
 
