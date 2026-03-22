@@ -81,8 +81,33 @@ class RecommendKeywordFragment :
             setKeywordData()
         }
 
+
         binding.layoutAgreePush.setOnClickListener {
             viewModel.isPushAgree()
+            viewModel.isRegisterFinish()
+        }
+
+        binding.checkboxAgreePush.setOnClickListener {
+            viewModel.isPushAgree()
+            viewModel.isRegisterFinish()
+        }
+
+        binding.layoutAgreePersonal.setOnClickListener {
+            viewModel.isPersonalAgree()
+            viewModel.isRegisterFinish()
+        }
+
+        binding.checkboxAgreePersonal.setOnClickListener {
+            viewModel.isPersonalAgree()
+            viewModel.isRegisterFinish()
+        }
+
+        binding.textProvision.setOnClickListener {
+            // todo_sypark 웹뷰 호출 예정
+        }
+
+        binding.textPersonalInformation.setOnClickListener {
+            // todo_sypark 웹뷰 호출 예정
         }
 
         binding.btnNext.setOnClickListener {
@@ -91,6 +116,18 @@ class RecommendKeywordFragment :
 
         viewModel.isPushAgree.observe(this) {
             binding.checkboxAgreePush.isSelected = it
+        }
+
+        viewModel.isPersonalAgree.observe(this) {
+            binding.checkboxAgreePersonal.isSelected = it
+        }
+
+        viewModel.isRegisterFinish.observe(this) {
+            if (it == true) {
+                binding.btnNext.setBackgroundResource(R.drawable.round_12_black)
+            } else {
+                binding.btnNext.setBackgroundResource(R.drawable.round_12_gray)
+            }
         }
 
     }

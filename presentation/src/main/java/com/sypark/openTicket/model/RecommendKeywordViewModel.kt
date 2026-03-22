@@ -18,6 +18,9 @@ class RecommendKeywordViewModel @Inject constructor(
     var isMutablePersonalAgree = MutableLiveData(false)
     var isPersonalAgree: LiveData<Boolean> = isMutablePersonalAgree
 
+    var isMutableRegisterFinish = MutableLiveData(false)
+    var isRegisterFinish: LiveData<Boolean> = isMutableRegisterFinish
+
     fun setKeywordText(text: String) {
         mutableKeywordText.postValue(text)
     }
@@ -28,5 +31,11 @@ class RecommendKeywordViewModel @Inject constructor(
 
     fun isPersonalAgree() {
         isMutablePersonalAgree.value = isMutablePersonalAgree.value == false
+    }
+
+    fun isRegisterFinish() {
+        //todo_sypark 로직 수정 예정
+        isMutableRegisterFinish.value =
+            isMutablePushAgree.value == true && isMutablePersonalAgree.value == true
     }
 }

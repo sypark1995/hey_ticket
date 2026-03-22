@@ -189,7 +189,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/selector_recommend_checkbox"
                     android:button="@null"
-                    android:checked="@{viewModel.isMutablePushAgree}" />
+                    android:checked="@={viewModel.isMutablePushAgree}" />
 
                 <TextView
                     android:id="@+id/text_agree_push"
@@ -215,6 +215,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerVertical="true"
+                    android:checked="@={viewModel.isMutablePersonalAgree}"
                     android:background="@drawable/selector_recommend_checkbox"
                     android:button="@null" />
 
@@ -283,6 +284,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="10dp"
+                android:enabled="false"
                 android:background="@drawable/round_12_gray"
                 android:fontFamily="@font/pretendard_medium"
                 android:stateListAnimator="@null"
