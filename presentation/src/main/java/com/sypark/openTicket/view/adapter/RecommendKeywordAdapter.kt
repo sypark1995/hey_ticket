@@ -30,6 +30,17 @@ class RecommendKeywordAdapter(private val onItemClickListener: (String) -> Unit)
         val item = getItem(position)
         holder.bind(item, onItemClickListener)
     }
+
+    fun add(string: String) {
+        val newList = mutableListOf<String>()
+        if (currentList.size == 10) {
+            currentList.removeLast()
+        }
+
+        newList.addAll(currentList)
+        newList.add(0, string)
+        submitList(newList)
+    }
 }
 
 class RecommendKeywordHolder(val binding: ItemRecommendKeywordBinding) :
