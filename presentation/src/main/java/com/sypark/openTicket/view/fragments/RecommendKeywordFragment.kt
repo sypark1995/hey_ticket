@@ -81,9 +81,18 @@ class RecommendKeywordFragment :
             setKeywordData()
         }
 
+        binding.layoutAgreePush.setOnClickListener {
+            viewModel.isPushAgree()
+        }
+
         binding.btnNext.setOnClickListener {
 
         }
+
+        viewModel.isPushAgree.observe(this) {
+            binding.checkboxAgreePush.isSelected = it
+        }
+
     }
 
     private fun keyDown(view: Context) {

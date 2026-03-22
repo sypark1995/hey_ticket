@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.sypark.openTicket.model.RecommendKeywordViewModel" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -151,6 +160,7 @@
             android:id="@+id/recyclerview_keyword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@id/layout_agree"
             android:layout_below="@id/layout_register_keyword_sample"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
@@ -159,6 +169,7 @@
             tools:listitem="@layout/item_recommend_keyword" />
 
         <RelativeLayout
+            android:id="@+id/layout_agree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/layout_button"
@@ -177,7 +188,8 @@
                     android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/selector_recommend_checkbox"
-                    android:button="@null" />
+                    android:button="@null"
+                    android:checked="@{viewModel.isMutablePushAgree}" />
 
                 <TextView
                     android:id="@+id/text_agree_push"

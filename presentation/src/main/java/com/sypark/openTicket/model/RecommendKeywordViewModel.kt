@@ -12,8 +12,21 @@ class RecommendKeywordViewModel @Inject constructor(
     private var mutableKeywordText = MutableLiveData<String>()
     var keywordText: LiveData<String> = mutableKeywordText
 
+    var isMutablePushAgree = MutableLiveData(false)
+    var isPushAgree: LiveData<Boolean> = isMutablePushAgree
+
+    var isMutablePersonalAgree = MutableLiveData(false)
+    var isPersonalAgree: LiveData<Boolean> = isMutablePersonalAgree
 
     fun setKeywordText(text: String) {
         mutableKeywordText.postValue(text)
+    }
+
+    fun isPushAgree() {
+        isMutablePushAgree.value = isMutablePushAgree.value == false
+    }
+
+    fun isPersonalAgree() {
+        isMutablePersonalAgree.value = isMutablePersonalAgree.value == false
     }
 }
