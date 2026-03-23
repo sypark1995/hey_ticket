@@ -1,5 +1,6 @@
 package com.sypark.data.service
 
+import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.OpenTicket
 import com.sypark.data.db.entity.PlaceDetail
 import com.sypark.data.db.entity.TicketDetail
@@ -42,5 +43,16 @@ class OpenTicketClient @Inject constructor(
         mt10id: String
     ): PlaceDetail = openTicketService.requestPerformancesPlaceDetail(
         mt10id
+    )
+
+    suspend fun requestPerformancesRanking(
+        timePeriod: String,
+        date: String,
+        genre: String?,
+        area: String?,
+        page: Int?,
+        pageSize: Int?
+    ): BaseResponse = openTicketService.requestPerformancesRanking(
+        timePeriod, date, genre, area, page, pageSize
     )
 }

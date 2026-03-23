@@ -6,24 +6,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.sypark.data.db.entity.Ticket
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.sypark.data.db.entity.Content
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemRankingBinding
 
-class RankingAdapter(private val onItemClickListener: (Ticket) -> Unit) :
-    ListAdapter<Ticket, RankingViewHolder>(MyItemCallback()) {
+class RankingAdapter(private val onItemClickListener: (Content) -> Unit) :
+    ListAdapter<Content, RankingViewHolder>(MyItemCallback()) {
 
-    class MyItemCallback : DiffUtil.ItemCallback<Ticket>() {
+    class MyItemCallback : DiffUtil.ItemCallback<Content>() {
         override fun areItemsTheSame(
-            oldItem: Ticket,
-            newItem: Ticket
+            oldItem: Content,
+            newItem: Content
         ): Boolean {
-            return oldItem.mt20id == newItem.mt20id
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: Ticket,
-            newItem: Ticket
+            oldItem: Content,
+            newItem: Content
         ): Boolean {
             return oldItem == newItem
         }
@@ -42,18 +44,19 @@ class RankingAdapter(private val onItemClickListener: (Ticket) -> Unit) :
 
 class RankingViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: Ticket, onItemClickListener: (Ticket) -> Unit) {
+    fun bind(item: Content, onItemClickListener: (Content) -> Unit) {
         binding.apply {
             this.root.setOnClickListener {
                 onItemClickListener(item)
             }
 
-            textRanking.text = "1"
+            textRanking.text = item.rank.toString()
             textPlace.text = item.place
             textTitle.text = item.title
             textDate.text = item.startDate
             Glide.with(binding.root.context)
                 .load(item.poster)
+                .transform(CenterCrop(), RoundedCorners(25))
                 .error(R.drawable.icon_default_poster)
                 .into(imgPoster)
         }

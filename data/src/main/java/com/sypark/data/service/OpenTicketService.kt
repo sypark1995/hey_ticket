@@ -1,9 +1,6 @@
 package com.sypark.data.service
 
-import com.sypark.data.db.entity.OpenTicket
-import com.sypark.data.db.entity.PlaceDetail
-import com.sypark.data.db.entity.Ticket
-import com.sypark.data.db.entity.TicketDetail
+import com.sypark.data.db.entity.*
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -76,4 +73,20 @@ interface OpenTicketService {
         @Path("mt10id")
         mt10id: String
     ): PlaceDetail
+
+    @GET("/api/performances/rank")
+    suspend fun requestPerformancesRanking(
+        @Query("timePeriod")
+        timePeriod: String,
+        @Query("date")
+        date: String,
+        @Query("genre")
+        genre: String?,
+        @Query("area")
+        area: String?,
+        @Query("page")
+        page: Int?,
+        @Query("pageSize")
+        pageSize: Int?,
+    ): BaseResponse
 }

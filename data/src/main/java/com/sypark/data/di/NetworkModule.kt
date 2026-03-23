@@ -2,9 +2,9 @@ package com.sypark.data.di
 
 import android.util.Log
 import com.google.gson.GsonBuilder
-import com.sypark.data.service.OpenTicketService
 import com.sypark.data.interceptor.HttpRequestInterceptor
 import com.sypark.data.service.OpenTicketClient
+import com.sypark.data.service.OpenTicketService
 import com.sypark.data.util.BaseUrlUtil
 import dagger.Module
 import dagger.Provides
@@ -49,12 +49,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun loggingInterceptor(): HttpLoggingInterceptor {
-        val interceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-            override fun log(message: String) {
-                Log.i(TAG, message + "")
-            }
-        })
-
+        val interceptor = HttpLoggingInterceptor { message -> Log.e(TAG, message + "") }
         // BASIC
         // HEADERS
         // BODY

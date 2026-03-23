@@ -1,5 +1,6 @@
 package com.sypark.data.repository
 
+import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.OpenTicket
 import com.sypark.data.db.entity.TicketDetail
 import kotlinx.coroutines.flow.Flow
@@ -44,4 +45,12 @@ interface MainRepository {
         mt20id: String
     ): TicketDetail
 
+    suspend fun getRankingTicket(
+        timePeriod: String,
+        date: String,
+        genre: String?,
+        area: String?,
+        page: Int? = 0,
+        pageSize: Int? = 10
+    ): Flow<BaseResponse>
 }

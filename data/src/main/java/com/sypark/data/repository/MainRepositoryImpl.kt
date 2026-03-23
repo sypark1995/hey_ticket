@@ -7,7 +7,10 @@ import com.sypark.data.db.MelonOpenTicketDao
 import com.sypark.data.db.entity.OpenTicket
 import com.sypark.data.db.entity.TicketDetail
 import com.sypark.data.service.OpenTicketClient
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
@@ -42,7 +45,7 @@ class MainRepositoryImpl @Inject constructor(
                 }
                 emit(melonOpenTicketDao.getMelonOpenTicketList())
             }.onFailure {
-                Log.e("!!!!",it.toString())
+                Log.e("!!!!", it.toString())
             }
         } else {
             emit(list)
@@ -50,7 +53,24 @@ class MainRepositoryImpl @Inject constructor(
     }.onStart { onStart() }.onCompletion { onComplete() }
 
 
-
+    override suspend fun getRankingTicket(
+        timePeriod: String,
+        date: String,
+        genre: String?,
+        area: String?,
+        page: Int?,
+        pageSize: Int?
+    ) = flow {
+        val data = openTicketClient.requestPerformancesRanking(
+            timePeriod,
+            date,
+            genre,
+            area,
+            page,
+            pageSize
+        )
+        emit(data)
+    }.onStart { }
 
     @WorkerThread
     override suspend fun getInterParkOpenTicket(
@@ -118,6 +138,15 @@ class MainRepositoryImpl @Inject constructor(
     override suspend fun getTicketDetail(mt20id: String): TicketDetail {
         return openTicketClient.requestTicketDetail(mt20id)
     }
+
+//    override suspend fun getRankingTicket(
+//        timePeriod: String,
+//        date: String,
+//        genre: String?,
+//        area: String?
+//    ): Flow<BaseResponse> {
+//        return openTicketClient.requestPerformancesRanking(timePeriod, date, genre, area)
+//    }
 
 
 }
