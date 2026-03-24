@@ -1,5 +1,6 @@
 package com.sypark.openTicket
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.view.KeyEvent
@@ -9,7 +10,9 @@ import androidx.annotation.RequiresApi
 import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.db.entity.CategoryDetailSort
 import com.sypark.data.db.entity.Genre
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.util.*
 import java.util.regex.Pattern
 
 object Common {
@@ -148,5 +151,45 @@ object Common {
 
             false
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun compareDate(startDate: String, endDate: String): Any {
+        try {
+            val startTime = Date(SimpleDateFormat("yyyy-MM-dd").parse(startDate)!!.time)
+            val endTime = Date(SimpleDateFormat("yyyy-MM-dd").parse(endDate)!!.time)
+            val nowDate = SimpleDateFormat("yyyy-MM-dd").parse(
+                SimpleDateFormat("yyyy-MM-dd").format(
+                    Date(System.currentTimeMillis())
+                )
+            )?.let {
+                Date(
+                    it.time
+                )
+            }
+            if (startTime > nowDate) {
+                // 디데이 계산
+                return DateType.BEFORE
+            } else if (startTime < nowDate) {
+                // 공연 중 , 공연 종료
+                return if (endTime >= nowDate) {
+                    // 공연 중
+                    DateType.START
+                } else {
+                    // 공연 종료
+                    DateType.FINISH
+                }
+            } else {
+                // 공연 중
+                return DateType.START
+            }
+        } catch (e: Exception) {
+            return DateType.ERROR
+        }
+    }
+
+    enum class DateType {
+        BEFORE,START,FINISH,ERROR
     }
 }

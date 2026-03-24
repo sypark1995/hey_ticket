@@ -71,9 +71,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
+                        android:fontFamily="@font/pretendard_bold"
                         android:text="@string/main_ranking"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/pretendard_bold"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -90,9 +90,9 @@
                             android:id="@+id/text_more"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/pretendard_light"
                             android:gravity="center_vertical"
                             android:text="@string/main_more"
-                            android:fontFamily="@font/pretendard_light"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
 
@@ -128,15 +128,22 @@
                             tools:listitem="@layout/item_genre_filter" />
                     </RelativeLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerview_ranking"
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/layout_ranking_filter"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/item_ranking" />
+                        android:layout_marginTop="16dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_ranking"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/item_ranking" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
 
                 </RelativeLayout>
 
@@ -171,9 +178,9 @@
                             android:id="@+id/text_new_ticket_more"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/pretendard_light"
                             android:gravity="center_vertical"
                             android:text="@string/main_more"
-                            android:fontFamily="@font/pretendard_light"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
 
@@ -226,8 +233,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
-                        android:text="@string/main_campus_ticket"
                         android:fontFamily="@font/pretendard_bold"
+                        android:text="@string/main_campus_ticket"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -245,10 +252,10 @@
                             android:id="@+id/text_campus_ticket_more"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/pretendard_light"
                             android:gravity="center_vertical"
                             android:text="@string/main_more"
                             android:textColor="@color/gray"
-                            android:fontFamily="@font/pretendard_light"
                             android:textSize="14sp" />
 
                         <ImageView
@@ -304,9 +311,9 @@
                             android:id="@+id/text_etc_ticket_more"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/pretendard_light"
                             android:gravity="center_vertical"
                             android:text="@string/main_more"
-                            android:fontFamily="@font/pretendard_light"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
 
