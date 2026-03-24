@@ -44,6 +44,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         binding.recyclerviewRankingFilter.apply {
             genreAdapter = GenreAdapter { position, item ->
                 rankingFilterItemClicked(position)
+
+                lifecycleScope.launch {
+                    viewModel.getRankingData(item.code)
+                }
             }
 
             genreAdapter.submitList(Common.genreList)
@@ -54,10 +58,24 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         binding.recyclerviewRanking.apply {
             rankingAdapter = RankingAdapter {
 
+            }.apply {
+                lifecycleScope.launch {
+                    viewModel.getRankingData("")
+                }
             }
-
-//            rankingAdapter.submitList()
             adapter = rankingAdapter
+        }
+
+        viewModel.rankingList.observe(viewLifecycleOwner) {
+            rankingAdapter.submitList(it)
+        }
+
+        viewModel.isShimmerLoading.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.shimmer.hideShimmer()
+            } else {
+                binding.shimmer.showShimmer(true)
+            }
         }
 
         binding.recyclerviewNewTicketFilter.apply {

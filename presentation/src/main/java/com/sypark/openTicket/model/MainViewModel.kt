@@ -40,6 +40,9 @@ class MainViewModel @Inject constructor(
 
     var rankingList: LiveData<List<Content>> = _rankingList
 
+    private var _isMutableShimmerLoading = MutableLiveData(false)
+    val isShimmerLoading: LiveData<Boolean> = _isMutableShimmerLoading
+
     init {
         melonList = _melonList
     }
@@ -97,10 +100,12 @@ class MainViewModel @Inject constructor(
             pageSize = pageSize,
         ).flowOn(Dispatchers.IO)
             .catch {
+                _isMutableShimmerLoading.value = false
                 Log.e("!!!!", it.toString())
             }.collect {
                 if (it.data.contents.isNotEmpty()) {
                     _rankingList.value = it.data.contents
+                    _isMutableShimmerLoading.value = true
                 }
             }
     }
