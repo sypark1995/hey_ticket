@@ -1,6 +1,10 @@
 package com.sypark.openTicket
 
+import android.content.Context
 import android.os.Build
+import android.view.KeyEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.annotation.RequiresApi
 import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.db.entity.CategoryDetailSort
@@ -57,16 +61,17 @@ object Common {
     }
 
     val genreList = listOf(
-        Genre("AAAA", "전체"),
-        Genre("AAAA", "연극"),
-        Genre("BBBC", "무용(서양/한국무용)"),
-        Genre("BBBE", "대중무용"),
-        Genre("CCCA", "클래식(서양음악)"),
-        Genre("CCCC", "국악(한국음악)"),
-        Genre("CCCD", "대중음악"),
-        Genre("EEEA", "복합"),
-        Genre("EEEB", "서커스/마술"),
-        Genre("GGGA", "뮤지컬")
+        Genre("ALL", "전체"),
+        Genre("POPULAR_MUSIC", "대중음악"),
+        Genre("MUSICAL", "뮤지컬"),
+        Genre("THEATER", "연극"),
+        Genre("CLASSIC", "클래식(서양음악)"),
+        Genre("KOREAN_TRADITIONAL_MUSIC", "국악(한국음악)"),
+        Genre("DANCE", "무용(서양/한국무용)"),
+        Genre("CONTEMPORARY_DANCE", "대중무용"),
+        Genre("CIRCUS_AND_MAGIC", "서커스/마술"),
+        Genre("MIXED_GENRE", "복합"),
+        Genre("KID", "아동")
     )
 
     val categoryList = listOf(
@@ -128,4 +133,20 @@ object Common {
 
     val selectedAreaList = arrayListOf<CategoryDetailArea>()
     val selectedGenreList = arrayListOf<Genre>()
+
+    fun keyDown(text: EditText) {
+        text.setOnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN
+                && keyCode == KeyEvent.KEYCODE_ENTER
+            ) {
+                // 키패드 내리기
+                val imm =
+                    v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(text.windowToken, 0)
+                true
+            }
+
+            false
+        }
+    }
 }
