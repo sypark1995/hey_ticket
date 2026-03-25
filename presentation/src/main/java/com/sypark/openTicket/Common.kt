@@ -12,6 +12,8 @@ import com.sypark.data.db.entity.CategoryDetailSort
 import com.sypark.data.db.entity.Genre
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.util.*
 import java.util.regex.Pattern
 
@@ -71,7 +73,6 @@ object Common {
         Genre("CLASSIC", "클래식(서양음악)"),
         Genre("KOREAN_TRADITIONAL_MUSIC", "국악(한국음악)"),
         Genre("DANCE", "무용(서양/한국무용)"),
-        Genre("CONTEMPORARY_DANCE", "대중무용"),
         Genre("CIRCUS_AND_MAGIC", "서커스/마술"),
         Genre("MIXED_GENRE", "복합"),
         Genre("KID", "아동")
@@ -189,7 +190,26 @@ object Common {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getDayOfWeek2(day: String): String {
+        return LocalDate.parse(
+            day,
+            DateTimeFormatter.ISO_DATE
+        ).dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun genStrDate(date: String, state: String = ""): String {
+        return try {
+            "${date.split("-")[1].toInt()}월 ${date.split("-")[2].toInt()}일 " + "(${
+                getDayOfWeek2(date)
+            }) $state"
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
     enum class DateType {
-        BEFORE,START,FINISH,ERROR
+        BEFORE, START, FINISH, ERROR
     }
 }

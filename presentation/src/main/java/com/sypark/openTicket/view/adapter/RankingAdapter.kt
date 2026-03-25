@@ -76,7 +76,13 @@ class RankingViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHold
                         ContextCompat.getColor(binding.root.context, R.color.blue_2C70F2)
                     )
 
-                    textStatus.text = "D-${(startDate - nowDate.time) / (24 * 60 * 60 * 1000)}"
+                    try {
+                        textStatus.text = "D-${(startDate - nowDate.time) / (24 * 60 * 60 * 1000)}"
+                    } catch (e: Exception) {
+                        textStatus.text = ""
+                    }
+
+                    textDate.text = Common.genStrDate(item.startDate,"시작")
                 }
 
                 Common.DateType.START -> {
@@ -85,6 +91,7 @@ class RankingViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHold
                     )
 
                     textStatus.text = "공연 중"
+                    textDate.text = Common.genStrDate(item.endDate, "종료")
                 }
 
                 Common.DateType.FINISH -> {
@@ -99,7 +106,6 @@ class RankingViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHold
             textRanking.text = item.rank.toString()
             textPlace.text = item.place
             textTitle.text = item.title
-            textDate.text = item.startDate      //todo_sypark 데이터 변환 예정
             Glide.with(binding.root.context)
                 .load(item.poster)
                 .transform(CenterCrop(), RoundedCorners(25))
