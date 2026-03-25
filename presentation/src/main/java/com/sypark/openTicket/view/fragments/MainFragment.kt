@@ -82,6 +82,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             newFilterAdapter = GenreAdapter { position, item ->
                 Log.e("newFilterAdapter", item.toString())
                 newFilterItemClicked(position)
+                lifecycleScope.launch {
+                    viewModel.getNewTicketData(item.code)
+                }
             }
 
             newFilterAdapter.submitList(Common.genreList)
@@ -93,8 +96,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             newTicketAdapter = MainDefaultAdapter {
 
             }
-//            mainDefaultAdapter.submitList()
+
+            lifecycleScope.launch {
+                viewModel.getNewTicketData("")
+            }
             adapter = newTicketAdapter
+        }
+
+        viewModel.newTicketList.observe(this) {
+            newTicketAdapter.submitList(it)
         }
 
         binding.recyclerviewCampusTicket.apply {
