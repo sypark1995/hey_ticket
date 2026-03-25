@@ -89,4 +89,14 @@ interface OpenTicketService {
         @Query("pageSize")
         pageSize: Int?,
     ): BaseResponse
+
+    @GET("/api/performances/new")
+    suspend fun requestPerformancesNew(
+        @Query("genre")
+        genre: String?,
+        @Query("page")
+        page: Int?,
+        @Query("pageSize")
+        pageSize: Int?
+    ): BaseResponse
 }

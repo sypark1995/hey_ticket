@@ -61,6 +61,7 @@ class MainRepositoryImpl @Inject constructor(
         page: Int?,
         pageSize: Int?
     ) = flow {
+        // 생산자 , producer
         val data = openTicketClient.requestPerformancesRanking(
             timePeriod,
             date,
@@ -71,6 +72,14 @@ class MainRepositoryImpl @Inject constructor(
         )
         emit(data)
     }.onStart { }
+
+    override suspend fun getNewTicket(genre: String?, page: Int?, pageSize: Int?) = flow {
+        val data = openTicketClient.requestPerformanceNew(
+            genre, page, pageSize
+        )
+
+        emit(data)
+    }
 
     @WorkerThread
     override suspend fun getInterParkOpenTicket(

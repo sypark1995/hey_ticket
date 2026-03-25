@@ -53,4 +53,10 @@ interface MainRepository {
         page: Int? = 0,
         pageSize: Int? = 10
     ): Flow<BaseResponse>
+
+    suspend fun getNewTicket(
+        genre: String?,
+        page: Int? = 0,
+        pageSize: Int? = 10
+    ): Flow<BaseResponse>
 }

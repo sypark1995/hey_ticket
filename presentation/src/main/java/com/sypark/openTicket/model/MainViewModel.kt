@@ -40,6 +40,11 @@ class MainViewModel @Inject constructor(
 
     var rankingList: LiveData<List<Content>> = _rankingList
 
+
+    private var _newTicketList = MutableLiveData<List<Content>>()
+
+    var newTicketList: LiveData<List<Content>> = _newTicketList
+
     private var _isMutableShimmerLoading = MutableLiveData(false)
     val isShimmerLoading: LiveData<Boolean> = _isMutableShimmerLoading
 
@@ -106,6 +111,21 @@ class MainViewModel @Inject constructor(
                 if (it.data.contents.isNotEmpty()) {
                     _rankingList.value = it.data.contents
                     _isMutableShimmerLoading.value = true
+                }
+            }
+    }
+
+    suspend fun getNewTicketData(genre: String?, page: Int? = 0, pageSize: Int? = 10) {
+        repository.getNewTicket(
+            genre = genre,
+            page = page,
+            pageSize = pageSize
+        ).flowOn(Dispatchers.IO)
+            .catch {
+                Log.e("", it.toString())
+            }.collect {
+                if (it.data.contents.isNotEmpty()) {
+                    _newTicketList.value = it.data.contents
                 }
             }
     }

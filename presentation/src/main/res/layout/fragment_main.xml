@@ -225,7 +225,8 @@
                     android:id="@+id/layout_campus_ticket"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/layout_new_ticket">
+                    android:layout_below="@id/layout_new_ticket"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/text_campus_ticket"
@@ -284,7 +285,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/layout_campus_ticket"
-                    android:layout_marginBottom="60dp">
+                    android:layout_marginBottom="60dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/text_etc_ticket"

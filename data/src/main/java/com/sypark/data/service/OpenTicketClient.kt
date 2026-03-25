@@ -55,4 +55,14 @@ class OpenTicketClient @Inject constructor(
     ): BaseResponse = openTicketService.requestPerformancesRanking(
         timePeriod, date, genre, area, page, pageSize
     )
+
+    suspend fun requestPerformanceNew(
+        genre: String?,
+        page: Int?,
+        pageSize: Int?
+    ): BaseResponse = openTicketService.requestPerformancesNew(
+        genre,
+        page,
+        pageSize
+    )
 }
