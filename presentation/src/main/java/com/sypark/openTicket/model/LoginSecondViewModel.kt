@@ -10,14 +10,9 @@ import javax.inject.Inject
 class LoginSecondViewModel @Inject constructor(
 ) : BaseViewModel() {
     private var mutableEmailPw = MutableLiveData<String>()
-    var emailPw: LiveData<String>
-        get() = mutableEmailPw
+    var emailPw: LiveData<String> = mutableEmailPw
 
-    init {
-        emailPw = mutableEmailPw
-    }
-
-    fun setEmailPw(email: String) {
-        mutableEmailPw.postValue(email)
+    fun setEmailPw(pw: String) {
+        mutableEmailPw.postValue(pw)
     }
 }
