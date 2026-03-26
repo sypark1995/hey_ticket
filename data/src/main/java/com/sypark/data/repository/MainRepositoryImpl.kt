@@ -5,7 +5,6 @@ import androidx.annotation.WorkerThread
 import com.sypark.data.db.InterParkOpenTicketDao
 import com.sypark.data.db.MelonOpenTicketDao
 import com.sypark.data.db.entity.OpenTicket
-import com.sypark.data.db.entity.TicketDetail
 import com.sypark.data.service.OpenTicketClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -81,6 +80,11 @@ class MainRepositoryImpl @Inject constructor(
         emit(data)
     }
 
+    override suspend fun getTicketDetail(id: String) = flow {
+        val data = openTicketClient.requestTicketDetail(id)
+        emit(data)
+    }
+
     @WorkerThread
     override suspend fun getInterParkOpenTicket(
         genre: String,
@@ -142,10 +146,6 @@ class MainRepositoryImpl @Inject constructor(
         onError: (String?) -> Unit
     ): Flow<List<OpenTicket>> {
         TODO("Not yet implemented")
-    }
-
-    override suspend fun getTicketDetail(mt20id: String): TicketDetail {
-        return openTicketClient.requestTicketDetail(mt20id)
     }
 
 //    override suspend fun getRankingTicket(

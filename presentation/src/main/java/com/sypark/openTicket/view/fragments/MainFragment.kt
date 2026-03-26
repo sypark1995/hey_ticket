@@ -57,7 +57,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         binding.recyclerviewRanking.apply {
             rankingAdapter = RankingAdapter {
-
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToTicketDetailFragment(it))
             }.apply {
                 lifecycleScope.launch {
                     viewModel.getRankingData("")

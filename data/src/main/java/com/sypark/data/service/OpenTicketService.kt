@@ -66,7 +66,7 @@ interface OpenTicketService {
     suspend fun requestPerformancesDetail(
         @Path("mt20id")
         mt20id: String
-    ): TicketDetail
+    ): BaseResponse
 
     @GET("/api/v1/places/{mt10id}")
     suspend fun requestPerformancesPlaceDetail(

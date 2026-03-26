@@ -3,7 +3,6 @@ package com.sypark.data.service
 import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.OpenTicket
 import com.sypark.data.db.entity.PlaceDetail
-import com.sypark.data.db.entity.TicketDetail
 import javax.inject.Inject
 
 class OpenTicketClient @Inject constructor(
@@ -34,9 +33,9 @@ class OpenTicketClient @Inject constructor(
     )
 
     suspend fun requestTicketDetail(
-        mt20id: String
-    ): TicketDetail = openTicketService.requestPerformancesDetail(
-        mt20id
+        id: String
+    ): BaseResponse = openTicketService.requestPerformancesDetail(
+        id
     )
 
     suspend fun requestPlaceDetail(

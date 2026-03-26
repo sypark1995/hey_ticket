@@ -4,59 +4,69 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class TicketDetail(
-    @SerializedName("mt20id")
-    var mt20id: String,
+    @SerializedName("id")
+    val id: String,
 
-    @SerializedName("mt10id")
-    var mt10id: String,
+    @SerializedName("placeId")
+    val placeId: String,
 
     @SerializedName("title")
-    var title: String,
+    val title: String,
 
     @SerializedName("startDate")
-    var startDate: String,
+    val startDate: String,
 
     @SerializedName("endDate")
-    var endDate: String,
+    val endDate: String,
 
     @SerializedName("place")
-    var place: String,
+    val place: String,
+
     @SerializedName("cast")
-    var cast: String,
+    val cast: String,
 
     @SerializedName("crew")
-    var crew: String,
+    val crew: String,
 
     @SerializedName("runtime")
-    var runtime: String,
+    val runtime: String,
 
     @SerializedName("age")
-    var age: String,
+    val age: String,
 
-    @SerializedName("entrpsnm")
-    var entrpsnm: String,
+    @SerializedName("company")
+    val company: String,
 
-    @SerializedName("pcseguidance")
-    var pcseguidance: String,
+    @SerializedName("price")
+    val price: String,
 
     @SerializedName("poster")
-    var poster: String,
+    val poster: String,
 
-    @SerializedName("sty")
-    var sty: String,
+    @SerializedName("story")
+    val story: String,
 
     @SerializedName("genre")
-    var genre: String,
+    val genre: String,
 
     @SerializedName("state")
-    var state: String,
+    val state: String,
 
-    @SerializedName("openrun")
-    var openrun: Boolean,
+    @SerializedName("openRun")
+    val openRun: Boolean,
 
-    @SerializedName("styurls")
-    var styurls: ArrayList<Detail>,
+    @SerializedName("storyUrls")
+    val storyUrls: List<String>,
 
     @SerializedName("dtguidance")
-    var dtguidance: String
+    val dtguidance: String,
+
+    @SerializedName("views")
+    val views: Long,
+
+    @SerializedName("latitude")
+    val latitude: Double,
+
+    @SerializedName("longitude")
+    val longitude: Double,
 ) : Serializable
