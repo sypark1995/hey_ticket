@@ -112,15 +112,12 @@ class RegisterFirstFragment :
 
         binding.btnNext.setOnClickListener {
             // todo_sypark
-            if (true) {
+            if (false) {
                 //인증 번호 미일치
                 viewModel.setEmailErrorCode(true)
-//                binding.textEmailError.visibility = View.VISIBLE
-//                binding.layoutCodeEdit.setBackgroundResource(R.drawable.round_12_red_white)
             } else {
                 viewModel.setEmailErrorCode(false)
-//                binding.textEmailError.visibility = View.GONE
-//                binding.layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+                findNavController().navigate(RegisterFirstFragmentDirections.actionRegisterFirstFragmentToRegisterPasswordFragment())
             }
         }
 

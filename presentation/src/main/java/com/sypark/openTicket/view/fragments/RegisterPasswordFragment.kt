@@ -98,5 +98,9 @@ class RegisterPasswordFragment :
                 findNavController().popBackStack()
             })
         }
+
+        binding.btnNext.setOnClickListener {
+            findNavController().navigate(RegisterPasswordFragmentDirections.actionRegisterPasswordFragmentToRecommendFragment())
+        }
     }
 }
