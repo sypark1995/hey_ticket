@@ -50,8 +50,17 @@ class LoginFirstFragment : BaseFragment<FragmentLoginFirstBinding>(R.layout.frag
         }
 
         binding.btnEmail.setOnClickListener {
+            // todo_sypark test 시 변환
+            // todo_sypark 로그인 가능
+//            findNavController().navigate(
+//                LoginFirstFragmentDirections.actionLoginFirstFragmentToLoginSecondFragment(
+//                    viewModel.emailAddress.value.toString()
+//                )
+//            )
+
+            // todo_sypark 회원가입
             findNavController().navigate(
-                LoginFirstFragmentDirections.actionLoginFirstFragmentToLoginSecondFragment(
+                LoginFirstFragmentDirections.actionLoginFirstFragmentToRegisterFirstFragment(
                     viewModel.emailAddress.value.toString()
                 )
             )
