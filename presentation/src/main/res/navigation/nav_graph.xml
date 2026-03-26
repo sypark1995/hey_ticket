@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainFragment_to_loginFirstFragment"
             app:destination="@id/loginFirstFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_ticketDetailFragment"
+            app:destination="@id/ticketDetailFragment" />
 
     </fragment>
 
@@ -68,7 +71,7 @@
 
         <argument
             android:name="item"
-            app:argType="com.sypark.data.db.entity.Ticket" />
+            app:argType="com.sypark.data.db.entity.Content" />
         <action
             android:id="@+id/action_ticketDetailFragment_to_webViewFragment"
             app:destination="@id/webViewFragment" />
@@ -147,7 +150,17 @@
         android:id="@+id/recommendFragment"
         android:name="com.sypark.openTicket.view.fragments.RecommendFragment"
         android:label="RecommendFragment"
-        tools:layout="@layout/fragment_recommend_category" />
+        tools:layout="@layout/fragment_recommend_category">
 
+        <action
+            android:id="@+id/action_recommendFragment_to_recommendKeywordFragment"
+            app:destination="@id/recommendKeywordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recommendKeywordFragment"
+        android:name="com.sypark.openTicket.view.fragments.RecommendKeywordFragment"
+        android:label="RecommendKeywordFragment"
+        tools:layout="@layout/fragment_recommend_keyword" />
 
 </navigation>
