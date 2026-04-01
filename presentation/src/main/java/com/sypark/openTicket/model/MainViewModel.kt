@@ -5,7 +5,10 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.sypark.data.db.entity.Content
+import com.sypark.data.db.entity.Data
 import com.sypark.data.db.entity.OpenTicket
 import com.sypark.data.repository.MainRepository
 import com.sypark.openTicket.base.BaseViewModel
@@ -106,10 +109,13 @@ class MainViewModel @Inject constructor(
         ).flowOn(Dispatchers.IO)
             .catch {
                 _isMutableShimmerLoading.value = false
-                Log.e("!!!!", it.toString())
             }.collect {
-                if (it.data.contents.isNotEmpty()) {
-                    _rankingList.value = it.data.contents
+                val data = Gson().fromJson<Data>(
+                    it.data, object : TypeToken<Data>() {}.type
+                )
+
+                if (data.contents.isNotEmpty()) {
+                    _rankingList.value = data.contents
                     _isMutableShimmerLoading.value = true
                 }
             }
@@ -124,8 +130,12 @@ class MainViewModel @Inject constructor(
             .catch {
                 Log.e("", it.toString())
             }.collect {
-                if (it.data.contents.isNotEmpty()) {
-                    _newTicketList.value = it.data.contents
+                val data = Gson().fromJson<Data>(
+                    it.data, object : TypeToken<Data>() {}.type
+                )
+
+                if (data.contents.isNotEmpty()) {
+                    _newTicketList.value = data.contents
                 }
             }
     }

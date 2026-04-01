@@ -1,12 +1,14 @@
 package com.sypark.data.db.entity
 
+import java.io.Serializable
+
 data class Content(
     val id: String,
     val placeId: String,
     val title: String,
     val startDate: String,
     val endDate: String,
-    val place: String,
+    val theater: String,
     val cast: String,
     val crew: String,
     val runtime: String,
@@ -19,6 +21,6 @@ data class Content(
     val state: String,
     val openRun: Boolean,
     val storyUrls: List<String>,
-    val dtguidance: String,
+    val schedule: String,
     val rank: Long,
-)
+) : Serializable

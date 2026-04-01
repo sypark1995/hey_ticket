@@ -20,7 +20,7 @@ import com.sypark.openTicket.databinding.ItemRankingBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RankingAdapter(private val onItemClickListener: (Content) -> Unit) :
+class RankingAdapter(private val onItemClickListener: (String) -> Unit) :
     ListAdapter<Content, RankingViewHolder>(MyItemCallback()) {
 
     class MyItemCallback : DiffUtil.ItemCallback<Content>() {
@@ -55,10 +55,10 @@ class RankingViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHold
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
-    fun bind(item: Content, onItemClickListener: (Content) -> Unit) {
+    fun bind(item: Content, onItemClickListener: (String) -> Unit) {
         binding.apply {
             this.root.setOnClickListener {
-                onItemClickListener(item)
+                onItemClickListener(item.id)
             }
 
             when (Common.compareDate(item.startDate, item.endDate)) {
@@ -104,7 +104,7 @@ class RankingViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHold
             }
 
             textRanking.text = item.rank.toString()
-            textPlace.text = item.place
+            textPlace.text = item.theater
             textTitle.text = item.title
             Glide.with(binding.root.context)
                 .load(item.poster)

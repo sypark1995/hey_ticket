@@ -62,10 +62,10 @@ interface OpenTicketService {
         size: Int
     ): List<Ticket>
 
-    @GET("/api/v1/performances/{mt20id}")
+    @GET("/api/performances/{id}")
     suspend fun requestPerformancesDetail(
-        @Path("mt20id")
-        mt20id: String
+        @Path("id")
+        id: String
     ): BaseResponse
 
     @GET("/api/v1/places/{mt10id}")
