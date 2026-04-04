@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <RelativeLayout
             android:id="@+id/layout_header"
@@ -31,18 +30,17 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="@string/ticket_detail_genre"
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
         <ScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/layout_bottom"
-            android:layout_below="@id/layout_header"
-            android:layout_marginTop="16dp">
+            android:layout_below="@id/layout_header">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -68,18 +66,26 @@
                         android:layout_below="@id/img_poster"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
-                        android:text="@string/ticket_detail_status" />
+                        android:fontFamily="@font/pretendard_semi_bold"
+                        android:paddingStart="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="4dp"
+                        tools:text="D-30"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/text_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text_state"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/black"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/black_111111"
                         android:textSize="18sp"
-                        android:textStyle="bold"
                         tools:text="국립심포니오케스트라 베토벤 교향곡 5번" />
 
                     <TextView
@@ -88,7 +94,12 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text_title"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
                         android:layout_marginBottom="24dp"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray_949494"
+                        android:textSize="15sp"
                         tools:text="2022.12.21(수) ~ 2023.02.04(일)" />
                 </RelativeLayout>
 
@@ -112,13 +123,11 @@
 
                         <TextView
                             android:id="@+id/text_information"
+                            style="@style/Bold_111111_16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:text="@string/ticket_detail_information"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
                             tools:text="공연 정보" />
 
                         <RelativeLayout
@@ -130,37 +139,64 @@
 
                             <TextView
                                 android:id="@+id/text_information_title_date"
+                                style="@style/Medium_949494_13"
                                 android:layout_width="60dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:text="@string/ticket_detail_information_date"
-                                android:textSize="13sp"
+                                android:textAlignment="textStart"
                                 tools:text="기간" />
 
                             <TextView
                                 android:id="@+id/text_information_date"
+                                style="@style/Regular_111111_13"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_toEndOf="@+id/text_information_title_date"
+                                android:textAlignment="textStart"
+                                tools:text="2022.12.21(수) ~ 2023.02.04(일)" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/layout_information_period"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/layout_information_date"
+                            android:layout_marginTop="16dp">
+
+                            <TextView
+                                android:id="@+id/text_information_title_period"
+                                style="@style/Medium_949494_13"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ticket_detail_information_period"
+                                android:textAlignment="textStart" />
+
+                            <TextView
+                                android:id="@+id/text_information_period"
+                                style="@style/Regular_111111_13"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_toEndOf="@+id/text_information_title_date"
-                                tools:text="2022.12.21(수) ~ 2023.02.04(일)" />
+                                android:layout_toEndOf="@+id/text_information_title_period" />
                         </RelativeLayout>
 
                         <RelativeLayout
                             android:id="@+id/layout_information_cast"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/layout_information_date"
+                            android:layout_below="@+id/layout_information_period"
                             android:layout_marginTop="16dp">
 
                             <TextView
                                 android:id="@+id/text_information_title_cast"
+                                style="@style/Medium_949494_13"
                                 android:layout_width="60dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/ticket_detail_information_cast"
-                                android:textSize="13sp"
                                 tools:text="출연진" />
 
                             <TextView
                                 android:id="@+id/text_information_cast"
+                                style="@style/Regular_111111_13"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toEndOf="@+id/text_information_title_cast"
@@ -176,6 +212,7 @@
 
                             <TextView
                                 android:id="@+id/text_information_title_price"
+                                style="@style/Medium_949494_13"
                                 android:layout_width="60dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/ticket_detail_information_price"
@@ -183,6 +220,7 @@
 
                             <TextView
                                 android:id="@+id/text_information_price"
+                                style="@style/Regular_111111_13"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toEndOf="@id/text_information_title_price"
@@ -198,6 +236,7 @@
 
                             <TextView
                                 android:id="@+id/text_information_title_place"
+                                style="@style/Medium_949494_13"
                                 android:layout_width="60dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/ticket_detail_information_place"
@@ -205,6 +244,7 @@
 
                             <TextView
                                 android:id="@+id/text_information_place"
+                                style="@style/Regular_111111_13"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toEndOf="@id/text_information_title_place"
@@ -212,6 +252,7 @@
 
                             <TextView
                                 android:id="@+id/text_information_lat_lng"
+                                style="@style/Regular_111111_13"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/text_information_place"
@@ -246,13 +287,11 @@
 
                         <TextView
                             android:id="@+id/text_information_detail"
+                            style="@style/Bold_111111_16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:text="@string/ticket_detail_information_detail"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
                             tools:text="공연 상세" />
 
                         <ImageView
@@ -261,21 +300,21 @@
                             android:layout_height="370dp"
                             android:layout_below="@+id/text_information_detail"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="40dp"
+                            android:layout_marginBottom="20dp"
                             android:scaleType="fitXY" />
 
-                        <androidx.constraintlayout.utils.widget.ImageFilterView
+                        <ImageView
                             android:id="@+id/img_information_detail_full"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/text_information_detail"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="40dp"
                             android:scaleType="fitXY"
                             android:visibility="gone" />
 
                         <Button
                             android:id="@+id/btn_information_detail"
+                            style="@style/Bold_111111_14"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
@@ -325,13 +364,11 @@
 
                         <TextView
                             android:id="@+id/text_information_title_etc"
+                            style="@style/Bold_111111_16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:text="@string/ticket_detail_information_detail_etc"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
                             tools:text="기타 정보" />
 
                         <RelativeLayout
@@ -347,6 +384,7 @@
 
                                 <TextView
                                     android:id="@+id/text_information_title_host"
+                                    style="@style/Medium_949494_13"
                                     android:layout_width="60dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ticket_detail_information_detail_host"
@@ -354,6 +392,7 @@
 
                                 <TextView
                                     android:id="@+id/text_information_host"
+                                    style="@style/Regular_111111_13"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -370,6 +409,7 @@
 
                                 <TextView
                                     android:id="@+id/text_information_title_inquiry"
+                                    style="@style/Medium_949494_13"
                                     android:layout_width="60dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ticket_detail_information_detail_inquiry"
@@ -377,6 +417,7 @@
 
                                 <TextView
                                     android:id="@+id/text_information_inquiry"
+                                    style="@style/Regular_111111_13"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -393,6 +434,7 @@
 
                                 <TextView
                                     android:id="@+id/text_information_title_age"
+                                    style="@style/Medium_949494_13"
                                     android:layout_width="60dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ticket_detail_information_detail_age"
@@ -400,6 +442,7 @@
 
                                 <TextView
                                     android:id="@+id/text_information_age"
+                                    style="@style/Regular_111111_13"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -416,6 +459,7 @@
 
                                 <TextView
                                     android:id="@+id/text_information_title_etc_crew"
+                                    style="@style/Medium_949494_13"
                                     android:layout_width="60dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ticket_detail_information_detail_etc_cast"
@@ -423,6 +467,7 @@
 
                                 <TextView
                                     android:id="@+id/text_information_etc_crew"
+                                    style="@style/Regular_111111_13"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -462,8 +507,9 @@
                 android:layout_toEndOf="@id/img_share"
                 android:src="@drawable/icon_like" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_web_view"
+                style="@style/SemiBold_white_15"
                 android:layout_width="wrap_content"
                 android:layout_height="55dp"
                 android:layout_alignParentEnd="true"
@@ -472,9 +518,12 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="10dp"
                 android:layout_toEndOf="@id/img_like"
-                android:background="@drawable/round_6_black" />
-
+                android:background="@drawable/round_6_black"
+                android:text="@string/ticket_detail_go_reservation"
+                app:backgroundTint="@null"
+                app:icon="@drawable/icon_ticket_resize"
+                app:iconGravity="textStart"
+                app:iconTint="@null" />
         </RelativeLayout>
-
     </RelativeLayout>
 </layout>

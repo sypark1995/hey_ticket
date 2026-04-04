@@ -1,10 +1,11 @@
 package com.sypark.data.repository
 
-import com.sypark.data.db.entity.TicketDetail
+import com.sypark.data.db.entity.BaseResponse
+import kotlinx.coroutines.flow.Flow
 
 interface TicketDetailRepository {
 
     suspend fun getTicketDetail(
-        mt20id: String,
-    ): TicketDetail?
+        id: String,
+    ): Flow<BaseResponse>
 }

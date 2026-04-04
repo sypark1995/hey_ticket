@@ -38,4 +38,12 @@ data class TicketDetail(
     val schedule: String,
 
     val views: Long,
+
+    val latitude: Double,
+
+    val longitude: Double,
+
+    val address: String,
+
+    val phoneNumber: String
 )

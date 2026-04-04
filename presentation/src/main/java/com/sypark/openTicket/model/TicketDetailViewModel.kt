@@ -1,9 +1,11 @@
 package com.sypark.openTicket.model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sypark.data.db.entity.Content
-import com.sypark.data.repository.PlaceDetailRepository
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.sypark.data.db.entity.TicketDetail
 import com.sypark.data.repository.TicketDetailRepository
 import com.sypark.openTicket.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,22 +17,25 @@ import javax.inject.Inject
 @HiltViewModel
 class TicketDetailViewModel @Inject constructor(
     private val ticketDetailRepository: TicketDetailRepository,
-    private val placeDetailRepository: PlaceDetailRepository
 ) : BaseViewModel() {
 
-    private val _ticketDetail = MutableLiveData<Content>()
-    val ticketDetail: LiveData<Content> = _ticketDetail
+    private val _ticketDetail = MutableLiveData<TicketDetail>()
+    val ticketDetail: LiveData<TicketDetail> = _ticketDetail
 
-    suspend fun getTicketDetailData(mt20id: String) {
-        ticketDetailRepository.getTicketDetail(mt20id).flowOn(Dispatchers.IO).catch {
+    private var _isLoading = MutableLiveData(false)
+    val loading: LiveData<Boolean> = _isLoading
 
+    suspend fun getTicketDetailData(id: String) {
+        ticketDetailRepository.getTicketDetail(id).flowOn(Dispatchers.IO).catch {
+            Log.e("getTicketDetailData", it.toString())
+            _isLoading.value = false
         }.collect {
-            if (it.data.contents.isNotEmpty()) {
-                _ticketDetail.value = it.data.contents
-            }
+            val data = Gson().fromJson<TicketDetail>(
+                it.data,
+                object : TypeToken<TicketDetail>() {}.type
+            )
+            _isLoading.value = true
+            _ticketDetail.value = data
         }
     }
-//    suspend fun getPlaceDetailData(mt10id: String) {
-//        _placeDetail.value = placeDetailRepository.getPlaceDetail(mt10id)
-//    }
 }
