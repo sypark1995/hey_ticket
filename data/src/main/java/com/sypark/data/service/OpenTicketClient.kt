@@ -2,7 +2,6 @@ package com.sypark.data.service
 
 import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.OpenTicket
-import com.sypark.data.db.entity.PlaceDetail
 import javax.inject.Inject
 
 class OpenTicketClient @Inject constructor(
@@ -20,28 +19,10 @@ class OpenTicketClient @Inject constructor(
         size
     )
 
-    suspend fun requestMelonTicket(
-        genre: String,
-        order: String,
-        pageIndex: String,
-        size: String?,
-    ): List<OpenTicket>? = openTicketService.requestMelonOpenTicket(
-        genre,
-        order,
-        pageIndex,
-        size
-    )
-
     suspend fun requestTicketDetail(
         id: String
     ): BaseResponse = openTicketService.requestPerformancesDetail(
         id
-    )
-
-    suspend fun requestPlaceDetail(
-        mt10id: String
-    ): PlaceDetail = openTicketService.requestPerformancesPlaceDetail(
-        mt10id
     )
 
     suspend fun requestPerformancesRanking(
