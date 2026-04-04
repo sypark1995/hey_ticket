@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OpenTicket</string>
+    <string name="app_name">HeyTicket</string>
     <string name="top_title">HEY TICKET</string>
     <string name="ticket_name">아이유</string>
     <string name="ticket_open_time">오픈 예정</string>
@@ -81,6 +81,7 @@
 
     <string name="ticket_detail_information">공연 정보</string>
     <string name="ticket_detail_information_date">기간</string>
+    <string name="ticket_detail_information_period">시간</string>
     <string name="ticket_detail_information_cast">출연진</string>
     <string name="ticket_detail_information_price">예매가</string>
     <string name="ticket_detail_information_place">공연장</string>
@@ -95,6 +96,8 @@
     <string name="ticket_detail_information_detail_etc_cast">작가/출연진</string>
     <string name="ticket_detail_genre">데이터가 안내려와요ㅠㅠ</string>
     <string name="ticket_detail_status">D - day 데이터가 안내려와요ㅠㅠ</string>
+    <string name="ticket_detail_go_reservation">예매하러 가기</string>
+    
     <string name="kakao_share_title">이 공연 어때요? ❤❤</string>
     <string name="kakao_not_install">카카오톡이 설치되어 있지 않습니다.</string>
     <string name="kakao_share_performance_information">공연 정보</string>
