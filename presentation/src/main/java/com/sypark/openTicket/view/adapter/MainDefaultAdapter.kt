@@ -1,5 +1,6 @@
 package com.sypark.openTicket.view.adapter
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,7 @@ import com.sypark.openTicket.databinding.ItemDefaultTicketBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainDefaultAdapter(private val onItemClickListener: (Content) -> Unit) :
+class MainDefaultAdapter(private val onItemClickListener: (String) -> Unit) :
     ListAdapter<Content, NewTicketViewHolder>(MyItemCallback()) {
 
     class MyItemCallback : DiffUtil.ItemCallback<Content>() {
@@ -39,7 +40,8 @@ class MainDefaultAdapter(private val onItemClickListener: (Content) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewTicketViewHolder {
-        val binding = ItemDefaultTicketBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemDefaultTicketBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NewTicketViewHolder(binding)
     }
 
@@ -50,17 +52,19 @@ class MainDefaultAdapter(private val onItemClickListener: (Content) -> Unit) :
     }
 }
 
-class NewTicketViewHolder(val binding: ItemDefaultTicketBinding) : RecyclerView.ViewHolder(binding.root) {
+class NewTicketViewHolder(val binding: ItemDefaultTicketBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
-    fun bind(item: Content, onItemClickListener: (Content) -> Unit) {
+    fun bind(item: Content, onItemClickListener: (String) -> Unit) {
         binding.apply {
             this.root.setOnClickListener {
-                onItemClickListener(item)
+                onItemClickListener(item.id)
             }
 
-            textPlace.text = item.place
-            textTitle.text = item.title
+            textPlace.text = item.theater
+            textTitle.text = item.theater
 
             when (Common.compareDate(item.startDate, item.endDate)) {
                 Common.DateType.BEFORE -> {
@@ -78,12 +82,14 @@ class NewTicketViewHolder(val binding: ItemDefaultTicketBinding) : RecyclerView.
                     )
 
                     try {
-                        textStatus.text = "D-${(startDate - nowDate.time) / (24 * 60 * 60 * 1000)}"
+                        if (nowDate != null) {
+                            textStatus.text = "D-${(startDate - nowDate.time) / (24 * 60 * 60 * 1000)}"
+                        }
                     } catch (e: Exception) {
                         textStatus.text = ""
                     }
 
-                    textDate.text = Common.genStrDate(item.startDate,"시작")
+                    textDate.text = Common.genStrDate(item.startDate, "시작")
                 }
 
                 Common.DateType.START -> {

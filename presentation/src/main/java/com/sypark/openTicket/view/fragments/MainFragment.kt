@@ -1,7 +1,9 @@
 package com.sypark.openTicket.view.fragments
 
+import android.os.Build
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -30,6 +32,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private lateinit var etcTicketAdapter: MainDefaultAdapter
     private lateinit var campusTicketAdapter: MainDefaultAdapter
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun init(view: View) {
         binding.layoutBottom.navigationBottom.menu.getItem(0).isChecked = true
 
@@ -57,12 +60,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         binding.recyclerviewRanking.apply {
             rankingAdapter = RankingAdapter {
-                findNavController().navigate(MainFragmentDirections.actionMainFragmentToTicketDetailFragment(it))
-            }.apply {
-                lifecycleScope.launch {
-                    viewModel.getRankingData("")
-                }
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToTicketDetailFragment(
+                        it
+                    )
+                )
             }
+
+            lifecycleScope.launch {
+                viewModel.getRankingData("")
+            }
+
             adapter = rankingAdapter
         }
 
@@ -94,12 +102,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         binding.recyclerviewNewTicket.apply {
             newTicketAdapter = MainDefaultAdapter {
-
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToTicketDetailFragment(
+                        it
+                    )
+                )
             }
 
             lifecycleScope.launch {
                 viewModel.getNewTicketData("")
             }
+
             adapter = newTicketAdapter
         }
 
@@ -122,98 +135,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 //            etcTicketAdapter.submitList()
             adapter = etcTicketAdapter
         }
-
-
-//        binding.openKindRecyclerview.adapter.apply {
-//
-//        }
-//        val pageMarginPx = resources.getDimensionPixelOffset()
-        lifecycleScope.launch {
-//            viewModel.getHitsMelonData()
-//            viewModel.melonList.value?.let {
-//                binding.viewpager.adapter = InfiniteAdapter(it)
-//            }
-//
-//            binding.viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//            binding.viewpager.setCurrentItem(currentPosition, false)
-//
-//            binding.viewpager.apply {
-
-//                offscreenPageLimit = 3
-//                clipChildren = false
-//                clipToPadding = false
-//
-//                getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-//
-//                setPageTransformer(
-//                    CompositePageTransformer().apply {
-//                        addTransformer(MarginPageTransformer(1))
-//                        addTransformer { view: View, fl: Float ->
-//                            val v = 1 - abs(fl)
-//                            view.scaleY = 0.85f + v * 0.15f
-//                        }
-//                    }
-//                )
-
-//                viewModel.melonList.value.apply {
-//                    adapter = InfiniteAdapter(this!!)
-//                }
-//                setCurrentItem(Int.MAX_VALUE / 2, false)
-
-//                adapter = viewModel.melonList.value?.let {
-//                    ViewPagerAdapter(it)
-//                }
-
-//                registerOnPageChangeCallback(object : OnPageChangeCallback() {
-//                    override fun onPageSelected(position: Int) {
-//                        super.onPageSelected(position)
-//
-//                        binding.layoutViewpager.apply {
-//                            Glide.with(this)
-//                                .load(viewModel.melonList.value!![position].image_url)
-//                                .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
-//                                .into(object : CustomTarget<Drawable>() {
-//                                    override fun onResourceReady(
-//                                        resource: Drawable,
-//                                        transition: Transition<in Drawable>?
-//                                    ) {
-//                                        binding.layoutViewpager.background = resource
-//                                    }
-//
-//                                    override fun onLoadCleared(placeholder: Drawable?) {}
-//
-//                                })
-//                        }
-//                    }
-//
-//                    override fun onPageScrollStateChanged(state: Int) {
-//                        super.onPageScrollStateChanged(state)
-//                    }
-//                })
-//            }
-        }
-
-//        binding.kindRecyclerview.run {
-//
-//            layoutManager = LinearLayoutManager(view.context).apply {
-//                orientation = RecyclerView.HORIZONTAL
-//            }
-//
-//            adapter = SortTicketAdapter().apply {
-//                setListInfo(
-//                    arrayListOf(
-//                        getString(R.string.concert),
-//                        getString(R.string.drama),
-//                        getString(R.string.musical)
-//                    )
-//                )
-//                setTicketClickListener(this@MainFragment)
-//            }
-//        }
-
-//        binding.btn.setOnClickListener {
-//            Log.e("!!!", "click")
-//        }
     }
 
     private fun rankingFilterItemClicked(position: Int) {
