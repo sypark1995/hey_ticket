@@ -49,6 +49,10 @@
         android:label="CategoryDetailFragment"
         tools:layout="@layout/fragment_category_detail">
 
+        <argument
+            android:name="item"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_categoryDetailFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />

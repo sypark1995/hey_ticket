@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.view.View
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -48,6 +49,7 @@ class TicketDetailFragment :
     private val viewModel: TicketDetailViewModel by viewModels()
     private var naverMap: NaverMap? = null
     private lateinit var bitmap: Bitmap
+
     //todo_sypark 네트워크 핸들링 예정
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
@@ -274,9 +276,11 @@ class TicketDetailFragment :
                     )
                 }
 
-//                    lifecycleScope.launch(Dispatchers.Main) {
-//                scrollView.fullScroll(ScrollView.FOCUS_UP)
-//                    }
+                imgTopButton.setOnClickListener {
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        scrollView.fullScroll(ScrollView.FOCUS_UP)
+                    }
+                }
 
                 imgClose.setOnClickListener {
                     findNavController().popBackStack()
@@ -285,6 +289,18 @@ class TicketDetailFragment :
                 imgShare.setOnClickListener {
                     isKakaoInstall(it.context, item)
                 }
+
+                scrollView.viewTreeObserver.addOnScrollChangedListener {
+                    viewModel.setScrollYPosition(scrollView.scrollY)
+                }
+            }
+        }
+
+        viewModel.scrollYPosition.observe(viewLifecycleOwner) {
+            if (it > 0) {
+                binding.imgTopButton.visibility = View.VISIBLE
+            } else {
+                binding.imgTopButton.visibility = View.GONE
             }
         }
     }

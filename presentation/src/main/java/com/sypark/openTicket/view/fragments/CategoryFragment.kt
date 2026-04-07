@@ -25,7 +25,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
         binding.recyclerviewPerformance.apply {
             layoutManager = LinearLayoutManager(view.context)
             categoryGenreAdapter = CategoryGenreAdapter {
-                itemClicked()
+                findNavController().navigate(CategoryFragmentDirections.actionCategoryFragmentToCategoryDetailFragment(it))
             }
             adapter = categoryGenreAdapter
         }
@@ -42,9 +42,4 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
             categoryGenreAdapter.submitList(it)
         }
     }
-
-    private fun itemClicked() {
-        findNavController().navigate(CategoryFragmentDirections.actionCategoryFragmentToCategoryDetailFragment())
-    }
-
 }

@@ -25,6 +25,9 @@ class TicketDetailViewModel @Inject constructor(
     private var _isLoading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _isLoading
 
+    private var _scrollYPosition = MutableLiveData<Int>()
+    val scrollYPosition: LiveData<Int> = _scrollYPosition
+
     suspend fun getTicketDetailData(id: String) {
         ticketDetailRepository.getTicketDetail(id).flowOn(Dispatchers.IO).catch {
             Log.e("getTicketDetailData", it.toString())
@@ -37,5 +40,9 @@ class TicketDetailViewModel @Inject constructor(
             _isLoading.value = true
             _ticketDetail.value = data
         }
+    }
+
+    fun setScrollYPosition(position: Int) {
+        _scrollYPosition.value = position
     }
 }
