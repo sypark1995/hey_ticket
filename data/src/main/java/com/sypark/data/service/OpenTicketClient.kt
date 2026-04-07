@@ -45,4 +45,7 @@ class OpenTicketClient @Inject constructor(
         page,
         pageSize
     )
+
+    suspend fun requestPerformanceCount(): BaseResponse =
+        openTicketService.requestPerformancesCount()
 }

@@ -1,27 +1,28 @@
-package com.sypark.openTicket.view
+package com.sypark.openTicket.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sypark.data.db.entity.Genre
+import com.sypark.data.db.entity.GenreCount
+import com.sypark.openTicket.Common
 import com.sypark.openTicket.databinding.ItemCategoryBinding
 
-class CategoryGenreAdapter(private val clickListener: () -> Unit) :
-    ListAdapter<Genre, CategoryHolder>(MyItemCallback()) {
+class CategoryGenreAdapter(private val clickListener: (String) -> Unit) :
+    ListAdapter<GenreCount, CategoryHolder>(MyItemCallback()) {
 
-    class MyItemCallback : DiffUtil.ItemCallback<Genre>() {
+    class MyItemCallback : DiffUtil.ItemCallback<GenreCount>() {
         override fun areItemsTheSame(
-            oldItem: Genre,
-            newItem: Genre
+            oldItem: GenreCount,
+            newItem: GenreCount
         ): Boolean {
-            return oldItem.code == newItem.code
+            return oldItem.genre == newItem.genre
         }
 
         override fun areContentsTheSame(
-            oldItem: Genre,
-            newItem: Genre
+            oldItem: GenreCount,
+            newItem: GenreCount
         ): Boolean {
             return oldItem == newItem
         }
@@ -41,13 +42,19 @@ class CategoryGenreAdapter(private val clickListener: () -> Unit) :
 
 class CategoryHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    // todo_sypark 데이터 들어올 시 변경
-    fun bind(item: Genre, clickListener: () -> Unit) {
+    fun bind(item: GenreCount, clickListener: (String) -> Unit) {
         binding.apply {
-            searchCategorySort.text = item.genrenm
-            searchPerformanceCount.text = "1,341"
+
+            //todo_sypark 로직 변경 예정 루프 계속 돌고 있음...
+            Common.genreList.forEach {
+                if (it.code == item.genre) {
+                    searchCategorySort.text = it.genrenm
+                }
+            }
+            searchPerformanceCount.text = item.count.toString()
+
             this.root.setOnClickListener {
-                clickListener()
+                clickListener(item.genre)
             }
         }
     }

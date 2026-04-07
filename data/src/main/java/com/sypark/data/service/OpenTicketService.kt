@@ -37,12 +37,6 @@ interface OpenTicketService {
         id: String
     ): BaseResponse
 
-    @GET("/api/v1/places/{mt10id}")
-    suspend fun requestPerformancesPlaceDetail(
-        @Path("mt10id")
-        mt10id: String
-    ): PlaceDetail
-
     @GET("/api/performances/rank")
     suspend fun requestPerformancesRanking(
         @Query("timePeriod")
@@ -68,4 +62,9 @@ interface OpenTicketService {
         @Query("pageSize")
         pageSize: Int?
     ): BaseResponse
+
+    @GET("/api/performances/genres/count")
+    suspend fun requestPerformancesCount(
+    ): BaseResponse
+
 }
