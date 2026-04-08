@@ -9,20 +9,20 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.sypark.data.db.entity.Ticket
+import com.sypark.data.db.entity.Content
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.databinding.ItemTicketBinding
 
-class PagingAdapter(private val clickListener: (Ticket) -> Unit) :
-    PagingDataAdapter<Ticket, PagingViewHolder>(diffCallback) {
+class PagingAdapter(private val clickListener: (Content) -> Unit) :
+    PagingDataAdapter<Content, PagingViewHolder>(diffCallback) {
 
     companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<Ticket>() {
-            override fun areItemsTheSame(oldItem: Ticket, newItem: Ticket): Boolean {
+        private val diffCallback = object : DiffUtil.ItemCallback<Content>() {
+            override fun areItemsTheSame(oldItem: Content, newItem: Content): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: Ticket, newItem: Ticket): Boolean {
+            override fun areContentsTheSame(oldItem: Content, newItem: Content): Boolean {
                 return oldItem == newItem
             }
         }
@@ -52,15 +52,15 @@ class PagingViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
-    fun binding(data: Ticket, clickListener: (Ticket) -> Unit) {
+    fun binding(data: Content, clickListener: (Content) -> Unit) {
         binding.apply {
             textTicketName.text = data.title
-            textTicketLocation.text = data.place
+//            textTicketLocation.text = data.place
             textTicketDate.text =
                 "${data.startDate}${Common.getDayOfWeek(data.startDate)} ~ ${data.endDate}${
                     Common.getDayOfWeek(data.endDate)
                 }"
-            textTicketPrice.text = data.pcseguidance
+//            textTicketPrice.text = data.pcseguidance
             Glide.with(binding.root.context).load(data.poster).into(imgPoster)
             root.setOnClickListener {
                 clickListener(data)

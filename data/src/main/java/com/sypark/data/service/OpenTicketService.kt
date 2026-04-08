@@ -40,9 +40,9 @@ interface OpenTicketService {
     @GET("/api/performances/rank")
     suspend fun requestPerformancesRanking(
         @Query("timePeriod")
-        timePeriod: String,
+        timePeriod: String?,
         @Query("date")
-        date: String,
+        date: String?,
         @Query("genre")
         genre: String?,
         @Query("area")

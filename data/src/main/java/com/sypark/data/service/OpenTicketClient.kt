@@ -26,7 +26,7 @@ class OpenTicketClient @Inject constructor(
     )
 
     suspend fun requestPerformancesRanking(
-        timePeriod: String,
+        timePeriod: String?,
         date: String,
         genre: String?,
         area: String?,

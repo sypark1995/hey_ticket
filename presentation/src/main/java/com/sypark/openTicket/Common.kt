@@ -78,6 +78,18 @@ object Common {
         Genre("KID", "아동")
     )
 
+    enum class GenreList {
+        POPULAR_MUSIC,
+        MUSICAL,
+        THEATER,
+        CLASSIC,
+        KOREAN_TRADITIONAL_MUSIC,
+        DANCE,
+        CIRCUS_AND_MAGIC,
+        MIXED_GENRE,
+        KID
+    }
+
     val categoryList = listOf(
         Genre("AAAA", "연극"),
         Genre("BBBC", "무용(서양/한국무용)"),

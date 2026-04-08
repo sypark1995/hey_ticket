@@ -16,7 +16,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -101,7 +100,6 @@ class MainViewModel @Inject constructor(
     suspend fun getRankingData(genre: String?, page: Int? = 0, pageSize: Int? = 10) {
         repository.getRankingTicket(
             timePeriod = "",
-            LocalDate.now().toString(),
             genre = genre,
             area = "",
             page = page,

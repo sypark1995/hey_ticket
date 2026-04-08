@@ -3,7 +3,6 @@ package com.sypark.data.repository
 import android.util.Log
 import androidx.annotation.WorkerThread
 import com.sypark.data.db.InterParkOpenTicketDao
-import com.sypark.data.db.MelonOpenTicketDao
 import com.sypark.data.service.OpenTicketClient
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
@@ -16,7 +15,7 @@ class MainRepositoryImpl @Inject constructor(
 //    @Dispatcher(AppDispatchers.IO) private val ioDispatcher: CoroutineDispatcher
 ) : MainRepository {
     override suspend fun getRankingTicket(
-        timePeriod: String,
+        timePeriod: String?,
         date: String,
         genre: String?,
         area: String?,

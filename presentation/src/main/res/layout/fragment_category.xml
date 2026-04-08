@@ -60,28 +60,28 @@
                     android:text="@string/search_performance"
                     android:textColor="@drawable/selector_radio_text_black_gray"
                     android:textSize="20sp" />
+<!--todo_sypark MVP 이후 작업 예정-->
+<!--                <RadioButton-->
+<!--                    android:id="@+id/radio_exhibition"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:button="@null"-->
+<!--                    android:fontFamily="@font/pretendard_bold"-->
+<!--                    android:text="@string/search_exhibition"-->
+<!--                    android:textColor="@drawable/selector_radio_text_black_gray"-->
+<!--                    android:textSize="20sp" />-->
 
-                <RadioButton
-                    android:id="@+id/radio_exhibition"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:fontFamily="@font/pretendard_bold"
-                    android:text="@string/search_exhibition"
-                    android:textColor="@drawable/selector_radio_text_black_gray"
-                    android:textSize="20sp" />
-
-                <RadioButton
-                    android:id="@+id/radio_sport"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:fontFamily="@font/pretendard_bold"
-                    android:text="@string/search_sport"
-                    android:textColor="@drawable/selector_radio_text_black_gray"
-                    android:textSize="20sp" />
+<!--                <RadioButton-->
+<!--                    android:id="@+id/radio_sport"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:button="@null"-->
+<!--                    android:fontFamily="@font/pretendard_bold"-->
+<!--                    android:text="@string/search_sport"-->
+<!--                    android:textColor="@drawable/selector_radio_text_black_gray"-->
+<!--                    android:textSize="20sp" />-->
             </RadioGroup>
         </LinearLayout>
 

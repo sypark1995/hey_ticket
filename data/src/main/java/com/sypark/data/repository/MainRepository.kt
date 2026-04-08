@@ -1,8 +1,11 @@
 package com.sypark.data.repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.OpenTicket
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
 
 interface MainRepository {
 
@@ -16,9 +19,10 @@ interface MainRepository {
         onError: (String?) -> Unit
     ): Flow<List<OpenTicket>>?
 
+    @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getRankingTicket(
-        timePeriod: String,
-        date: String,
+        timePeriod: String?,
+        date: String = LocalDate.now().toString(),
         genre: String?,
         area: String?,
         page: Int? = 0,

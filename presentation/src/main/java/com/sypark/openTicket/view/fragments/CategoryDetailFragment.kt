@@ -11,10 +11,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.sypark.data.db.entity.CategoryDetailArea
-import com.sypark.data.db.entity.Ticket
+import com.sypark.data.db.entity.TicketDetail
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.Preferences
 import com.sypark.openTicket.R
@@ -39,6 +40,7 @@ class CategoryDetailFragment :
     private lateinit var pagingAdapter: PagingAdapter
     private lateinit var categorySortAdapter: CategorySortAdapter
     private lateinit var categoryFilterAreaAdapter: CategoryFilterAreaAdapter
+    private val args by navArgs<CategoryDetailFragmentArgs>()
 
 
 //    private fun setUpObserver() {
@@ -393,7 +395,7 @@ class CategoryDetailFragment :
         }
 
         lifecycleScope.launch {
-            categoryDetailViewModel.pagingData.collectLatest {
+            categoryDetailViewModel.setGenre(args.item).collectLatest {
                 try {
                     pagingAdapter.submitData(it)
                 } catch (e: Exception) {
@@ -536,7 +538,7 @@ class CategoryDetailFragment :
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
-    private fun itemClicked(data: Ticket) {
+    private fun itemClicked(data: TicketDetail) {
         findNavController().navigate(
             CategoryDetailFragmentDirections.actionCategoryDetailFragmentToTicketDetailFragment(
                 data

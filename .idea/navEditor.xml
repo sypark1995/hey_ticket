@@ -65,6 +65,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="loginFindPwFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-399" />
+                            <option name="y" value="339" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="loginFirstFragment">
                     <value>
                       <LayoutPositions>
@@ -73,6 +85,20 @@
                             <option name="x" value="-192" />
                             <option name="y" value="16" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_loginFirstFragment_to_loginSecondFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_loginFirstFragment_to_registerFirstFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -85,6 +111,15 @@
                             <option name="x" value="-409" />
                             <option name="y" value="25" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_loginSecondFragment_to_loginFindPwFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -110,11 +145,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_mainFragment_to_recommendFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_mainFragment_to_searchFragment">
                               <value>
                                 <LayoutPositions />
@@ -130,13 +160,58 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="530" />
-                            <option name="y" value="4" />
+                            <option name="x" value="-379" />
+                            <option name="y" value="699" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="recommendKeywordFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-615" />
+                            <option name="y" value="718" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="registerFirstFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-175" />
+                            <option name="y" value="342" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_recommendFragment_to_mainFragment">
+                            <entry key="action_registerFirstFragment_to_registerPasswordFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="registerPasswordFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-146" />
+                            <option name="y" value="683" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_registerPasswordFragment_to_recommendFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

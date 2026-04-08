@@ -1,23 +1,35 @@
 package com.sypark.data.repository
 
 import android.util.Log
-import androidx.lifecycle.asLiveData
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.sypark.data.db.entity.Ticket
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.sypark.data.db.entity.Content
+import com.sypark.data.db.entity.Data
 import com.sypark.data.service.OpenTicketService
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class PagingSource @Inject constructor(
-    private val service: OpenTicketService
-) : PagingSource<Int, Ticket>() {
+    private val service: OpenTicketService,
+    private val genre: String
+) : PagingSource<Int, Content>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Ticket> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
         return try {
             delay(1000)
             val next = params.key ?: 1
-            val item = service.requestPerformances(next, params.loadSize)
+            val item = Gson().fromJson<Data>(
+                service.requestPerformancesRanking(
+                    timePeriod = "",
+                    date = "",
+                    genre = genre,
+                    area = "",
+                    page = next,
+                    pageSize = params.loadSize,
+                ).data, object : TypeToken<Data>() {}.type
+            ).contents
 
             LoadResult.Page(
                 data = item,
@@ -25,12 +37,12 @@ class PagingSource @Inject constructor(
                 nextKey = next + 1
             )
         } catch (e: Exception) {
-            Log.e("!!!!!",e.toString())
+            Log.e("!!!!!", e.toString())
             LoadResult.Error(e)
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Ticket>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Content>): Int? {
         return state.anchorPosition?.let { position ->
             state.closestPageToPosition(position)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(position)?.nextKey?.minus(1)
