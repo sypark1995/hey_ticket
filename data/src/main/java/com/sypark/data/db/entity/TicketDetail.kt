@@ -11,21 +11,21 @@ data class TicketDetail(
 
     val theater: String,
 
-    val cast: String,
+    val cast: String?,
 
-    val crew: String,
+    val crew: String?,
 
-    val runtime: String,
+    val runtime: String?,
 
-    val age: String,
+    val age: String?,
 
-    val company: String,
+    val company: String?,
 
-    val price: String,
+    val price: String?,
 
-    val poster: String,
+    val poster: String?,
 
-    val story: String,
+    val story: String?,
 
     val genre: String,
 
@@ -35,7 +35,7 @@ data class TicketDetail(
 
     val storyUrls: List<String>,
 
-    val schedule: String,
+    val schedule: String?,
 
     val views: Long,
 
