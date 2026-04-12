@@ -140,16 +140,20 @@ class TicketDetailFragment :
 
                 textInformationPeriod.text = item.schedule
 
-                if (item.cast.trim().isEmpty()) {
-                    layoutInformationCast.visibility = View.GONE
-                } else {
-                    textInformationCast.text = item.cast
+                item.cast.let {
+                    if (it.isNullOrEmpty()) {
+                        layoutInformationCast.visibility = View.GONE
+                    } else {
+                        textInformationCast.text = it
+                    }
                 }
 
-                if (item.price.isEmpty()) {
-                    layoutInformationPrice.visibility = View.GONE
-                } else {
-                    textInformationPrice.text = item.price
+                item.price.let {
+                    if (it.isNullOrEmpty()) {
+                        layoutInformationPrice.visibility = View.GONE
+                    } else {
+                        textInformationPrice.text = it
+                    }
                 }
 
                 if (item.theater.isEmpty()) {
@@ -158,22 +162,28 @@ class TicketDetailFragment :
                     textInformationPlace.text = item.theater
                 }
 
-                if (item.company.trim().isEmpty()) {
-                    layoutInformationHost.visibility = View.GONE
-                } else {
-                    textInformationHost.text = item.company
+                item.company.let {
+                    if (it.isNullOrEmpty()) {
+                        layoutInformationHost.visibility = View.GONE
+                    } else {
+                        textInformationHost.text = it
+                    }
                 }
 
-                if (item.age.isEmpty()) {
-                    layoutInformationAge.visibility = View.GONE
-                } else {
-                    textInformationAge.text = item.age
+                item.age.let {
+                    if (it.isNullOrEmpty()) {
+                        layoutInformationAge.visibility = View.GONE
+                    } else {
+                        textInformationAge.text = it
+                    }
                 }
 
-                if (item.crew.trim().isEmpty()) {
-                    layoutInformationEtcCrew.visibility = View.GONE
-                } else {
-                    textInformationEtcCrew.text = item.crew
+                item.crew.let {
+                    if (it.isNullOrEmpty()) {
+                        layoutInformationEtcCrew.visibility = View.GONE
+                    } else {
+                        textInformationEtcCrew.text = it
+                    }
                 }
 
                 if (item.storyUrls.isEmpty()) {
@@ -349,7 +359,13 @@ class TicketDetailFragment :
             addressTitle = "공연장",
             content = Content(
                 title = ticketDetail.title,
-                imageUrl = ticketDetail.poster,
+                imageUrl = ticketDetail.poster.let {
+                    if (it.isNullOrEmpty()) {
+                        ""
+                    } else {
+                        it
+                    }
+                },
                 link = Link(
                     webUrl = "https://developers.com",
                     mobileWebUrl = "https://developers.kakao.com"
@@ -367,7 +383,13 @@ class TicketDetailFragment :
         return FeedTemplate(
             content = Content(
                 title = ticketDetail.title,
-                imageUrl = ticketDetail.poster,
+                imageUrl = ticketDetail.poster.let {
+                    if (it.isNullOrEmpty()) {
+                        ""
+                    } else {
+                        it
+                    }
+                },
                 link = Link(
                     webUrl = "https://developers.com",
                     mobileWebUrl = "https://developers.kakao.com"
