@@ -1,9 +1,7 @@
 package com.sypark.data.service
 
 import com.sypark.data.db.entity.*
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface OpenTicketService {
 
@@ -67,4 +65,9 @@ interface OpenTicketService {
     suspend fun requestPerformancesCount(
     ): BaseResponse
 
+    @POST("/api/members/validation")
+    suspend fun requestLoginValidation(
+        @Body
+        loginVerification: LoginVerification
+    ): BaseResponse
 }

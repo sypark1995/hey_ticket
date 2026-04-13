@@ -64,7 +64,9 @@
                     android:background="@null"
                     android:fontFamily="@font/pretendard_bold"
                     android:hint="@string/login_email_sample"
-                    android:textSize="14sp" />
+                    android:imeOptions="actionGo"
+                    android:textSize="14sp"
+                    android:windowSoftInputMode="adjustResize" />
             </RelativeLayout>
         </FrameLayout>
 
@@ -99,20 +101,26 @@
             android:textColor="@color/white"
             android:textSize="16sp" />
 
-        <Button
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/btn_email"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="220dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/round_12_yellow"
-            android:fontFamily="@font/pretendard_medium"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:stateListAnimator="@null"
-            android:text="@string/login_kakao_button"
-            android:textColor="@color/black_2A2A2A"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/round_12_yellow"
+                android:fontFamily="@font/pretendard_medium"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:stateListAnimator="@null"
+                android:text="@string/login_kakao_button"
+                android:textColor="@color/black_2A2A2A"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
     </RelativeLayout>
 </layout>

@@ -1,6 +1,7 @@
 package com.sypark.data.service
 
 import com.sypark.data.db.entity.BaseResponse
+import com.sypark.data.db.entity.LoginVerification
 import com.sypark.data.db.entity.OpenTicket
 import javax.inject.Inject
 
@@ -48,4 +49,10 @@ class OpenTicketClient @Inject constructor(
 
     suspend fun requestPerformanceCount(): BaseResponse =
         openTicketService.requestPerformancesCount()
+
+    suspend fun requestLoginValidation(
+        loginVerification: LoginVerification
+    ): BaseResponse = openTicketService.requestLoginValidation(
+        loginVerification
+    )
 }

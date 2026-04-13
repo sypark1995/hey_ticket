@@ -10,11 +10,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.CookieManager
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -27,6 +29,7 @@ object NetworkModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .cookieJar(JavaNetCookieJar(CookieManager()))
             .addInterceptor(HttpRequestInterceptor())
             .addInterceptor(loggingInterceptor())
             .connectTimeout(60, TimeUnit.SECONDS)
