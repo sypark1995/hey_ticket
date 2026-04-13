@@ -101,8 +101,8 @@
             android:id="@+id/action_loginFirstFragment_to_loginSecondFragment"
             app:destination="@id/loginSecondFragment" />
         <action
-            android:id="@+id/action_loginFirstFragment_to_registerFirstFragment"
-            app:destination="@id/registerFirstFragment" />
+            android:id="@+id/action_loginFirstFragment_to_registerValidationFragment"
+            app:destination="@id/registerValidationFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginSecondFragment"
@@ -128,6 +128,8 @@
             android:name="item"
             app:argType="string" />
     </fragment>
+
+
     <fragment
         android:id="@+id/registerFirstFragment"
         android:name="com.sypark.openTicket.view.fragments.RegisterFirstFragment"
@@ -166,5 +168,18 @@
         android:name="com.sypark.openTicket.view.fragments.RecommendKeywordFragment"
         android:label="RecommendKeywordFragment"
         tools:layout="@layout/fragment_recommend_keyword" />
+    <fragment
+        android:id="@+id/registerValidationFragment"
+        android:name="com.sypark.openTicket.view.fragments.RegisterValidationFragment"
+        android:label="RegisterValidationFragment"
+        tools:layout="@layout/fragment_register_validation">
+
+        <argument
+            android:name="item"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_registerValidationFragment_to_registerFirstFragment"
+            app:destination="@id/registerFirstFragment" />
+    </fragment>
 
 </navigation>

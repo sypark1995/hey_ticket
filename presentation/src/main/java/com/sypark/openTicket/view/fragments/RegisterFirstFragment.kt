@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRegisterFirstBinding
@@ -23,6 +24,7 @@ class RegisterFirstFragment :
     BaseFragment<FragmentRegisterFirstBinding>(R.layout.fragment_register_first) {
 
     val viewModel: RegisterFirstViewModel by viewModels()
+    private val args by navArgs<RegisterFirstFragmentArgs>()
 
     private val countDownTimer: CountDownTimer by lazy {
         object : CountDownTimer(REFRESH_TIME, REFRESH_TIME_INTERVAL) {
