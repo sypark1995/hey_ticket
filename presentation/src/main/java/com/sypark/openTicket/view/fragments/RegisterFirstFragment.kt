@@ -37,28 +37,29 @@ class RegisterFirstFragment :
             }
 
             override fun onFinish() {
-                lifecycleScope.launchWhenStarted {
+                viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                     viewModel.resetEmailCode()
 
                     context?.let {
-                        binding.layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
-
-                        binding.textEmailError.setTextColor(
-                            ContextCompat.getColor(
-                                it,
-                                R.color.gray_949494
+                        binding.apply {
+                            layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+                            textEmailError.setTextColor(
+                                ContextCompat.getColor(
+                                    it,
+                                    R.color.gray_949494
+                                )
                             )
-                        )
-                        binding.textEmailError.visibility = View.VISIBLE
-                        binding.textEmailError.text =
-                            getString(R.string.register_send_email_timer_out)
-                        binding.textEmailCodeAgain.setTextColor(
-                            ContextCompat.getColor(
-                                it,
-                                R.color.blue_2C70F2
+                            textEmailError.visibility = View.VISIBLE
+                            textEmailError.text =
+                                getString(R.string.register_send_email_timer_out)
+                            textEmailCodeAgain.setTextColor(
+                                ContextCompat.getColor(
+                                    it,
+                                    R.color.blue_2C70F2
+                                )
                             )
-                        )
-                        binding.editCode.setText("")
+                            editCode.setText("")
+                        }
                     }
                 }
             }
@@ -72,88 +73,107 @@ class RegisterFirstFragment :
 
     override fun init(view: View) {
         countDownTimer.start()
-        binding.editEmail.setText(args.item)
-        binding.layoutLoginTop.imgBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
+        setUpObserver()
 
-        viewModel.emailCode.observe(this) {
-            if (it.length == 6) {
-                binding.btnNext.isEnabled = true
-                binding.btnNext.setBackgroundResource(R.drawable.round_12_black)
-            } else {
+        binding.apply {
+            layoutLoginTop.topTitle.setText(R.string.register_top)
+            editEmail.setText(args.item)
+
+            layoutLoginTop.imgBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+
+            textEmailCodeAgain.setOnClickListener {
                 binding.btnNext.isEnabled = false
                 binding.btnNext.setBackgroundResource(R.drawable.round_12_gray)
-            }
-        }
 
-        viewModel.isEmailCodeError.observe(this) {
-            if (it) {
-                binding.textEmailError.visibility = View.VISIBLE
-                binding.layoutCodeEdit.setBackgroundResource(R.drawable.round_12_red_white)
-            } else {
-                binding.textEmailError.visibility = View.GONE
-                binding.layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
-            }
-        }
+                binding.editCode.setText("")
 
-        binding.editCode.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.setEmailCode(s.toString())
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
-
-        binding.btnNext.setOnClickListener {
-            // todo_sypark
-            if (false) {
-                //인증 번호 미일치
-                viewModel.setEmailErrorCode(true)
-            } else {
-                viewModel.setEmailErrorCode(false)
-                findNavController().navigate(RegisterFirstFragmentDirections.actionRegisterFirstFragmentToRegisterPasswordFragment())
-            }
-        }
-
-        binding.textEmailCodeAgain.setOnClickListener {
-            binding.btnNext.isEnabled = false
-            binding.btnNext.setBackgroundResource(R.drawable.round_12_gray)
-
-            binding.editCode.setText("")
-
-            context?.let {
-                Toast.makeText(
-                    it,
-                    getString(R.string.register_send_email_code_again_toast),
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                countDownTimer.start()
-                binding.textEmailError.setTextColor(
-                    ContextCompat.getColor(
+                context?.let {
+                    Toast.makeText(
                         it,
-                        R.color.red_FF334B
-                    )
-                )
-                binding.layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
-                binding.textEmailError.visibility = View.GONE
-                binding.textEmailError.text =
-                    getString(R.string.register_send_email_code_error)
+                        getString(R.string.register_send_email_code_again_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-                binding.textEmailCodeAgain.setTextColor(
-                    ContextCompat.getColor(
-                        it,
-                        R.color.gray_949494
+                    countDownTimer.start()
+                    binding.textEmailError.setTextColor(
+                        ContextCompat.getColor(
+                            it,
+                            R.color.red_FF334B
+                        )
                     )
-                )
+                    binding.layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+                    binding.textEmailError.visibility = View.GONE
+                    binding.textEmailError.text =
+                        getString(R.string.register_send_email_code_error)
+
+                    binding.textEmailCodeAgain.setTextColor(
+                        ContextCompat.getColor(
+                            it,
+                            R.color.gray_949494
+                        )
+                    )
+                }
+            }
+
+            btnNext.setOnClickListener {
+                // todo_sypark
+                if (false) {
+                    //인증 번호 미일치
+                    viewModel.setEmailErrorCode(true)
+                } else {
+                    viewModel.setEmailErrorCode(false)
+                    findNavController().navigate(RegisterFirstFragmentDirections.actionRegisterFirstFragmentToRegisterPasswordFragment())
+                }
+            }
+
+            editCode.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    viewModel.setEmailCode(s.toString())
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+
+            })
+        }
+    }
+
+    private fun setUpObserver() {
+        viewModel.emailCode.observe(viewLifecycleOwner, ::emailCodeWatcher)
+        viewModel.isEmailCodeError.observe(viewLifecycleOwner, ::emailCodeErrorWatcher)
+    }
+
+    private fun emailCodeWatcher(emailCode: String) {
+        if (emailCode.length == 6) {
+            binding.apply {
+                btnNext.isEnabled = true
+                btnNext.setBackgroundResource(R.drawable.round_12_black)
+            }
+        } else {
+            binding.apply {
+                btnNext.isEnabled = false
+                btnNext.setBackgroundResource(R.drawable.round_12_gray)
+            }
+        }
+    }
+
+    private fun emailCodeErrorWatcher(isError: Boolean) {
+        if (isError) {
+            binding.apply {
+                textEmailError.visibility = View.VISIBLE
+                layoutCodeEdit.setBackgroundResource(R.drawable.round_12_red_white)
+            }
+        } else {
+            binding.apply {
+                textEmailError.visibility = View.GONE
+                layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
             }
         }
     }
