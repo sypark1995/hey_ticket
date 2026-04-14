@@ -38,29 +38,8 @@ class RegisterFirstFragment :
 
             override fun onFinish() {
                 viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                    viewModel.resetEmailCode()
+                    viewModel.isTimeOut(true)
 
-                    context?.let {
-                        binding.apply {
-                            layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
-                            textEmailError.setTextColor(
-                                ContextCompat.getColor(
-                                    it,
-                                    R.color.gray_949494
-                                )
-                            )
-                            textEmailError.visibility = View.VISIBLE
-                            textEmailError.text =
-                                getString(R.string.register_send_email_timer_out)
-                            textEmailCodeAgain.setTextColor(
-                                ContextCompat.getColor(
-                                    it,
-                                    R.color.blue_2C70F2
-                                )
-                            )
-                            editCode.setText("")
-                        }
-                    }
                 }
             }
         }
@@ -84,37 +63,7 @@ class RegisterFirstFragment :
             }
 
             textEmailCodeAgain.setOnClickListener {
-                binding.btnNext.isEnabled = false
-                binding.btnNext.setBackgroundResource(R.drawable.round_12_gray)
-
-                binding.editCode.setText("")
-
-                context?.let {
-                    Toast.makeText(
-                        it,
-                        getString(R.string.register_send_email_code_again_toast),
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    countDownTimer.start()
-                    binding.textEmailError.setTextColor(
-                        ContextCompat.getColor(
-                            it,
-                            R.color.red_FF334B
-                        )
-                    )
-                    binding.layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
-                    binding.textEmailError.visibility = View.GONE
-                    binding.textEmailError.text =
-                        getString(R.string.register_send_email_code_error)
-
-                    binding.textEmailCodeAgain.setTextColor(
-                        ContextCompat.getColor(
-                            it,
-                            R.color.gray_949494
-                        )
-                    )
-                }
+                viewModel.isTimeOut(false)
             }
 
             btnNext.setOnClickListener {
@@ -129,7 +78,12 @@ class RegisterFirstFragment :
             }
 
             editCode.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
 
                 }
 
@@ -148,6 +102,7 @@ class RegisterFirstFragment :
     private fun setUpObserver() {
         viewModel.emailCode.observe(viewLifecycleOwner, ::emailCodeWatcher)
         viewModel.isEmailCodeError.observe(viewLifecycleOwner, ::emailCodeErrorWatcher)
+        viewModel.isTimeOut.observe(viewLifecycleOwner, ::isTimeOutWatcher)
     }
 
     private fun emailCodeWatcher(emailCode: String) {
@@ -174,6 +129,71 @@ class RegisterFirstFragment :
             binding.apply {
                 textEmailError.visibility = View.GONE
                 layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+            }
+        }
+    }
+
+    private fun isTimeOutWatcher(isTimeOut: Boolean) {
+        if (isTimeOut) {
+            context?.let {
+                binding.apply {
+                    layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+
+                    editCode.setText("")
+                    editCode.isEnabled = false
+
+                    textEmailError.visibility = View.VISIBLE
+                    textEmailError.text =
+                        getString(R.string.register_send_email_timer_out)
+                    textEmailError.setTextColor(
+                        ContextCompat.getColor(
+                            it,
+                            R.color.gray_949494
+                        )
+                    )
+
+                    textEmailCodeAgain.setTextColor(
+                        ContextCompat.getColor(
+                            it,
+                            R.color.blue_2C70F2
+                        )
+                    )
+                }
+            }
+        } else {
+            context?.let {
+                binding.apply {
+                    countDownTimer.start()
+                    Toast.makeText(
+                        it,
+                        getString(R.string.register_send_email_code_again_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    layoutCodeEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+
+                    editCode.setText("")
+                    editCode.isEnabled = true
+
+                    textEmailError.visibility = View.GONE
+                    textEmailError.text = getString(R.string.register_send_email_code_error)
+                    textEmailError.setTextColor(
+                        ContextCompat.getColor(
+                            it,
+                            R.color.red_FF334B
+                        )
+                    )
+
+                    textEmailCodeAgain.setTextColor(
+                        ContextCompat.getColor(
+                            it,
+                            R.color.gray_949494
+                        )
+                    )
+
+                    btnNext.isEnabled = false
+                    btnNext.setBackgroundResource(R.drawable.round_12_gray)
+                }
             }
         }
     }

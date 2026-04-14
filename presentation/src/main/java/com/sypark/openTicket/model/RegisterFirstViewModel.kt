@@ -15,20 +15,19 @@ class RegisterFirstViewModel @Inject constructor(
     private var isMutableEmailCodeError = MutableLiveData<Boolean>()
     val isEmailCodeError: LiveData<Boolean> = isMutableEmailCodeError
 
-    fun setEmailCode(code: String) {
-        mutableEmailCode.postValue(code)
-    }
+    private var isMutableTimeOut = MutableLiveData<Boolean>()
+    val isTimeOut: LiveData<Boolean> = isMutableTimeOut
 
-    fun resetEmailCode() {
-        mutableEmailCode.postValue("")
+    fun setEmailCode(code: String) {
+        mutableEmailCode.value = code
     }
 
     fun setEmailErrorCode(boolean: Boolean) {
-        isMutableEmailCodeError.postValue(boolean)
+        isMutableEmailCodeError.value = boolean
     }
 
-    fun resetEmailErrorCode() {
-        isMutableEmailCodeError.postValue(false)
+    fun isTimeOut(isTimeOut: Boolean) {
+        isMutableTimeOut.value = isTimeOut
     }
 
 //    private val _countDown = MutableLiveData(10)
