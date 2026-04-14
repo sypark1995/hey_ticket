@@ -13,20 +13,19 @@
 
         <TextView
             android:id="@+id/text_register_title"
+            style="@style/Bold_111111_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_login_top"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/pretendard_bold"
             android:text="@string/register_send_email_validation_title"
-            android:textAlignment="center"
-            android:textColor="@color/black_111111"
-            android:textSize="24sp" />
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/text_register_content"
+            style="@style/Regular_949494_14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_register_title"
@@ -52,16 +51,16 @@
 
                 <TextView
                     android:id="@+id/text_email_address"
+                    style="@style/Medium_777777_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="11dp"
-                    android:fontFamily="@font/pretendard_light"
-                    android:text="@string/login_email_address"
-                    android:textSize="12sp" />
+                    android:text="@string/login_email_address" />
 
                 <EditText
                     android:id="@+id/edit_email"
+                    style="@style/Bold_777777_14"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_below="@+id/text_email_address"
@@ -69,9 +68,7 @@
                     android:layout_marginTop="8dp"
                     android:background="@null"
                     android:enabled="false"
-                    android:fontFamily="@font/pretendard_bold"
-                    android:hint="@string/login_email_sample"
-                    android:textSize="14sp" />
+                    android:hint="@string/login_email_sample" />
             </RelativeLayout>
         </FrameLayout>
 
@@ -84,17 +81,15 @@
 
             <Button
                 android:id="@+id/btn_next"
+                style="@style/Bold_white_16"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/round_12_black"
-                android:fontFamily="@font/pretendard_medium"
                 android:stateListAnimator="@null"
-                android:text="@string/register_send_email_validation_next"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:text="@string/register_send_email_validation_next" />
         </RelativeLayout>
 
     </RelativeLayout>
