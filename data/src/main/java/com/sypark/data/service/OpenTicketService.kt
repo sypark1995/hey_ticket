@@ -1,6 +1,8 @@
 package com.sypark.data.service
 
 import com.sypark.data.db.entity.*
+import com.sypark.data.db.entity.request.LoginVerification
+import com.sypark.data.db.entity.request.RegisterValidationSend
 import retrofit2.http.*
 
 interface OpenTicketService {
@@ -69,5 +71,11 @@ interface OpenTicketService {
     suspend fun requestLoginValidation(
         @Body
         loginVerification: LoginVerification
+    ): BaseResponse
+
+    @POST("/api/members/verification/send")
+    suspend fun requestRegisterVerificationSend(
+        @Body
+        registerValidationSend: RegisterValidationSend
     ): BaseResponse
 }

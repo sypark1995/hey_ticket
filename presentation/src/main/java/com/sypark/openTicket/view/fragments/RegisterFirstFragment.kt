@@ -72,7 +72,7 @@ class RegisterFirstFragment :
 
     override fun init(view: View) {
         countDownTimer.start()
-
+        binding.editEmail.setText(args.item)
         binding.layoutLoginTop.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }

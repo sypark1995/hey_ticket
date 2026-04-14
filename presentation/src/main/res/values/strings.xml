@@ -116,6 +116,7 @@
 
     <string name="login">로그인</string>
 
+    <string name="register_top">가입하기</string>
     <string name="register_send_email_validation_title">이메일 인증이 필요해요</string>
     <string name="register_send_email_validation_content">아래 이메일로 인증 코드를 보내드려요</string>
     <string name="register_send_email_validation_next">인증 코드 받기</string>

@@ -1,8 +1,9 @@
 package com.sypark.data.service
 
 import com.sypark.data.db.entity.BaseResponse
-import com.sypark.data.db.entity.LoginVerification
 import com.sypark.data.db.entity.OpenTicket
+import com.sypark.data.db.entity.request.LoginVerification
+import com.sypark.data.db.entity.request.RegisterValidationSend
 import javax.inject.Inject
 
 class OpenTicketClient @Inject constructor(
@@ -54,5 +55,11 @@ class OpenTicketClient @Inject constructor(
         loginVerification: LoginVerification
     ): BaseResponse = openTicketService.requestLoginValidation(
         loginVerification
+    )
+
+    suspend fun requestRegisterValidationSend(
+        registerValidationSend: RegisterValidationSend
+    ): BaseResponse = openTicketService.requestRegisterVerificationSend(
+        registerValidationSend
     )
 }

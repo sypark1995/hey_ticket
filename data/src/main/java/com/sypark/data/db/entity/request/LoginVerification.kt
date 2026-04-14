@@ -1,4 +1,4 @@
-package com.sypark.data.db.entity
+package com.sypark.data.db.entity.request
 
 import java.io.Serializable
 

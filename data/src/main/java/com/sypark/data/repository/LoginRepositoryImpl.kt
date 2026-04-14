@@ -12,7 +12,13 @@ class LoginRepositoryImpl @Inject constructor(
     private val openTicketClient: OpenTicketClient,
 ) : LoginRepository {
 
-    override suspend fun getLoginValidation(loginVerification: LoginVerification): Flow<ApiResult<BaseResponse>> = safeFlow {
-        openTicketClient.requestLoginValidation(loginVerification)
-    }
+    override suspend fun getLoginValidation(loginVerification: LoginVerification): Flow<ApiResult<BaseResponse>> =
+        safeFlow {
+            openTicketClient.requestLoginValidation(loginVerification)
+        }
+
+    override suspend fun getRegisterValidationSend(registerValidationSend: RegisterValidationSend): Flow<ApiResult<BaseResponse>> =
+        safeFlow {
+            openTicketClient.requestRegisterValidationSend(registerValidationSend)
+        }
 }

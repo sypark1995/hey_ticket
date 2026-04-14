@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sypark.data.db.entity.ApiResult
-import com.sypark.data.db.entity.LoginVerification
+import com.sypark.data.db.entity.request.LoginVerification
 import com.sypark.data.repository.LoginRepository
 import com.sypark.openTicket.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
