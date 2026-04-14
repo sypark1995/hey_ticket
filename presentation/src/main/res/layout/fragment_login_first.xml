@@ -9,8 +9,6 @@
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,15 +18,13 @@
 
         <TextView
             android:id="@+id/text_logo"
+            style="@style/Black_111111_32"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_login_top"
             android:layout_marginTop="60dp"
-            android:fontFamily="@font/pretendard_extra_bold"
             android:gravity="center_horizontal"
-            android:text="@string/top_title"
-            android:textColor="@color/black_111111"
-            android:textSize="32sp" />
+            android:text="@string/top_title" />
 
         <FrameLayout
             android:id="@+id/layout_login_edit"
@@ -46,6 +42,7 @@
 
                 <TextView
                     android:id="@+id/text_email_address"
+                    style="@style/Medium_777777_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -56,35 +53,34 @@
 
                 <EditText
                     android:id="@+id/edit_email"
+                    style="@style/Bold_111111_14"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_below="@+id/text_email_address"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:background="@null"
-                    android:fontFamily="@font/pretendard_bold"
                     android:hint="@string/login_email_sample"
                     android:imeOptions="actionGo"
-                    android:textSize="14sp"
+                    android:text="parkseungyun1995@gmail.com"
                     android:windowSoftInputMode="adjustResize" />
             </RelativeLayout>
         </FrameLayout>
 
         <TextView
             android:id="@+id/text_email_error"
+            style="@style/Regular_red_12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_login_edit"
             android:layout_marginStart="20dp"
             android:layout_marginTop="6dp"
-            android:fontFamily="@font/pretendard_light"
             android:text="@string/login_email_error"
-            android:textColor="@color/red_FF334B"
-            android:textSize="12sp"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_email"
+            style="@style/Bold_white_16"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@id/text_email_error"
@@ -93,13 +89,10 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/round_12_gray"
             android:enabled="false"
-            android:fontFamily="@font/pretendard_medium"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:stateListAnimator="@null"
-            android:text="@string/login_email_button"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:text="@string/login_email_button" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -107,18 +100,17 @@
             android:layout_alignParentBottom="true">
 
             <Button
+                style="@style/Bold_2a2a2a_16"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="60dp"
                 android:background="@drawable/round_12_yellow"
-                android:fontFamily="@font/pretendard_medium"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
                 android:stateListAnimator="@null"
                 android:text="@string/login_kakao_button"
-                android:textColor="@color/black_2A2A2A"
                 android:textSize="16sp" />
         </RelativeLayout>
 
