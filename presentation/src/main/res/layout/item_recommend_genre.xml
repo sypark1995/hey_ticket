@@ -6,17 +6,15 @@
 
     <TextView
         android:id="@+id/text_genre"
+        style="@style/Regular_949494_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/round_16_gray_white"
-        android:fontFamily="@font/pretendard_light"
         android:paddingStart="12dp"
         android:paddingTop="8dp"
         android:paddingEnd="12dp"
         android:paddingBottom="8dp"
-        android:textColor="@color/gray_949494"
-        android:textSize="14sp"
         tools:text="연극" />
 </LinearLayout>

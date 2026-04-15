@@ -13,27 +13,23 @@
 
         <TextView
             android:id="@+id/text_register_recommend_title"
+            style="@style/Bold_111111_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_register_top"
             android:layout_marginTop="28dp"
-            android:fontFamily="@font/pretendard_bold"
             android:text="@string/register_recommend"
-            android:textAlignment="center"
-            android:textColor="@color/black_232323"
-            android:textSize="24sp" />
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/text_register_recommend_content"
+            style="@style/Regular_949494_14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_register_recommend_title"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/pretendard_light"
             android:text="@string/register_recommend_content"
-            android:textAlignment="center"
-            android:textColor="@color/gray_949494"
-            android:textSize="14sp" />
+            android:textAlignment="center" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -54,6 +50,7 @@
 
                     <TextView
                         android:id="@+id/text_register_recommend_area_title"
+                        style="@style/Bold_111111_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/pretendard_bold"
@@ -64,14 +61,12 @@
 
                     <TextView
                         android:id="@+id/text_register_recommend_area_content"
+                        style="@style/Regular_949494_12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_register_recommend_area_title"
-                        android:fontFamily="@font/pretendard_light"
                         android:text="@string/register_recommend_area_content"
-                        android:textAlignment="center"
-                        android:textColor="@color/gray_949494"
-                        android:textSize="12sp" />
+                        android:textAlignment="center" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerview_area"
@@ -93,24 +88,20 @@
 
                     <TextView
                         android:id="@+id/text_register_recommend_genre_title"
+                        style="@style/Bold_111111_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/pretendard_bold"
                         android:text="@string/register_recommend_genre_title"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textAlignment="center" />
 
                     <TextView
                         android:id="@+id/text_register_recommend_genre_content"
+                        style="@style/Regular_949494_12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_register_recommend_genre_title"
-                        android:fontFamily="@font/pretendard_light"
                         android:text="@string/register_recommend_genre_content"
-                        android:textAlignment="center"
-                        android:textColor="@color/gray_949494"
-                        android:textSize="12sp" />
+                        android:textAlignment="center" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerview_genre"
@@ -137,17 +128,15 @@
 
             <Button
                 android:id="@+id/btn_next"
+                style="@style/Bold_white_16"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/round_12_black"
-                android:fontFamily="@font/pretendard_medium"
                 android:stateListAnimator="@null"
-                android:text="@string/pw_next"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:text="@string/pw_next" />
         </RelativeLayout>
     </RelativeLayout>
 </layout>
