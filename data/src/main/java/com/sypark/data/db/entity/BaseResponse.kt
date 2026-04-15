@@ -6,5 +6,5 @@ import java.io.Serializable
 data class BaseResponse(
     val code: String,
     val message: String,
-    val data: JsonElement
+    val data: JsonElement?
 ) : Serializable

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -11,11 +12,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.sypark.data.db.entity.ApiResult
+import com.sypark.data.db.entity.BaseResponse
+import com.sypark.data.db.entity.request.RegisterValidationVerify
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRegisterFirstBinding
 import com.sypark.openTicket.model.RegisterFirstViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
@@ -67,14 +74,12 @@ class RegisterFirstFragment :
             }
 
             btnNext.setOnClickListener {
-                // todo_sypark
-                if (false) {
-                    //인증 번호 미일치
-                    viewModel.setEmailErrorCode(true)
-                } else {
-                    viewModel.setEmailErrorCode(false)
-                    findNavController().navigate(RegisterFirstFragmentDirections.actionRegisterFirstFragmentToRegisterPasswordFragment())
-                }
+                viewModel.getRegisterValidationVerify(
+                    registerValidationVerify = RegisterValidationVerify(
+                        email = args.item,
+                        code = viewModel.emailCode.value!!
+                    )
+                )
             }
 
             editCode.addTextChangedListener(object : TextWatcher {
@@ -103,20 +108,57 @@ class RegisterFirstFragment :
         viewModel.emailCode.observe(viewLifecycleOwner, ::emailCodeWatcher)
         viewModel.isEmailCodeError.observe(viewLifecycleOwner, ::emailCodeErrorWatcher)
         viewModel.isTimeOut.observe(viewLifecycleOwner, ::isTimeOutWatcher)
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.response.collectLatest(::apiWatcher)
+        }
+    }
+
+    private fun apiWatcher(apiResult: ApiResult<BaseResponse>) {
+        when (apiResult) {
+            is ApiResult.Success -> {
+
+                if (apiResult.value.data == null) {
+
+                } else {
+                    val isSuccess = Gson().fromJson<Boolean?>(
+                        apiResult.value.data, object : TypeToken<Boolean?>() {}.type
+                    )
+                    if (isSuccess) {
+                        viewModel.setEmailErrorCode(false)
+                        findNavController().navigate(RegisterFirstFragmentDirections.actionRegisterFirstFragmentToRegisterPasswordFragment())
+                    } else {
+                        viewModel.setEmailErrorCode(true)
+                    }
+                }
+//                ApiResult.Success(apiResult).value.
+//                apiResult.value.data
+//                val data = Gson().fromJson<>()
+                Log.e("!!!!", "Success")
+            }
+            is ApiResult.Error -> {
+
+                Log.e("!!!!", "Error")
+            }
+            is ApiResult.Loading -> {
+                Log.e("!!!!", "loading")
+            }
+        }
     }
 
     private fun emailCodeWatcher(emailCode: String) {
-        if (emailCode.length == 6) {
-            binding.apply {
-                btnNext.isEnabled = true
-                btnNext.setBackgroundResource(R.drawable.round_12_black)
-            }
-        } else {
-            binding.apply {
-                btnNext.isEnabled = false
-                btnNext.setBackgroundResource(R.drawable.round_12_gray)
-            }
+        //todo_sypark test
+//        if (emailCode.length == 6) {
+        binding.apply {
+            btnNext.isEnabled = true
+            btnNext.setBackgroundResource(R.drawable.round_12_black)
         }
+//        } else {
+//            binding.apply {
+//                btnNext.isEnabled = false
+//                btnNext.setBackgroundResource(R.drawable.round_12_gray)
+//            }
+//        }
     }
 
     private fun emailCodeErrorWatcher(isError: Boolean) {
