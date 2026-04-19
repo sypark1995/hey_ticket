@@ -3,17 +3,17 @@ package com.sypark.openTicket.view.fragments
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRegisterPasswordBinding
-import com.sypark.openTicket.model.RegisterPasswordViewModel
+import com.sypark.openTicket.model.ActivityViewModel
 import com.sypark.openTicket.popups.showRegisterClosePopup
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,86 +21,115 @@ import dagger.hilt.android.AndroidEntryPoint
 class RegisterPasswordFragment :
     BaseFragment<FragmentRegisterPasswordBinding>(R.layout.fragment_register_password) {
 
-    private val viewModel: RegisterPasswordViewModel by viewModels()
+    private val activityViewModel: ActivityViewModel by activityViewModels()
+
+    lateinit var onBackPressedCallback: OnBackPressedCallback
 
     @SuppressLint("ShowToast")
     override fun init(view: View) {
 
-        val toast = Toast.makeText(
+        backPressCallBack()
+        Toast.makeText(
             view.context,
             getString(R.string.register_email_confirm_finish),
             Toast.LENGTH_SHORT
+        ).show()
+
+        binding.apply {
+            btnNext.setOnClickListener {
+                findNavController().navigate(
+                    RegisterPasswordFragmentDirections.actionRegisterPasswordFragmentToRecommendFragment()
+                )
+            }
+
+            editPw.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    activityViewModel.setPw(s.toString())
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                }
+
+            })
+
+
+            layoutRegisterTop.imgBack.setOnClickListener {
+                onBackPressedCallback.handleOnBackPressed()
+            }
+
+            layoutRegisterTop.imgClose.setOnClickListener {
+                onBackPressedCallback.handleOnBackPressed()
+            }
+        }
+
+        activityViewModel.pw.observe(this) {
+
+            it?.let {
+                binding.apply {
+                    if (Common.setPattern(it)) {
+                        btnNext.setBackgroundResource(R.drawable.round_12_black)
+                        btnNext.isEnabled = true
+
+                        layoutPwEdit.setBackgroundResource(
+                            R.drawable.round_12_gray_white
+                        )
+
+                        textPwSample.setTextColor(
+                            ContextCompat.getColor(
+                                view.context,
+                                R.color.gray_949494
+                            )
+                        )
+                    } else {
+                        btnNext.setBackgroundResource(R.drawable.round_12_gray)
+                        btnNext.isEnabled = false
+
+                        layoutPwEdit.setBackgroundResource(
+                            R.drawable.round_12_red_white
+                        )
+
+                        textPwSample.setTextColor(
+                            ContextCompat.getColor(
+                                view.context,
+                                R.color.red_FF334B
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onBackPressedCallback.remove()
+    }
+
+    private fun backPressCallBack() {
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                requireActivity().showRegisterClosePopup({
+
+                }, {
+                    activityViewModel.setEmail()
+                    activityViewModel.setVerificationCode()
+                    findNavController().popBackStack()
+                })
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
         )
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
-        toast.show()
-
-        binding.editPw.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.setEmailCode(s.toString())
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-        })
-
-        viewModel.emailCode.observe(this) {
-
-
-            if (Common.setPattern(it)) {
-
-                binding.btnNext.setBackgroundResource(R.drawable.round_12_black)
-                binding.btnNext.isEnabled = true
-
-                binding.layoutPwEdit.setBackgroundResource(
-                    R.drawable.round_12_gray_white
-                )
-
-                binding.textPwSample.setTextColor(
-                    ContextCompat.getColor(
-                        view.context,
-                        R.color.gray_949494
-                    )
-                )
-            } else {
-                binding.btnNext.setBackgroundResource(R.drawable.round_12_gray)
-                binding.btnNext.isEnabled = false
-
-                binding.layoutPwEdit.setBackgroundResource(
-                    R.drawable.round_12_red_white
-                )
-
-                binding.textPwSample.setTextColor(
-                    ContextCompat.getColor(
-                        view.context,
-                        R.color.red_FF334B
-                    )
-                )
-            }
-        }
-
-        binding.layoutRegisterTop.imgBack.setOnClickListener {
-
-            activity?.showRegisterClosePopup({
-
-            }, {
-                findNavController().popBackStack()
-            })
-        }
-
-        binding.layoutRegisterTop.imgClose.setOnClickListener {
-            activity?.showRegisterClosePopup({
-
-            }, {
-                findNavController().popBackStack()
-            })
-        }
-
-        binding.btnNext.setOnClickListener {
-            findNavController().navigate(RegisterPasswordFragmentDirections.actionRegisterPasswordFragmentToRecommendFragment())
-        }
     }
 }

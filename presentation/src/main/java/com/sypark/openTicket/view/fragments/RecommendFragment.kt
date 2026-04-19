@@ -1,7 +1,8 @@
 package com.sypark.openTicket.view.fragments
 
-import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -11,6 +12,7 @@ import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRecommendBinding
+import com.sypark.openTicket.model.ActivityViewModel
 import com.sypark.openTicket.view.adapter.RecommendAreaAdapter
 import com.sypark.openTicket.view.adapter.RecommendGenreAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +22,14 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
 
     private lateinit var recommendAreaAdapter: RecommendAreaAdapter
     private lateinit var recommendGenreAdapter: RecommendGenreAdapter
+
+    private val activityViewModel: ActivityViewModel by activityViewModels()
+    lateinit var onBackPressedCallback: OnBackPressedCallback
+
     override fun init(view: View) {
+
+        backPressCallBack()
+
         // todo_sypark https://salix97.tistory.com/268 참고
         FlexboxLayoutManager(view.context).apply {
             flexWrap = FlexWrap.WRAP
@@ -30,10 +39,10 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             binding.recyclerviewArea.apply {
                 layoutManager = it
                 recommendAreaAdapter = RecommendAreaAdapter {
-                    Log.e("!!!!", it.toString())
+                    activityViewModel.setAreas(it)
                 }
 
-                recommendAreaAdapter.submitList(Common.categoryDetailAreaList)
+                recommendAreaAdapter.submitList(Common.areaList)
                 adapter = recommendAreaAdapter
             }
 
@@ -48,7 +57,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             binding.recyclerviewGenre.apply {
                 layoutManager = it
                 recommendGenreAdapter = RecommendGenreAdapter {
-                    Log.e("!!!!!", it.toString())
+                    activityViewModel.setGenres(it)
                 }
 
                 recommendGenreAdapter.submitList(Common.categoryList)
@@ -56,8 +65,35 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             }
         }
 
-        binding.btnNext.setOnClickListener {
-            findNavController().navigate(RecommendFragmentDirections.actionRecommendFragmentToRecommendKeywordFragment())
+        binding.apply {
+            layoutRegisterTop.imgBack.setOnClickListener {
+                onBackPressedCallback.handleOnBackPressed()
+            }
+
+            btnNext.setOnClickListener {
+                findNavController().navigate(
+                    RecommendFragmentDirections.actionRecommendFragmentToRecommendKeywordFragment()
+                )
+            }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onBackPressedCallback.remove()
+    }
+
+    private fun backPressCallBack() {
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activityViewModel.setPw()
+                findNavController().popBackStack()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
     }
 }

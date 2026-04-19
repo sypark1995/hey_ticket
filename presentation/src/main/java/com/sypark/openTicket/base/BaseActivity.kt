@@ -18,4 +18,8 @@ abstract class BaseActivity<B : ViewDataBinding>(
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }

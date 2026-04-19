@@ -97,7 +97,7 @@
     <string name="ticket_detail_genre">데이터가 안내려와요ㅠㅠ</string>
     <string name="ticket_detail_status">D - day 데이터가 안내려와요ㅠㅠ</string>
     <string name="ticket_detail_go_reservation">예매하러 가기</string>
-    
+
     <string name="kakao_share_title">이 공연 어때요? ❤❤</string>
     <string name="kakao_not_install">카카오톡이 설치되어 있지 않습니다.</string>
     <string name="kakao_share_performance_information">공연 정보</string>
@@ -163,5 +163,9 @@
     <string name="register_provision"><u>회원 이용 약관</u></string>
     <string name="register_personal_information"><u>개인정보 처리 방침</u></string>
     <string name="register_personal_information_next">을 확인하고 동의합니다.</string>
+    <string name="register_provision_agree">약관 동의</string>
+    <string name="register_next_agree">다음</string>
+    <string name="register_push_agree">관심 키워드 등록 시 키워드 알림 수신(앱 푸시, 카카오톡 알림톡)에 동의합니다.</string>
+    <string name="register_provision_information_agree">회원 이용 약관과 개인정보 처리 방침을 확인하고 동의합니다.</string>
     <string name="register_finish">가입완료</string>
 </resources>

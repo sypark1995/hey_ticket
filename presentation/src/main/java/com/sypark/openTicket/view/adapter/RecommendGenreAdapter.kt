@@ -61,7 +61,7 @@ class RecommendGenreHolder(val binding: ItemRecommendGenreBinding) :
     ) {
         if (Common.selectedGenreList.contains(genre)) {
             Common.selectedGenreList.remove(genre)
-            changeTextColor(binding, R.color.gray_B7B7B7)
+            changeTextColor(binding, R.color.gray_949494)
             binding.textGenre.setBackgroundResource(R.drawable.round_16_gray_white)
         } else {
             Common.selectedGenreList.add(genre)

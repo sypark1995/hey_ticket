@@ -28,7 +28,7 @@ class WebViewFragment : BaseFragment<FragmentWebviewBinding>(R.layout.fragment_w
             loadUrl("https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=${args.item}")
         }
 
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner,
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (binding.webView.canGoBack()) {

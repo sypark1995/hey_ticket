@@ -31,6 +31,10 @@ class RegisterValidationFragment :
 
             setObserver()
 
+            layoutLoginTop.imgBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+
             btnNext.setOnClickListener {
                 viewModel.getRegisterValidationSend2(
                     RegisterValidationSend(

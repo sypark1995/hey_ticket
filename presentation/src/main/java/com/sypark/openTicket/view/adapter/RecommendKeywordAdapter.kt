@@ -45,6 +45,14 @@ class RecommendKeywordAdapter(private val onItemClickListener: (String) -> Unit)
 
         submitList(newList.distinct())
     }
+
+    fun remove(string: String) {
+        val newList = mutableListOf<String>()
+        newList.addAll(currentList)
+        newList.remove(string)
+
+        submitList(newList.distinct())
+    }
 }
 
 class RecommendKeywordHolder(val binding: ItemRecommendKeywordBinding) :

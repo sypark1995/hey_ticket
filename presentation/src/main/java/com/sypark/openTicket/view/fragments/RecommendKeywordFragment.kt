@@ -8,7 +8,10 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -16,6 +19,7 @@ import com.google.android.flexbox.JustifyContent
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRecommendKeywordBinding
+import com.sypark.openTicket.model.ActivityViewModel
 import com.sypark.openTicket.model.RecommendKeywordViewModel
 import com.sypark.openTicket.view.adapter.RecommendKeywordAdapter
 
@@ -25,8 +29,14 @@ class RecommendKeywordFragment :
     private lateinit var recommendKeywordAdapter: RecommendKeywordAdapter
     private var keyWordList = ArrayList<String>()
     private val viewModel: RecommendKeywordViewModel by viewModels()
+    private val activityViewModel: ActivityViewModel by activityViewModels()
+
+    lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun init(view: View) {
+
+        backPressCallBack()
+
         FlexboxLayoutManager(view.context).apply {
             flexWrap = FlexWrap.WRAP
             flexDirection = FlexDirection.ROW
@@ -35,101 +45,121 @@ class RecommendKeywordFragment :
             binding.recyclerviewKeyword.apply {
                 layoutManager = it
                 recommendKeywordAdapter = RecommendKeywordAdapter {
-                    Log.e("!!!", it.toString())
+                    keyWordList.remove(it)
+                    recommendKeywordAdapter.remove(it)
                 }
                 adapter = recommendKeywordAdapter
             }
         }
 
-        binding.textKeyword.setOnKeyListener { v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN
-                && keyCode == KeyEvent.KEYCODE_ENTER
-            ) {
-                keyDown(v.context)
 
+        binding.apply {
+            layoutRegisterTop.imgBack.setOnClickListener {
+                onBackPressedCallback.handleOnBackPressed()
+            }
+
+            btnRegisterKeyword.setOnClickListener {
+                keyDown(it.context)
                 setKeywordData()
-                true
             }
 
-            false
+            textKeyword.setOnKeyListener { v, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN
+                    && keyCode == KeyEvent.KEYCODE_ENTER
+                ) {
+                    keyDown(v.context)
+
+                    setKeywordData()
+                    true
+                }
+
+                false
+            }
+
+            textKeyword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    viewModel.setKeywordText(s.toString())
+                }
+            })
+
+            btnNext.setOnClickListener {
+                activityViewModel.setKeyWords(keyWordList)
+                binding.includeAgree.root.visibility = View.VISIBLE
+            }
+
+            includeAgree.imgClose.setOnClickListener {
+                activityViewModel.reSetPushAgree()
+                activityViewModel.reSetProvisionAgree()
+                activityViewModel.reSetRegisterFinish()
+
+                binding.includeAgree.root.visibility = View.GONE
+            }
+
+            includeAgree.checkBoxAgreePush.setOnClickListener {
+                activityViewModel.isPushAgree()
+                activityViewModel.isRegisterFinish()
+            }
+
+            includeAgree.checkBoxProvisionPush.setOnClickListener {
+                activityViewModel.isProvisionAgree()
+                activityViewModel.isRegisterFinish()
+            }
         }
-
-        binding.textKeyword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.setKeywordText(s.toString())
-            }
-        })
 
         viewModel.keywordText.observe(this) {
-            if (it.isEmpty()) {
-                binding.btnRegisterKeyword.isEnabled = false
-                binding.btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_gray)
-            } else {
-                binding.btnRegisterKeyword.isEnabled = true
-                binding.btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_black)
+            binding.apply {
+                if (it.isEmpty()) {
+                    btnRegisterKeyword.isEnabled = false
+                    btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_gray)
+
+                } else {
+                    btnRegisterKeyword.isEnabled = true
+                    btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_black)
+                }
             }
         }
 
-        binding.btnRegisterKeyword.setOnClickListener {
-            keyDown(it.context)
-            setKeywordData()
-        }
-
-
-        binding.layoutAgreePush.setOnClickListener {
-            viewModel.isPushAgree()
-            viewModel.isRegisterFinish()
-        }
-
-        binding.checkboxAgreePush.setOnClickListener {
-            viewModel.isPushAgree()
-            viewModel.isRegisterFinish()
-        }
-
-        binding.layoutAgreePersonal.setOnClickListener {
-            viewModel.isPersonalAgree()
-            viewModel.isRegisterFinish()
-        }
-
-        binding.checkboxAgreePersonal.setOnClickListener {
-            viewModel.isPersonalAgree()
-            viewModel.isRegisterFinish()
-        }
-
-        binding.textProvision.setOnClickListener {
-            // todo_sypark 웹뷰 호출 예정
-        }
-
-        binding.textPersonalInformation.setOnClickListener {
-            // todo_sypark 웹뷰 호출 예정
-        }
-
-        binding.btnNext.setOnClickListener {
-
-        }
-
-        viewModel.isPushAgree.observe(this) {
-            binding.checkboxAgreePush.isSelected = it
-        }
-
-        viewModel.isPersonalAgree.observe(this) {
-            binding.checkboxAgreePersonal.isSelected = it
-        }
-
-        viewModel.isRegisterFinish.observe(this) {
-            if (it == true) {
-                binding.btnNext.setBackgroundResource(R.drawable.round_12_black)
-            } else {
-                binding.btnNext.setBackgroundResource(R.drawable.round_12_gray)
+        activityViewModel.keywords.observe(viewLifecycleOwner) {
+            binding.apply {
+                if (it.size == 0) {
+                    includeAgree.layoutAgreePush.visibility = View.GONE
+                } else {
+                    includeAgree.layoutAgreePush.visibility = View.VISIBLE
+                }
             }
         }
 
+
+        activityViewModel.isPushAgree.observe(viewLifecycleOwner) {
+            binding.includeAgree.checkBoxAgreePush.isSelected = it
+        }
+//
+        activityViewModel.isProvisionAgree.observe(viewLifecycleOwner) {
+            binding.includeAgree.checkBoxProvisionPush.isSelected = it
+        }
+
+        activityViewModel.isRegisterAgree.observe(viewLifecycleOwner) {
+            binding.apply {
+                if (it == true) {
+                    includeAgree.btnNext.setBackgroundResource(R.drawable.round_12_black)
+                    includeAgree.btnNext.isEnabled = true
+                } else {
+                    includeAgree.btnNext.setBackgroundResource(R.drawable.round_12_gray)
+                    includeAgree.btnNext.isEnabled = false
+                }
+            }
+        }
     }
 
     private fun keyDown(view: Context) {
@@ -145,4 +175,23 @@ class RecommendKeywordFragment :
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onBackPressedCallback.remove()
+    }
+
+    private fun backPressCallBack() {
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activityViewModel.setGenres()
+                activityViewModel.setAreas()
+                findNavController().popBackStack()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
+    }
 }
