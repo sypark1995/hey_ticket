@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#b3000000"
+    android:clickable="true"
+    android:focusable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/round_16_white_top">
+
+        <RelativeLayout
+            android:id="@+id/layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="12dp">
+
+            <TextView
+                style="@style/Bold_202429_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_provision_agree" />
+
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/icon_close" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_agree_push"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_top"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                style="@style/Medium_949494_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:text="@string/register_agree_push" />
+
+            <CheckBox
+                android:id="@+id/check_box_agree_push"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/selector_recommend_checkbox"
+                android:button="@null" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_provision_push"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_agree_push"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                style="@style/Medium_949494_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:text="@string/register_provision_information_agree" />
+
+            <CheckBox
+                android:id="@+id/check_box_provision_push"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/selector_recommend_checkbox"
+                android:button="@null" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_provision_push">
+
+            <Button
+                android:id="@+id/btn_next"
+                style="@style/Bold_white_16"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/round_12_gray"
+                android:enabled="false"
+                android:stateListAnimator="@null"
+                android:text="@string/register_finish" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

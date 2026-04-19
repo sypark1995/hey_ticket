@@ -3,15 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="viewModel"
-            type="com.sypark.openTicket.model.RecommendKeywordViewModel" />
-    </data>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,27 +13,23 @@
 
         <TextView
             android:id="@+id/text_register_recommend_keyword"
+            style="@style/Bold_111111_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_register_top"
             android:layout_marginTop="28dp"
-            android:fontFamily="@font/pretendard_bold"
             android:text="@string/register_recommend_keyword"
-            android:textAlignment="center"
-            android:textColor="@color/black_232323"
-            android:textSize="24sp" />
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/text_register_recommend_content"
+            style="@style/Regular_949494_14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_register_recommend_keyword"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/pretendard_light"
             android:text="@string/register_recommend_keyword_content"
-            android:textAlignment="center"
-            android:textColor="@color/gray_949494"
-            android:textSize="14sp" />
+            android:textAlignment="center" />
 
         <LinearLayout
             android:id="@+id/layout_registration_keyword"
@@ -56,32 +43,28 @@
 
             <EditText
                 android:id="@+id/text_keyword"
+                style="@style/Regular_CFD2D7_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="4"
                 android:background="@drawable/round_12_gray_white_2"
-                android:fontFamily="@font/pretendard_light"
                 android:hint="@string/register_recommend_edit_hint"
                 android:imeOptions="actionGo"
                 android:inputType="text"
                 android:paddingStart="16dp"
-                android:textColor="@color/gray_CFD2D7"
-                android:textSize="14sp"
                 tools:ignore="RtlSymmetry" />
 
             <Button
                 android:id="@+id/btn_register_keyword"
+                style="@style/Bold_white_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/round_12_gray"
                 android:enabled="false"
-                android:fontFamily="@font/pretendard_medium"
                 android:stateListAnimator="@null"
-                android:text="@string/register_recommend_keyword_registration"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:text="@string/register_recommend_keyword_registration" />
         </LinearLayout>
 
         <RelativeLayout
@@ -96,180 +79,68 @@
 
             <TextView
                 android:id="@+id/text_register_keyword_sample1"
+                style="@style/SemiBold_55555_13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="@string/register_recommend_keyword_registration_sample1"
-                android:textColor="@color/gray_55555"
-                android:textSize="13sp" />
+                android:text="@string/register_recommend_keyword_registration_sample1" />
 
             <TextView
                 android:id="@+id/text_register_performance_sample"
+                style="@style/Medium_949494_12"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_register_keyword_sample1"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/pretendard_light"
-                android:text="@string/register_performance_sample"
-                android:textColor="@color/gray_949494"
-                android:textSize="12sp" />
+                android:text="@string/register_performance_sample" />
 
             <TextView
                 android:id="@+id/text_register_performance_sample_kind"
+                style="@style/Regular_555555_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_register_keyword_sample1"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@id/text_register_performance_sample"
-                android:fontFamily="@font/pretendard_light"
-                android:text="@string/register_performance_sample_kind"
-                android:textColor="@color/gray_55555"
-                android:textSize="12sp" />
+                android:text="@string/register_performance_sample_kind" />
 
             <TextView
                 android:id="@+id/text_register_cast_sample"
+                style="@style/Medium_949494_12"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_register_performance_sample"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/pretendard_light"
-                android:text="@string/register_performance_cast_sample"
-                android:textColor="@color/gray_949494"
-                android:textSize="12sp" />
+                android:text="@string/register_performance_cast_sample" />
 
             <TextView
                 android:id="@+id/text_register_cast_sample_kind"
+                style="@style/Regular_555555_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_register_performance_sample_kind"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@id/text_register_performance_sample"
-                android:fontFamily="@font/pretendard_light"
-                android:text="@string/register_performance_cast_sample_kind"
-                android:textColor="@color/gray_55555"
-                android:textSize="12sp" />
+                android:text="@string/register_performance_cast_sample_kind" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_keyword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/layout_agree"
+            android:layout_above="@id/layout_button"
             android:layout_below="@id/layout_register_keyword_sample"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:visibility="visible"
             tools:listitem="@layout/item_recommend_keyword" />
-
-        <RelativeLayout
-            android:id="@+id/layout_agree"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/layout_button"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="22dp">
-
-            <RelativeLayout
-                android:id="@+id/layout_agree_push"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:id="@+id/checkbox_agree_push"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/selector_recommend_checkbox"
-                    android:button="@null"
-                    android:checked="@={viewModel.isMutablePushAgree}" />
-
-                <TextView
-                    android:id="@+id/text_agree_push"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/checkbox_agree_push"
-                    android:fontFamily="@font/pretendard_light"
-                    android:text="@string/register_agree_push"
-                    android:textColor="@color/gray_949494"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layout_agree_personal"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:layout_below="@id/layout_agree_push"
-                android:layout_marginTop="12dp">
-
-                <CheckBox
-                    android:id="@+id/checkbox_agree_personal"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:checked="@={viewModel.isMutablePersonalAgree}"
-                    android:background="@drawable/selector_recommend_checkbox"
-                    android:button="@null" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/checkbox_agree_personal">
-
-                    <TextView
-                        android:id="@+id/text_provision"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/pretendard_light"
-                        android:gravity="center"
-                        android:text="@string/register_provision"
-                        android:textColor="@color/gray_949494"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/text_provision_next"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toEndOf="@+id/text_provision"
-                        android:fontFamily="@font/pretendard_light"
-                        android:gravity="center"
-                        android:text="과 "
-                        android:textColor="@color/gray_949494"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/text_personal_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toEndOf="@+id/text_provision_next"
-                        android:fontFamily="@font/pretendard_light"
-                        android:gravity="center"
-                        android:text="@string/register_personal_information"
-                        android:textColor="@color/gray_949494"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toEndOf="@+id/text_personal_information"
-                        android:fontFamily="@font/pretendard_light"
-                        android:gravity="center"
-                        android:text="@string/register_personal_information_next"
-                        android:textColor="@color/gray_949494"
-                        android:textSize="12sp" />
-                </RelativeLayout>
-            </RelativeLayout>
-
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/layout_button"
@@ -279,18 +150,21 @@
 
             <Button
                 android:id="@+id/btn_next"
+                style="@style/Bold_white_16"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="10dp"
-                android:enabled="false"
-                android:background="@drawable/round_12_gray"
-                android:fontFamily="@font/pretendard_medium"
+                android:background="@drawable/round_12_black"
                 android:stateListAnimator="@null"
-                android:text="@string/register_finish"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:text="@string/register_next_agree" />
         </RelativeLayout>
+
+        <include
+            android:id="@+id/include_agree"
+            layout="@layout/include_agree"
+            android:visibility="gone" />
     </RelativeLayout>
 </layout>
