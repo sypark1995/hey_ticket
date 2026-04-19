@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.RequiresApi
+import com.sypark.data.db.entity.Areas
 import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.db.entity.CategoryDetailSort
 import com.sypark.data.db.entity.Genre
@@ -102,6 +103,26 @@ object Common {
         Genre("GGGA", "뮤지컬")
     )
 
+    val areaList = listOf(
+        Areas("SEOUL","서울"),
+        Areas("BUSAN","부산"),
+        Areas("DAEGU","대구"),
+        Areas("INCHEON","인천"),
+        Areas("GWANGJU","광주"),
+        Areas("DAEJEON","대전"),
+        Areas("ULSAN","울산"),
+        Areas("SEJONG","세종"),
+        Areas("GYEONGGI","경기도"),
+        Areas("GANGWON","강원도"),
+        Areas("CHUNGBUK","충청북도"),
+        Areas("CHUNGNAM","충청남도"),
+        Areas("JEONBUK","전라북도"),
+        Areas("JEONNAM","전라남도"),
+        Areas("GYEONGBUK","경상북도"),
+        Areas("GYEONGNAM","경상남도"),
+        Areas("JEJU","제주틀별자치도"),
+    )
+
     val categoryDetailAreaList = listOf(
         CategoryDetailArea("서울시"),
         CategoryDetailArea("충청북도"),
@@ -147,7 +168,7 @@ object Common {
         CategoryDetailArea("제주특별자치도")
     )
 
-    val selectedAreaList = arrayListOf<CategoryDetailArea>()
+    val selectedAreaList = arrayListOf<Areas>()
     val selectedGenreList = arrayListOf<Genre>()
 
     fun keyDown(text: EditText) {
