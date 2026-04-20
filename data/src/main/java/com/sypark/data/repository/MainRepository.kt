@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi
 import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.OpenTicket
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
 
 interface MainRepository {
 
@@ -22,9 +21,8 @@ interface MainRepository {
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getRankingTicket(
         timePeriod: String?,
-        date: String = LocalDate.now().toString(),
-        genre: String?,
-        area: String?,
+        boxOfficeGenre: String?,
+        boxOfficeArea: String?,
         page: Int? = 0,
         pageSize: Int? = 10
     ): Flow<BaseResponse>

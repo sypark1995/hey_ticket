@@ -16,18 +16,16 @@ class MainRepositoryImpl @Inject constructor(
 ) : MainRepository {
     override suspend fun getRankingTicket(
         timePeriod: String?,
-        date: String,
-        genre: String?,
-        area: String?,
+        boxOfficeGenre: String?,
+        boxOfficeArea: String?,
         page: Int?,
         pageSize: Int?
     ) = flow {
         // 생산자 , producer
         val data = openTicketClient.requestPerformancesRanking(
             timePeriod,
-            date,
-            genre,
-            area,
+            boxOfficeGenre,
+            boxOfficeArea,
             page,
             pageSize
         )

@@ -43,12 +43,10 @@ interface OpenTicketService {
     suspend fun requestPerformancesRanking(
         @Query("timePeriod")
         timePeriod: String?,
-        @Query("date")
-        date: String?,
-        @Query("genre")
-        genre: String?,
-        @Query("area")
-        area: String?,
+        @Query("boxOfficeGenre")
+        boxOfficeGenre: String?,
+        @Query("boxOfficeArea")
+        boxOfficeArea: String?,
         @Query("page")
         page: Int?,
         @Query("pageSize")

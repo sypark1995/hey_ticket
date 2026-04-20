@@ -97,11 +97,11 @@ class MainViewModel @Inject constructor(
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun getRankingData(genre: String?, page: Int? = 0, pageSize: Int? = 10) {
+    suspend fun getRankingData(boxOfficeGenre: String?, page: Int? = 1, pageSize: Int? = 10) {
         repository.getRankingTicket(
             timePeriod = "",
-            genre = genre,
-            area = "",
+            boxOfficeGenre = boxOfficeGenre,
+            boxOfficeArea = "",
             page = page,
             pageSize = pageSize,
         ).flowOn(Dispatchers.IO)
@@ -119,7 +119,7 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    suspend fun getNewTicketData(genre: String?, page: Int? = 0, pageSize: Int? = 10) {
+    suspend fun getNewTicketData(genre: String?, page: Int? = 1, pageSize: Int? = 10) {
         repository.getNewTicket(
             genre = genre,
             page = page,
