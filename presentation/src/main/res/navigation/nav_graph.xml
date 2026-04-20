@@ -9,6 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.sypark.openTicket.view.fragments.MainFragment"
         android:label="MainFragment"
+        app:popUpToInclusive="true"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_categoryFragment"
@@ -168,7 +169,11 @@
         android:id="@+id/recommendKeywordFragment"
         android:name="com.sypark.openTicket.view.fragments.RecommendKeywordFragment"
         android:label="RecommendKeywordFragment"
-        tools:layout="@layout/fragment_recommend_keyword" />
+        tools:layout="@layout/fragment_recommend_keyword" >
+        <action
+            android:id="@+id/action_recommendKeywordFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/registerValidationFragment"

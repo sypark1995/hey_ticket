@@ -60,7 +60,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                     activityViewModel.setGenres(it)
                 }
 
-                recommendGenreAdapter.submitList(Common.categoryList)
+                recommendGenreAdapter.submitList(Common.registerRecommendList)
                 adapter = recommendGenreAdapter
             }
         }

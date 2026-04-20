@@ -26,12 +26,8 @@ class ActivityViewModel @Inject constructor() : BaseViewModel() {
     private var _areas = MutableLiveData<ArrayList<Areas>?>()
     val areas: LiveData<ArrayList<Areas>?> = _areas
 
-    private var _keywords = MutableLiveData<ArrayList<String>>()
-    val keywords: LiveData<ArrayList<String>> = _keywords
-
-    private var _keywordPush = MutableLiveData<Boolean>()
-    val keywordPush: LiveData<Boolean> = _keywordPush
-
+    private var _keywords = MutableLiveData<ArrayList<String>?>()
+    val keywords: LiveData<ArrayList<String>?> = _keywords
 
     private var _isPushAgree = MutableLiveData(false)
     var isPushAgree: LiveData<Boolean> = _isPushAgree
@@ -54,15 +50,15 @@ class ActivityViewModel @Inject constructor() : BaseViewModel() {
         _pw.value = pw
     }
 
-    fun setGenres(genre: ArrayList<Genre>? = null) {
+    fun setGenres(genre: ArrayList<Genre>? = arrayListOf()) {
         _genres.value = genre
     }
 
-    fun setAreas(areas: ArrayList<Areas>? = null) {
+    fun setAreas(areas: ArrayList<Areas>? = arrayListOf()) {
         _areas.value = areas
     }
 
-    fun setKeyWords(keywords: ArrayList<String>) {
+    fun setKeyWords(keywords: ArrayList<String>? = arrayListOf()) {
         _keywords.value = keywords
     }
 

@@ -79,6 +79,18 @@ object Common {
         Genre("KID", "아동")
     )
 
+    val registerRecommendList = listOf(
+        Genre("MUSICAL", "뮤지컬"),
+        Genre("KOREAN_TRADITIONAL_MUSIC", "국악(한국음악)"),
+        Genre("DANCE", "무용(서양/한국무용)"),
+        Genre("CIRCUS_AND_MAGIC", "서커스/마술"),
+        Genre("POPULAR_MUSIC", "대중음악"),
+        Genre("MIXED_GENRE", "복합"),
+        Genre("THEATER", "연극"),
+        Genre("POPULAR_DANCE", "대중무용"),
+        Genre("CLASSIC", "클래식(서양음악)"),
+    )
+
     enum class GenreList {
         POPULAR_MUSIC,
         MUSICAL,

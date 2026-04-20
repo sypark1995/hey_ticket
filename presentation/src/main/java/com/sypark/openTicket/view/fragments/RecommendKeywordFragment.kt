@@ -4,25 +4,37 @@ import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.sypark.data.db.entity.ApiResult
+import com.sypark.data.db.entity.RegisterToken
+import com.sypark.data.db.entity.request.Signup
+import com.sypark.openTicket.PREFERENCE_KEY_ACCESS_TOKEN
+import com.sypark.openTicket.PREFERENCE_KEY_GRANT_TYPE
+import com.sypark.openTicket.PREFERENCE_KEY_REFRESH_TOKEN
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRecommendKeywordBinding
 import com.sypark.openTicket.model.ActivityViewModel
 import com.sypark.openTicket.model.RecommendKeywordViewModel
+import com.sypark.openTicket.util.AppPreference
 import com.sypark.openTicket.view.adapter.RecommendKeywordAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class RecommendKeywordFragment :
     BaseFragment<FragmentRecommendKeywordBinding>(R.layout.fragment_recommend_keyword) {
 
@@ -115,27 +127,85 @@ class RecommendKeywordFragment :
                 activityViewModel.isProvisionAgree()
                 activityViewModel.isRegisterFinish()
             }
+
+            includeAgree.btnNext.setOnClickListener {
+                val genreList = if (activityViewModel.genres.value.isNullOrEmpty()) {
+                    arrayListOf()
+                } else {
+                    activityViewModel.genres.value!!.map { data ->
+                        data.code
+                    } as ArrayList<String>
+                }
+
+                val areaList = if (activityViewModel.areas.value.isNullOrEmpty()) {
+                    arrayListOf()
+                } else {
+                    activityViewModel.areas.value!!.map { data ->
+                        data.code
+                    } as ArrayList<String>
+                }
+
+                viewModel.getSignUp(
+                    signup = Signup(
+                        email = activityViewModel.email.value!!,
+                        password = activityViewModel.pw.value!!,
+                        verificationCode = activityViewModel.verificationCode.value!!,
+                        genres = genreList,
+                        areas = areaList,
+                        keywords = activityViewModel.keywords.value!!,
+                        keywordPush = activityViewModel.isPushAgree.value!!
+                    )
+                )
+            }
         }
 
-        viewModel.keywordText.observe(this) {
-            binding.apply {
-                if (it.isEmpty()) {
-                    btnRegisterKeyword.isEnabled = false
-                    btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_gray)
+        viewModel.keywordText.observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) {
+                binding.btnRegisterKeyword.isEnabled = false
+                binding.btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_gray)
 
-                } else {
-                    btnRegisterKeyword.isEnabled = true
-                    btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_black)
-                }
+            } else {
+                binding.btnRegisterKeyword.isEnabled = true
+                binding.btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_black)
             }
         }
 
         activityViewModel.keywords.observe(viewLifecycleOwner) {
             binding.apply {
-                if (it.size == 0) {
+                if (it.isNullOrEmpty()) {
                     includeAgree.layoutAgreePush.visibility = View.GONE
                 } else {
                     includeAgree.layoutAgreePush.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.response.collectLatest { result ->
+                when (result) {
+                    is ApiResult.Success -> {
+                        val data = Gson().fromJson<RegisterToken>(
+                            result.value.data, object : TypeToken<RegisterToken>() {}.type
+                        )
+
+                        //todo_sypark response code 로 수정 예정
+                        if (result.value.code == "OK") {
+                            AppPreference.set(PREFERENCE_KEY_GRANT_TYPE, data.grantType)
+                            AppPreference.set(PREFERENCE_KEY_ACCESS_TOKEN, data.accessToken)
+                            AppPreference.set(PREFERENCE_KEY_REFRESH_TOKEN, data.refreshToken)
+                            findNavController().navigate(RecommendKeywordFragmentDirections.actionRecommendKeywordFragmentToMainFragment())
+                        }
+
+
+                    }
+
+                    is ApiResult.Error -> {
+
+                    }
+
+                    is ApiResult.Loading -> {
+
+                    }
                 }
             }
         }

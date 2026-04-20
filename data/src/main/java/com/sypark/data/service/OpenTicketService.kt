@@ -4,6 +4,7 @@ import com.sypark.data.db.entity.*
 import com.sypark.data.db.entity.request.LoginVerification
 import com.sypark.data.db.entity.request.RegisterValidationSend
 import com.sypark.data.db.entity.request.RegisterValidationVerify
+import com.sypark.data.db.entity.request.Signup
 import retrofit2.http.*
 
 interface OpenTicketService {
@@ -84,6 +85,12 @@ interface OpenTicketService {
     suspend fun requestVerify(
         @Body
         registerValidationVerify: RegisterValidationVerify
+    ): BaseResponse
+
+    @POST("/api/members/signup")
+    suspend fun requestSignUp(
+        @Body
+        signup: Signup
     ): BaseResponse
 
 }

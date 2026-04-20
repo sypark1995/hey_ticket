@@ -5,6 +5,7 @@ import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.request.LoginVerification
 import com.sypark.data.db.entity.request.RegisterValidationSend
 import com.sypark.data.db.entity.request.RegisterValidationVerify
+import com.sypark.data.db.entity.request.Signup
 import com.sypark.data.db.entity.safeFlow
 import com.sypark.data.service.OpenTicketClient
 import kotlinx.coroutines.flow.Flow
@@ -28,5 +29,9 @@ class LoginRepositoryImpl @Inject constructor(
         safeFlow {
             openTicketClient.requestVerify(registerValidationVerify)
         }
+
+    override suspend fun getSignUp(signup: Signup): Flow<ApiResult<BaseResponse>> = safeFlow {
+        openTicketClient.requestSignUp(signup)
+    }
 
 }
