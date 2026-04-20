@@ -6,25 +6,25 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sypark.data.db.entity.CategoryDetailArea
+import com.sypark.data.db.entity.Areas
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemRecommendAreaBinding
 
-class RecommendAreaAdapter(private val onItemClickListener: (ArrayList<CategoryDetailArea>) -> Unit) :
-    ListAdapter<CategoryDetailArea, RecommendAreaHolder>(MyItemCallback()) {
+class RecommendAreaAdapter(private val onItemClickListener: (ArrayList<Areas>) -> Unit) :
+    ListAdapter<Areas, RecommendAreaHolder>(MyItemCallback()) {
 
-    class MyItemCallback : DiffUtil.ItemCallback<CategoryDetailArea>() {
+    class MyItemCallback : DiffUtil.ItemCallback<Areas>() {
         override fun areItemsTheSame(
-            oldItem: CategoryDetailArea,
-            newItem: CategoryDetailArea
+            oldItem: Areas,
+            newItem: Areas
         ): Boolean {
-            return oldItem.area == newItem.area
+            return oldItem.code == newItem.code
         }
 
         override fun areContentsTheSame(
-            oldItem: CategoryDetailArea,
-            newItem: CategoryDetailArea
+            oldItem: Areas,
+            newItem: Areas
         ): Boolean {
             return oldItem == newItem
         }
@@ -46,28 +46,28 @@ class RecommendAreaHolder(val binding: ItemRecommendAreaBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        item: CategoryDetailArea,
-        onItemClickListener: (ArrayList<CategoryDetailArea>) -> Unit
+        item: Areas,
+        onItemClickListener: (ArrayList<Areas>) -> Unit
     ) {
         binding.apply {
             this.root.setOnClickListener {
                 applySelection(binding, item)
                 onItemClickListener(Common.selectedAreaList)
             }
-            textArea.text = item.area
+            textArea.text = item.name
         }
     }
 
     private fun applySelection(
         binding: ItemRecommendAreaBinding,
-        categoryDetailArea: CategoryDetailArea
+        areas: Areas
     ) {
-        if (Common.selectedAreaList.contains(categoryDetailArea)) {
-            Common.selectedAreaList.remove(categoryDetailArea)
-            changeTextColor(binding, R.color.gray_B7B7B7)
+        if (Common.selectedAreaList.contains(areas)) {
+            Common.selectedAreaList.remove(areas)
+            changeTextColor(binding, R.color.gray_949494)
             binding.textArea.setBackgroundResource(R.drawable.round_16_gray_white)
         } else {
-            Common.selectedAreaList.add(categoryDetailArea)
+            Common.selectedAreaList.add(areas)
             changeTextColor(binding, R.color.white)
             binding.textArea.setBackgroundResource(R.drawable.round_16_black)
         }
