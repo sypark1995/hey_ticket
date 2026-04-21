@@ -168,4 +168,6 @@
     <string name="register_push_agree">관심 키워드 등록 시 키워드 알림 수신(앱 푸시, 카카오톡 알림톡)에 동의합니다.</string>
     <string name="register_provision_information_agree">회원 이용 약관과 개인정보 처리 방침을 확인하고 동의합니다.</string>
     <string name="register_finish">가입완료</string>
+
+    <string name="finish_app">앱을 종료하시겠어요?</string>
 </resources>

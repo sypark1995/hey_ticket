@@ -1,7 +1,6 @@
 package com.sypark.openTicket.view.fragments
 
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
@@ -13,6 +12,7 @@ import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRecommendBinding
 import com.sypark.openTicket.model.ActivityViewModel
+import com.sypark.openTicket.popups.showClosePopup
 import com.sypark.openTicket.view.adapter.RecommendAreaAdapter
 import com.sypark.openTicket.view.adapter.RecommendGenreAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,11 +24,8 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
     private lateinit var recommendGenreAdapter: RecommendGenreAdapter
 
     private val activityViewModel: ActivityViewModel by activityViewModels()
-    lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun init(view: View) {
-
-        backPressCallBack()
 
         // todo_sypark https://salix97.tistory.com/268 참고
         FlexboxLayoutManager(view.context).apply {
@@ -67,7 +64,11 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
 
         binding.apply {
             layoutRegisterTop.imgBack.setOnClickListener {
-                onBackPressedCallback.handleOnBackPressed()
+                backPressed()
+            }
+
+            layoutRegisterTop.imgClose.setOnClickListener {
+                backPressed()
             }
 
             btnNext.setOnClickListener {
@@ -78,22 +79,11 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        onBackPressedCallback.remove()
-    }
+    override fun backPressed() {
+        requireActivity().showClosePopup(getString(R.string.register_close_popup), {
 
-    private fun backPressCallBack() {
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                activityViewModel.setPw()
-                findNavController().popBackStack()
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
+        }, {
+            findNavController().popBackStack()
+        })
     }
 }

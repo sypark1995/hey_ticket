@@ -69,4 +69,8 @@ class LoginFindPwFragment : BaseFragment<FragmentFindPwBinding>(R.layout.fragmen
         }
     }
 
+    override fun backPressed() {
+
+    }
+
 }

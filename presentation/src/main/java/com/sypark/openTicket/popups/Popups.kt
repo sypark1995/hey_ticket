@@ -23,3 +23,17 @@ fun Context.showRegisterClosePopup(cancel: () -> Unit = {}, confirm: () -> Unit 
         confirm = confirm
     )
 }
+
+fun Context.showClosePopup(
+    title: String,
+    cancel: () -> Unit = {},
+    confirm: () -> Unit = {}
+) {
+    showSearchDeleteTwoButtonPopup(
+        title = title,
+        cancelButtonName = getString(R.string.cancel),
+        cancel = cancel,
+        confirmButtonName = getString(R.string.register_close_confirm),
+        confirm = confirm
+    )
+}

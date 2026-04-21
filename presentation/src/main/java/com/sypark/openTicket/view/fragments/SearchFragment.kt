@@ -111,4 +111,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         }
 
     }
+
+    override fun backPressed() {
+
+    }
 }

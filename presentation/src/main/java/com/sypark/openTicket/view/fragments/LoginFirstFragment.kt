@@ -17,6 +17,7 @@ import com.sypark.openTicket.excensions.hide
 import com.sypark.openTicket.excensions.setMargins
 import com.sypark.openTicket.excensions.show
 import com.sypark.openTicket.model.LoginFirstViewModel
+import com.sypark.openTicket.popups.showClosePopup
 import com.sypark.openTicket.util.KeyboardVisibilityUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,7 +59,7 @@ class LoginFirstFragment : BaseFragment<FragmentLoginFirstBinding>(R.layout.frag
             }
 
             layoutLoginTop.imgBack.setOnClickListener {
-                findNavController().popBackStack()
+                backPressed()
             }
 
             btnEmail.setOnClickListener {
@@ -94,8 +95,10 @@ class LoginFirstFragment : BaseFragment<FragmentLoginFirstBinding>(R.layout.frag
                         val imm =
                             v.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                         imm.hideSoftInputFromWindow(this.windowToken, 0)
+                        true
+                    } else {
+                        false
                     }
-                    true
                 }
             }
 
@@ -110,6 +113,14 @@ class LoginFirstFragment : BaseFragment<FragmentLoginFirstBinding>(R.layout.frag
                 }
             )
         }
+    }
+
+    override fun backPressed() {
+        requireActivity().showClosePopup(getString(R.string.register_close_popup), {
+
+        }, {
+            findNavController().popBackStack()
+        })
     }
 
     override fun onDestroyView() {

@@ -315,6 +315,10 @@ class TicketDetailFragment :
         }
     }
 
+    override fun backPressed() {
+
+    }
+
     private fun setNaverMarker(
         context: Context,
         address: String,

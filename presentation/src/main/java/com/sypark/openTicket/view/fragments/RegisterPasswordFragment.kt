@@ -5,7 +5,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -14,7 +13,7 @@ import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRegisterPasswordBinding
 import com.sypark.openTicket.model.ActivityViewModel
-import com.sypark.openTicket.popups.showRegisterClosePopup
+import com.sypark.openTicket.popups.showClosePopup
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,12 +22,9 @@ class RegisterPasswordFragment :
 
     private val activityViewModel: ActivityViewModel by activityViewModels()
 
-    lateinit var onBackPressedCallback: OnBackPressedCallback
-
     @SuppressLint("ShowToast")
     override fun init(view: View) {
 
-        backPressCallBack()
         Toast.makeText(
             view.context,
             getString(R.string.register_email_confirm_finish),
@@ -62,11 +58,11 @@ class RegisterPasswordFragment :
 
 
             layoutRegisterTop.imgBack.setOnClickListener {
-                onBackPressedCallback.handleOnBackPressed()
+                backPressed()
             }
 
             layoutRegisterTop.imgClose.setOnClickListener {
-                onBackPressedCallback.handleOnBackPressed()
+                backPressed()
             }
         }
 
@@ -108,28 +104,11 @@ class RegisterPasswordFragment :
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        onBackPressedCallback.remove()
-    }
+    override fun backPressed() {
+        requireActivity().showClosePopup(getString(R.string.register_close_popup), {
 
-    private fun backPressCallBack() {
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-
-                requireActivity().showRegisterClosePopup({
-
-                }, {
-                    activityViewModel.setEmail()
-                    activityViewModel.setVerificationCode()
-                    findNavController().popBackStack()
-                })
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
+        }, {
+            findNavController().popBackStack()
+        })
     }
 }

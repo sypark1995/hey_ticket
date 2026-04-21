@@ -42,4 +42,8 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
             categoryGenreAdapter.submitList(it)
         }
     }
+
+    override fun backPressed() {
+
+    }
 }

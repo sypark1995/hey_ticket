@@ -77,6 +77,10 @@ class LoginSecondFragment :
         }
     }
 
+    override fun backPressed() {
+
+    }
+
     private fun hideKeyboard(context: Context) {
         val inputManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

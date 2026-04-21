@@ -15,6 +15,7 @@ import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRegisterValidationBinding
 import com.sypark.openTicket.model.RegisterValidationSendViewModel
+import com.sypark.openTicket.popups.showClosePopup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -32,7 +33,7 @@ class RegisterValidationFragment :
             setObserver()
 
             layoutLoginTop.imgBack.setOnClickListener {
-                findNavController().popBackStack()
+                backPressed()
             }
 
             btnNext.setOnClickListener {
@@ -44,6 +45,14 @@ class RegisterValidationFragment :
 
             }
         }
+    }
+
+    override fun backPressed() {
+        requireActivity().showClosePopup(getString(R.string.register_close_popup), {
+
+        }, {
+            findNavController().popBackStack()
+        })
     }
 
     private fun setObserver() {

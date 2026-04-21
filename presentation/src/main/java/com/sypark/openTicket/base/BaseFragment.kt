@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -16,6 +17,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutResId: Int
 
     private var _binding: T? = null
     protected val binding get() = _binding!!
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,14 +59,25 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutResId: Int
 
 
         }
+
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Let the derived fragment handle the back button press
+                backPressed()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
+
         init(view)
     }
 
     protected abstract fun init(view: View)
 
+    abstract fun backPressed()
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        onBackPressedCallback.remove()
     }
 
     protected open fun initNavButtonId(): Int? = null

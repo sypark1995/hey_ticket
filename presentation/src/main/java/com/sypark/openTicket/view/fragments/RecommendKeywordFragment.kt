@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +27,7 @@ import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRecommendKeywordBinding
 import com.sypark.openTicket.model.ActivityViewModel
 import com.sypark.openTicket.model.RecommendKeywordViewModel
+import com.sypark.openTicket.popups.showClosePopup
 import com.sypark.openTicket.util.AppPreference
 import com.sypark.openTicket.view.adapter.RecommendKeywordAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,11 +42,8 @@ class RecommendKeywordFragment :
     private val viewModel: RecommendKeywordViewModel by viewModels()
     private val activityViewModel: ActivityViewModel by activityViewModels()
 
-    lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun init(view: View) {
-
-        backPressCallBack()
 
         FlexboxLayoutManager(view.context).apply {
             flexWrap = FlexWrap.WRAP
@@ -67,25 +63,16 @@ class RecommendKeywordFragment :
 
         binding.apply {
             layoutRegisterTop.imgBack.setOnClickListener {
-                onBackPressedCallback.handleOnBackPressed()
+                backPressed()
+            }
+
+            layoutRegisterTop.imgClose.setOnClickListener {
+                backPressed()
             }
 
             btnRegisterKeyword.setOnClickListener {
                 keyDown(it.context)
                 setKeywordData()
-            }
-
-            textKeyword.setOnKeyListener { v, keyCode, event ->
-                if (event.action == KeyEvent.ACTION_DOWN
-                    && keyCode == KeyEvent.KEYCODE_ENTER
-                ) {
-                    keyDown(v.context)
-
-                    setKeywordData()
-                    true
-                }
-
-                false
             }
 
             textKeyword.addTextChangedListener(object : TextWatcher {
@@ -232,6 +219,14 @@ class RecommendKeywordFragment :
         }
     }
 
+    override fun backPressed() {
+        requireActivity().showClosePopup(getString(R.string.register_close_popup), {
+
+        }, {
+            findNavController().popBackStack()
+        })
+    }
+
     private fun keyDown(view: Context) {
         //키보드 내리기
         val imm = view.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -247,21 +242,5 @@ class RecommendKeywordFragment :
 
     override fun onDestroyView() {
         super.onDestroyView()
-        onBackPressedCallback.remove()
-    }
-
-    private fun backPressCallBack() {
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                activityViewModel.setGenres()
-                activityViewModel.setAreas()
-                findNavController().popBackStack()
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
     }
 }

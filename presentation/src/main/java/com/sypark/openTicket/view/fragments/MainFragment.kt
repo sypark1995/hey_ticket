@@ -3,7 +3,6 @@ package com.sypark.openTicket.view.fragments
 import android.os.Build
 import android.util.Log
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +15,7 @@ import com.sypark.openTicket.databinding.FragmentMainBinding
 import com.sypark.openTicket.excensions.hide
 import com.sypark.openTicket.excensions.show
 import com.sypark.openTicket.model.MainViewModel
+import com.sypark.openTicket.popups.showClosePopup
 import com.sypark.openTicket.util.AppPreference
 import com.sypark.openTicket.view.adapter.GenreAdapter
 import com.sypark.openTicket.view.adapter.MainDefaultAdapter
@@ -36,12 +36,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private lateinit var newTicketAdapter: MainDefaultAdapter
     private lateinit var etcTicketAdapter: MainDefaultAdapter
     private lateinit var campusTicketAdapter: MainDefaultAdapter
-    lateinit var onBackPressedCallback: OnBackPressedCallback
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun init(view: View) {
-
-        backPressCallBack()
 
         binding.apply {
             layoutBottom.navigationBottom.menu.getItem(0).isChecked = true
@@ -156,29 +153,19 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
+    override fun backPressed() {
+        requireActivity().showClosePopup(getString(R.string.finish_app), {
+
+        }, {
+            requireActivity().finish()
+        })
+    }
+
     private fun rankingFilterItemClicked(position: Int) {
         genreAdapter.setSelectedPosition(position)
     }
 
     private fun newFilterItemClicked(position: Int) {
         newFilterAdapter.setSelectedPosition(position)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        onBackPressedCallback.remove()
-    }
-
-    private fun backPressCallBack() {
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().finish()
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
     }
 }

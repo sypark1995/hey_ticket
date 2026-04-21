@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -24,8 +23,7 @@ import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRegisterFirstBinding
 import com.sypark.openTicket.model.ActivityViewModel
 import com.sypark.openTicket.model.RegisterFirstViewModel
-import com.sypark.openTicket.util.OnBackPressedRepository
-import com.sypark.openTicket.util.OnBackPressedRepositoryImpl
+import com.sypark.openTicket.popups.showClosePopup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import java.sql.Timestamp
@@ -33,14 +31,11 @@ import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 class RegisterFirstFragment :
-    BaseFragment<FragmentRegisterFirstBinding>(R.layout.fragment_register_first),
-    OnBackPressedRepository by OnBackPressedRepositoryImpl() {
+    BaseFragment<FragmentRegisterFirstBinding>(R.layout.fragment_register_first) {
 
     val viewModel: RegisterFirstViewModel by viewModels()
     private val activityViewModel: ActivityViewModel by activityViewModels()
     private val args by navArgs<RegisterFirstFragmentArgs>()
-
-    lateinit var onBackPressedCallback: OnBackPressedCallback
 
     private val countDownTimer: CountDownTimer by lazy {
         object : CountDownTimer(REFRESH_TIME, REFRESH_TIME_INTERVAL) {
@@ -69,14 +64,13 @@ class RegisterFirstFragment :
     override fun init(view: View) {
         countDownTimer.start()
         setUpObserver()
-        backPressCallBack()
 
         binding.apply {
             layoutLoginTop.topTitle.setText(R.string.register_top)
             editEmail.setText(args.item)
 
             layoutLoginTop.imgBack.setOnClickListener {
-                onBackPressedCallback.handleOnBackPressed()
+                backPressed()
             }
 
             textEmailCodeAgain.setOnClickListener {
@@ -251,23 +245,16 @@ class RegisterFirstFragment :
 
     override fun onDestroyView() {
         super.onDestroyView()
-        onBackPressedCallback.remove()
         countDownTimer.cancel()
     }
 
-    private fun backPressCallBack() {
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-            }
-        }
+    override fun backPressed() {
+        requireActivity().showClosePopup(getString(R.string.register_close_popup), {
 
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
+        }, {
+            findNavController().popBackStack()
+        })
     }
-
 
     //todo_sypark 리팩토링 예정
 //    private fun restartTimer() {
