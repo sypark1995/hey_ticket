@@ -26,6 +26,8 @@ class RegisterPasswordFragment :
     @SuppressLint("ShowToast")
     override fun init(view: View) {
 
+        setUpObserver()
+
         Toast.makeText(
             view.context,
             getString(R.string.register_email_confirm_finish),
@@ -51,40 +53,41 @@ class RegisterPasswordFragment :
                 backPressed()
             }
         }
+    }
 
-        activityViewModel.pw.observe(this) {
+    private fun setUpObserver() {
+        activityViewModel.pw.observe(viewLifecycleOwner, ::pwWatcher)
+    }
 
-            it?.let {
-                binding.apply {
-                    if (Common.setPattern(it)) {
-                        btnNext.setBackgroundResource(R.drawable.round_12_black)
-                        btnNext.isEnabled = true
+    private fun pwWatcher(pw: String?) {
+        pw?.let {
+            binding.apply {
+                if (Common.setPattern(pw)) {
+                    btnNext.setBackgroundResource(R.drawable.round_12_black)
+                    btnNext.isEnabled = true
 
-                        layoutPwEdit.setBackgroundResource(
-                            R.drawable.round_12_gray_white
+                    layoutPwEdit.setBackgroundResource(
+                        R.drawable.round_12_gray_white
+                    )
+                    textPwSample.setTextColor(
+                        ContextCompat.getColor(
+                            root.context,
+                            R.color.gray_949494
                         )
+                    )
+                } else {
+                    btnNext.setBackgroundResource(R.drawable.round_12_gray)
+                    btnNext.isEnabled = false
 
-                        textPwSample.setTextColor(
-                            ContextCompat.getColor(
-                                view.context,
-                                R.color.gray_949494
-                            )
+                    layoutPwEdit.setBackgroundResource(
+                        R.drawable.round_12_red_white
+                    )
+                    textPwSample.setTextColor(
+                        ContextCompat.getColor(
+                            root.context,
+                            R.color.red_FF334B
                         )
-                    } else {
-                        btnNext.setBackgroundResource(R.drawable.round_12_gray)
-                        btnNext.isEnabled = false
-
-                        layoutPwEdit.setBackgroundResource(
-                            R.drawable.round_12_red_white
-                        )
-
-                        textPwSample.setTextColor(
-                            ContextCompat.getColor(
-                                view.context,
-                                R.color.red_FF334B
-                            )
-                        )
-                    }
+                    )
                 }
             }
         }

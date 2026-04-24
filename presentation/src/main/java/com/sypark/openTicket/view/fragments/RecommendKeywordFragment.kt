@@ -25,6 +25,9 @@ import com.sypark.openTicket.PREFERENCE_KEY_REFRESH_TOKEN
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRecommendKeywordBinding
+import com.sypark.openTicket.excensions.afterTextChanged
+import com.sypark.openTicket.excensions.hide
+import com.sypark.openTicket.excensions.show
 import com.sypark.openTicket.model.ActivityViewModel
 import com.sypark.openTicket.model.RecommendKeywordViewModel
 import com.sypark.openTicket.popups.showClosePopup
@@ -44,6 +47,7 @@ class RecommendKeywordFragment :
 
 
     override fun init(view: View) {
+        setUpObserver()
 
         FlexboxLayoutManager(view.context).apply {
             flexWrap = FlexWrap.WRAP
@@ -75,26 +79,13 @@ class RecommendKeywordFragment :
                 setKeywordData()
             }
 
-            textKeyword.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    viewModel.setKeywordText(s.toString())
-                }
-            })
+            textKeyword.afterTextChanged {
+                viewModel.setKeywordText(it)
+            }
 
             btnNext.setOnClickListener {
                 activityViewModel.setKeyWords(keyWordList)
-                binding.includeAgree.root.visibility = View.VISIBLE
+                binding.includeAgree.root.show()
             }
 
             includeAgree.imgClose.setOnClickListener {
@@ -102,7 +93,7 @@ class RecommendKeywordFragment :
                 activityViewModel.reSetProvisionAgree()
                 activityViewModel.reSetRegisterFinish()
 
-                binding.includeAgree.root.visibility = View.GONE
+                binding.includeAgree.root.hide()
             }
 
             includeAgree.checkBoxAgreePush.setOnClickListener {
@@ -146,27 +137,6 @@ class RecommendKeywordFragment :
             }
         }
 
-        viewModel.keywordText.observe(viewLifecycleOwner) {
-            if (it.isNullOrEmpty()) {
-                binding.btnRegisterKeyword.isEnabled = false
-                binding.btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_gray)
-
-            } else {
-                binding.btnRegisterKeyword.isEnabled = true
-                binding.btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_black)
-            }
-        }
-
-        activityViewModel.keywords.observe(viewLifecycleOwner) {
-            binding.apply {
-                if (it.isNullOrEmpty()) {
-                    includeAgree.layoutAgreePush.visibility = View.GONE
-                } else {
-                    includeAgree.layoutAgreePush.visibility = View.VISIBLE
-                }
-            }
-        }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.response.collectLatest { result ->
                 when (result) {
@@ -196,27 +166,6 @@ class RecommendKeywordFragment :
                 }
             }
         }
-
-
-        activityViewModel.isPushAgree.observe(viewLifecycleOwner) {
-            binding.includeAgree.checkBoxAgreePush.isSelected = it
-        }
-//
-        activityViewModel.isProvisionAgree.observe(viewLifecycleOwner) {
-            binding.includeAgree.checkBoxProvisionPush.isSelected = it
-        }
-
-        activityViewModel.isRegisterAgree.observe(viewLifecycleOwner) {
-            binding.apply {
-                if (it == true) {
-                    includeAgree.btnNext.setBackgroundResource(R.drawable.round_12_black)
-                    includeAgree.btnNext.isEnabled = true
-                } else {
-                    includeAgree.btnNext.setBackgroundResource(R.drawable.round_12_gray)
-                    includeAgree.btnNext.isEnabled = false
-                }
-            }
-        }
     }
 
     override fun backPressed() {
@@ -237,6 +186,56 @@ class RecommendKeywordFragment :
         if (!viewModel.keywordText.value.isNullOrEmpty()) {
             keyWordList.add(viewModel.keywordText.value.toString())
             recommendKeywordAdapter.add(viewModel.keywordText.value.toString())
+        }
+    }
+
+    private fun setUpObserver() {
+        viewModel.keywordText.observe(viewLifecycleOwner, ::keyWordWatcher)
+        activityViewModel.keywords.observe(viewLifecycleOwner, ::keyWordsWatcher)
+        activityViewModel.isPushAgree.observe(viewLifecycleOwner, ::pushWatcher)
+        activityViewModel.isProvisionAgree.observe(viewLifecycleOwner, ::provisionWatcher)
+        activityViewModel.isRegisterAgree.observe(viewLifecycleOwner,::isRegisterWatcher)
+    }
+
+
+    private fun keyWordWatcher(keyword: String?) {
+        if (keyword.isNullOrEmpty()) {
+            binding.btnRegisterKeyword.isEnabled = false
+            binding.btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_gray)
+
+        } else {
+            binding.btnRegisterKeyword.isEnabled = true
+            binding.btnRegisterKeyword.setBackgroundResource(R.drawable.round_12_black)
+        }
+    }
+
+    private fun keyWordsWatcher(keywords: ArrayList<String>?) {
+        binding.apply {
+            if (keywords.isNullOrEmpty()) {
+                includeAgree.layoutAgreePush.hide()
+            } else {
+                includeAgree.layoutAgreePush.show()
+            }
+        }
+    }
+
+    private fun pushWatcher(isPush: Boolean) {
+        binding.includeAgree.checkBoxAgreePush.isSelected = isPush
+    }
+
+    private fun provisionWatcher(isProvision: Boolean) {
+        binding.includeAgree.checkBoxProvisionPush.isSelected = isProvision
+    }
+
+    private fun isRegisterWatcher(isRegister: Boolean) {
+        binding.apply {
+            if (isRegister) {
+                includeAgree.btnNext.setBackgroundResource(R.drawable.round_12_black)
+                includeAgree.btnNext.isEnabled = true
+            } else {
+                includeAgree.btnNext.setBackgroundResource(R.drawable.round_12_gray)
+                includeAgree.btnNext.isEnabled = false
+            }
         }
     }
 
