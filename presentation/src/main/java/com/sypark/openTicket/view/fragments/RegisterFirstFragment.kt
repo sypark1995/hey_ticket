@@ -21,6 +21,7 @@ import com.sypark.data.db.entity.request.RegisterValidationVerify
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRegisterFirstBinding
+import com.sypark.openTicket.excensions.onTextChanged
 import com.sypark.openTicket.model.ActivityViewModel
 import com.sypark.openTicket.model.RegisterFirstViewModel
 import com.sypark.openTicket.popups.showClosePopup
@@ -89,25 +90,9 @@ class RegisterFirstFragment :
                 )
             }
 
-            editCode.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    viewModel.setEmailCode(s.toString())
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-
-                }
-
-            })
+            editCode.onTextChanged {
+                viewModel.setEmailCode(it)
+            }
         }
     }
 

@@ -12,6 +12,7 @@ import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentRegisterPasswordBinding
+import com.sypark.openTicket.excensions.onTextChanged
 import com.sypark.openTicket.model.ActivityViewModel
 import com.sypark.openTicket.popups.showClosePopup
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,24 +39,9 @@ class RegisterPasswordFragment :
                 )
             }
 
-            editPw.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    activityViewModel.setPw(s.toString())
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                }
-
-            })
-
+            editPw.onTextChanged {
+                activityViewModel.setPw(it)
+            }
 
             layoutRegisterTop.imgBack.setOnClickListener {
                 backPressed()
