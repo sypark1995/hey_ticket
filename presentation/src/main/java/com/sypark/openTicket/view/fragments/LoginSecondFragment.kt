@@ -13,6 +13,7 @@ import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentLoginSecondBinding
+import com.sypark.openTicket.excensions.onTextChanged
 import com.sypark.openTicket.model.LoginSecondViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,56 +25,58 @@ class LoginSecondFragment :
     private val viewModel: LoginSecondViewModel by viewModels()
 
     override fun init(view: View) {
-        binding.editEmail.setText(args.item)
+        setUpObserver()
 
-        viewModel.emailPw.observe(viewLifecycleOwner) {
-            if (Common.setPattern(it)) {
-                binding.btnLogin.setBackgroundResource(R.drawable.round_12_black)
-                binding.btnLogin.isEnabled = true
-            } else {
-                binding.btnLogin.setBackgroundResource(R.drawable.round_12_gray)
-                binding.btnLogin.isEnabled = false
-            }
-        }
+        binding.apply {
+            editEmail.setText(args.item)
 
-
-        binding.layoutLoginTop.imgBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        binding.editPw.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
+            layoutLoginTop.imgBack.setOnClickListener {
+                findNavController().popBackStack()
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.setEmailPw(s.toString())
+            editPw.onTextChanged {
+                viewModel.setEmailPw(it)
             }
 
-            override fun afterTextChanged(s: Editable?) {
-
+            btnLogin.setOnClickListener {
+                //todo_sypark 작업 예정
+                if (Common.byPass) {
+                    textPwSample.setTextColor(ContextCompat.getColor(it.context, R.color.black))
+                } else {
+                    textPwSample.setTextColor(
+                        ContextCompat.getColor(
+                            it.context,
+                            R.color.red_FF334B
+                        )
+                    )
+                }
             }
-        })
 
-        binding.btnLogin.setOnClickListener {
-            if (Common.byPass) {
-                binding.textPwSample.setTextColor(ContextCompat.getColor(it.context, R.color.black))
-            } else {
-                binding.textPwSample.setTextColor(
-                    ContextCompat.getColor(
-                        it.context,
-                        R.color.red_FF334B
+            textFindPw.setOnClickListener {
+                findNavController().navigate(
+                    LoginSecondFragmentDirections.actionLoginSecondFragmentToLoginFindPwFragment(
+                        args.item
                     )
                 )
             }
         }
+    }
 
-        binding.textFindPw.setOnClickListener {
-            findNavController().navigate(
-                LoginSecondFragmentDirections.actionLoginSecondFragmentToLoginFindPwFragment(
-                    args.item
-                )
-            )
+    private fun setUpObserver() {
+        viewModel.emailPw.observe(viewLifecycleOwner, ::emailPwWatcher)
+    }
+
+    private fun emailPwWatcher(pw: String) {
+        if (Common.setPattern(pw)) {
+            binding.btnLogin.apply {
+                setBackgroundResource(R.drawable.round_12_black)
+                isEnabled = true
+            }
+        } else {
+            binding.btnLogin.apply {
+                setBackgroundResource(R.drawable.round_12_gray)
+                isEnabled = false
+            }
         }
     }
 
