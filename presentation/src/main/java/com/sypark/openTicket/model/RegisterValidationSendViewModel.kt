@@ -24,7 +24,7 @@ class RegisterValidationSendViewModel @Inject constructor(
     val validationResponse: SharedFlow<ApiResult<BaseResponse>> = _validationResponse.asSharedFlow()
 
 
-    fun getRegisterValidationSend2(registerValidationSend: RegisterValidationSend) {
+    fun getRegisterValidationSend(registerValidationSend: RegisterValidationSend) {
         viewModelScope.launch {
             //todo_sypark 방식이 맞는지 모르겠음 collect viewModel + activity에서 2번 처리 flow를 까기위해 이런식으로???
             _validationResponse.emit(ApiResult.Loading)
