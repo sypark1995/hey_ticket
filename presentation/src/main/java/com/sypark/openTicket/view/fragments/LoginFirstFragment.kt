@@ -1,25 +1,23 @@
 package com.sypark.openTicket.view.fragments
 
-import android.content.Context.INPUT_METHOD_SERVICE
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
+import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.sypark.data.db.entity.ApiResult
+import com.sypark.data.db.entity.BaseResponse
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentLoginFirstBinding
-import com.sypark.openTicket.excensions.dpToPx
-import com.sypark.openTicket.excensions.hide
-import com.sypark.openTicket.excensions.setMargins
-import com.sypark.openTicket.excensions.show
+import com.sypark.openTicket.excensions.*
 import com.sypark.openTicket.model.LoginFirstViewModel
 import com.sypark.openTicket.popups.showClosePopup
 import com.sypark.openTicket.util.KeyboardVisibilityUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class LoginFirstFragment : BaseFragment<FragmentLoginFirstBinding>(R.layout.fragment_login_first) {
@@ -28,78 +26,23 @@ class LoginFirstFragment : BaseFragment<FragmentLoginFirstBinding>(R.layout.frag
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun init(view: View) {
+        setUpObserver()
+
         binding.apply {
-            viewModel.emailAddress.observe(viewLifecycleOwner) {
-                if (it.isEmpty()) {
-                    layoutLoginEdit.setBackgroundResource(R.drawable.round_12_gray_white)
-                    textEmailError.hide()
-
-                    btnEmail.setBackgroundResource(R.drawable.round_12_gray)
-                    btnEmail.isEnabled = false
-
-                } else {
-
-                    if (android.util.Patterns.EMAIL_ADDRESS.matcher(it).matches()) {
-                        //email 맞음!
-                        layoutLoginEdit.setBackgroundResource(R.drawable.round_12_gray_white)
-
-                        btnEmail.setBackgroundResource(R.drawable.round_12_black)
-                        btnEmail.isEnabled = true
-
-                        textEmailError.hide()
-                    } else {
-                        //email 아님
-                        layoutLoginEdit.setBackgroundResource(R.drawable.round_12_red_white)
-                        textEmailError.show()
-
-                        btnEmail.setBackgroundResource(R.drawable.round_12_gray)
-                        btnEmail.isEnabled = false
-                    }
-                }
-            }
-
             layoutLoginTop.imgBack.setOnClickListener {
                 backPressed()
             }
 
             btnEmail.setOnClickListener {
-                viewModel.getLoginValidation(::isLoginValidation)
+                viewModel.getLoginValidation()
             }
 
             editEmail.apply {
-                addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        count: Int,
-                        after: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        before: Int,
-                        count: Int
-                    ) {
-                        viewModel.setEmailAddress(s.toString())
-                    }
-
-                    override fun afterTextChanged(s: Editable?) {
-
-                    }
-                })
-
-                setOnKeyListener { v, keyCode, event ->
-                    if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
-                        val imm =
-                            v.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(this.windowToken, 0)
-                        true
-                    } else {
-                        false
-                    }
+                onTextChanged {
+                    viewModel.setEmailAddress(it)
                 }
+
+                setOnKeyListener()
             }
 
             keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
@@ -128,19 +71,70 @@ class LoginFirstFragment : BaseFragment<FragmentLoginFirstBinding>(R.layout.frag
         keyboardVisibilityUtils.detachKeyboardListeners()
     }
 
-    private fun isLoginValidation(isLoginValidation: Boolean) {
-        if (isLoginValidation) {
-            findNavController().navigate(
-                LoginFirstFragmentDirections.actionLoginFirstFragmentToLoginSecondFragment(
-                    viewModel.emailAddress.value.toString()
+    private fun setUpObserver() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.response.collectLatest(::apiWatcher)
+        }
+
+        viewModel.emailAddress.observe(viewLifecycleOwner, ::isEmailWatcher)
+    }
+
+    private fun apiWatcher(apiResult: ApiResult<BaseResponse>) {
+        when (apiResult) {
+            is ApiResult.Success -> {
+                val isLoginValidation = Gson().fromJson<Boolean>(
+                    apiResult.value.data, object : TypeToken<Boolean>() {}.type
                 )
-            )
-        } else {
-            findNavController().navigate(
-                LoginFirstFragmentDirections.actionLoginFirstFragmentToRegisterValidationFragment(
-                    viewModel.emailAddress.value.toString()
-                )
-            )
+
+                if (isLoginValidation) {
+                    findNavController().navigate(
+                        LoginFirstFragmentDirections.actionLoginFirstFragmentToLoginSecondFragment(
+                            viewModel.emailAddress.value.toString()
+                        )
+                    )
+                } else {
+                    findNavController().navigate(
+                        LoginFirstFragmentDirections.actionLoginFirstFragmentToRegisterValidationFragment(
+                            viewModel.emailAddress.value.toString()
+                        )
+                    )
+                }
+            }
+            is ApiResult.Error -> {
+
+            }
+            is ApiResult.Loading -> {
+                Log.e("!!!!!", "")
+            }
+        }
+    }
+
+    private fun isEmailWatcher(email: String) {
+        binding.apply {
+            if (email.isEmpty()) {
+                layoutLoginEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+                textEmailError.hide()
+
+                btnEmail.setBackgroundResource(R.drawable.round_12_gray)
+                btnEmail.isEnabled = false
+            } else {
+                if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    //email 맞음!
+                    layoutLoginEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+
+                    btnEmail.setBackgroundResource(R.drawable.round_12_black)
+                    btnEmail.isEnabled = true
+
+                    textEmailError.hide()
+                } else {
+                    //email 아님
+                    layoutLoginEdit.setBackgroundResource(R.drawable.round_12_red_white)
+                    textEmailError.show()
+
+                    btnEmail.setBackgroundResource(R.drawable.round_12_gray)
+                    btnEmail.isEnabled = false
+                }
+            }
         }
     }
 
