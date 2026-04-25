@@ -122,8 +122,7 @@
                         android:id="@+id/shimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/layout_ranking_filter"
-                        android:layout_marginTop="16dp">
+                        android:layout_below="@+id/layout_ranking_filter">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_ranking"

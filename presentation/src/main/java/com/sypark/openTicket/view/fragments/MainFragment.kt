@@ -12,6 +12,7 @@ import com.sypark.openTicket.PREFERENCE_KEY_ACCESS_TOKEN
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
+import com.sypark.openTicket.excensions.dpToPx
 import com.sypark.openTicket.excensions.hide
 import com.sypark.openTicket.excensions.show
 import com.sypark.openTicket.model.MainViewModel
@@ -67,7 +68,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                         viewModel.getRankingData(item.code)
                     }
                 }
-
+                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
                 genreAdapter.submitList(Common.genreList)
                 adapter = genreAdapter
                 genreAdapter.setSelectedPosition(0)
@@ -85,7 +86,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 lifecycleScope.launch {
                     viewModel.getRankingData("")
                 }
-
+                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
                 adapter = rankingAdapter
             }
 
@@ -97,7 +98,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                         viewModel.getNewTicketData(item.code)
                     }
                 }
-
+                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
                 newFilterAdapter.submitList(Common.genreList)
                 adapter = newFilterAdapter
                 newFilterAdapter.setSelectedPosition(0)
@@ -115,7 +116,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 lifecycleScope.launch {
                     viewModel.getNewTicketData("")
                 }
-
+                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
                 adapter = newTicketAdapter
             }
 

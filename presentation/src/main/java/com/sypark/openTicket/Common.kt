@@ -2,11 +2,14 @@ package com.sypark.openTicket
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Rect
 import android.os.Build
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.RecyclerView
 import com.sypark.data.db.entity.Areas
 import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.db.entity.CategoryDetailSort
@@ -256,5 +259,28 @@ object Common {
 
     enum class DateType {
         BEFORE, START, FINISH, ERROR
+    }
+
+    class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect, view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            with(outRect) {
+
+                left = if (parent.getChildAdapterPosition(view) == 0) {
+                    spaceSize * 2
+                } else {
+                    spaceSize
+                }
+
+                right = if (parent.getChildAdapterPosition(view) == 9) {
+                    spaceSize * 2
+                } else {
+                    0
+                }
+            }
+        }
     }
 }
