@@ -13,8 +13,13 @@ class PagingRepository @Inject constructor(
 ) {
     fun getPagingData(genre: String): Flow<PagingData<Content>> {
         return Pager(
-            config = PagingConfig(pageSize = 10),
+            config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
             pagingSourceFactory = { PagingSource(service, genre) }
         ).flow
     }
+
+    companion object {
+        const val PAGER_SIZE = 10
+    }
 }
+
