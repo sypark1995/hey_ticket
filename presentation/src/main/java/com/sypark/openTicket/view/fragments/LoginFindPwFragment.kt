@@ -22,12 +22,11 @@ class LoginFindPwFragment : BaseFragment<FragmentFindPwBinding>(R.layout.fragmen
 
         viewModel.setEmail(args.item)
         binding.apply {
-            editEmail.setText(args.item)
-
             layoutLoginTop.imgBack.setOnClickListener {
                 findNavController().popBackStack()
             }
 
+            editEmail.setText(args.item)
             editEmail.onTextChanged {
                 viewModel.setEmail(it)
             }
@@ -40,27 +39,32 @@ class LoginFindPwFragment : BaseFragment<FragmentFindPwBinding>(R.layout.fragmen
 
     private fun emailWatcher(email: String) {
         if (email.isEmpty()) {
-            binding.layoutLoginEdit.setBackgroundResource(R.drawable.round_12_gray_white)
-            binding.textEmailError.visibility = View.GONE
+            binding.apply {
+                layoutLoginEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+                textEmailError.visibility = View.GONE
 
-            binding.btnNext.setBackgroundResource(R.drawable.round_12_gray)
-            binding.btnNext.isEnabled = false
+                btnNext.setBackgroundResource(R.drawable.round_12_gray)
+                btnNext.isEnabled = false
+            }
         } else {
             if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 //email 맞음!
-                binding.layoutLoginEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+                binding.apply {
+                    layoutLoginEdit.setBackgroundResource(R.drawable.round_12_gray_white)
+                    textEmailError.visibility = View.GONE
 
-                binding.btnNext.setBackgroundResource(R.drawable.round_12_black)
-                binding.btnNext.isEnabled = true
-
-                binding.textEmailError.visibility = View.GONE
+                    btnNext.setBackgroundResource(R.drawable.round_12_black)
+                    btnNext.isEnabled = true
+                }
             } else {
                 //email 아님!
-                binding.layoutLoginEdit.setBackgroundResource(R.drawable.round_12_red_white)
-                binding.textEmailError.visibility = View.VISIBLE
+                binding.apply {
+                    layoutLoginEdit.setBackgroundResource(R.drawable.round_12_red_white)
+                    textEmailError.visibility = View.VISIBLE
 
-                binding.btnNext.setBackgroundResource(R.drawable.round_12_gray)
-                binding.btnNext.isEnabled = false
+                    btnNext.setBackgroundResource(R.drawable.round_12_gray)
+                    btnNext.isEnabled = false
+                }
             }
         }
     }
