@@ -11,6 +11,7 @@ import com.sypark.data.db.entity.Content
 import com.sypark.data.db.entity.Data
 import com.sypark.data.db.entity.OpenTicket
 import com.sypark.data.repository.MainRepository
+import com.sypark.data.util.Util
 import com.sypark.openTicket.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -99,7 +100,7 @@ class MainViewModel @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getRankingData(boxOfficeGenre: String?, page: Int? = 1, pageSize: Int? = 10) {
         repository.getRankingTicket(
-            timePeriod = "",
+            timePeriod = Util.ButtonType.DAY.name,
             boxOfficeGenre = boxOfficeGenre,
             boxOfficeArea = "",
             page = page,

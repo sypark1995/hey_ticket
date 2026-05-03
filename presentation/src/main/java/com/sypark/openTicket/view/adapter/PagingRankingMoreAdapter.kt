@@ -83,11 +83,15 @@ class RankingMoreViewHolder(
                             setBackgroundResource(R.drawable.round_4_blue)
                             setTextColor(
                                 ContextCompat.getColor(
-                                    binding.root.context,
+                                    context,
                                     R.color.blue_2C70F2
                                 )
                             )
-                            text = "D-${(startDate - nowDate.time) / (24 * 60 * 60 * 1000)}"
+
+                            text = context.getString(
+                                R.string.state_before,
+                                ((startDate - nowDate.time) / (24 * 60 * 60 * 1000))
+                            )
                         }
                     }
                 }
@@ -96,16 +100,23 @@ class RankingMoreViewHolder(
                     textState.apply {
                         setBackgroundResource(R.drawable.round_4_green)
                         setTextColor(
-                            ContextCompat.getColor(binding.root.context, R.color.green_2C70F2)
+                            ContextCompat.getColor(context, R.color.green_2C70F2)
                         )
-                        text = "공연 중"
+                        text = context.getString(
+                            R.string.state_during
+                        )
                     }
                 }
 
                 Common.DateType.FINISH -> {
                     textState.apply {
                         setBackgroundResource(R.drawable.round_4_gray)
-                        text = "종료"
+                        setTextColor(
+                            ContextCompat.getColor(context, R.color.gray_55555)
+                        )
+                        text = context.getString(
+                            R.string.state_finish
+                        )
                     }
                 }
 

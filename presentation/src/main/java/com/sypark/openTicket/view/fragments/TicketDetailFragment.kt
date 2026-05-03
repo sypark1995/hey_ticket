@@ -104,6 +104,9 @@ class TicketDetailFragment :
 
                     Common.DateType.FINISH -> {
                         textState.setBackgroundResource(R.drawable.round_4_gray)
+                        textState.setTextColor(
+                            ContextCompat.getColor(binding.root.context,R.color.gray_55555)
+                        )
                         textState.text = "종료"
                     }
 
@@ -293,7 +296,7 @@ class TicketDetailFragment :
                 }
 
                 imgClose.setOnClickListener {
-                    findNavController().popBackStack()
+                    backPressed()
                 }
 
                 imgShare.setOnClickListener {
@@ -316,7 +319,7 @@ class TicketDetailFragment :
     }
 
     override fun backPressed() {
-
+        findNavController().popBackStack()
     }
 
     private fun setNaverMarker(

@@ -1,4 +1,4 @@
-package com.sypark.data.repository
+package com.sypark.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -7,11 +7,13 @@ import com.google.gson.reflect.TypeToken
 import com.sypark.data.db.entity.Content
 import com.sypark.data.db.entity.Data
 import com.sypark.data.service.OpenTicketService
+import com.sypark.data.util.Util
 import javax.inject.Inject
 
 class PagingSource @Inject constructor(
     private val service: OpenTicketService,
-    private val boxOfficeGenre: String
+    private val boxOfficeGenre: String,
+    private val timePeriod: Util.ButtonType? = Util.ButtonType.DAY
 ) : PagingSource<Int, Content>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
@@ -19,7 +21,7 @@ class PagingSource @Inject constructor(
             val nextPage = params.key ?: 1
             val item = Gson().fromJson<Data>(
                 service.requestPerformancesRanking(
-                    timePeriod = "",
+                    timePeriod = timePeriod!!.name,
                     boxOfficeGenre = boxOfficeGenre,
                     boxOfficeArea = "",
                     page = nextPage,

@@ -7,7 +7,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.sypark.data.db.entity.CategoryDetailArea
 import com.sypark.data.db.entity.Content
-import com.sypark.data.repository.PagingRepository
+import com.sypark.data.paging.PagingRepository
+import com.sypark.data.util.Util
 import com.sypark.openTicket.base.BaseViewModel
 import com.sypark.openTicket.base.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -52,7 +53,8 @@ class CategoryDetailViewModel @Inject constructor(
         _genre.value = genre
 
         return repository.getPagingData(
-            genre = _genre.value.toString()
+            boxOfficeGenre = _genre.value.toString(),
+            timePeriod = Util.ButtonType.DAY
         ).cachedIn(viewModelScope)
     }
 
