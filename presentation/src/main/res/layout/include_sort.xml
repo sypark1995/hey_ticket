@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#b3000000"
+        android:clickable="true"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/round_16_white_top">
+
+            <RelativeLayout
+                android:id="@+id/layout_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingTop="24dp"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    style="@style/Bold_202429_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort" />
+
+                <ImageView
+                    android:id="@+id/img_close"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/icon_close" />
+            </RelativeLayout>
+
+
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_top"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="16dp"
+                android:checkedButton="@id/rb_day"
+                android:checked="true"
+                android:layout_marginEnd="16dp">
+
+                <RadioButton
+                    android:id="@+id/rb_day"
+                    style="@style/SemiBold_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_gravity="start"
+                    android:button="@drawable/selector_sort"
+                    android:layoutDirection="rtl"
+                    android:text="@string/sort_day"
+                    android:textAlignment="textStart"
+                    android:textColor="@drawable/selector_sort_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/gray_EFEFEF"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <RadioButton
+                    android:id="@+id/rb_week"
+                    style="@style/SemiBold_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="12dp"
+                    android:button="@drawable/selector_sort"
+                    android:layoutDirection="rtl"
+                    android:text="@string/sort_week"
+                    android:textAlignment="textStart"
+                    android:textColor="@drawable/selector_sort_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/gray_EFEFEF"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <RadioButton
+                    android:id="@+id/rb_month"
+                    style="@style/SemiBold_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="12dp"
+                    android:button="@drawable/selector_sort"
+                    android:layoutDirection="rtl"
+                    android:text="@string/sort_month"
+                    android:textAlignment="textStart"
+                    android:textColor="@drawable/selector_sort_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/gray_EFEFEF" />
+            </RadioGroup>
+
+
+            <RelativeLayout
+                android:id="@+id/layout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radio_group">
+
+                <Button
+                    android:id="@+id/btn_next"
+                    style="@style/Bold_white_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/round_12_black"
+                    android:stateListAnimator="@null"
+                    android:text="@string/sort_apply" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

@@ -63,9 +63,14 @@
                 android:id="@+id/recyclerview_ranking"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                tools:listitem="@layout/item_ranking_more" />
 
         </RelativeLayout>
 
+        <include
+            android:id="@+id/include_sort"
+            layout="@layout/include_sort"
+            android:visibility="gone" />
     </RelativeLayout>
 </layout>
