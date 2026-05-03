@@ -82,7 +82,7 @@ class RankingViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHold
                         textStatus.text = ""
                     }
 
-                    textDate.text = Common.genStrDate(item.startDate,"시작")
+                    textDate.text = Common.genStrDate(item.startDate, "시작")
                 }
 
                 Common.DateType.START -> {
