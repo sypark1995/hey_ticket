@@ -37,6 +37,8 @@ class PagingRankingFragment :
                 backPressed()
             }
 
+            textSortState()
+
             recyclerviewRankingFilter.apply {
                 genreAdapter = GenreAdapter { position, item ->
                     rankingFilterItemClicked(position)
@@ -47,7 +49,15 @@ class PagingRankingFragment :
 
                 genreAdapter.submitList(Common.genreList)
                 adapter = genreAdapter
-                genreAdapter.setSelectedPosition(0)
+                val pos = if (viewModel.genre.value.orEmpty().isEmpty()) {
+                    0
+                } else {
+                    Common.genreList.indexOfFirst {
+                        it.code == viewModel.genre.value
+                    }
+                }
+
+                genreAdapter.setSelectedPosition(pos)
             }
 
             recyclerviewRanking.apply {
@@ -89,25 +99,15 @@ class PagingRankingFragment :
                 viewModel.setShow(false)
 
                 lifecycleScope.launch {
-                    viewModel.setRanking(viewModel.genre.value.orEmpty(), viewModel.radioButton.value!!)
-                        .collectLatest {
-                            rankingMoreAdapter.submitData(it)
-                        }
-                }
-
-                textSort.text = when (viewModel.radioButton.value!!) {
-                    Util.ButtonType.DAY -> {
-                        getString(R.string.sort_day)
-                    }
-
-                    Util.ButtonType.WEEK -> {
-                        getString(R.string.sort_week)
-                    }
-
-                    Util.ButtonType.MONTH -> {
-                        getString(R.string.sort_month)
+                    viewModel.setRanking(
+                        viewModel.genre.value.orEmpty(),
+                        viewModel.radioButton.value!!
+                    ).collectLatest {
+                        rankingMoreAdapter.submitData(it)
                     }
                 }
+
+                textSortState()
             }
 
             viewModel.genre.observe(viewLifecycleOwner, ::apiWatcher)
@@ -143,6 +143,22 @@ class PagingRankingFragment :
             viewModel.setShow(false)
         } else {
             findNavController().popBackStack()
+        }
+    }
+
+    private fun textSortState() {
+        binding.textSort.text = when (viewModel.radioButton.value!!) {
+            Util.ButtonType.DAY -> {
+                getString(R.string.sort_day)
+            }
+
+            Util.ButtonType.WEEK -> {
+                getString(R.string.sort_week)
+            }
+
+            Util.ButtonType.MONTH -> {
+                getString(R.string.sort_month)
+            }
         }
     }
 
