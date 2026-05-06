@@ -78,6 +78,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 findNavController().navigate(MainFragmentDirections.actionMainFragmentToPagingRankingFragment())
             }
 
+            layoutNewTicketMore.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToPagingNewFragment())
+            }
+
             recyclerviewRanking.apply {
                 rankingAdapter = RankingAdapter {
                     findNavController().navigate(

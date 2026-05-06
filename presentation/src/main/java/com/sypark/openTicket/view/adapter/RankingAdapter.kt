@@ -17,6 +17,7 @@ import com.sypark.data.db.entity.Content
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemRankingBinding
+import com.sypark.openTicket.excensions.hide
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -103,7 +104,13 @@ class RankingViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHold
                 }
             }
 
-            textRanking.text = item.rank.toString()
+            textRanking.apply {
+                if (item.rank == null) {
+                    hide()
+                } else {
+                    text = item.rank.toString()
+                }
+            }
             textPlace.text = item.theater
             textTitle.text = item.title
             Glide.with(binding.root.context)

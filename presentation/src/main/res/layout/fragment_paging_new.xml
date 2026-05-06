@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layout_top"
+            layout="@layout/include_login_top" />
+
+        <RelativeLayout
+            android:id="@+id/layout_new_filter"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/layout_top">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_new_filter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_genre_filter" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/sort_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_below="@id/layout_new_filter"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp">
+
+            <ImageView
+                android:id="@+id/img_sort"
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/icon_sort" />
+
+            <TextView
+                android:id="@+id/text_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/img_sort"
+                android:gravity="center"
+                android:text="@string/sort_new"
+                android:textColor="@color/black_111111"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/sort_layout">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_new"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:listitem="@layout/item_ranking_more" />
+
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/include_new_sort"
+            layout="@layout/include_new_sort"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/include_load"
+            layout="@layout/include_load"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

@@ -12,17 +12,20 @@ import javax.inject.Inject
 class PagingRepository @Inject constructor(
     private val service: OpenTicketService
 ) {
-    fun getPagingData(boxOfficeGenre: String, timePeriod: Util.ButtonType): Flow<PagingData<Content>> {
+    fun getPagingData(
+        boxOfficeGenre: String,
+        timePeriod: Util.ButtonType
+    ): Flow<PagingData<Content>> {
         return Pager(
             config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
-            pagingSourceFactory = { PagingSource(service, boxOfficeGenre,timePeriod) }
+            pagingSourceFactory = { PagingSource(service, boxOfficeGenre, timePeriod) }
         ).flow
     }
 
-    fun getNewPagingData(boxOfficeGenre: String, timePeriod: Util.ButtonType): Flow<PagingData<Content>> {
+    fun getNewPagingData(genre: String, sortType: Util.NewButtonType): Flow<PagingData<Content>> {
         return Pager(
             config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
-            pagingSourceFactory = { PagingSource(service, boxOfficeGenre,timePeriod) }
+            pagingSourceFactory = { NewPagingSource(service, genre, sortType) }
         ).flow
     }
 

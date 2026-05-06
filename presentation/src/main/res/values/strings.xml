@@ -179,5 +179,8 @@
     <string name="sort_month">월간</string>
     <string name="sort_apply">적용</string>
     <string name="sort">정렬</string>
+
+    <string name="sort_new">최근 등록순</string>
+    <string name="sort_view">조회순</string>
     <string name="finish_app">앱을 종료하시겠어요?</string>
 </resources>
