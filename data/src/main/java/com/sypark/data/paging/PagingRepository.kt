@@ -19,6 +19,13 @@ class PagingRepository @Inject constructor(
         ).flow
     }
 
+    fun getNewPagingData(boxOfficeGenre: String, timePeriod: Util.ButtonType): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
+            pagingSourceFactory = { PagingSource(service, boxOfficeGenre,timePeriod) }
+        ).flow
+    }
+
     companion object {
         const val PAGER_SIZE = 10
     }

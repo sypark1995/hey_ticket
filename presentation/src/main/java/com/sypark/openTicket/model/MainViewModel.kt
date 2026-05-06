@@ -120,9 +120,17 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    suspend fun getNewTicketData(genre: String?, page: Int? = 1, pageSize: Int? = 10) {
+    suspend fun getNewTicketData(
+        genre: String?,
+        sortType: String? = "",
+        sortOrder: String? = "",
+        page: Int? = 1,
+        pageSize: Int? = 10
+    ) {
         repository.getNewTicket(
             genre = genre,
+            sortType = sortType,
+            sortOrder = sortOrder,
             page = page,
             pageSize = pageSize
         ).flowOn(Dispatchers.IO)

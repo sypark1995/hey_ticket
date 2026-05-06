@@ -41,10 +41,14 @@ class OpenTicketClient @Inject constructor(
 
     suspend fun requestPerformanceNew(
         genre: String?,
+        sortType: String?,
+        sortOrder: String?,
         page: Int?,
         pageSize: Int?
     ): BaseResponse = openTicketService.requestPerformancesNew(
         genre,
+        sortType,
+        sortOrder,
         page,
         pageSize
     )

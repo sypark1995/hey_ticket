@@ -32,9 +32,19 @@ class MainRepositoryImpl @Inject constructor(
         emit(data)
     }.onStart { }
 
-    override suspend fun getNewTicket(genre: String?, page: Int?, pageSize: Int?) = flow {
+    override suspend fun getNewTicket(
+        genre: String?,
+        sortType: String?,
+        sortOrder: String?,
+        page: Int?,
+        pageSize: Int?
+    ) = flow {
         val data = openTicketClient.requestPerformanceNew(
-            genre, page, pageSize
+            genre,
+            sortType,
+            sortOrder,
+            page,
+            pageSize
         )
 
         emit(data)

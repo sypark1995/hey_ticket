@@ -57,6 +57,10 @@ interface OpenTicketService {
     suspend fun requestPerformancesNew(
         @Query("genre")
         genre: String?,
+        @Query("sortType")
+        sortType: String?,
+        @Query("sortOrder")
+        sortOrder: String?,
         @Query("page")
         page: Int?,
         @Query("pageSize")

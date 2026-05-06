@@ -125,6 +125,11 @@ class RankingMoreViewHolder(
                 }
             }
 
+            textRanking.apply {
+                if (item.rank == null) {
+
+                }
+            }
             textRanking.text = item.rank.toString()
             textPlace.text = item.theater
             textTitle.text = item.title

@@ -29,6 +29,8 @@ interface MainRepository {
 
     suspend fun getNewTicket(
         genre: String?,
+        sortType: String?,
+        sortOrder: String?,
         page: Int? = 0,
         pageSize: Int? = 10
     ): Flow<BaseResponse>

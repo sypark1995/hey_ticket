@@ -37,8 +37,6 @@ class PagingRankingFragment :
                 backPressed()
             }
 
-            textSortState()
-
             recyclerviewRankingFilter.apply {
                 genreAdapter = GenreAdapter { position, item ->
                     rankingFilterItemClicked(position)
@@ -73,6 +71,7 @@ class PagingRankingFragment :
 //                    PagingLoadStateAdapter { rankingMoreAdapter.retry() }
 //                )
                 adapter = rankingMoreAdapter
+                setUpData()
             }
 
             sortLayout.setOnClickListener {
@@ -97,28 +96,11 @@ class PagingRankingFragment :
 
             includeSort.btnNext.setOnClickListener {
                 viewModel.setShow(false)
-
-                lifecycleScope.launch {
-                    viewModel.setRanking(
-                        viewModel.genre.value.orEmpty(),
-                        viewModel.radioButton.value!!
-                    ).collectLatest {
-                        rankingMoreAdapter.submitData(it)
-                    }
-                }
-
-                textSortState()
+                setUpData()
             }
 
             viewModel.genre.observe(viewLifecycleOwner, ::apiWatcher)
             viewModel.isShow.observe(viewLifecycleOwner, ::showWatcher)
-
-            lifecycleScope.launch {
-                viewModel.setRanking(viewModel.genre.value.orEmpty(), viewModel.radioButton.value!!)
-                    .collectLatest {
-                        rankingMoreAdapter.submitData(it)
-                    }
-            }
         }
     }
 
@@ -144,6 +126,11 @@ class PagingRankingFragment :
         } else {
             findNavController().popBackStack()
         }
+    }
+
+    private fun setUpData() {
+        apiWatcher(viewModel.genre.value.orEmpty())
+        textSortState()
     }
 
     private fun textSortState() {
