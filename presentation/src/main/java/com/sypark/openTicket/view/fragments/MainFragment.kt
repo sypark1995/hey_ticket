@@ -1,9 +1,14 @@
 package com.sypark.openTicket.view.fragments
 
 import android.os.Build
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -58,6 +63,23 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
             layoutRecommand.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainFragmentToLoginFirstFragment())
+            }
+
+            textRecommand.run {
+                val string = view.context.getString(R.string.main_recommend_content)
+
+                val ssb =
+                    SpannableStringBuilder(string).apply {
+                        setSpan(ForegroundColorSpan(view.context.getColor(R.color.gray_949494)), 0, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        setSpan(AbsoluteSizeSpan(14.dpToPx()), 0, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        setSpan(setTypeface(ResourcesCompat.getFont(view.context, R.font.pretendard_bold)), 0, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                        setSpan(ForegroundColorSpan(view.context.getColor(R.color.gray_55555)),14,string.length,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        setSpan(AbsoluteSizeSpan(18.dpToPx()),14,string.length,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        setSpan(setTypeface(ResourcesCompat.getFont(view.context, R.font.pretendard_bold)), 14, string.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+
+                text = ssb
             }
 
             recyclerviewRankingFilter.apply {
