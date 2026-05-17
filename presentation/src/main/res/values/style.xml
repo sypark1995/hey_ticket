@@ -133,6 +133,12 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="SemiBold_555555_18">
+        <item name="android:fontFamily">@font/pretendard_semi_bold</item>
+        <item name="android:textColor">@color/gray_55555</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="SemiBold_F3F3F3F_16">
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
         <item name="android:textColor">@color/gray_3F3F3F</item>
@@ -151,6 +157,11 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="Medium_b7b7b7_15">
+        <item name="android:fontFamily">@font/pretendard_medium</item>
+        <item name="android:textColor">@color/gray_B7B7B7</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 
     <style name="Medium_949494_14">
         <item name="android:fontFamily">@font/pretendard_medium</item>
@@ -192,6 +203,12 @@
         <item name="android:fontFamily">@font/pretendard_regular</item>
         <item name="android:textColor">@color/black_111111</item>
         <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="Regular_2a2a2a_15">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textColor">@color/black_2A2A2A</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="Regular_orange_12">

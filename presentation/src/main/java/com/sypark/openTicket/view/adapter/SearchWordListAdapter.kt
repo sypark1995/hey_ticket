@@ -1,4 +1,4 @@
-package com.sypark.openTicket.view
+package com.sypark.openTicket.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sypark.data.db.entity.SearchWord
 import com.sypark.openTicket.databinding.ItemSearchBinding
 
-class SearchWordListAdapter :
+class SearchWordListAdapter(private val onItemClickListener: (String) -> Unit) :
     ListAdapter<SearchWord, WordViewHolder>(WORDS_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
@@ -18,7 +18,7 @@ class SearchWordListAdapter :
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.word)
+        holder.bind(current.word, onItemClickListener)
     }
 
     companion object {
@@ -35,9 +35,12 @@ class SearchWordListAdapter :
 }
 
 class WordViewHolder(val binding: ItemSearchBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(text: String?) {
+    fun bind(text: String?, onItemClickListener: (String) -> Unit) {
 
         binding.apply {
+            this.root.setOnClickListener {
+                onItemClickListener(text.toString())
+            }
             textArea.text = text
         }
     }

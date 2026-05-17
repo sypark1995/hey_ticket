@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="viewModel"
-            type="com.sypark.openTicket.model.CategorySearchViewModel" />
-    </data>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffffff">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,7 +33,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="10dp"
                 android:layout_toEndOf="@id/img_close"
-                android:background="@drawable/round_8"
+                android:background="@drawable/round_8_gray_f5"
                 android:drawableStart="@drawable/drawable_left_search_customise"
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/pretendard_medium"
@@ -49,7 +41,6 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:paddingStart="12dp"
-                android:text="@{viewModel.searchWord}"
                 android:textColor="@color/gray_B7BBBF"
                 android:textColorHint="@color/gray_B7BBBF"
                 tools:ignore="RtlSymmetry" />
@@ -59,7 +50,8 @@
             android:id="@+id/layout_recently_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_search">
+            android:layout_below="@id/layout_search"
+            android:visibility="visible">
 
             <RelativeLayout
                 android:id="@+id/layout_search_edit"
@@ -104,7 +96,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@id/layout_search_edit"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp">
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -113,6 +104,138 @@
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/item_search" />
             </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_search_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/layout_search"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/radio_layout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+                <RadioGroup
+                    android:id="@+id/radio_group_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_performance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:checked="true"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="@string/search_performance"
+                        android:textColor="@drawable/selector_radio_text_black_gray"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_artist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:button="@null"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="@string/search_artist"
+                        android:textColor="@drawable/selector_radio_text_black_gray"
+                        android:textSize="20sp" />
+                </RadioGroup>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_filter"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_below="@+id/radio_layout"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/text_search_count"
+                    style="@style/Regular_2a2a2a_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    tools:text="'재즈' 검색 결과 1,234" />
+
+                <ImageView
+                    android:id="@+id/img_sort"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_toStartOf="@id/text_sort"
+                    android:src="@drawable/icon_sort" />
+
+                <TextView
+                    android:id="@+id/text_sort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/sort_new"
+                    android:textColor="@color/black_111111"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/layout_filter"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                tools:listitem="@layout/item_ranking_more" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/layout_search"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text_empty_title"
+                style="@style/SemiBold_555555_18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="180dp"
+                android:gravity="center_horizontal"
+                android:text="@string/search_empty_title"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/text_empty_content"
+                style="@style/Medium_b7b7b7_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_empty_title"
+                android:layout_marginTop="12dp"
+                android:text="@string/search_empty_content"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/btn_show_other_performance"
+                style="@style/Bold_111111_14"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/text_empty_content"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="76dp"
+                android:background="@drawable/round_8_whilte_gray"
+                android:stateListAnimator="@null"
+                android:text="@string/search_show_other_performance" />
         </RelativeLayout>
 
     </RelativeLayout>

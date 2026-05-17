@@ -29,6 +29,20 @@ class PagingRepository @Inject constructor(
         ).flow
     }
 
+//    fun getSearchPagingData(query: String, searchType: Util.SearchType): Flow<PagingData<Content>> {
+//        return Pager(
+//            config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
+//            pagingSourceFactory = { PagingSearchSource(service, query, searchType) }
+//        ).flow
+//    }
+
+    fun getSearchPagingData2(query: String, searchType: Util.SearchType): Flow<PagingData<Pair<Content,Long>>> {
+        return Pager(
+            config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
+            pagingSourceFactory = { PagingSearchSource(service, query, searchType) }
+        ).flow
+    }
+
     companion object {
         const val PAGER_SIZE = 10
     }

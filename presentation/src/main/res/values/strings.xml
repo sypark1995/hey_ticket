@@ -32,6 +32,9 @@
 
     <string name="recommend_register">회원 가입</string>
     <string name="search_edit_text">공연명, 출연진, 아티스트 검색</string>
+    <string name="search_empty_title">검색 결과가 없어요</string>
+    <string name="search_empty_content">공연명 혹은 아티스트를\n 간단한 키워드로 입력하면 검색이 더 잘 돼요!</string>
+    <string name="search_show_other_performance">다른 공연 둘러보기</string>
     <string name="search_performance">공연</string>
     <string name="search_exhibition">전시</string>
     <string name="search_artist">아티스트</string>

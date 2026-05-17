@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_mainFragment_to_pagingRankingFragment"
             app:destination="@id/pagingRankingFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_pagingNewFragment"
+            app:destination="@id/pagingNewFragment" />
 
     </fragment>
 
@@ -61,7 +64,11 @@
         android:id="@+id/searchFragment"
         android:name="com.sypark.openTicket.view.fragments.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_ticketDetailFragment"
+            app:destination="@id/ticketDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/ticketDetailFragment"
@@ -187,14 +194,24 @@
             app:destination="@id/registerFirstFragment"
             app:popUpTo="@id/loginFirstFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/pagingRankingFragment"
         android:name="com.sypark.openTicket.view.fragments.PagingRankingFragment"
         android:label="PagingRankingFragment"
-        tools:layout="@layout/fragment_paging_ranking" >
+        tools:layout="@layout/fragment_paging_ranking">
 
         <action
             android:id="@+id/action_pagingRankingFragment_to_ticketDetailFragment"
+            app:destination="@id/ticketDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pagingNewFragment"
+        android:name="com.sypark.openTicket.view.fragments.PagingNewFragment"
+        android:label="PagingNewFragment"
+        tools:layout="@layout/fragment_paging_new" >
+        <action
+            android:id="@+id/action_pagingNewFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment" />
     </fragment>
 
