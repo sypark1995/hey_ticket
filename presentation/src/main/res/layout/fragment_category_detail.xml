@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="android.view.View" />
+
+        <import type="com.sypark.openTicket.model.CategoryDetailViewModel.FilterType" />
 
         <variable
             name="viewModel"
@@ -157,7 +159,7 @@
         <RelativeLayout
             android:id="@+id/sort_layout"
             android:layout_width="100dp"
-            android:layout_height="15dp"
+            android:layout_height="17dp"
             android:layout_below="@id/layout_filter"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
@@ -165,7 +167,7 @@
 
             <ImageView
                 android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_height="match_parent"
                 android:layout_toStartOf="@id/text_sort"
                 android:src="@drawable/icon_sort" />
 
@@ -175,6 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="@string/category_detail_book"
+                android:textAlignment="center"
                 android:textColor="@color/black_111111"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -191,18 +194,22 @@
                 android:id="@+id/recyclerview_ticket"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_ticket"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                tools:listitem="@layout/item_ticket" />
         </RelativeLayout>
 
         <include
             android:id="@+id/include_layout_sort"
             layout="@layout/include_category_detail_sort"
-            android:visibility="gone" />
+            android:visibility="@{viewModel.isSortShow ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone" />
 
         <include
             android:id="@+id/include_layout_filter"
             layout="@layout/include_category_detail_filter"
-            android:visibility="gone" />
+            tools:visibility="gone"
+            android:visibility="@{viewModel.isFilterShow ? View.VISIBLE : View.GONE}"
+            bind:viewModel="@{viewModel}"
+             />
     </RelativeLayout>
 </layout>

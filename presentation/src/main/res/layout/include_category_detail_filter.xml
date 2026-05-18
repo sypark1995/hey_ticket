@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="android.view.View" />
 
+        <import type="com.sypark.openTicket.model.CategoryDetailViewModel.FilterType" />
+
         <variable
             name="viewModel"
             type="com.sypark.openTicket.model.CategoryDetailViewModel" />
+
     </data>
 
     <RelativeLayout
@@ -71,6 +75,7 @@
                         android:button="@null"
                         android:checked="true"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setFilterType(FilterType.AREA)}"
                         android:text="@string/category_detail_filter_area"
                         android:textColor="@drawable/selector_radio_text_black_gray"
                         android:textSize="18sp"
@@ -83,6 +88,7 @@
                         android:layout_marginStart="25dp"
                         android:button="@null"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setFilterType(FilterType.DAY)}"
                         android:text="@string/category_detail_filter_performance_day"
                         android:textColor="@drawable/selector_radio_text_black_gray"
                         android:textSize="18sp"
@@ -95,6 +101,7 @@
                         android:layout_marginStart="25dp"
                         android:button="@null"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setFilterType(FilterType.STATUS)}"
                         android:text="@string/category_detail_filter_progress_status"
                         android:textColor="@drawable/selector_radio_text_black_gray"
                         android:textSize="18sp"
@@ -107,6 +114,7 @@
                         android:layout_marginStart="25dp"
                         android:button="@null"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setFilterType(FilterType.PRICE)}"
                         android:text="@string/category_detail_filter_reservation_price"
                         android:textColor="@drawable/selector_radio_text_black_gray"
                         android:textSize="18sp"
@@ -128,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:visibility="visible">
+                    android:visibility="@{viewModel.FilterType == FilterType.AREA ? View.VISIBLE : View.GONE}">
 
                     <RelativeLayout
                         android:id="@+id/layout_item_area"
@@ -181,7 +189,8 @@
                 android:layout_below="@id/layout_filter_title"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:visibility="gone">
+                tools:visibility="gone"
+                android:visibility="@{viewModel.FilterType == FilterType.DAY ? View.VISIBLE : View.GONE}">
 
                 <TextView
                     android:id="@+id/text_select_performance_day"
@@ -208,7 +217,8 @@
                 android:layout_below="@id/layout_filter_title"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:visibility="gone">
+                tools:visibility="gone"
+                android:visibility="@{viewModel.FilterType == FilterType.STATUS ? View.VISIBLE : View.GONE}">
 
                 <RelativeLayout
                     android:id="@+id/layout_planned"
@@ -318,7 +328,8 @@
                 android:layout_below="@id/layout_filter_title"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:visibility="gone">
+                tools:visibility="gone"
+                android:visibility="@{viewModel.FilterType == FilterType.PRICE ? View.VISIBLE : View.GONE}">
 
                 <TextView
                     android:id="@+id/text_show_low_price"

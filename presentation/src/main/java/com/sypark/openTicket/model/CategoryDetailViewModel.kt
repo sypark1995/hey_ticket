@@ -19,6 +19,42 @@ import javax.inject.Inject
 class CategoryDetailViewModel @Inject constructor(
     private val repository: PagingRepository
 ) : BaseViewModel() {
+
+    private val _isFilterShow = MutableLiveData(false)
+    val isFilterShow: LiveData<Boolean>
+        get() = _isFilterShow
+
+    fun setFilterShow(isFilterShow: Boolean) {
+        _isFilterShow.value = isFilterShow
+    }
+
+    private val _isSortShow = MutableLiveData(false)
+    val isSortShow: LiveData<Boolean>
+        get() = _isSortShow
+
+    fun setSortShow(isSortShow: Boolean) {
+        _isSortShow.value = isSortShow
+    }
+
+    private val _filterType = MutableLiveData(FilterType.AREA)
+    val filterType: LiveData<FilterType>
+        get() = _filterType
+
+    fun setFilterType(type: FilterType) {
+        _filterType.value = type
+    }
+
+
+    private val _chipType = MutableLiveData(FilterType.AREA)
+
+    val chipType: LiveData<FilterType>
+        get() = _chipType
+
+
+    enum class FilterType {
+        AREA, DAY, STATUS, PRICE
+    }
+
     private var _isOpen = MutableLiveData(false)
     val isOpen: LiveData<Boolean> = _isOpen
 
@@ -124,4 +160,6 @@ class CategoryDetailViewModel @Inject constructor(
     fun clearSelectedDay() {
         _selectedDay.value = null
     }
+
 }
+
