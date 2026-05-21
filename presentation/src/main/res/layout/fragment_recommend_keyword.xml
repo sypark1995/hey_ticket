@@ -50,7 +50,7 @@
                 android:layout_weight="4"
                 android:background="@drawable/round_12_gray_white_2"
                 android:hint="@string/register_recommend_edit_hint"
-                android:imeOptions="actionGo"
+                android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:paddingStart="16dp"
                 tools:ignore="RtlSymmetry" />
