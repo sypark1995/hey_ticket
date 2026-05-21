@@ -73,6 +73,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Entry"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        android:onClick="@{() -> viewModel.chipOnclick(FilterType.AREA)}"
                         android:text="@string/category_detail_filter_area"
                         android:textColor="@color/gray_949494"
                         android:textSize="14sp"
@@ -92,6 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_marginStart="10dp"
+                        android:onClick="@{() -> viewModel.chipOnclick(FilterType.DAY)}"
                         android:text="@string/category_detail_filter_performance_day"
                         android:textColor="@color/gray_949494"
                         android:textSize="14sp"
@@ -111,6 +113,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_marginStart="10dp"
+                        android:onClick="@{() -> viewModel.chipOnclick(FilterType.STATUS)}"
                         android:text="@string/category_detail_filter_progress_status"
                         android:textColor="@color/gray_949494"
                         android:textSize="14sp"
@@ -130,6 +133,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_marginStart="10dp"
+                        android:onClick="@{() -> viewModel.chipOnclick(FilterType.PRICE)}"
                         android:text="@string/category_detail_filter_reservation_price"
                         android:textColor="@color/gray_949494"
                         android:textSize="14sp"
@@ -153,6 +157,7 @@
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:onClick="@{() -> viewModel.setFilterShow(true)}"
                 android:src="@drawable/icon_filler" />
         </RelativeLayout>
 
@@ -163,7 +168,8 @@
             android:layout_below="@id/layout_filter"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp">
+            android:layout_marginEnd="10dp"
+            android:onClick="@{() -> viewModel.setSortShow(true)}">
 
             <ImageView
                 android:layout_width="15dp"
@@ -202,14 +208,14 @@
             android:id="@+id/include_layout_sort"
             layout="@layout/include_category_detail_sort"
             android:visibility="@{viewModel.isSortShow ? View.VISIBLE : View.GONE}"
+            bind:viewModel="@{viewModel}"
             tools:visibility="gone" />
 
         <include
             android:id="@+id/include_layout_filter"
             layout="@layout/include_category_detail_filter"
-            tools:visibility="gone"
             android:visibility="@{viewModel.isFilterShow ? View.VISIBLE : View.GONE}"
             bind:viewModel="@{viewModel}"
-             />
+            tools:visibility="gone" />
     </RelativeLayout>
 </layout>
