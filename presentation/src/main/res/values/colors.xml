@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="black_cc">#CC000000</color>
+    <color name="black_222222">#222222</color>
+    <color name="black_333333">#333333</color>
     <color name="black_232323">#232323</color>
     <color name="black_2A2A2A">#2A2A2A</color>
     <color name="white">#FFFFFFFF</color>
@@ -27,6 +29,7 @@
     <color name="gray_989CA1">#989CA1</color>
     <color name="gray_F2F3F5">#F2F3F5</color>
     <color name="gray_DFDFDF">#DFDFDF</color>
+    <color name="gray_9F9F9F">#9F9F9F</color>
     <color name="gray_CFD2D7">#CFD2D7</color>
     <color name="gray_55555">#555555</color>
     <color name="yellow_FFE141">#FFE141</color>
@@ -36,6 +39,7 @@
     <color name="blue_E8F8FF">#E8F8FF</color>
     <color name="green_2C70F2">#5EBF00</color>
     <color name="green_2FFE5">#F2FFE5</color>
+    <color name="gray_3F3F3F">#3F3F3F</color>
     <color name="mtrl_textinput_default_box_stroke_color">#DFDFDF</color>
     <!--   mtrl_textinput_default_box_stroke_color -> 예약어 -->
 </resources>
