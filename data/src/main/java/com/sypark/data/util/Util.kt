@@ -8,4 +8,8 @@ object Util {
     enum class NewButtonType {
         CREATED_DATE, VIEWS
     }
+
+    enum class SearchType {
+        PERFORMANCE, ARTIST
+    }
 }
