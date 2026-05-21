@@ -95,4 +95,16 @@ interface OpenTicketService {
         signup: Signup
     ): BaseResponse
 
+    @GET("/api/performances/search")
+    suspend fun requestSearch(
+        @Query("searchType")
+        searchType: String?,
+        @Query("query")
+        query: String?,
+        @Query("page")
+        page: Int?,
+        @Query("pageSize")
+        pageSize: Int?
+    ): BaseResponse
+
 }
