@@ -7,15 +7,15 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sypark.data.db.entity.CategoryDetailArea
+import com.sypark.data.db.entity.Areas
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemFilterAreaBinding
 
 //todo_sypark RecommendAreaAdapter처럼 변경 예정
 class CategoryFilterAreaAdapter :
-    ListAdapter<CategoryDetailArea, CategoryFilterAreaAdapter.ViewHolder>(DiffUtils()) {
+    ListAdapter<Areas, CategoryFilterAreaAdapter.ViewHolder>(DiffUtils()) {
 
-    private var selectedArea = arrayListOf<CategoryDetailArea>()
+    private var selectedArea = arrayListOf<Areas>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemFilterAreaBinding.inflate(
@@ -29,40 +29,39 @@ class CategoryFilterAreaAdapter :
     class ViewHolder(val binding: ItemFilterAreaBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         with(holder.binding) {
-            itemText.text = getItem(position).area
+            itemText.text = getItem(position).name
 
-            itemText.setOnClickListener {
-                applySelection(this, getItem(position))
-                onItemClickListener?.let { it(getItem(position)) }
-            }
+//            itemText.setOnClickListener {
+//                applySelection(this, getItem(position))
+//                onItemClickListener?.let { it(getItem(position)) }
+//            }
         }
     }
 
-    private class DiffUtils : DiffUtil.ItemCallback<CategoryDetailArea>() {
+    private class DiffUtils : DiffUtil.ItemCallback<Areas>() {
         override fun areItemsTheSame(
-            oldItem: CategoryDetailArea,
-            newItem: CategoryDetailArea
+            oldItem: Areas,
+            newItem: Areas
         ): Boolean {
-            return oldItem.area == newItem.area
+            return oldItem.code == newItem.code
         }
 
         override fun areContentsTheSame(
-            oldItem: CategoryDetailArea,
-            newItem: CategoryDetailArea
+            oldItem: Areas,
+            newItem: Areas
         ): Boolean {
             return oldItem == newItem
         }
     }
 
-    private var onItemClickListener: ((CategoryDetailArea) -> Unit)? = null
+    private var onItemClickListener: ((Areas) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (CategoryDetailArea) -> Unit) {
+    fun setOnItemClickListener(listener: (Areas) -> Unit) {
         onItemClickListener = listener
     }
 
-    fun selectedList(): ArrayList<CategoryDetailArea> {
+    fun selectedList(): ArrayList<Areas> {
         return selectedArea
     }
 
@@ -73,7 +72,7 @@ class CategoryFilterAreaAdapter :
 
     private fun applySelection(
         binding: ItemFilterAreaBinding,
-        categoryDetailArea: CategoryDetailArea
+        categoryDetailArea: Areas
     ) {
         if (selectedArea.contains(categoryDetailArea)) {
             selectedArea.remove(categoryDetailArea)

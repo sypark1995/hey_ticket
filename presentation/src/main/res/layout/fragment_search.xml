@@ -233,7 +233,7 @@
                 android:layout_marginStart="76dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="76dp"
-                android:background="@drawable/round_8_whilte_gray"
+                android:background="@drawable/round_8_white_gray"
                 android:stateListAnimator="@null"
                 android:text="@string/search_show_other_performance" />
         </RelativeLayout>

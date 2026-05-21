@@ -1,14 +1,21 @@
 package com.sypark.openTicket.view.fragments
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.ColorStateList
+import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.Preferences
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentCategoryDetailBinding
+import com.sypark.openTicket.excensions.show
 import com.sypark.openTicket.model.CategoryDetailViewModel
 import com.sypark.openTicket.view.CategoryFilterAreaAdapter
 import com.sypark.openTicket.view.CategorySortAdapter
@@ -30,32 +37,8 @@ class CategoryDetailFragment :
         binding.apply {
             viewModel = categoryDetailViewModel
 
-            imgFilter.setOnClickListener {
-                categoryDetailViewModel.setFilterShow(true)
-            }
-
-            includeLayoutFilter.imgClose.setOnClickListener {
-                categoryDetailViewModel.setFilterShow(false)
-            }
-
-            includeLayoutFilter.btnConfirm.setOnClickListener {
-                categoryDetailViewModel.setFilterShow(false)
-            }
-
-            sortLayout.setOnClickListener {
-                categoryDetailViewModel.setSortShow(true)
-            }
-
-            includeLayoutSort.imgClose.setOnClickListener {
-                categoryDetailViewModel.setSortShow(false)
-            }
-
-            includeLayoutSort.btnConfirm.setOnClickListener {
-                categoryDetailViewModel.setSortShow(false)
-            }
-
             categoryDetailViewModel.filterType.observe(viewLifecycleOwner) {
-
+                Log.e("!!!", it.name)
             }
 
 
@@ -73,27 +56,50 @@ class CategoryDetailFragment :
                 adapter = categorySortAdapter
                 categorySortAdapter.setSelectedPosition(1)
             }
+
+            chipArea.apply {
+                setOnCloseIconClickListener {
+                    setChipFalse(it.context, this, "지역")
+                    initFilterArea(it.context)
+                }
+            }
+
+            includeLayoutFilter.recyclerviewArea.apply {
+                layoutManager = LinearLayoutManager(view.context)
+                categoryFilterAreaAdapter = CategoryFilterAreaAdapter()
+                adapter = categoryFilterAreaAdapter
+                categoryFilterAreaAdapter.submitList(Common.areaList)
+
+//                categoryFilterAreaAdapter.setOnItemClickListener {
+//                    if (categoryFilterAreaAdapter.selectedList().size == 0) {
+//                        includeLayoutFilter.textAreaAll.setTextColor(
+//                            ContextCompat.getColor(
+//                                this.context,
+//                                R.color.black
+//                            )
+//                        )
+//                        includeLayoutFilter.checkboxAreaAll.show()
+//                    } else {
+//                        includeLayoutFilter.textAreaAll.setTextColor(
+//                            ContextCompat.getColor(
+//                                this.context,
+//                                R.color.gray_B7B7B7
+//                            )
+//                        )
+//                        includeLayoutFilter.checkboxAreaAll.hide()
+//                    }
+//
+//                    categoryDetailViewModel.setFilterAreaList(categoryFilterAreaAdapter.selectedList())
+//                }
+            }
+
+            includeLayoutFilter.textAreaAll.setOnClickListener {
+                initFilterArea(it.context)
+            }
         }
 
 
 //        binding.apply {
-//
-//            categoryDetailViewModel.isDetailSortVisibility.observe(viewLifecycleOwner) {
-//                if (it) {
-//                    includeLayoutSort.layoutDetailSort.show()
-//                } else {
-//                    includeLayoutSort.layoutDetailSort.hide()
-//                }
-//            }
-//
-//            categoryDetailViewModel.isFilterLayoutVisibility.observe(viewLifecycleOwner) {
-//                if (it) {
-//                    includeLayoutFilter.root.show()
-//                } else {
-//                    includeLayoutFilter.root.hide()
-//                }
-//            }
-//
 //            imgBack.setOnClickListener {
 //                findNavController().popBackStack()
 //                Preferences.sortPosition = 1
@@ -185,24 +191,6 @@ class CategoryDetailFragment :
 //            }
 //
 //            binding.includeLayoutFilter.root.hide()
-//        }
-//
-//        binding.chipArea.apply {
-//
-//            setOnClickListener {
-//                binding.includeLayoutFilter.radioFilterArea.isChecked = true
-//                binding.includeLayoutFilter.root.show()
-//
-//                binding.includeLayoutFilter.layoutFilterArea.show()
-//                binding.includeLayoutFilter.layoutFilterPrice.hide()
-//                binding.includeLayoutFilter.layoutPerformanceState.hide()
-//                binding.includeLayoutFilter.layoutFilterDay.hide()
-//            }
-//
-//            setOnCloseIconClickListener {
-//                setChipFalse(it.context, this, "지역")
-//                initFilterArea(it.context)
-//            }
 //        }
 //
 //        binding.apply {
@@ -431,7 +419,7 @@ class CategoryDetailFragment :
         Preferences.sortPosition = 1
     }
 
-//    private fun setTextViewSize(textView: TextView, data: String) {
+    //    private fun setTextViewSize(textView: TextView, data: String) {
 //        // 높이와 너비를 WRAP_CONTENT로 설정합니다.
 //        textView.layoutParams = LinearLayout.LayoutParams(
 //            LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -494,24 +482,30 @@ class CategoryDetailFragment :
 //    }
 //
 //    // 필터 지역 초기화
-//    private fun initFilterArea(context: Context) {
-//        binding.includeLayoutFilter.recyclerviewArea.removeAllViewsInLayout()
-//        categoryFilterAreaAdapter.apply {
-//            clear()
-//            submitList(Common.categoryDetailAreaList)
-//            notifyDataSetChanged()
-//        }
-//
-//        binding.includeLayoutFilter.textAreaAll.setTextColor(
-//            ContextCompat.getColor(
-//                context,
-//                R.color.black
-//            )
-//        )
-//        categoryDetailViewModel.filterAreaData.value?.clear()
-//        binding.includeLayoutFilter.checkboxAreaAll.visibility = View.VISIBLE
-//    }
-//
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initFilterArea(context: Context) {
+        binding.apply {
+            includeLayoutFilter.apply {
+                recyclerviewArea.removeAllViewsInLayout()
+                textAreaAll.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.black
+                    )
+                )
+                checkboxAreaAll.show()
+            }
+            categoryFilterAreaAdapter.apply {
+                clear()
+                submitList(Common.areaList)
+                notifyDataSetChanged()
+            }
+
+            categoryDetailViewModel.filterAreaData.value?.clear()
+        }
+    }
+
+    //
 //    // 필터 진행상태 초기화
 //    private fun initFilterStatus() {
 //        binding.includeLayoutFilter.checkboxDuring.isSelected = false
@@ -584,6 +578,15 @@ class CategoryDetailFragment :
 //                StringUtil.join(list, ", ").toString()
 //        }
 //    }
+    private fun setChipFalse(context: Context, chip: Chip, text: String) {
+        chip.chipBackgroundColor =
+            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+        chip.chipStrokeColor =
+            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.gray_EFEFEF))
+        chip.isCloseIconVisible = false
+        chip.setTextColor(ContextCompat.getColor(context, R.color.gray_949494))
+        chip.text = text
+    }
 }
 
 

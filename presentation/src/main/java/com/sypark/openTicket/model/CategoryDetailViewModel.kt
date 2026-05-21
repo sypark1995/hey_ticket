@@ -5,10 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.sypark.data.db.entity.CategoryDetailArea
+import com.sypark.data.db.entity.Areas
 import com.sypark.data.db.entity.Content
 import com.sypark.data.paging.PagingRepository
 import com.sypark.data.util.Util
+import com.sypark.openTicket.Common
 import com.sypark.openTicket.base.BaseViewModel
 import com.sypark.openTicket.base.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -54,6 +55,13 @@ class CategoryDetailViewModel @Inject constructor(
     enum class FilterType {
         AREA, DAY, STATUS, PRICE
     }
+
+    fun chipOnclick(type: FilterType) {
+        setFilterType(type)
+        setFilterShow(true)
+    }
+
+    private val _area = MutableLiveData(Common.areaList)
 
     private var _isOpen = MutableLiveData(false)
     val isOpen: LiveData<Boolean> = _isOpen
@@ -118,8 +126,8 @@ class CategoryDetailViewModel @Inject constructor(
     val filterPrice: LiveData<Boolean>
         get() = _filterPrice
 
-    private var _filterAreaData = MutableLiveData<ArrayList<CategoryDetailArea>>()
-    val filterAreaData: LiveData<ArrayList<CategoryDetailArea>>
+    private var _filterAreaData = MutableLiveData<ArrayList<Areas>>()
+    val filterAreaData: LiveData<ArrayList<Areas>>
         get() = _filterAreaData
 
     private var _filterPriceData = MutableLiveData<String?>()
@@ -148,7 +156,7 @@ class CategoryDetailViewModel @Inject constructor(
     fun isShowFilterStatus(isShow: Boolean) = _filterStatus.postValue(isShow)
     fun isShowFilterPrice(isShow: Boolean) = _filterPrice.postValue(isShow)
 
-    fun setFilterAreaList(list: ArrayList<CategoryDetailArea>) = _filterAreaData.postValue(list)
+    fun setFilterAreaList(list: ArrayList<Areas>) = _filterAreaData.postValue(list)
     fun setFilterPrice(price: String) = _filterPriceData.postValue(price)
     fun clearFilterPrice() {
         _filterPriceData.value = null
