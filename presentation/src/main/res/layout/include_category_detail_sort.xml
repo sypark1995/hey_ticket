@@ -2,10 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.sypark.openTicket.model.CategoryDetailViewModel" />
     </data>
+
     <RelativeLayout
         android:id="@+id/layout_detail_sort"
         android:layout_width="match_parent"
@@ -43,7 +45,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/icon_close" />
+                    android:background="@drawable/icon_close"
+                    android:onClick="@{() -> viewModel.setSortShow(false)}" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -66,6 +69,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_margin="16dp"
                 android:background="@drawable/round_8_black"
+                android:onClick="@{() -> viewModel.setSortShow(false)}"
                 android:text="@string/category_detail_sort_apply"
                 android:textColor="@color/white" />
         </RelativeLayout>
