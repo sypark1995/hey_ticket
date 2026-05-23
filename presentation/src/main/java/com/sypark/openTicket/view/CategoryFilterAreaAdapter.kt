@@ -32,10 +32,10 @@ class CategoryFilterAreaAdapter :
         with(holder.binding) {
             itemText.text = getItem(position).name
 
-//            itemText.setOnClickListener {
-//                applySelection(this, getItem(position))
-//                onItemClickListener?.let { it(getItem(position)) }
-//            }
+            itemText.setOnClickListener {
+                applySelection(this, getItem(position))
+                onItemClickListener?.let { it(getItem(position)) }
+            }
         }
     }
 

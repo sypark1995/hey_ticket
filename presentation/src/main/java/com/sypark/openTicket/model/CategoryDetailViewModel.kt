@@ -21,12 +21,16 @@ class CategoryDetailViewModel @Inject constructor(
     private val repository: PagingRepository
 ) : BaseViewModel() {
 
-    private val _isFilterShow = MutableLiveData(false)
-    val isFilterShow: LiveData<Boolean>
-        get() = _isFilterShow
+    enum class FilterBtnType {
+        CLOSE, OPEN, DONE, CLEAR
+    }
 
-    fun setFilterShow(isFilterShow: Boolean) {
-        _isFilterShow.value = isFilterShow
+    private val _filterBtnType = MutableLiveData(FilterBtnType.CLOSE)
+    val filterBtnType: LiveData<FilterBtnType>
+        get() = _filterBtnType
+
+    fun setFilterBtnType(type: FilterBtnType) {
+        _filterBtnType.value = type
     }
 
     private val _isSortShow = MutableLiveData(false)
@@ -58,7 +62,7 @@ class CategoryDetailViewModel @Inject constructor(
 
     fun chipOnclick(type: FilterType) {
         setFilterType(type)
-        setFilterShow(true)
+        setFilterBtnType(FilterBtnType.OPEN)
     }
 
     private val _area = MutableLiveData(Common.areaList)

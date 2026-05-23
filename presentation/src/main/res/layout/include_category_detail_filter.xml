@@ -9,6 +9,8 @@
 
         <import type="com.sypark.openTicket.model.CategoryDetailViewModel.FilterType" />
 
+        <import type="com.sypark.openTicket.model.CategoryDetailViewModel.FilterBtnType" />
+
         <variable
             name="viewModel"
             type="com.sypark.openTicket.model.CategoryDetailViewModel" />
@@ -53,7 +55,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/icon_close"
-                    android:onClick="@{() -> viewModel.setFilterShow(false)}" />
+                    android:onClick="@{() -> viewModel.setFilterBtnType(FilterBtnType.CLOSE)}" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -101,8 +103,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="25dp"
-                        android:checked="@{viewModel.FilterType == FilterType.STATUS}"
                         android:button="@null"
+                        android:checked="@{viewModel.FilterType == FilterType.STATUS}"
                         android:gravity="center_vertical"
                         android:onClick="@{()->viewModel.setFilterType(FilterType.STATUS)}"
                         android:text="@string/category_detail_filter_progress_status"
@@ -116,8 +118,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="25dp"
                         android:button="@null"
-                        android:gravity="center_vertical"
                         android:checked="@{viewModel.FilterType == FilterType.PRICE}"
+                        android:gravity="center_vertical"
                         android:onClick="@{()->viewModel.setFilterType(FilterType.PRICE)}"
                         android:text="@string/category_detail_filter_reservation_price"
                         android:textColor="@drawable/selector_radio_text_black_gray"
@@ -193,6 +195,7 @@
                 android:layout_below="@id/layout_filter_title"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
                 android:visibility="@{viewModel.FilterType == FilterType.DAY ? View.VISIBLE : View.GONE}"
                 tools:visibility="gone">
 
@@ -203,14 +206,20 @@
                     android:text="@string/category_detail_filter_performance_day_select"
                     android:textColor="@color/orange_FB912F" />
 
-                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                    android:id="@+id/performance_calendar_view"
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_below="@+id/text_select_performance_day"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    app:mcv_selectionColor="@color/black" />
+                    android:layout_marginEnd="10dp">
+
+                    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                        android:id="@+id/performance_calendar_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mcv_selectionColor="@color/black" />
+                </ScrollView>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -474,7 +483,8 @@
                     android:id="@+id/layout_filter_reset"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:onClick="@{() -> viewModel.setFilterBtnType(FilterBtnType.CLEAR)}">
 
                     <ImageView
                         android:id="@+id/img_reset"
@@ -500,7 +510,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="3"
                     android:background="@drawable/round_8_black"
-                    android:onClick="@{() -> viewModel.setFilterShow(false)}"
+                    android:onClick="@{() -> viewModel.setFilterBtnType(FilterBtnType.DONE)}"
                     android:text="@string/category_detail_sort_apply"
                     android:textColor="@color/white" />
             </LinearLayout>

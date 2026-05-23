@@ -9,6 +9,7 @@
         <import type="android.view.View" />
 
         <import type="com.sypark.openTicket.model.CategoryDetailViewModel.FilterType" />
+        <import type="com.sypark.openTicket.model.CategoryDetailViewModel.FilterBtnType" />
 
         <variable
             name="viewModel"
@@ -157,7 +158,7 @@
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:onClick="@{() -> viewModel.setFilterShow(true)}"
+                android:onClick="@{() -> viewModel.setFilterBtnType(FilterBtnType.OPEN)}"
                 android:src="@drawable/icon_filler" />
         </RelativeLayout>
 
@@ -214,7 +215,7 @@
         <include
             android:id="@+id/include_layout_filter"
             layout="@layout/include_category_detail_filter"
-            android:visibility="@{viewModel.isFilterShow ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.filterBtnType == FilterBtnType.OPEN ? View.VISIBLE : View.GONE}"
             bind:viewModel="@{viewModel}"
             tools:visibility="gone" />
     </RelativeLayout>

@@ -15,6 +15,7 @@ import com.sypark.openTicket.Preferences
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentCategoryDetailBinding
+import com.sypark.openTicket.excensions.hide
 import com.sypark.openTicket.excensions.show
 import com.sypark.openTicket.model.CategoryDetailViewModel
 import com.sypark.openTicket.view.CategoryFilterAreaAdapter
@@ -70,31 +71,65 @@ class CategoryDetailFragment :
                 adapter = categoryFilterAreaAdapter
                 categoryFilterAreaAdapter.submitList(Common.areaList)
 
-//                categoryFilterAreaAdapter.setOnItemClickListener {
-//                    if (categoryFilterAreaAdapter.selectedList().size == 0) {
-//                        includeLayoutFilter.textAreaAll.setTextColor(
-//                            ContextCompat.getColor(
-//                                this.context,
-//                                R.color.black
-//                            )
-//                        )
-//                        includeLayoutFilter.checkboxAreaAll.show()
-//                    } else {
-//                        includeLayoutFilter.textAreaAll.setTextColor(
-//                            ContextCompat.getColor(
-//                                this.context,
-//                                R.color.gray_B7B7B7
-//                            )
-//                        )
-//                        includeLayoutFilter.checkboxAreaAll.hide()
-//                    }
-//
-//                    categoryDetailViewModel.setFilterAreaList(categoryFilterAreaAdapter.selectedList())
-//                }
+                categoryFilterAreaAdapter.setOnItemClickListener {
+                    if (categoryFilterAreaAdapter.selectedList().size == 0) {
+                        includeLayoutFilter.textAreaAll.setTextColor(
+                            ContextCompat.getColor(
+                                this.context,
+                                R.color.black
+                            )
+                        )
+                        includeLayoutFilter.checkboxAreaAll.show()
+                    } else {
+                        includeLayoutFilter.textAreaAll.setTextColor(
+                            ContextCompat.getColor(
+                                this.context,
+                                R.color.gray_B7B7B7
+                            )
+                        )
+                        includeLayoutFilter.checkboxAreaAll.hide()
+                    }
+
+                    categoryDetailViewModel.setFilterAreaList(categoryFilterAreaAdapter.selectedList())
+                }
             }
 
             includeLayoutFilter.textAreaAll.setOnClickListener {
                 initFilterArea(it.context)
+            }
+
+            categoryDetailViewModel.filterBtnType.observe(viewLifecycleOwner) {
+                when (it.name) {
+                    CategoryDetailViewModel.FilterBtnType.DONE.name -> {
+
+                        // chip 지역
+                        if (categoryFilterAreaAdapter.selectedList().size == 0) {
+                            setChipFalse1(chipArea, "지역")
+                        } else {
+                            setChipTrue1(chipArea)
+
+                            when (categoryFilterAreaAdapter.selectedList().size) {
+                                0 -> {
+                                    chipArea.text = "전체"
+                                }
+
+                                1 -> {
+                                    chipArea.text =
+                                        categoryDetailViewModel.filterAreaData.value!![0].name
+                                }
+
+                                else -> {
+                                    chipArea.text =
+                                        "지역 ${categoryDetailViewModel.filterAreaData.value!!.size}"
+                                }
+                            }
+                        }
+                    }
+
+                    CategoryDetailViewModel.FilterBtnType.CLEAR.name -> {
+
+                    }
+                }
             }
         }
 
@@ -456,31 +491,33 @@ class CategoryDetailFragment :
 //    }
 //
 //
-//    private fun setChipTrue1(chip: Chip) {
-//        context?.let {
-//            chip.chipBackgroundColor =
-//                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.black_111111))
-//            chip.chipStrokeColor =
-//                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.black_111111))
-//            chip.setTextColor(ContextCompat.getColor(it, R.color.white))
-//        }
-//
-//        chip.isCloseIconVisible = true
-//    }
-//
-//    private fun setChipFalse1(chip: Chip, text: String) {
-//        context?.let {
-//            chip.chipBackgroundColor =
-//                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.white))
-//            chip.chipStrokeColor =
-//                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.gray_EFEFEF))
-//            chip.setTextColor(ContextCompat.getColor(it, R.color.gray_949494))
-//        }
-//
-//        chip.isCloseIconVisible = false
-//        chip.text = text
-//    }
-//
+    private fun setChipTrue1(chip: Chip) {
+        context?.let {
+            chip.chipBackgroundColor =
+                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.black_111111))
+            chip.chipStrokeColor =
+                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.black_111111))
+            chip.setTextColor(ContextCompat.getColor(it, R.color.white))
+        }
+
+        chip.isCloseIconVisible = true
+    }
+
+    //
+    private fun setChipFalse1(chip: Chip, text: String) {
+        context?.let {
+            chip.chipBackgroundColor =
+                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.white))
+            chip.chipStrokeColor =
+                ColorStateList.valueOf(ContextCompat.getColor(it, R.color.gray_EFEFEF))
+            chip.setTextColor(ContextCompat.getColor(it, R.color.gray_949494))
+        }
+
+        chip.isCloseIconVisible = false
+        chip.text = text
+    }
+
+    //
 //    // 필터 지역 초기화
     @SuppressLint("NotifyDataSetChanged")
     private fun initFilterArea(context: Context) {
