@@ -77,12 +77,12 @@
                         android:layout_height="match_parent"
                         android:button="@null"
                         android:checked="@{viewModel.FilterType == FilterType.AREA}"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center_vertical"
                         android:onClick="@{()->viewModel.setFilterType(FilterType.AREA)}"
                         android:text="@string/category_detail_filter_area"
                         android:textColor="@drawable/selector_radio_text_black_gray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:id="@+id/radio_filter_day"
@@ -91,12 +91,12 @@
                         android:layout_marginStart="25dp"
                         android:button="@null"
                         android:checked="@{viewModel.FilterType == FilterType.DAY}"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center_vertical"
                         android:onClick="@{()->viewModel.setFilterType(FilterType.DAY)}"
                         android:text="@string/category_detail_filter_performance_day"
                         android:textColor="@drawable/selector_radio_text_black_gray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:id="@+id/radio_filter_status"
@@ -105,12 +105,12 @@
                         android:layout_marginStart="25dp"
                         android:button="@null"
                         android:checked="@{viewModel.FilterType == FilterType.STATUS}"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center_vertical"
                         android:onClick="@{()->viewModel.setFilterType(FilterType.STATUS)}"
                         android:text="@string/category_detail_filter_progress_status"
                         android:textColor="@drawable/selector_radio_text_black_gray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:id="@+id/radio_filter_price"
@@ -142,7 +142,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:visibility="@{viewModel.FilterType == FilterType.AREA ? View.VISIBLE : View.GONE}">
+                    android:visibility="@{viewModel.FilterType == FilterType.AREA ? View.VISIBLE : View.GONE}"
+                    tools:visibility="gone">
 
                     <RelativeLayout
                         android:id="@+id/layout_item_area"
@@ -231,13 +232,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:visibility="@{viewModel.FilterType == FilterType.STATUS ? View.VISIBLE : View.GONE}"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:id="@+id/layout_planned"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:onClick="@{()-> viewModel.isPlanedChecked()}">
 
                     <CheckBox
                         android:id="@+id/checkbox_planned"
@@ -246,7 +248,8 @@
                         android:layout_centerVertical="true"
                         android:background="@drawable/selector_checkbox"
                         android:button="@null"
-                        android:checked="@={viewModel.isPlaned}" />
+                        android:checked="@{viewModel.isPlaned}"
+                        android:onClick="@{()-> viewModel.isPlanedChecked()}" />
 
                     <TextView
                         android:id="@+id/text_performance_planned"
@@ -254,9 +257,12 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
                         android:layout_toEndOf="@id/checkbox_planned"
+                        android:fontFamily="@font/pretendard_semi_bold"
                         android:gravity="center_vertical"
+                        android:onClick="@{()-> viewModel.isPlanedChecked()}"
                         android:text="@string/category_detail_filter_planned_performance"
-                        android:textColor="@drawable/selector_text_black_gray" />
+                        android:textColor="@drawable/selector_text_black_gray"
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -270,7 +276,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_below="@id/layout_planned"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:onClick="@{()-> viewModel.isDuringChecked()}">
 
                     <CheckBox
                         android:id="@+id/checkbox_during"
@@ -279,7 +286,8 @@
                         android:layout_centerVertical="true"
                         android:background="@drawable/selector_checkbox"
                         android:button="@null"
-                        android:checked="@={viewModel.isDuring}" />
+                        android:checked="@{viewModel.isDuring}"
+                        android:onClick="@{()-> viewModel.isPlanedChecked()}" />
 
                     <TextView
                         android:id="@+id/text_performance_during"
@@ -287,9 +295,11 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
                         android:layout_toEndOf="@id/checkbox_during"
+                        android:fontFamily="@font/pretendard_semi_bold"
                         android:gravity="center_vertical"
                         android:text="@string/category_detail_filter_during_performance"
-                        android:textColor="@drawable/selector_text_black_gray" />
+                        android:textColor="@drawable/selector_text_black_gray"
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -303,7 +313,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_below="@id/layout_during"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> viewModel.isFinishedChecked()}">
 
                     <CheckBox
                         android:id="@+id/checkbox_finish"
@@ -312,7 +323,8 @@
                         android:layout_centerVertical="true"
                         android:background="@drawable/selector_checkbox"
                         android:button="@null"
-                        android:checked="@={viewModel.isFinished}" />
+                        android:checked="@{viewModel.isFinished}"
+                        android:onClick="@{()-> viewModel.isFinishedChecked()}" />
 
                     <TextView
                         android:id="@+id/text_performance_finish"
@@ -320,9 +332,11 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
                         android:layout_toEndOf="@id/checkbox_finish"
+                        android:fontFamily="@font/pretendard_semi_bold"
                         android:gravity="center_vertical"
                         android:text="@string/category_detail_filter_finish_performance"
-                        android:textColor="@drawable/selector_text_black_gray" />
+                        android:textColor="@drawable/selector_text_black_gray"
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -499,8 +513,10 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@id/img_reset"
+                        android:fontFamily="@font/pretendard_semi_bold"
                         android:gravity="center_vertical"
                         android:text="@string/category_detail_filter_reset"
+                        android:textColor="@color/gray_C8C8C8"
                         android:textSize="16sp" />
                 </RelativeLayout>
 
@@ -510,9 +526,11 @@
                     android:layout_height="50dp"
                     android:layout_weight="3"
                     android:background="@drawable/round_8_black"
+                    android:fontFamily="@font/pretendard_bold"
                     android:onClick="@{() -> viewModel.setFilterBtnType(FilterBtnType.DONE)}"
                     android:text="@string/category_detail_sort_apply"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>

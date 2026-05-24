@@ -111,9 +111,18 @@ class CategoryDetailViewModel @Inject constructor(
     private var _filterStatus = MutableLiveData(false)
     private var _filterPrice = MutableLiveData(false)
 
-    var isPlaned = MutableLiveData(false)
-    val isDuring = MutableLiveData(false)
-    val isFinished = MutableLiveData(false)
+    private var _isPlaned = MutableLiveData(false)
+    val isPlaned: LiveData<Boolean>
+        get() = _isPlaned
+
+    private var _isDuring = MutableLiveData(false)
+    val isDuring: LiveData<Boolean>
+        get() = _isDuring
+
+
+    private val _isFinished = MutableLiveData(false)
+    val isFinished: LiveData<Boolean>
+        get() = _isFinished
 
     private var _statusList = MutableLiveData<ArrayList<String>>()
     val statusList: LiveData<ArrayList<String>> = _statusList
@@ -144,15 +153,15 @@ class CategoryDetailViewModel @Inject constructor(
 
 
     fun isPlanedChecked() {
-        isPlaned.value = isPlaned.value == false
+        _isPlaned.value = _isPlaned.value == false
     }
 
     fun isDuringChecked() {
-        isDuring.value = isDuring.value == false
+        _isDuring.value = _isDuring.value == false
     }
 
     fun isFinishedChecked() {
-        isFinished.value = isFinished.value == false
+        _isFinished.value = _isFinished.value == false
     }
 
     fun isShowFilterArea(isShow: Boolean) = _filterArea.postValue(isShow)
@@ -168,7 +177,7 @@ class CategoryDetailViewModel @Inject constructor(
 
     fun setFilterStatus(status: ArrayList<String>) = _statusList.postValue(status)
 
-    fun setSelectedDay(day: String) = _selectedDay.postValue(day)
+    fun setSelectedDay(day: String?) = _selectedDay.postValue(day)
     fun clearSelectedDay() {
         _selectedDay.value = null
     }
