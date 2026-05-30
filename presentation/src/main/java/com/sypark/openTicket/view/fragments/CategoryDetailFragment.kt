@@ -497,8 +497,20 @@ class CategoryDetailFragment :
     private fun filterViewWatcher(filterBtnType: CategoryDetailViewModel.FilterBtnType) {
         binding.apply {
             when (filterBtnType.name) {
-                CategoryDetailViewModel.FilterBtnType.DONE.name -> {
+                CategoryDetailViewModel.FilterBtnType.OPEN.name -> {
+                    includeLayoutFilter.root.show()
+                }
 
+                CategoryDetailViewModel.FilterBtnType.CLOSE.name -> {
+                    includeLayoutFilter.root.hide()
+                }
+
+                CategoryDetailViewModel.FilterBtnType.CLEAR.name -> {
+
+                }
+
+                CategoryDetailViewModel.FilterBtnType.DONE.name -> {
+                    includeLayoutFilter.root.hide()
                     // chip 지역
                     if (categoryFilterAreaAdapter.selectedList().size == 0) {
                         setChipFalse(binding.root.context, chipArea, "지역")
