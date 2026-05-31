@@ -124,8 +124,12 @@ class CategoryDetailViewModel @Inject constructor(
     val isFinished: LiveData<Boolean>
         get() = _isFinished
 
-    private var _statusList = MutableLiveData<ArrayList<String>>()
-    val statusList: LiveData<ArrayList<String>> = _statusList
+    private var _status = MutableLiveData(Status.EMPTY)
+    val status: LiveData<Status>
+        get() = _status
+
+    private var _statusList = MutableLiveData<List<Status>>()
+    val statusList: LiveData<List<Status>> = _statusList
 
     val filterArea: LiveData<Boolean>
         get() = _filterArea
@@ -151,17 +155,47 @@ class CategoryDetailViewModel @Inject constructor(
     val selectedDay: LiveData<String?>
         get() = _selectedDay
 
+    private val mutableList = mutableListOf<Status>()
+    fun isChecked(status: Status) {
+        when (status) {
+            Status.EMPTY -> {
+                mutableList.clear()
+                _isPlaned.value = false
+                _isDuring.value = false
+                _isFinished.value = false
+            }
 
-    fun isPlanedChecked() {
-        _isPlaned.value = _isPlaned.value == false
-    }
+            Status.PLANED -> {
+                if (_isPlaned.value == false) {
+                    _isPlaned.value = true
+                    mutableList.add(status)
+                } else {
+                    _isPlaned.value = false
+                    mutableList.remove(status)
+                }
+            }
 
-    fun isDuringChecked() {
-        _isDuring.value = _isDuring.value == false
-    }
+            Status.DURING -> {
+                if (_isDuring.value == false) {
+                    _isDuring.value = true
+                    mutableList.add(status)
+                } else {
+                    _isDuring.value = false
+                    mutableList.remove(status)
+                }
+            }
 
-    fun isFinishedChecked() {
-        _isFinished.value = _isFinished.value == false
+            Status.FINISH -> {
+                if (_isFinished.value == false) {
+                    _isFinished.value = true
+                    mutableList.add(status)
+                } else {
+                    _isFinished.value = false
+                    mutableList.remove(status)
+                }
+            }
+        }
+        _statusList.value = mutableList
     }
 
     fun isShowFilterArea(isShow: Boolean) = _filterArea.postValue(isShow)
@@ -175,11 +209,13 @@ class CategoryDetailViewModel @Inject constructor(
         _filterPriceData.value = null
     }
 
-    fun setFilterStatus(status: ArrayList<String>) = _statusList.postValue(status)
-
     fun setSelectedDay(day: String?) = _selectedDay.postValue(day)
     fun clearSelectedDay() {
         _selectedDay.value = null
+    }
+
+    enum class Status {
+        EMPTY, PLANED, DURING, FINISH
     }
 
 }

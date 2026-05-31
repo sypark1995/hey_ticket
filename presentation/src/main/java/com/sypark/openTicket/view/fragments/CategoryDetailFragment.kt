@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -22,6 +23,7 @@ import com.sypark.openTicket.view.CategoryFilterAreaAdapter
 import com.sypark.openTicket.view.CategorySortAdapter
 import com.sypark.openTicket.view.PagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import org.jsoup.internal.StringUtil
 import org.threeten.bp.format.TextStyle
 import java.util.Locale
 
@@ -73,7 +75,7 @@ class CategoryDetailFragment :
             chipStatus.apply {
                 setOnCloseIconClickListener {
                     setChipFalse(it.context, this, "진행상태")
-//                    initFilterStatus()
+                    categoryDetailViewModel.isChecked(CategoryDetailViewModel.Status.EMPTY)
                 }
             }
             includeLayoutFilter.recyclerviewArea.apply {
@@ -118,13 +120,29 @@ class CategoryDetailFragment :
                     }
                 }
             }
+            //todo_sypark 이것도 분기처리 이상함...
+            categoryDetailViewModel.statusList.observe(viewLifecycleOwner) {
+                if (it.contains(CategoryDetailViewModel.Status.EMPTY)) {
 
-            categoryDetailViewModel.isPlaned.observe(viewLifecycleOwner, ::checkBoxPlannedWatcher)
-            categoryDetailViewModel.isDuring.observe(viewLifecycleOwner, ::checkBoxDuringWatcher)
-            categoryDetailViewModel.isFinished.observe(
-                viewLifecycleOwner,
-                ::checkBoxFinishedWatcher
-            )
+                } else {
+
+                }
+                if (it.contains(CategoryDetailViewModel.Status.PLANED)) {
+                    checkBoxWatcher(true, includeLayoutFilter.textPerformancePlanned)
+                } else {
+                    checkBoxWatcher(false, includeLayoutFilter.textPerformancePlanned)
+                }
+                if (it.contains(CategoryDetailViewModel.Status.DURING)) {
+                    checkBoxWatcher(true, includeLayoutFilter.textPerformanceDuring)
+                } else {
+                    checkBoxWatcher(false, includeLayoutFilter.textPerformanceDuring)
+                }
+                if (it.contains(CategoryDetailViewModel.Status.FINISH)) {
+                    checkBoxWatcher(true, includeLayoutFilter.textPerformanceFinish)
+                } else {
+                    checkBoxWatcher(false, includeLayoutFilter.textPerformanceFinish)
+                }
+            }
 
             includeLayoutFilter.textAreaAll.setOnClickListener {
                 initFilterArea(it.context)
@@ -434,57 +452,17 @@ class CategoryDetailFragment :
         //        backPressed()*/
     }
 
-    private fun checkBoxPlannedWatcher(isCheck: Boolean) {
+    private fun checkBoxWatcher(isCheck: Boolean, textView: TextView) {
         binding.apply {
             if (isCheck) {
-                includeLayoutFilter.textPerformancePlanned.setTextColor(
+                textView.setTextColor(
                     ContextCompat.getColor(
                         this.root.context,
                         R.color.black
                     )
                 )
             } else {
-                includeLayoutFilter.textPerformancePlanned.setTextColor(
-                    ContextCompat.getColor(
-                        this.root.context,
-                        R.color.gray_C8C8C8
-                    )
-                )
-            }
-        }
-    }
-
-    private fun checkBoxDuringWatcher(isCheck: Boolean) {
-        binding.apply {
-            if (isCheck) {
-                includeLayoutFilter.textPerformanceDuring.setTextColor(
-                    ContextCompat.getColor(
-                        this.root.context,
-                        R.color.black
-                    )
-                )
-            } else {
-                includeLayoutFilter.textPerformanceDuring.setTextColor(
-                    ContextCompat.getColor(
-                        this.root.context,
-                        R.color.gray_C8C8C8
-                    )
-                )
-            }
-        }
-    }
-
-    private fun checkBoxFinishedWatcher(isCheck: Boolean) {
-        binding.apply {
-            if (isCheck) {
-                includeLayoutFilter.textPerformanceFinish.setTextColor(
-                    ContextCompat.getColor(
-                        this.root.context,
-                        R.color.black
-                    )
-                )
-            } else {
-                includeLayoutFilter.textPerformanceFinish.setTextColor(
+                textView.setTextColor(
                     ContextCompat.getColor(
                         this.root.context,
                         R.color.gray_C8C8C8
@@ -507,6 +485,8 @@ class CategoryDetailFragment :
 
                 CategoryDetailViewModel.FilterBtnType.CLEAR.name -> {
 
+                    // 진행상태 clear
+                    categoryDetailViewModel.isChecked(CategoryDetailViewModel.Status.EMPTY)
                 }
 
                 CategoryDetailViewModel.FilterBtnType.DONE.name -> {
@@ -534,12 +514,41 @@ class CategoryDetailFragment :
                         }
                     }
 
+                    // 공연일
                     if (categoryDetailViewModel.selectedDay.value.isNullOrEmpty()) {
                         setChipFalse(binding.root.context, chipDay, "공연일")
                     } else {
                         setChipTrue(binding.root.context, chipDay)
                         chipDay.text =
                             categoryDetailViewModel.selectedDay.value.toString()
+                    }
+
+                    // 진행상태
+                    if (categoryDetailViewModel.statusList.value.isNullOrEmpty()) {
+                        setChipFalse(binding.root.context, chipStatus, "진행 상태")
+                    } else {
+                        setChipTrue(binding.root.context, chipStatus)
+                        val a = categoryDetailViewModel.statusList.value!!.map {
+                            when (it) {
+                                CategoryDetailViewModel.Status.FINISH -> {
+                                    "공연 종료"
+                                }
+
+                                CategoryDetailViewModel.Status.PLANED -> {
+                                    "공연 예정"
+                                }
+
+                                CategoryDetailViewModel.Status.DURING -> {
+                                    "공연 중"
+                                }
+
+                                else -> {
+                                    "진행상태"
+                                }
+                            }
+                        }
+
+                        chipStatus.text = StringUtil.join(a, ", ").toString()
                     }
                 }
 //

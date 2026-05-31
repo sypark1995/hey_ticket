@@ -11,6 +11,9 @@
 
         <import type="com.sypark.openTicket.model.CategoryDetailViewModel.FilterBtnType" />
 
+        <import type="com.sypark.openTicket.model.CategoryDetailViewModel.Status" />
+
+
         <variable
             name="viewModel"
             type="com.sypark.openTicket.model.CategoryDetailViewModel" />
@@ -239,7 +242,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:gravity="center_vertical"
-                    android:onClick="@{()-> viewModel.isPlanedChecked()}">
+                    android:onClick="@{()-> viewModel.isChecked(Status.PLANED)}">
 
                     <CheckBox
                         android:id="@+id/checkbox_planned"
@@ -249,7 +252,7 @@
                         android:background="@drawable/selector_checkbox"
                         android:button="@null"
                         android:checked="@{viewModel.isPlaned}"
-                        android:onClick="@{()-> viewModel.isPlanedChecked()}" />
+                        android:onClick="@{()-> viewModel.isChecked(Status.PLANED)}" />
 
                     <TextView
                         android:id="@+id/text_performance_planned"
@@ -259,9 +262,9 @@
                         android:layout_toEndOf="@id/checkbox_planned"
                         android:fontFamily="@font/pretendard_semi_bold"
                         android:gravity="center_vertical"
-                        android:onClick="@{()-> viewModel.isPlanedChecked()}"
+                        android:onClick="@{()-> viewModel.isChecked(Status.PLANED)}"
                         android:text="@string/category_detail_filter_planned_performance"
-                        android:textColor="@drawable/selector_text_black_gray"
+                        android:textColor="@color/gray_C8C8C8"
                         android:textSize="16sp" />
 
                     <View
@@ -277,7 +280,7 @@
                     android:layout_height="55dp"
                     android:layout_below="@id/layout_planned"
                     android:gravity="center_vertical"
-                    android:onClick="@{()-> viewModel.isDuringChecked()}">
+                    android:onClick="@{()->viewModel.isChecked(Status.DURING)}">
 
                     <CheckBox
                         android:id="@+id/checkbox_during"
@@ -287,7 +290,7 @@
                         android:background="@drawable/selector_checkbox"
                         android:button="@null"
                         android:checked="@{viewModel.isDuring}"
-                        android:onClick="@{()-> viewModel.isPlanedChecked()}" />
+                        android:onClick="@{()-> viewModel.isChecked(Status.DURING)}" />
 
                     <TextView
                         android:id="@+id/text_performance_during"
@@ -298,7 +301,7 @@
                         android:fontFamily="@font/pretendard_semi_bold"
                         android:gravity="center_vertical"
                         android:text="@string/category_detail_filter_during_performance"
-                        android:textColor="@drawable/selector_text_black_gray"
+                        android:textColor="@color/gray_C8C8C8"
                         android:textSize="16sp" />
 
                     <View
@@ -314,7 +317,7 @@
                     android:layout_height="55dp"
                     android:layout_below="@id/layout_during"
                     android:gravity="center_vertical"
-                    android:onClick="@{() -> viewModel.isFinishedChecked()}">
+                    android:onClick="@{() -> viewModel.isChecked(Status.FINISH)}">
 
                     <CheckBox
                         android:id="@+id/checkbox_finish"
@@ -324,7 +327,7 @@
                         android:background="@drawable/selector_checkbox"
                         android:button="@null"
                         android:checked="@{viewModel.isFinished}"
-                        android:onClick="@{()-> viewModel.isFinishedChecked()}" />
+                        android:onClick="@{()-> viewModel.isChecked(Status.FINISH)}" />
 
                     <TextView
                         android:id="@+id/text_performance_finish"
@@ -335,7 +338,7 @@
                         android:fontFamily="@font/pretendard_semi_bold"
                         android:gravity="center_vertical"
                         android:text="@string/category_detail_filter_finish_performance"
-                        android:textColor="@drawable/selector_text_black_gray"
+                        android:textColor="@color/gray_C8C8C8"
                         android:textSize="16sp" />
 
                     <View
