@@ -74,8 +74,25 @@ class CategoryDetailFragment :
 
             chipStatus.apply {
                 setOnCloseIconClickListener {
-                    setChipFalse(it.context, this, "진행상태")
                     categoryDetailViewModel.isChecked(CategoryDetailViewModel.Status.EMPTY)
+
+                    setChipFalse(
+                        it.context,
+                        this,
+                        getString(categoryDetailViewModel.status.value!!.res)
+                    )
+                }
+            }
+
+            chipPrice.apply {
+                setOnCloseIconClickListener {
+                    categoryDetailViewModel.setPriceType(CategoryDetailViewModel.PriceType.EMPTY)
+
+                    setChipFalse(
+                        it.context,
+                        this,
+                        getString(categoryDetailViewModel.priceType.value!!.res)
+                    )
                 }
             }
             includeLayoutFilter.recyclerviewArea.apply {
@@ -127,17 +144,20 @@ class CategoryDetailFragment :
                 } else {
 
                 }
-                if (it.contains(CategoryDetailViewModel.Status.PLANED)) {
+
+                if (it.contains(CategoryDetailViewModel.Status.ONGOING)) {
                     checkBoxWatcher(true, includeLayoutFilter.textPerformancePlanned)
                 } else {
                     checkBoxWatcher(false, includeLayoutFilter.textPerformancePlanned)
                 }
-                if (it.contains(CategoryDetailViewModel.Status.DURING)) {
+
+                if (it.contains(CategoryDetailViewModel.Status.UPCOMING)) {
                     checkBoxWatcher(true, includeLayoutFilter.textPerformanceDuring)
                 } else {
                     checkBoxWatcher(false, includeLayoutFilter.textPerformanceDuring)
                 }
-                if (it.contains(CategoryDetailViewModel.Status.FINISH)) {
+
+                if (it.contains(CategoryDetailViewModel.Status.COMPLETED)) {
                     checkBoxWatcher(true, includeLayoutFilter.textPerformanceFinish)
                 } else {
                     checkBoxWatcher(false, includeLayoutFilter.textPerformanceFinish)
@@ -244,81 +264,6 @@ class CategoryDetailFragment :
         //            binding.includeLayoutFilter.root.hide()
         //        }
         //
-        //        binding.apply {
-        //            chipDay.setOnClickListener {
-        //                includeLayoutFilter.apply {
-        //                    radioFilterDay.isChecked = true
-        //                    root.show()
-        //                    layoutFilterDay.show()
-        //
-        //                    layoutFilterArea.hide()
-        //                    layoutFilterPrice.hide()
-        //                    layoutPerformanceState.hide()
-        //                }
-        //            }
-        //
-        //            chipDay.setOnCloseIconClickListener {
-        //                setChipFalse(it.context, chipDay, "공연일")
-        //                initFilterDay()
-        //            }
-        //        }
-        //
-        //        binding.chipStatus.apply {
-        //
-        //            setOnClickListener {
-        //                binding.includeLayoutFilter.radioFilterStatus.isChecked = true
-        //                binding.includeLayoutFilter.root.show()
-        //
-        //                binding.includeLayoutFilter.layoutFilterArea.hide()
-        //                binding.includeLayoutFilter.layoutPerformanceState.show()
-        //                binding.includeLayoutFilter.layoutFilterPrice.hide()
-        //                binding.includeLayoutFilter.layoutFilterDay.hide()
-        //            }
-        //
-        //            setOnCloseIconClickListener {
-        //                setChipFalse(it.context, this, "진행상태")
-        //                initFilterStatus()
-        //            }
-        //        }
-        //
-        //        binding.includeLayoutFilter.layoutFilterReset.setOnClickListener {
-        //            initFilterArea(it.context)
-        //            setChipFalse(it.context, binding.chipArea, "지역")
-        //
-        //            initFilterStatus()
-        //            setChipFalse(it.context, binding.chipStatus, "진행상태")
-        //
-        //            initFilterPrice()
-        //            setChipFalse(it.context, binding.chipPrice, "예매가격")
-        //
-        //            initFilterDay()
-        //            setChipFalse(it.context, binding.chipDay, "공연일")
-        //        }
-        //
-        //        binding.includeLayoutFilter.textAreaAll.setOnClickListener {
-        //            initFilterArea(it.context)
-        //        }
-        //
-        //        binding.chipPrice.apply {
-        //            setOnClickListener {
-        //                binding.includeLayoutFilter.radioFilterPrice.isChecked = true
-        //                binding.includeLayoutFilter.root.show()
-        //
-        //                binding.includeLayoutFilter.layoutFilterArea.hide()
-        //                binding.includeLayoutFilter.layoutPerformanceState.hide()
-        //                binding.includeLayoutFilter.layoutFilterPrice.visibility = View.VISIBLE
-        //                binding.includeLayoutFilter.layoutFilterDay.hide()
-        //            }
-        //
-        //            setOnCloseIconClickListener {
-        //                setChipFalse(it.context, this, "예매 가격")
-        //                initFilterPrice()
-        //            }
-        //        }
-        //        binding.includeLayoutFilter.performanceCalendarView.apply {
-        //
-        //        }
-        //
         //        binding.includeLayoutFilter.performanceCalendarView.setOnDateChangedListener { widget, date, selected ->
         //            date.apply {
         //                if (selected) {
@@ -329,102 +274,6 @@ class CategoryDetailFragment :
         //                        )
         //                    })"
         //                    categoryDetailViewModel.setSelectedDay(selectedDay)
-        //                }
-        //            }
-        //        }
-        //        binding.includeLayoutFilter.layoutPlanned.setOnClickListener {
-        //            categoryDetailViewModel.isPlanedChecked()
-        //        }
-        //
-        //        binding.includeLayoutFilter.textPerformancePlanned.setOnClickListener {
-        //            categoryDetailViewModel.isPlanedChecked()
-        //        }
-        //        binding.includeLayoutFilter.checkboxPlanned.setOnClickListener {
-        //            categoryDetailViewModel.isPlanedChecked()
-        //        }
-        //
-        //        binding.includeLayoutFilter.layoutDuring.setOnClickListener {
-        //            categoryDetailViewModel.isDuringChecked()
-        //        }
-        //        binding.includeLayoutFilter.textPerformanceDuring.setOnClickListener {
-        //            categoryDetailViewModel.isDuringChecked()
-        //        }
-        //        binding.includeLayoutFilter.checkboxDuring.setOnClickListener {
-        //            categoryDetailViewModel.isDuringChecked()
-        //        }
-        //
-        //        binding.includeLayoutFilter.layoutFinish.setOnClickListener {
-        //            categoryDetailViewModel.isFinishedChecked()
-        //        }
-        //
-        //        binding.includeLayoutFilter.textPerformanceFinish.setOnClickListener {
-        //            categoryDetailViewModel.isFinishedChecked()
-        //        }
-        //        binding.includeLayoutFilter.checkboxFinish.setOnClickListener {
-        //            categoryDetailViewModel.isFinishedChecked()
-        //        }
-        //
-        //        val statusList = ArrayList<String>()
-        //
-        //        categoryDetailViewModel.isPlaned.observe(this) {
-        //            binding.includeLayoutFilter.textPerformancePlanned.isSelected = it
-        //            binding.includeLayoutFilter.checkboxPlanned.isSelected = it
-        //            if (it) {
-        //                statusList.add(binding.includeLayoutFilter.textPerformancePlanned.text.toString())
-        //                categoryDetailViewModel.setFilterStatus(statusList)
-        //            } else {
-        //                statusList.remove(binding.includeLayoutFilter.textPerformancePlanned.text.toString())
-        //                categoryDetailViewModel.setFilterStatus(statusList)
-        //            }
-        //        }
-        //
-        //        categoryDetailViewModel.isFinished.observe(this) {
-        //            binding.includeLayoutFilter.textPerformanceFinish.isSelected = it
-        //            binding.includeLayoutFilter.checkboxFinish.isSelected = it
-        //
-        //            if (it) {
-        //                statusList.add(binding.includeLayoutFilter.textPerformanceFinish.text.toString())
-        //                categoryDetailViewModel.setFilterStatus(statusList)
-        //            } else {
-        //                statusList.remove(binding.includeLayoutFilter.textPerformanceFinish.text.toString())
-        //                categoryDetailViewModel.setFilterStatus(statusList)
-        //            }
-        //        }
-        //
-        //        categoryDetailViewModel.isDuring.observe(this) {
-        //            binding.includeLayoutFilter.textPerformanceDuring.isSelected = it
-        //            binding.includeLayoutFilter.checkboxDuring.isSelected = it
-        //
-        //            if (it) {
-        //                statusList.add(binding.includeLayoutFilter.textPerformanceDuring.text.toString())
-        //                categoryDetailViewModel.setFilterStatus(statusList)
-        //            } else {
-        //                statusList.remove(binding.includeLayoutFilter.textPerformanceDuring.text.toString())
-        //                categoryDetailViewModel.setFilterStatus(statusList)
-        //            }
-        //        }
-        //
-        //
-        //        binding.includeLayoutFilter.radioGroupFilterPrice.setOnCheckedChangeListener { group, checkedId ->
-        //            when (checkedId) {
-        //                R.id.radio_filter_price_1 -> {
-        //                    categoryDetailViewModel.setFilterPrice("1만원 미만")
-        //                }
-        //
-        //                R.id.radio_filter_price_4 -> {
-        //                    categoryDetailViewModel.setFilterPrice("1~4만원")
-        //                }
-        //
-        //                R.id.radio_filter_price_7 -> {
-        //                    categoryDetailViewModel.setFilterPrice("4~7만원")
-        //                }
-        //
-        //                R.id.radio_filter_price_10 -> {
-        //                    categoryDetailViewModel.setFilterPrice("7~10만원")
-        //                }
-        //
-        //                R.id.radio_filter_price_over -> {
-        //                    categoryDetailViewModel.setFilterPrice("10만원 이상")
         //                }
         //            }
         //        }
@@ -472,6 +321,7 @@ class CategoryDetailFragment :
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun filterViewWatcher(filterBtnType: CategoryDetailViewModel.FilterBtnType) {
         binding.apply {
             when (filterBtnType.name) {
@@ -487,6 +337,9 @@ class CategoryDetailFragment :
 
                     // 진행상태 clear
                     categoryDetailViewModel.isChecked(CategoryDetailViewModel.Status.EMPTY)
+
+                    // 예매 가격
+                    categoryDetailViewModel.setPriceType(CategoryDetailViewModel.PriceType.ALL)
                 }
 
                 CategoryDetailViewModel.FilterBtnType.DONE.name -> {
@@ -524,37 +377,38 @@ class CategoryDetailFragment :
                     }
 
                     // 진행상태
+                    val statusResources: List<String>
                     if (categoryDetailViewModel.statusList.value.isNullOrEmpty()) {
                         setChipFalse(binding.root.context, chipStatus, "진행 상태")
                     } else {
                         setChipTrue(binding.root.context, chipStatus)
-                        val a = categoryDetailViewModel.statusList.value!!.map {
+
+                        statusResources = categoryDetailViewModel.statusList.value!!.map {
                             when (it) {
-                                CategoryDetailViewModel.Status.FINISH -> {
-                                    "공연 종료"
+                                CategoryDetailViewModel.Status.COMPLETED -> {
+                                    getString(CategoryDetailViewModel.Status.COMPLETED.res)
                                 }
 
-                                CategoryDetailViewModel.Status.PLANED -> {
-                                    "공연 예정"
+                                CategoryDetailViewModel.Status.ONGOING -> {
+                                    getString(CategoryDetailViewModel.Status.ONGOING.res)
                                 }
 
-                                CategoryDetailViewModel.Status.DURING -> {
-                                    "공연 중"
+                                CategoryDetailViewModel.Status.UPCOMING -> {
+                                    getString(CategoryDetailViewModel.Status.UPCOMING.res)
                                 }
 
-                                else -> {
-                                    "진행상태"
+                                CategoryDetailViewModel.Status.EMPTY -> {
+                                    getString(CategoryDetailViewModel.Status.EMPTY.res)
                                 }
                             }
                         }
-
-                        chipStatus.text = StringUtil.join(a, ", ").toString()
+                        chipStatus.text = StringUtil.join(statusResources, ", ").toString()
                     }
+
+                    // 예매 가격
+                    setChipTrue(root.context, chipPrice)
+                    chipPrice.text = getString(categoryDetailViewModel.priceType.value!!.res)
                 }
-//
-//                CategoryDetailViewModel.FilterBtnType.CLEAR.name -> {
-//
-//                }
             }
         }
 

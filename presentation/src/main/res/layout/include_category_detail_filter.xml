@@ -13,6 +13,8 @@
 
         <import type="com.sypark.openTicket.model.CategoryDetailViewModel.Status" />
 
+        <import type="com.sypark.openTicket.model.CategoryDetailViewModel.PriceType" />
+
 
         <variable
             name="viewModel"
@@ -235,14 +237,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:visibility="@{viewModel.FilterType == FilterType.STATUS ? View.VISIBLE : View.GONE}"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <RelativeLayout
                     android:id="@+id/layout_planned"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:gravity="center_vertical"
-                    android:onClick="@{()-> viewModel.isChecked(Status.PLANED)}">
+                    android:onClick="@{()-> viewModel.isChecked(Status.ONGOING)}">
 
                     <CheckBox
                         android:id="@+id/checkbox_planned"
@@ -252,7 +254,7 @@
                         android:background="@drawable/selector_checkbox"
                         android:button="@null"
                         android:checked="@{viewModel.isPlaned}"
-                        android:onClick="@{()-> viewModel.isChecked(Status.PLANED)}" />
+                        android:onClick="@{()-> viewModel.isChecked(Status.ONGOING)}" />
 
                     <TextView
                         android:id="@+id/text_performance_planned"
@@ -262,7 +264,7 @@
                         android:layout_toEndOf="@id/checkbox_planned"
                         android:fontFamily="@font/pretendard_semi_bold"
                         android:gravity="center_vertical"
-                        android:onClick="@{()-> viewModel.isChecked(Status.PLANED)}"
+                        android:onClick="@{()-> viewModel.isChecked(Status.ONGOING)}"
                         android:text="@string/category_detail_filter_planned_performance"
                         android:textColor="@color/gray_C8C8C8"
                         android:textSize="16sp" />
@@ -280,7 +282,7 @@
                     android:layout_height="55dp"
                     android:layout_below="@id/layout_planned"
                     android:gravity="center_vertical"
-                    android:onClick="@{()->viewModel.isChecked(Status.DURING)}">
+                    android:onClick="@{()->viewModel.isChecked(Status.UPCOMING)}">
 
                     <CheckBox
                         android:id="@+id/checkbox_during"
@@ -290,7 +292,7 @@
                         android:background="@drawable/selector_checkbox"
                         android:button="@null"
                         android:checked="@{viewModel.isDuring}"
-                        android:onClick="@{()-> viewModel.isChecked(Status.DURING)}" />
+                        android:onClick="@{()-> viewModel.isChecked(Status.UPCOMING)}" />
 
                     <TextView
                         android:id="@+id/text_performance_during"
@@ -317,7 +319,7 @@
                     android:layout_height="55dp"
                     android:layout_below="@id/layout_during"
                     android:gravity="center_vertical"
-                    android:onClick="@{() -> viewModel.isChecked(Status.FINISH)}">
+                    android:onClick="@{() -> viewModel.isChecked(Status.COMPLETED)}">
 
                     <CheckBox
                         android:id="@+id/checkbox_finish"
@@ -327,7 +329,7 @@
                         android:background="@drawable/selector_checkbox"
                         android:button="@null"
                         android:checked="@{viewModel.isFinished}"
-                        android:onClick="@{()-> viewModel.isChecked(Status.FINISH)}" />
+                        android:onClick="@{()-> viewModel.isChecked(Status.COMPLETED)}" />
 
                     <TextView
                         android:id="@+id/text_performance_finish"
@@ -359,7 +361,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:visibility="@{viewModel.FilterType == FilterType.PRICE ? View.VISIBLE : View.GONE}"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/text_show_low_price"
@@ -383,8 +385,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:button="@drawable/selector_radio_filter_price"
-                        android:checked="true"
+                        android:checked="@{viewModel.PriceType == PriceType.ALL || viewModel.PriceType == PriceType.EMPTY}"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setPriceType(PriceType.ALL)}"
                         android:paddingStart="10dp"
                         android:text="@string/category_detail_filter_price_all"
                         android:textColor="@drawable/selector_radio_text_black_gray"
@@ -401,7 +405,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:button="@drawable/selector_radio_filter_price"
+                        android:checked="@{viewModel.PriceType == PriceType.ONE}"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setPriceType(PriceType.ONE)}"
                         android:paddingStart="10dp"
                         android:text="@string/category_detail_filter_price_1"
                         android:textColor="@drawable/selector_radio_text_black_gray"
@@ -418,7 +425,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:button="@drawable/selector_radio_filter_price"
+                        android:checked="@{viewModel.PriceType == PriceType.FOUR}"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setPriceType(PriceType.FOUR)}"
                         android:paddingStart="10dp"
                         android:text="@string/category_detail_filter_price_4"
                         android:textColor="@drawable/selector_radio_text_black_gray"
@@ -435,7 +445,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:button="@drawable/selector_radio_filter_price"
+                        android:checked="@{viewModel.PriceType == PriceType.SEVEN}"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setPriceType(PriceType.SEVEN)}"
                         android:paddingStart="10dp"
                         android:text="@string/category_detail_filter_price_7"
                         android:textColor="@drawable/selector_radio_text_black_gray"
@@ -452,7 +465,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:button="@drawable/selector_radio_filter_price"
+                        android:checked="@{viewModel.PriceType == PriceType.TEN}"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setPriceType(PriceType.TEN)}"
                         android:paddingStart="10dp"
                         android:text="@string/category_detail_filter_price_10"
                         android:textColor="@drawable/selector_radio_text_black_gray"
@@ -469,7 +485,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:button="@drawable/selector_radio_filter_price"
+                        android:checked="@{viewModel.PriceType == PriceType.OVER}"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setPriceType(PriceType.OVER)}"
                         android:paddingStart="10dp"
                         android:text="@string/category_detail_filter_price_over"
                         android:textColor="@drawable/selector_radio_text_black_gray"

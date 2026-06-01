@@ -10,6 +10,7 @@ import com.sypark.data.db.entity.Content
 import com.sypark.data.paging.PagingRepository
 import com.sypark.data.util.Util
 import com.sypark.openTicket.Common
+import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseViewModel
 import com.sypark.openTicket.base.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,15 +50,27 @@ class CategoryDetailViewModel @Inject constructor(
         _filterType.value = type
     }
 
-
-    private val _chipType = MutableLiveData(FilterType.AREA)
-
-    val chipType: LiveData<FilterType>
-        get() = _chipType
-
-
     enum class FilterType {
         AREA, DAY, STATUS, PRICE
+    }
+
+    private val _priceType = MutableLiveData(PriceType.ALL)
+
+    val priceType: LiveData<PriceType>
+        get() = _priceType
+
+    fun setPriceType(type: PriceType) {
+        _priceType.value = type
+    }
+
+    enum class PriceType(val res: Int) {
+        EMPTY(R.string.category_detail_filter_reservation_price),
+        ALL(R.string.category_detail_filter_price_all),
+        ONE(R.string.category_detail_filter_price_1),
+        FOUR(R.string.category_detail_filter_price_4),
+        SEVEN(R.string.category_detail_filter_price_7),
+        TEN(R.string.category_detail_filter_price_10),
+        OVER(R.string.category_detail_filter_price_over)
     }
 
     fun chipOnclick(type: FilterType) {
@@ -156,6 +169,7 @@ class CategoryDetailViewModel @Inject constructor(
         get() = _selectedDay
 
     private val mutableList = mutableListOf<Status>()
+
     fun isChecked(status: Status) {
         when (status) {
             Status.EMPTY -> {
@@ -165,7 +179,7 @@ class CategoryDetailViewModel @Inject constructor(
                 _isFinished.value = false
             }
 
-            Status.PLANED -> {
+            Status.ONGOING -> {
                 if (_isPlaned.value == false) {
                     _isPlaned.value = true
                     mutableList.add(status)
@@ -175,7 +189,7 @@ class CategoryDetailViewModel @Inject constructor(
                 }
             }
 
-            Status.DURING -> {
+            Status.UPCOMING -> {
                 if (_isDuring.value == false) {
                     _isDuring.value = true
                     mutableList.add(status)
@@ -185,7 +199,7 @@ class CategoryDetailViewModel @Inject constructor(
                 }
             }
 
-            Status.FINISH -> {
+            Status.COMPLETED -> {
                 if (_isFinished.value == false) {
                     _isFinished.value = true
                     mutableList.add(status)
@@ -214,8 +228,11 @@ class CategoryDetailViewModel @Inject constructor(
         _selectedDay.value = null
     }
 
-    enum class Status {
-        EMPTY, PLANED, DURING, FINISH
+    enum class Status(val res: Int) {
+        EMPTY(R.string.category_detail_filter_progress_status),
+        ONGOING(R.string.category_detail_filter_planned_performance),
+        UPCOMING(R.string.category_detail_filter_during_performance),
+        COMPLETED(R.string.category_detail_filter_finish_performance)
     }
 
 }
