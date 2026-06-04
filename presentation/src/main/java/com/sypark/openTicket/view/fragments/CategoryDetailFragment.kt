@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
@@ -139,6 +140,7 @@ class CategoryDetailFragment :
             }
             //todo_sypark 이것도 분기처리 이상함...
             categoryDetailViewModel.statusList.observe(viewLifecycleOwner) {
+                Log.e("statusList",it.toString())
                 if (it.contains(CategoryDetailViewModel.Status.EMPTY)) {
 
                 } else {
@@ -243,41 +245,6 @@ class CategoryDetailFragment :
         //
         //
         //
-        //        binding.includeLayoutFilter.btnConfirm.setOnClickListener {
-        //            Log.e("!!!!", "includeLayoutFilter")
-        //            setUpObserver()
-        //
-        //            if (categoryDetailViewModel.filterPriceData.value.isNullOrEmpty()) {
-        //                setChipFalse(it.context, binding.chipPrice, "예매가격")
-        //            } else {
-        //                setChipTrue(it.context, binding.chipPrice)
-        //                binding.chipPrice.text = categoryDetailViewModel.filterPriceData.value.toString()
-        //            }
-        //
-        //            if (categoryDetailViewModel.selectedDay.value.isNullOrEmpty()) {
-        //                setChipFalse(it.context, binding.chipDay, "공연일")
-        //            } else {
-        //                setChipTrue(it.context, binding.chipDay)
-        //                binding.chipDay.text = categoryDetailViewModel.selectedDay.value.toString()
-        //            }
-        //
-        //            binding.includeLayoutFilter.root.hide()
-        //        }
-        //
-        //        binding.includeLayoutFilter.performanceCalendarView.setOnDateChangedListener { widget, date, selected ->
-        //            date.apply {
-        //                if (selected) {
-        //                    val selectedDay = "${date.month}.${date.day}(${
-        //                        date.date.dayOfWeek.getDisplayName(
-        //                            TextStyle.NARROW,
-        //                            Locale.KOREAN
-        //                        )
-        //                    })"
-        //                    categoryDetailViewModel.setSelectedDay(selectedDay)
-        //                }
-        //            }
-        //        }
-        //
         //        binding.recyclerviewTicket.apply {
         //            layoutManager = LinearLayoutManager(view.context)
         //            pagingAdapter = PagingAdapter {
@@ -327,6 +294,7 @@ class CategoryDetailFragment :
             when (filterBtnType.name) {
                 CategoryDetailViewModel.FilterBtnType.OPEN.name -> {
                     includeLayoutFilter.root.show()
+                    Log.e("open",categoryDetailViewModel.statusList.value.toString())
                 }
 
                 CategoryDetailViewModel.FilterBtnType.CLOSE.name -> {
@@ -339,7 +307,7 @@ class CategoryDetailFragment :
                     categoryDetailViewModel.isChecked(CategoryDetailViewModel.Status.EMPTY)
 
                     // 예매 가격
-                    categoryDetailViewModel.setPriceType(CategoryDetailViewModel.PriceType.ALL)
+                    categoryDetailViewModel.setPriceType(CategoryDetailViewModel.PriceType.EMPTY)
                 }
 
                 CategoryDetailViewModel.FilterBtnType.DONE.name -> {
@@ -415,12 +383,7 @@ class CategoryDetailFragment :
     }
 
     override fun backPressed() {
-//        if (binding.includeLayoutFilter.root.visibility == View.VISIBLE || binding.includeLayoutSort.root.visibility == View.VISIBLE) {
-//            binding.includeLayoutFilter.root.visibility = View.GONE
-//            binding.includeLayoutSort.root.visibility = View.GONE
-//        } else {
-//            findNavController().popBackStack()
-//        }
+        findNavController().popBackStack()
     }
 
     private fun onItemClicked(position: Int) {
