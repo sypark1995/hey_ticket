@@ -31,6 +31,23 @@ class CategoryDetailViewModel @Inject constructor(
         get() = _filterBtnType
 
     fun setFilterBtnType(type: FilterBtnType) {
+        when (type) {
+            FilterBtnType.OPEN -> {
+                _isPlaned.value
+            }
+
+            FilterBtnType.CLOSE -> {
+
+            }
+
+            FilterBtnType.DONE -> {
+
+            }
+
+            FilterBtnType.CLEAR -> {
+
+            }
+        }
         _filterBtnType.value = type
     }
 
@@ -169,6 +186,17 @@ class CategoryDetailViewModel @Inject constructor(
         get() = _selectedDay
 
     private val mutableList = mutableListOf<Status>()
+    fun isCheckBoxPlaned(isViewChecked: Boolean) {
+        _isPlaned.value = isViewChecked
+    }
+
+    fun isCheckBoxDuring(isViewChecked: Boolean) {
+        _isDuring.value = isViewChecked
+    }
+
+    fun isCheckBoxFinished(isViewChecked: Boolean) {
+        _isFinished.value = isViewChecked
+    }
 
     fun isChecked(status: Status) {
         when (status) {

@@ -38,6 +38,9 @@ class CategoryDetailFragment :
     private lateinit var categoryFilterAreaAdapter: CategoryFilterAreaAdapter
     private val args by navArgs<CategoryDetailFragmentArgs>()
 
+    // 진행상태
+    private lateinit var statusResources: List<String>
+
     override fun init(view: View) {
 
         binding.apply {
@@ -140,7 +143,7 @@ class CategoryDetailFragment :
             }
             //todo_sypark 이것도 분기처리 이상함...
             categoryDetailViewModel.statusList.observe(viewLifecycleOwner) {
-                Log.e("statusList",it.toString())
+                Log.e("statusList", it.toString())
                 if (it.contains(CategoryDetailViewModel.Status.EMPTY)) {
 
                 } else {
@@ -172,100 +175,6 @@ class CategoryDetailFragment :
 
             categoryDetailViewModel.filterBtnType.observe(viewLifecycleOwner, ::filterViewWatcher)
         }
-        /*//        binding.apply {
-        //            imgBack.setOnClickListener {
-        //                findNavController().popBackStack()
-        //                Preferences.sortPosition = 1
-        //            }
-        //
-        //            sortLayout.setOnClickListener {
-        //                categoryDetailViewModel.setDetailSortLayoutVisibility(true)
-        //            }
-        //
-        //            includeLayoutSort.imgClose.setOnClickListener {
-        //                categoryDetailViewModel.setDetailSortLayoutVisibility(false)
-        //                Preferences.sortPosition = 1
-        //            }
-        //
-        //            includeLayoutSort.btnConfirm.setOnClickListener {
-        //                categoryDetailViewModel.setDetailSortLayoutVisibility(false)
-        //                textSort.text = Common.sortList[Preferences.sortPosition].sort
-        //            }
-        //
-        //            imgFilter.setOnClickListener {
-        //                categoryDetailViewModel.setFilterLayoutVisibility(true)
-        //            }
-        //
-        //            includeLayoutFilter.imgClose.setOnClickListener {
-        //                categoryDetailViewModel.setFilterLayoutVisibility(false)
-        //            }
-        //
-        //            includeLayoutSort.sortRecyclerview.apply {
-        //                layoutManager = LinearLayoutManager(view.context)
-        //                categorySortAdapter = CategorySortAdapter { position ->
-        //                    onItemClicked(position)
-        //                    Preferences.sortPosition = position
-        //                }
-        //
-        //                categorySortAdapter.submitList(Common.sortList)
-        //                adapter = categorySortAdapter
-        //                categorySortAdapter.setSelectedPosition(1)
-        //            }
-        //
-        //            includeLayoutFilter.recyclerviewArea.apply {
-        //                layoutManager = LinearLayoutManager(view.context)
-        //                categoryFilterAreaAdapter = CategoryFilterAreaAdapter()
-        //                adapter = categoryFilterAreaAdapter
-        //                categoryFilterAreaAdapter.submitList(Common.categoryDetailAreaList)
-        //
-        //                categoryFilterAreaAdapter.setOnItemClickListener {
-        //                    if (categoryFilterAreaAdapter.selectedList().size == 0) {
-        //                        includeLayoutFilter.textAreaAll.setTextColor(
-        //                            ContextCompat.getColor(
-        //                                this.context,
-        //                                R.color.black
-        //                            )
-        //                        )
-        //                        includeLayoutFilter.checkboxAreaAll.show()
-        //                    } else {
-        //                        includeLayoutFilter.textAreaAll.setTextColor(
-        //                            ContextCompat.getColor(
-        //                                this.context,
-        //                                R.color.gray_B7B7B7
-        //                            )
-        //                        )
-        //                        includeLayoutFilter.checkboxAreaAll.hide()
-        //                    }
-        //
-        //                    categoryDetailViewModel.setFilterAreaList(categoryFilterAreaAdapter.selectedList())
-        //                }
-        //            }
-        //
-        //        }
-        //
-        //
-        //
-        //        binding.recyclerviewTicket.apply {
-        //            layoutManager = LinearLayoutManager(view.context)
-        //            pagingAdapter = PagingAdapter {
-        //                itemClicked(it.id)
-        //            }
-        //
-        //            adapter = pagingAdapter
-        //        }
-        //
-        //        lifecycleScope.launch {
-        //            categoryDetailViewModel.setGenre(args.item).collectLatest {
-        //                try {
-        //                    Log.e("!!!!!!!!!!", it.toString())
-        //                    pagingAdapter.submitData(it)
-        //                } catch (e: Exception) {
-        //                    Log.e("!!!", e.toString())
-        //                }
-        //            }
-        //        }
-        //
-        //        backPressed()*/
     }
 
     private fun checkBoxWatcher(isCheck: Boolean, textView: TextView) {
@@ -294,7 +203,26 @@ class CategoryDetailFragment :
             when (filterBtnType.name) {
                 CategoryDetailViewModel.FilterBtnType.OPEN.name -> {
                     includeLayoutFilter.root.show()
-                    Log.e("open",categoryDetailViewModel.statusList.value.toString())
+                    checkBoxWatcher(
+                        categoryDetailViewModel.isPlaned.value!!,
+                        includeLayoutFilter.textPerformancePlanned
+                    )
+
+                    checkBoxWatcher(
+                        categoryDetailViewModel.isDuring.value!!,
+                        includeLayoutFilter.textPerformanceDuring
+                    )
+
+                    checkBoxWatcher(
+                        categoryDetailViewModel.isFinished.value!!,
+                        includeLayoutFilter.textPerformanceFinish
+                    )
+
+                    includeLayoutFilter.apply {
+                        checkboxPlanned.isChecked = categoryDetailViewModel.isPlaned.value!!
+                        checkboxDuring.isChecked = categoryDetailViewModel.isDuring.value!!
+                        checkboxFinish.isChecked = categoryDetailViewModel.isFinished.value!!
+                    }
                 }
 
                 CategoryDetailViewModel.FilterBtnType.CLOSE.name -> {
@@ -302,23 +230,28 @@ class CategoryDetailFragment :
                 }
 
                 CategoryDetailViewModel.FilterBtnType.CLEAR.name -> {
-
+                    /** clear 시 viewModel 의  status 값을 하면 X
+                     *  clear를 하더라도 DONE을 해서 확인을 한것이 아니기때문에 view의 status 를 변경
+                     *
+                     * */
                     // 진행상태 clear
-                    categoryDetailViewModel.isChecked(CategoryDetailViewModel.Status.EMPTY)
+//                    categoryDetailViewModel.isChecked(CategoryDetailViewModel.Status.EMPTY)
+                    clearFilterStatus()
 
                     // 예매 가격
-                    categoryDetailViewModel.setPriceType(CategoryDetailViewModel.PriceType.EMPTY)
+//                    categoryDetailViewModel.setPriceType(CategoryDetailViewModel.PriceType.EMPTY)
                 }
 
                 CategoryDetailViewModel.FilterBtnType.DONE.name -> {
                     includeLayoutFilter.root.hide()
                     // chip 지역
-                    if (categoryFilterAreaAdapter.selectedList().size == 0) {
+                    if (categoryDetailViewModel.filterAreaData.value.isNullOrEmpty()) {
+
                         setChipFalse(binding.root.context, chipArea, "지역")
                     } else {
                         setChipTrue(binding.root.context, chipArea)
 
-                        when (categoryFilterAreaAdapter.selectedList().size) {
+                        when (categoryDetailViewModel.filterAreaData.value!!.size) {
                             0 -> {
                                 chipArea.text = "전체"
                             }
@@ -344,8 +277,6 @@ class CategoryDetailFragment :
                             categoryDetailViewModel.selectedDay.value.toString()
                     }
 
-                    // 진행상태
-                    val statusResources: List<String>
                     if (categoryDetailViewModel.statusList.value.isNullOrEmpty()) {
                         setChipFalse(binding.root.context, chipStatus, "진행 상태")
                     } else {
@@ -376,6 +307,7 @@ class CategoryDetailFragment :
                     // 예매 가격
                     setChipTrue(root.context, chipPrice)
                     chipPrice.text = getString(categoryDetailViewModel.priceType.value!!.res)
+                    Preferences.price = chipPrice.text.toString()
                 }
             }
         }
@@ -395,43 +327,6 @@ class CategoryDetailFragment :
         Preferences.sortPosition = 1
     }
 
-    //    private fun setTextViewSize(textView: TextView, data: String) {
-//        // 높이와 너비를 WRAP_CONTENT로 설정합니다.
-//        textView.layoutParams = LinearLayout.LayoutParams(
-//            LinearLayout.LayoutParams.WRAP_CONTENT,
-//            LinearLayout.LayoutParams.WRAP_CONTENT
-//        )
-//
-//        textView.text = data
-//
-//        // 새로운 크기를 설정합니다.
-//        textView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-//        val width = textView.measuredWidth
-//        val height = textView.measuredHeight
-//
-//        textView.layoutParams = LinearLayout.LayoutParams(width, height)
-//    }
-//
-//    private fun setChipTrue(context: Context, chip: Chip) {
-//        chip.chipBackgroundColor =
-//            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.black_111111))
-//        chip.chipStrokeColor =
-//            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.black_111111))
-//        chip.isCloseIconVisible = true
-//        chip.setTextColor(ContextCompat.getColor(context, R.color.white))
-//    }
-//
-//    private fun setChipFalse(context: Context, chip: Chip, text: String) {
-//        chip.chipBackgroundColor =
-//            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
-//        chip.chipStrokeColor =
-//            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.gray_EFEFEF))
-//        chip.isCloseIconVisible = false
-//        chip.setTextColor(ContextCompat.getColor(context, R.color.gray_949494))
-//        chip.text = text
-//    }
-//
-//
     private fun setChipTrue(context: Context, chip: Chip) {
         chip.apply {
             chipBackgroundColor =
@@ -443,28 +338,21 @@ class CategoryDetailFragment :
         }
     }
 
-    //
-//    // 필터 진행상태 초기화
-//    private fun initFilterStatus() {
-//        binding.includeLayoutFilter.checkboxDuring.isSelected = false
-//        binding.includeLayoutFilter.checkboxPlanned.isSelected = false
-//        binding.includeLayoutFilter.checkboxFinish.isSelected = false
-//        binding.includeLayoutFilter.textPerformanceDuring.isSelected = false
-//        binding.includeLayoutFilter.textPerformancePlanned.isSelected = false
-//        binding.includeLayoutFilter.textPerformanceFinish.isSelected = false
-//        categoryDetailViewModel.statusList.value?.clear()
-//    }
-//
-//    private fun initFilterPrice() {
-//        binding.includeLayoutFilter.radioFilterPriceAll.isChecked = true
-//        binding.includeLayoutFilter.radioFilterPrice1.isChecked = false
-//        binding.includeLayoutFilter.radioFilterPrice4.isChecked = false
-//        binding.includeLayoutFilter.radioFilterPrice7.isChecked = false
-//        binding.includeLayoutFilter.radioFilterPrice10.isChecked = false
-//        binding.includeLayoutFilter.radioFilterPriceOver.isChecked = false
-//        categoryDetailViewModel.clearFilterPrice()
-//    }
-//
+
+    private fun clearFilterStatus() {
+        /**     filter 진행상태 view clear
+         *
+         * */
+        binding.includeLayoutFilter.apply {
+            checkBoxWatcher(false, textPerformanceDuring)
+            checkBoxWatcher(false, textPerformancePlanned)
+            checkBoxWatcher(false, textPerformanceFinish)
+            checkboxDuring.isChecked = false
+            checkboxPlanned.isChecked = false
+            checkboxFinish.isChecked = false
+        }
+    }
+
     private fun initFilterDay() {
 //        categoryDetailViewModel.clearSelectedDay()
         categoryDetailViewModel.setSelectedDay(null)
@@ -496,53 +384,6 @@ class CategoryDetailFragment :
         }
     }
 
-    //
-//    private fun itemClicked(id: String) {
-//        findNavController().navigate(
-//            CategoryDetailFragmentDirections.actionCategoryDetailFragmentToTicketDetailFragment(
-//                id
-//            )
-//        )
-//    }
-//
-//    private fun setUpObserver() {
-//        categoryDetailViewModel.filterAreaData.observe(viewLifecycleOwner, ::isFilterAreaWatcher)
-//        categoryDetailViewModel.statusList.observe(viewLifecycleOwner, ::isFilterChipWatcher)
-//    }
-//
-//    private fun isFilterAreaWatcher(list: ArrayList<CategoryDetailArea>) {
-//        if (list.isEmpty()) {
-//            setChipFalse1(binding.chipArea, "지역")
-//        } else {
-//            setChipTrue1(binding.chipArea)
-//
-//            when (list.size) {
-//                0 -> {
-//                    binding.chipArea.text = "전체"
-//                }
-//
-//                1 -> {
-//                    binding.chipArea.text =
-//                        categoryDetailViewModel.filterAreaData.value!![0].area
-//                }
-//
-//                else -> {
-//                    binding.chipArea.text =
-//                        "지역 ${categoryDetailViewModel.filterAreaData.value?.size}"
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun isFilterChipWatcher(list: ArrayList<String>) {
-//        if (list.isEmpty()) {
-//            setChipFalse1(binding.chipStatus, "진행 상태")
-//        } else {
-//            setChipTrue1(binding.chipStatus)
-//            binding.chipStatus.text =
-//                StringUtil.join(list, ", ").toString()
-//        }
-//    }
     private fun setChipFalse(context: Context, chip: Chip, text: String) {
         chip.apply {
             chipBackgroundColor =
