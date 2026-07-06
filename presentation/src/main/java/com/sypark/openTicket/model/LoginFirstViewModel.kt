@@ -34,7 +34,6 @@ class LoginFirstViewModel @Inject constructor(
     fun setEmailAddress(email: String) {
         mutableEmailAddress.postValue(email)
     }
-
     fun getLoginValidation() {
         viewModelScope.launch {
             _response.emit(ApiResult.Loading)

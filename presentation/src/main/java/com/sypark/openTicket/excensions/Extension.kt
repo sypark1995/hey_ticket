@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.RadioButton
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
@@ -49,6 +50,10 @@ fun View.hide() {
 
 fun View.invisible() {
     visibility = View.INVISIBLE
+}
+
+fun RadioButton.checked() {
+    isChecked = true
 }
 
 fun EditText.onTextChanged(textChanged: ((String) -> Unit)) {

@@ -25,7 +25,7 @@ class MyApplication : Application() {
 
         context = applicationContext
         AppPreference.init(this)
-        KakaoSdk.init(this, BuildConfig.KAKAO_API_KEY)
+//        KakaoSdk.init(this, BuildConfig.KAKAO_API_KEY)
 //        LocalDB.getInstance(context)
     }
 }

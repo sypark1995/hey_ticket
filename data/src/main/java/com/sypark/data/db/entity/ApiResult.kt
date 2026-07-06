@@ -10,9 +10,9 @@ sealed class ApiResult<out T> {
     data class Error(val code: Int? = null, val exception: Throwable? = null): ApiResult<Nothing>()
 }
 
-fun <T> safeFlow(apiFunc: suspend () -> T): Flow<ApiResult<T>> = flow {
+fun <T> safeFlow(service: suspend () -> T): Flow<ApiResult<T>> = flow {
     try {
-        emit(ApiResult.Success(apiFunc.invoke()))
+        emit(ApiResult.Success(service.invoke()))
     } catch (e: NullPointerException) {
         emit(ApiResult.Loading)
     } catch (e: HttpException) {
