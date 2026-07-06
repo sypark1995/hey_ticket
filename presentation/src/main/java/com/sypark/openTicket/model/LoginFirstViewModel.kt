@@ -3,7 +3,7 @@ package com.sypark.openTicket.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.sypark.data.db.entity.ApiResult
+import com.sypark.domain.model.ApiResult
 import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.request.LoginVerification
 import com.sypark.data.repository.LoginRepository

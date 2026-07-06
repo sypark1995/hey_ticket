@@ -1,6 +1,6 @@
 package com.sypark.data.repository
 
-import com.sypark.data.db.entity.ApiResult
+import com.sypark.domain.model.ApiResult
 import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.request.LoginVerification
 import com.sypark.data.db.entity.request.RegisterValidationSend

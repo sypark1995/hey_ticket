@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sypark.data.db.entity.ApiResult
+import com.sypark.domain.model.ApiResult
 import com.sypark.data.db.entity.BaseResponse
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment

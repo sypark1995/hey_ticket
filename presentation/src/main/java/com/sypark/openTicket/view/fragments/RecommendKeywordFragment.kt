@@ -16,7 +16,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sypark.data.db.entity.ApiResult
+import com.sypark.domain.model.ApiResult
 import com.sypark.data.db.entity.RegisterToken
 import com.sypark.data.db.entity.request.Signup
 import com.sypark.openTicket.PREFERENCE_KEY_ACCESS_TOKEN

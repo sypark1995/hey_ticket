@@ -1,7 +1,7 @@
 package com.sypark.openTicket.model
 
 import androidx.lifecycle.viewModelScope
-import com.sypark.data.db.entity.ApiResult
+import com.sypark.domain.model.ApiResult
 import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.request.RegisterValidationSend
 import com.sypark.data.repository.LoginRepository
