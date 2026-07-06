@@ -23,9 +23,3 @@ Clean Architecture 기반의 멀티 모듈 구조로 구성되어 있습니다.
 - Jetpack Navigation (Safe Args)
 - Jetpack Compose / View Binding / Data Binding
 - Paging
-
-## 빌드
-
-```bash
-./gradlew build
-```
