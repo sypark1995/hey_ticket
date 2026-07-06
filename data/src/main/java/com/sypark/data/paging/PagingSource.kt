@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sypark.data.db.entity.Content
-import com.sypark.data.db.entity.Data
+import com.sypark.domain.model.Content
+import com.sypark.domain.model.Data
 import com.sypark.data.service.OpenTicketService
 import com.sypark.data.util.Util
 import javax.inject.Inject

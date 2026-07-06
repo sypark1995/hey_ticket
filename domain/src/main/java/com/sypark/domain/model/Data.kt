@@ -1,4 +1,4 @@
-package com.sypark.data.db.entity
+package com.sypark.domain.model
 
 data class Data(
     val contents: List<Content>,

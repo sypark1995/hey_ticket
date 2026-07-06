@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.sypark.data.db.entity.Content
+import com.sypark.domain.model.Content
 import com.sypark.data.db.entity.SearchWord
 import com.sypark.data.paging.PagingRepository
 import com.sypark.data.repository.SearchRepository

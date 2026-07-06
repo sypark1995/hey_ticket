@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.sypark.data.db.entity.Areas
-import com.sypark.data.db.entity.Content
+import com.sypark.domain.model.Content
 import com.sypark.data.paging.PagingRepository
 import com.sypark.data.util.Util
 import com.sypark.openTicket.Common

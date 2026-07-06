@@ -9,7 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.sypark.data.db.entity.Content
+import com.sypark.domain.model.Content
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.databinding.ItemTicketBinding
 

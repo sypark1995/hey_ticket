@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sypark.data.db.entity.Content
-import com.sypark.data.db.entity.Data
+import com.sypark.domain.model.Content
+import com.sypark.domain.model.Data
 import com.sypark.data.db.entity.OpenTicket
 import com.sypark.data.repository.MainRepository
 import com.sypark.data.util.Util

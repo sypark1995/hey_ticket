@@ -3,7 +3,7 @@ package com.sypark.data.paging
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.sypark.data.db.entity.Content
+import com.sypark.domain.model.Content
 import com.sypark.data.service.OpenTicketService
 import com.sypark.data.util.Util
 import kotlinx.coroutines.flow.Flow
