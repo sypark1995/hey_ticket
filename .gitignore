@@ -7,6 +7,9 @@
 /captures
 .externalNativeBuild
 .cxx
+/.claude
+/CLAUDE.md
+/docs/superpowers
 ### Android template
 # Built application files
 *.apk
