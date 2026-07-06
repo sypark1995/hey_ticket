@@ -5,6 +5,7 @@ const val FILENAME = "com.sypark.openTicket"
 
 
 const val PREFERENCE_SORT_INDEX = "SORT_INDEX"
+const val PREFERENCE_KEY_PRICE = "PRICE"
 const val PREFERENCE_KEY_FILTER_AREA = "FILTER_AREA"
 const val PREFERENCE_KEY_EMAIL = "EMAIL"
 const val PREFERENCE_KEY_PW = "PW"

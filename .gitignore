@@ -10,6 +10,7 @@
 /.claude
 /CLAUDE.md
 /docs/superpowers
+/.superpowers
 ### Android template
 # Built application files
 *.apk
