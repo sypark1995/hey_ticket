@@ -26,7 +26,7 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
 import com.sypark.data.db.entity.PlaceDetail
-import com.sypark.data.db.entity.TicketDetail
+import com.sypark.domain.model.TicketDetail
 import com.sypark.openTicket.BaseUtil
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.R

@@ -1,6 +1,7 @@
 package com.sypark.data.di
 
 import com.sypark.data.repository.*
+import com.sypark.domain.repository.TicketDetailRepository
 import com.sypark.domain.repository.TicketRepository
 import dagger.Binds
 import dagger.Module

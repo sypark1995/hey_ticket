@@ -40,4 +40,10 @@ interface KopisApiService {
         @Query("area") areaCode: String? = null,
         @Query("catecode") genreCode: String? = null,
     ): String
+
+    @GET("prfplc/{id}")
+    suspend fun requestFacilityDetail(
+        @Path("id") venueId: String,
+        @Query("service") serviceKey: String,
+    ): String
 }

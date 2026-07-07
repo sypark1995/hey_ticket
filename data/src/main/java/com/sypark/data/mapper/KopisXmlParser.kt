@@ -1,9 +1,17 @@
 package com.sypark.data.mapper
 
 import com.sypark.domain.model.Content
+import com.sypark.domain.model.TicketDetail
 import org.w3c.dom.Element
 import java.io.ByteArrayInputStream
 import javax.xml.parsers.DocumentBuilderFactory
+
+data class KopisFacility(
+    val address: String,
+    val latitude: Double,
+    val longitude: Double,
+    val phoneNumber: String,
+)
 
 object KopisXmlParser {
 
@@ -15,6 +23,43 @@ object KopisXmlParser {
 
     fun parseBoxOffice(xml: String): List<Content> =
         elementsOf(xml, "boxof").map { it.toBoxOfficeContent() }
+
+    fun parseFacility(xml: String): KopisFacility {
+        val element = elementsOf(xml, "db").first()
+        return KopisFacility(
+            address = element.text("adres"),
+            latitude = element.text("la").toDoubleOrNull() ?: 0.0,
+            longitude = element.text("lo").toDoubleOrNull() ?: 0.0,
+            phoneNumber = element.text("telno"),
+        )
+    }
+
+    fun toTicketDetail(performance: Content, facility: KopisFacility): TicketDetail =
+        TicketDetail(
+            id = performance.id,
+            title = performance.title,
+            startDate = performance.startDate,
+            endDate = performance.endDate,
+            theater = performance.theater,
+            cast = performance.cast,
+            crew = performance.crew,
+            runtime = performance.runtime,
+            age = performance.age,
+            company = performance.company,
+            price = performance.price,
+            poster = performance.poster,
+            story = performance.story,
+            genre = performance.genre,
+            status = performance.state,
+            openRun = performance.openRun,
+            storyUrls = performance.storyUrls,
+            schedule = performance.schedule,
+            views = 0L, // KOPIS에는 조회수 개념이 없음 — 옛 자체 백엔드 전용 필드였으므로 0 고정
+            latitude = facility.latitude,
+            longitude = facility.longitude,
+            address = facility.address,
+            phoneNumber = facility.phoneNumber,
+        )
 
     private fun elementsOf(xml: String, tagName: String): List<Element> {
         val factory = DocumentBuilderFactory.newInstance()

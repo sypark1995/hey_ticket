@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sypark.data.db.entity.TicketDetail
-import com.sypark.data.repository.TicketDetailRepository
+import com.sypark.domain.model.TicketDetail
+import com.sypark.domain.repository.TicketDetailRepository
 import com.sypark.openTicket.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

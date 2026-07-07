@@ -35,6 +35,8 @@ class FakeKopisApiService : KopisApiService {
     override suspend fun requestBoxOffice(
         serviceKey: String, periodType: String, date: String, areaCode: String?, genreCode: String?
     ) = LIST_XML
+
+    override suspend fun requestFacilityDetail(venueId: String, serviceKey: String) = LIST_XML
 }
 
 class TicketRepositoryImplTest {
