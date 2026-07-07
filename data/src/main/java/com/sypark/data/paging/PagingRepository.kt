@@ -3,14 +3,14 @@ package com.sypark.data.paging
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.sypark.domain.model.Content
-import com.sypark.data.service.OpenTicketService
+import com.sypark.data.service.KopisApiService
 import com.sypark.data.util.Util
+import com.sypark.domain.model.Content
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PagingRepository @Inject constructor(
-    private val service: OpenTicketService
+    private val service: KopisApiService
 ) {
     fun getPagingData(
         boxOfficeGenre: String,
@@ -29,14 +29,7 @@ class PagingRepository @Inject constructor(
         ).flow
     }
 
-//    fun getSearchPagingData(query: String, searchType: Util.SearchType): Flow<PagingData<Content>> {
-//        return Pager(
-//            config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
-//            pagingSourceFactory = { PagingSearchSource(service, query, searchType) }
-//        ).flow
-//    }
-
-    fun getSearchPagingData2(query: String, searchType: Util.SearchType): Flow<PagingData<Pair<Content,Long>>> {
+    fun getSearchPagingData2(query: String, searchType: Util.SearchType): Flow<PagingData<Pair<Content, Long>>> {
         return Pager(
             config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
             pagingSourceFactory = { PagingSearchSource(service, query, searchType) }
@@ -47,4 +40,3 @@ class PagingRepository @Inject constructor(
         const val PAGER_SIZE = 10
     }
 }
-
