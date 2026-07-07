@@ -57,8 +57,12 @@ class MainViewModel @Inject constructor(
         pageSize: Int? = 10
     ) {
         getPerformanceNewUseCase(genre, page ?: 1, pageSize ?: 10).collect { result ->
-            if (result is ApiResult.Success && result.value.isNotEmpty()) {
-                _newTicketList.value = result.value
+            when (result) {
+                is ApiResult.Success -> if (result.value.isNotEmpty()) {
+                    _newTicketList.value = result.value
+                }
+                is ApiResult.Error -> _isLoading.value = false
+                is ApiResult.Loading -> Unit
             }
         }
     }
