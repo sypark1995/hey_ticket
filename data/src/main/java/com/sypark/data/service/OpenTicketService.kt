@@ -1,75 +1,14 @@
 package com.sypark.data.service
 
-import com.sypark.data.db.entity.*
+import com.sypark.data.db.entity.BaseResponse
 import com.sypark.data.db.entity.request.LoginVerification
 import com.sypark.data.db.entity.request.RegisterValidationSend
 import com.sypark.data.db.entity.request.RegisterValidationVerify
 import com.sypark.data.db.entity.request.Signup
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface OpenTicketService {
-
-    @GET("/interpark")
-    suspend fun requestInterParkTicket(
-        @Query("genre")
-        genre: String,
-
-        @Query("order")
-        order: String,
-
-        @Query("pageIndex")
-        pageIndex: String,
-
-        @Query("size")
-        size: String?,
-    ): List<OpenTicket>?
-
-    @GET("/api/v1/performances")
-    suspend fun requestPerformances(
-        @Query("page")
-        page: Int,
-
-        @Query("size")
-        size: Int
-    ): List<Ticket>
-
-    @GET("/api/performances/{id}")
-    suspend fun requestPerformancesDetail(
-        @Path("id")
-        id: String
-    ): BaseResponse
-
-    @GET("/api/performances/rank")
-    suspend fun requestPerformancesRanking(
-        @Query("timePeriod")
-        timePeriod: String?,
-        @Query("boxOfficeGenre")
-        boxOfficeGenre: String?,
-        @Query("boxOfficeArea")
-        boxOfficeArea: String?,
-        @Query("page")
-        page: Int?,
-        @Query("pageSize")
-        pageSize: Int?,
-    ): BaseResponse
-
-    @GET("/api/performances/new")
-    suspend fun requestPerformancesNew(
-        @Query("genre")
-        genre: String?,
-        @Query("sortType")
-        sortType: String?,
-        @Query("sortOrder")
-        sortOrder: String?,
-        @Query("page")
-        page: Int?,
-        @Query("pageSize")
-        pageSize: Int?
-    ): BaseResponse
-
-    @GET("/api/performances/genres/count")
-    suspend fun requestPerformancesCount(
-    ): BaseResponse
 
     @POST("/api/members/validation")
     suspend fun requestLoginValidation(
@@ -93,18 +32,6 @@ interface OpenTicketService {
     suspend fun requestSignUp(
         @Body
         signup: Signup
-    ): BaseResponse
-
-    @GET("/api/performances/search")
-    suspend fun requestSearch(
-        @Query("searchType")
-        searchType: String?,
-        @Query("query")
-        query: String?,
-        @Query("page")
-        page: Int?,
-        @Query("pageSize")
-        pageSize: Int?
     ): BaseResponse
 
 }

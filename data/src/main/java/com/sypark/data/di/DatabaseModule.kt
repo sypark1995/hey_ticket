@@ -2,8 +2,6 @@ package com.sypark.data.di
 
 import android.app.Application
 import androidx.room.Room
-import com.sypark.data.db.InterParkOpenTicketDao
-import com.sypark.data.db.MelonOpenTicketDao
 import com.sypark.data.db.TicketDatabase
 import com.sypark.data.db.SearchWordDao
 import dagger.Module
@@ -28,25 +26,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideInterParkTicketDao(appDatabase: TicketDatabase): InterParkOpenTicketDao {
-        return appDatabase.interParkDao()
-    }
-
-    @Provides
-    @Singleton
-    fun provideMelonDao(appDatabase: TicketDatabase): MelonOpenTicketDao {
-        return appDatabase.melonDao()
-    }
-
-    @Provides
-    @Singleton
     fun provideSearchWordDao(appDatabase: TicketDatabase): SearchWordDao {
         return appDatabase.searchWordDao()
     }
-//
-//    @Provides
-//    @Singleton
-//    fun provideYes24TicketDao(appDatabase: TicketDatabase): Yes24OpenTicketDao {
-//        return appDatabase.yes24Dao()
-//    }
 }

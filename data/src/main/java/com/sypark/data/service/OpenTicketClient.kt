@@ -1,7 +1,6 @@
 package com.sypark.data.service
 
 import com.sypark.data.db.entity.BaseResponse
-import com.sypark.data.db.entity.OpenTicket
 import com.sypark.data.db.entity.request.LoginVerification
 import com.sypark.data.db.entity.request.RegisterValidationSend
 import com.sypark.data.db.entity.request.RegisterValidationVerify
@@ -11,51 +10,6 @@ import javax.inject.Inject
 class OpenTicketClient @Inject constructor(
     private val openTicketService: OpenTicketService
 ) {
-    suspend fun requestInterParkTicket(
-        genre: String,
-        order: String,
-        pageIndex: String,
-        size: String?,
-    ): List<OpenTicket>? = openTicketService.requestInterParkTicket(
-        genre,
-        order,
-        pageIndex,
-        size
-    )
-
-    suspend fun requestTicketDetail(
-        id: String
-    ): BaseResponse = openTicketService.requestPerformancesDetail(
-        id
-    )
-
-    suspend fun requestPerformancesRanking(
-        timePeriod: String?,
-        boxOfficeGenre: String?,
-        boxOfficeArea: String?,
-        page: Int?,
-        pageSize: Int?
-    ): BaseResponse = openTicketService.requestPerformancesRanking(
-        timePeriod, boxOfficeGenre, boxOfficeArea, page, pageSize
-    )
-
-    suspend fun requestPerformanceNew(
-        genre: String?,
-        sortType: String?,
-        sortOrder: String?,
-        page: Int?,
-        pageSize: Int?
-    ): BaseResponse = openTicketService.requestPerformancesNew(
-        genre,
-        sortType,
-        sortOrder,
-        page,
-        pageSize
-    )
-
-    suspend fun requestPerformanceCount(): BaseResponse =
-        openTicketService.requestPerformancesCount()
-
     suspend fun requestLoginValidation(
         loginVerification: LoginVerification
     ): BaseResponse = openTicketService.requestLoginValidation(
