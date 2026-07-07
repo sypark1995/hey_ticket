@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sypark.data.db.entity.GenreCount
+import com.sypark.domain.model.GenreCount
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.databinding.ItemCategoryBinding
 
