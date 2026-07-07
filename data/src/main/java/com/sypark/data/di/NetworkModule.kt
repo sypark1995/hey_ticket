@@ -18,6 +18,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.CookieManager
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -27,6 +28,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @Named("openTicket")
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .cookieJar(JavaNetCookieJar(CookieManager()))
@@ -40,7 +42,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    @Named("openTicket")
+    fun provideRetrofit(@Named("openTicket") okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BaseUrlUtil.baseUrl)
@@ -61,7 +64,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun instanceTicketService(retrofit: Retrofit): OpenTicketService {
+    fun instanceTicketService(@Named("openTicket") retrofit: Retrofit): OpenTicketService {
         return retrofit.create(OpenTicketService::class.java)
     }
 
