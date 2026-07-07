@@ -9,12 +9,20 @@ android {
     namespace 'com.sypark.data'
     compileSdk 32
 
+    buildFeatures {
+        buildConfig true
+    }
+
     defaultConfig {
         minSdk 21
         targetSdk 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        buildConfigField "String", "KOPIS_SERVICE_KEY", "\"${properties.getProperty('KOPIS_SERVICE_KEY', '')}\""
     }
 
     buildTypes {
