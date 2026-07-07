@@ -15,7 +15,7 @@ class PagingSearchSource @Inject constructor(
     private val query: String,
     private val searchType: Util.SearchType? = Util.SearchType.PERFORMANCE
 ) : PagingSource<Int, Pair<Content, Long>>() {
-
+    // KOPIS 공연 검색 API는 아티스트 전용 검색 파라미터를 지원하지 않아 searchType이 ARTIST여도 PERFORMANCE와 동일하게 shprfnm(제목) 검색으로 대체한다
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Pair<Content, Long>> {
         return try {
             val nextPage = params.key ?: 1
