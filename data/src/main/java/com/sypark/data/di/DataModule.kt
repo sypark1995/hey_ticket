@@ -1,6 +1,7 @@
 package com.sypark.data.di
 
 import com.sypark.data.repository.*
+import com.sypark.domain.repository.TicketRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,9 +12,9 @@ import dagger.hilt.components.SingletonComponent
 interface DataModule {
 
     @Binds
-    fun bindsMainRepository(
-        mainRepositoryImpl: MainRepositoryImpl
-    ): MainRepository
+    fun bindsTicketRepository(
+        ticketRepositoryImpl: TicketRepositoryImpl
+    ): TicketRepository
 
     @Binds
     fun bindsSearchRepository(
