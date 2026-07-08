@@ -22,7 +22,8 @@ android {
 
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        buildConfigField "String", "KOPIS_SERVICE_KEY", "\"${properties.getProperty('KOPIS_SERVICE_KEY', '')}\""
+        def kopisServiceKey = properties.getProperty('KOPIS_SERVICE_KEY', '').replaceAll(/^"|"$/, '')
+        buildConfigField "String", "KOPIS_SERVICE_KEY", "\"${kopisServiceKey}\""
     }
 
     buildTypes {
