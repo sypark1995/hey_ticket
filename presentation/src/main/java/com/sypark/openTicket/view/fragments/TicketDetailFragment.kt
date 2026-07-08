@@ -283,7 +283,7 @@ class TicketDetailFragment :
 
                 btnWebView.setOnClickListener {
                     findNavController().navigate(
-                        TicketDetailFragmentDirections.actionTicketDetailFragmentToWebViewFragment(
+                        TicketDetailFragmentDirections.actionTicketDetailFragmentToBookingOptionFragment(
                             item.title
                         )
                     )

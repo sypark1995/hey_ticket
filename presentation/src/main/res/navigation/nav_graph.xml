@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_ticketDetailFragment_to_webViewFragment"
             app:destination="@id/webViewFragment" />
+        <action
+            android:id="@+id/action_ticketDetailFragment_to_bookingOptionFragment"
+            app:destination="@id/bookingOptionFragment" />
     </fragment>
 
     <fragment
@@ -94,6 +97,16 @@
             android:name="item"
             app:argType="string" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookingOptionFragment"
+        android:name="com.sypark.openTicket.view.fragments.BookingOptionFragment"
+        android:label="예매처 선택"
+        tools:layout="@layout/fragment_booking_option">
+        <argument
+            android:name="performanceTitle"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/loginFirstFragment"
