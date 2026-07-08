@@ -7,6 +7,7 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
@@ -181,6 +182,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         viewModel.newTicketList.observe(this) {
             newTicketAdapter.submitList(it)
+        }
+
+        viewModel.errorEvent.observe(viewLifecycleOwner) {
+            Toast.makeText(view.context, R.string.error_network_generic, Toast.LENGTH_SHORT).show()
         }
     }
 

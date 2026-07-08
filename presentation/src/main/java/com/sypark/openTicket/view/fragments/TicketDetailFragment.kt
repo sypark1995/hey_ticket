@@ -50,7 +50,6 @@ class TicketDetailFragment :
     private var naverMap: NaverMap? = null
     private lateinit var bitmap: Bitmap
 
-    //todo_sypark 네트워크 핸들링 예정
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun init(view: View) {
@@ -66,6 +65,10 @@ class TicketDetailFragment :
 
         lifecycleScope.launch {
             viewModel.getTicketDetailData((args.item))
+        }
+
+        viewModel.errorEvent.observe(viewLifecycleOwner) {
+            Toast.makeText(view.context, R.string.error_network_generic, Toast.LENGTH_SHORT).show()
         }
 
         viewModel.ticketDetail.observe(viewLifecycleOwner) { item ->

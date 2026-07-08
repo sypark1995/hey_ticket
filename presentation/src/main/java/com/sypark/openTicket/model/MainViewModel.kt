@@ -9,6 +9,7 @@ import com.sypark.domain.model.Content
 import com.sypark.domain.usecase.GetPerformanceNewUseCase
 import com.sypark.domain.usecase.GetPerformanceRankingUseCase
 import com.sypark.openTicket.base.BaseViewModel
+import com.sypark.openTicket.base.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -20,6 +21,9 @@ class MainViewModel @Inject constructor(
 
     private var _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _errorEvent = SingleLiveEvent<Unit>()
+    val errorEvent: LiveData<Unit> = _errorEvent
 
     var toastMessage: String = ""
 
@@ -43,7 +47,10 @@ class MainViewModel @Inject constructor(
                     _rankingList.value = result.value
                     _isMutableShimmerLoading.value = true
                 }
-                is ApiResult.Error -> _isMutableShimmerLoading.value = false
+                is ApiResult.Error -> {
+                    _isMutableShimmerLoading.value = false
+                    _errorEvent.call()
+                }
                 is ApiResult.Loading -> Unit
             }
         }
@@ -61,7 +68,10 @@ class MainViewModel @Inject constructor(
                 is ApiResult.Success -> if (result.value.isNotEmpty()) {
                     _newTicketList.value = result.value
                 }
-                is ApiResult.Error -> _isLoading.value = false
+                is ApiResult.Error -> {
+                    _isLoading.value = false
+                    _errorEvent.call()
+                }
                 is ApiResult.Loading -> Unit
             }
         }
