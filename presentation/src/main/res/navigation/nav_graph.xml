@@ -18,9 +18,6 @@
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_loginFirstFragment"
-            app:destination="@id/loginFirstFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment" />
         <action
@@ -108,106 +105,6 @@
             android:name="performanceTitle"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/loginFirstFragment"
-        android:name="com.sypark.openTicket.view.fragments.LoginFirstFragment"
-        android:label="LoginFirstFragment"
-        tools:layout="@layout/fragment_login_first">
-        <action
-            android:id="@+id/action_loginFirstFragment_to_loginSecondFragment"
-            app:destination="@id/loginSecondFragment" />
-        <action
-            android:id="@+id/action_loginFirstFragment_to_registerValidationFragment"
-            app:destination="@id/registerValidationFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/loginSecondFragment"
-        android:name="com.sypark.openTicket.view.fragments.LoginSecondFragment"
-        android:label="LoginSecondFragment"
-        tools:layout="@layout/fragment_login_second">
-
-        <argument
-            android:name="item"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_loginSecondFragment_to_loginFindPwFragment"
-            app:destination="@id/loginFindPwFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/loginFindPwFragment"
-        android:name="com.sypark.openTicket.view.fragments.LoginFindPwFragment"
-        android:label="LoginFindPwFragment"
-        tools:layout="@layout/fragment_find_pw">
-
-        <argument
-            android:name="item"
-            app:argType="string" />
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/registerFirstFragment"
-        android:name="com.sypark.openTicket.view.fragments.RegisterFirstFragment"
-        android:label="RegisterFirstFragment"
-        tools:layout="@layout/fragment_register_first">
-
-        <argument
-            android:name="item"
-            app:argType="string" />
-
-        <action
-            android:id="@+id/action_registerFirstFragment_to_registerPasswordFragment"
-            app:destination="@id/registerPasswordFragment"
-            app:popUpTo="@id/loginFirstFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registerPasswordFragment"
-        android:name="com.sypark.openTicket.view.fragments.RegisterPasswordFragment"
-        android:label="RegisterPasswordFragment"
-        tools:layout="@layout/fragment_register_password">
-
-        <action
-            android:id="@+id/action_registerPasswordFragment_to_recommendFragment"
-            app:destination="@id/recommendFragment"
-            app:popUpTo="@id/loginFirstFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/recommendFragment"
-        android:name="com.sypark.openTicket.view.fragments.RecommendFragment"
-        android:label="RecommendFragment"
-        tools:layout="@layout/fragment_recommend_category">
-
-        <action
-            android:id="@+id/action_recommendFragment_to_recommendKeywordFragment"
-            app:destination="@id/recommendKeywordFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/recommendKeywordFragment"
-        android:name="com.sypark.openTicket.view.fragments.RecommendKeywordFragment"
-        android:label="RecommendKeywordFragment"
-        tools:layout="@layout/fragment_recommend_keyword">
-        <action
-            android:id="@+id/action_recommendKeywordFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/registerValidationFragment"
-        android:name="com.sypark.openTicket.view.fragments.RegisterValidationFragment"
-        android:label="RegisterValidationFragment"
-        tools:layout="@layout/fragment_register_validation">
-
-        <argument
-            android:name="item"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_registerValidationFragment_to_registerFirstFragment"
-            app:destination="@id/registerFirstFragment"
-            app:popUpTo="@id/loginFirstFragment" />
-    </fragment>
-
     <fragment
         android:id="@+id/pagingRankingFragment"
         android:name="com.sypark.openTicket.view.fragments.PagingRankingFragment"
