@@ -10,7 +10,6 @@ fun <T> safeFlow(service: suspend () -> T): Flow<ApiResult<T>> = flow<ApiResult<
     emit(ApiResult.Success(service.invoke()))
 }.catch { e ->
     when (e) {
-        is NullPointerException -> emit(ApiResult.Loading)
         is HttpException -> emit(ApiResult.Error(code = e.code(), exception = e))
         else -> emit(ApiResult.Error(exception = e))
     }
