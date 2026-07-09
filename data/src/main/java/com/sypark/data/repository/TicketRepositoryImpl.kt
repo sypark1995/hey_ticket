@@ -4,6 +4,7 @@ import com.sypark.data.AppDispatchers
 import com.sypark.data.BuildConfig
 import com.sypark.data.Dispatcher
 import com.sypark.data.db.entity.safeFlow
+import com.sypark.data.mapper.KopisGenreMapper
 import com.sypark.data.mapper.KopisXmlParser
 import com.sypark.data.service.KopisApiService
 import com.sypark.data.util.DateRange
@@ -39,13 +40,12 @@ class TicketRepositoryImpl @Inject constructor(
     override suspend fun getRanking(periodType: String, genreCode: String?, areaCode: String?): Flow<ApiResult<List<Content>>> =
         safeFlow {
             withContext(ioDispatcher) {
-                val (today, _) = DateRange.todayToDaysAhead(0)
                 val xml = kopisApiService.requestBoxOffice(
                     serviceKey = BuildConfig.KOPIS_SERVICE_KEY,
                     periodType = periodType,
-                    date = today,
+                    date = DateRange.yesterday(),
                     areaCode = areaCode,
-                    genreCode = genreCode,
+                    genreCode = KopisGenreMapper.toCatecode(genreCode),
                 )
                 KopisXmlParser.parseBoxOffice(xml)
             }
