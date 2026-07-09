@@ -25,6 +25,7 @@ import com.sypark.openTicket.view.CategoryFilterAreaAdapter
 import com.sypark.openTicket.view.CategorySortAdapter
 import com.sypark.openTicket.view.PagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jsoup.internal.StringUtil
 import org.threeten.bp.format.TextStyle
@@ -65,6 +66,22 @@ class CategoryDetailFragment :
                 categorySortAdapter.submitList(Common.sortList)
                 adapter = categorySortAdapter
                 categorySortAdapter.setSelectedPosition(1)
+            }
+
+            recyclerviewTicket.apply {
+                layoutManager = LinearLayoutManager(view.context)
+                pagingAdapter = PagingAdapter { content ->
+                    findNavController().navigate(
+                        CategoryDetailFragmentDirections.actionCategoryDetailFragmentToTicketDetailFragment(content.id)
+                    )
+                }
+                adapter = pagingAdapter
+            }
+
+            lifecycleScope.launch {
+                categoryDetailViewModel.setGenre(args.item).collectLatest {
+                    pagingAdapter.submitData(it)
+                }
             }
 
             chipArea.apply {
