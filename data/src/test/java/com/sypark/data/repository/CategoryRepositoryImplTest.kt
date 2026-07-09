@@ -46,7 +46,7 @@ class CategoryRepositoryImplTest {
             override suspend fun getPerformanceList(genreCode: String?, page: Int, rows: Int): Flow<ApiResult<List<Content>>> {
                 val size = when (genreCode) {
                     "AAAA" -> 1
-                    "AAAE" -> 2
+                    "CCCD" -> 2
                     else -> 5
                 }
                 return flowOf(ApiResult.Success(List(size) { contentOf("x") }))

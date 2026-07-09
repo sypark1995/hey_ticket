@@ -1,19 +1,25 @@
 package com.sypark.data.mapper
 
 object KopisGenreMapper {
-    // 검증 필요: KOPIS 공식 장르 코드표로 재확인.
-    // MUSICAL/THEATER는 KOPIS에 별도 코드가 없어 동일하게 매핑됨(알려진 한계, 개수 합산됨).
-    // 매핑에 없는 코드(ALL, KID)는 null 반환 → KOPIS 목록 조회 시 장르 필터 없이 전체 개수로 폴백.
-    private val CODE_MAP = mapOf(
-        "POPULAR_MUSIC" to "AAAE",
-        "MUSICAL" to "AAAA",
+    // KOPIS 공식 코드표(공연예술통합전산망OpenAPI공통코드.pdf) 기준.
+    // pblprfr(목록/상세 조회)는 shcate, boxoffice(랭킹)는 catecode를 쓰며 서로 다른 값이다.
+    private val SHCATE_MAP = mapOf(
         "THEATER" to "AAAA",
-        "CLASSIC" to "AAAC",
-        "KOREAN_TRADITIONAL_MUSIC" to "AAAD",
-        "DANCE" to "AAAB",
-        "CIRCUS_AND_MAGIC" to "AAAG",
-        "MIXED_GENRE" to "AAAH",
+        "DANCE" to "BBBC",
+        "CLASSIC" to "CCCA",
+        "KOREAN_TRADITIONAL_MUSIC" to "CCCC",
+        "POPULAR_MUSIC" to "CCCD",
+        "MIXED_GENRE" to "EEEA",
+        "CIRCUS_AND_MAGIC" to "EEEB",
+        "MUSICAL" to "GGGA",
     )
 
-    fun toKopisCode(appGenreCode: String): String? = CODE_MAP[appGenreCode]
+    private val CATECODE_MAP = SHCATE_MAP + mapOf(
+        "KID" to "KID",
+    )
+
+    // ALL이나 매핑에 없는 코드는 null → 호출부가 필터 없이 전체 조회로 처리한다.
+    fun toShcate(appGenreCode: String?): String? = appGenreCode?.let { SHCATE_MAP[it] }
+
+    fun toCatecode(appGenreCode: String?): String? = appGenreCode?.let { CATECODE_MAP[it] }
 }

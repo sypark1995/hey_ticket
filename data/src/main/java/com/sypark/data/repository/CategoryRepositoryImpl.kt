@@ -34,7 +34,7 @@ class CategoryRepositoryImpl @Inject constructor(
     private suspend fun fetchCount(appGenreCode: String): Int {
         var count = 0
         ticketRepository.getPerformanceList(
-            KopisGenreMapper.toKopisCode(appGenreCode), page = 1, rows = 100
+            KopisGenreMapper.toShcate(appGenreCode), page = 1, rows = 100
         ).collect { result ->
             if (result is ApiResult.Success) count = result.value.size
         }
