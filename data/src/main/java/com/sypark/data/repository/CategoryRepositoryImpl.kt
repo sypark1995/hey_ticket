@@ -9,6 +9,9 @@ import com.sypark.domain.model.GenreCount
 import com.sypark.domain.repository.CategoryRepository
 import com.sypark.domain.repository.TicketRepository
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,15 +23,21 @@ class CategoryRepositoryImpl @Inject constructor(
     override suspend fun getGenreCountList(genreCodes: List<String>): Flow<ApiResult<List<GenreCount>>> =
         safeFlow {
             withContext(ioDispatcher) {
-                genreCodes.map { appGenreCode ->
-                    var count = 0
-                    ticketRepository.getPerformanceList(
-                        KopisGenreMapper.toKopisCode(appGenreCode), page = 1, rows = 100
-                    ).collect { result ->
-                        if (result is ApiResult.Success) count = result.value.size
-                    }
-                    GenreCount(appGenreCode, count)
+                coroutineScope {
+                    genreCodes.map { appGenreCode ->
+                        async { appGenreCode to fetchCount(appGenreCode) }
+                    }.awaitAll().map { (appGenreCode, count) -> GenreCount(appGenreCode, count) }
                 }
             }
         }
+
+    private suspend fun fetchCount(appGenreCode: String): Int {
+        var count = 0
+        ticketRepository.getPerformanceList(
+            KopisGenreMapper.toKopisCode(appGenreCode), page = 1, rows = 100
+        ).collect { result ->
+            if (result is ApiResult.Success) count = result.value.size
+        }
+        return count
+    }
 }
