@@ -18,9 +18,9 @@ class CategoryViewModel @Inject constructor(
     val genreCountList: LiveData<List<GenreCount>> = mutableGenreCountList
 
     suspend fun getGenreCountList() {
-        getGenreCountUseCase(Common.genreList.map { it.code }).collect { result ->
+        getGenreCountUseCase(Common.genreList.filterNot { it.code == "KID" }.map { it.code }).collect { result ->
             if (result is ApiResult.Success) {
-                mutableGenreCountList.value = result.value
+                mutableGenreCountList.value = result.value.filter { it.count > 0 }
             }
         }
     }
