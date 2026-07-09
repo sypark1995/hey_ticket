@@ -118,11 +118,7 @@ class TicketDetailFragment :
                     }
                 }
 
-                Common.genreList.single {
-                    it.code == item.genre
-                }.apply {
-                    ticketGenre.text = genrenm
-                }
+                ticketGenre.text = item.genre
 
                 textTitle.text = item.title
 
