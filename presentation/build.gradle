@@ -22,9 +22,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//        buildConfigField "String", "KAKAO_API_KEY", properties["KAKAO_API_KEY"]
+        def kakaoApiKey = properties.getProperty("KAKAO_API_KEY", "").replaceAll(/^"|"$/, '')
+        buildConfigField "String", "KAKAO_API_KEY", "\"${kakaoApiKey}\""
         manifestPlaceholders = [
-                KAKAO_API_KEY: "KAKAO_API_KEY",
+                KAKAO_API_KEY: kakaoApiKey,
                 NAVER_MAP_CLIENT_ID: properties.getProperty("NAVER_MAP_CLIENT_ID", "")
         ]
     }
