@@ -212,7 +212,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val context = requireContext()
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
             UserApiClient.instance.loginWithKakaoTalk(context) { token, error ->
-                if (!isAdded) return@loginWithKakaoTalk
+                if (view == null) return@loginWithKakaoTalk
 
                 if (error != null) {
                     Log.e(TAG, "카카오톡 로그인 실패", error)
@@ -228,7 +228,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun loginWithKakaoAccount(context: android.content.Context) {
         UserApiClient.instance.loginWithKakaoAccount(context) { token, error ->
-            if (!isAdded) return@loginWithKakaoAccount
+            if (view == null) return@loginWithKakaoAccount
 
             if (error != null) {
                 Log.e(TAG, "카카오계정 로그인 실패", error)
@@ -241,7 +241,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun fetchKakaoProfile() {
         UserApiClient.instance.me { user, error ->
-            if (!isAdded) return@me
+            if (view == null) return@me
 
             if (error != null) {
                 Log.e(TAG, "카카오 사용자 정보 조회 실패", error)
