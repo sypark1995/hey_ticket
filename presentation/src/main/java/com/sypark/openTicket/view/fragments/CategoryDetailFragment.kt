@@ -8,29 +8,35 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.sypark.openTicket.Common
-import com.sypark.openTicket.Preferences
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentCategoryDetailBinding
 import com.sypark.openTicket.excensions.hide
 import com.sypark.openTicket.excensions.show
 import com.sypark.openTicket.model.CategoryDetailViewModel
+import com.sypark.openTicket.util.UserPreferencesDataStore
 import com.sypark.openTicket.view.CategoryFilterAreaAdapter
 import com.sypark.openTicket.view.CategorySortAdapter
 import com.sypark.openTicket.view.PagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.jsoup.internal.StringUtil
 import org.threeten.bp.format.TextStyle
 import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CategoryDetailFragment :
     BaseFragment<FragmentCategoryDetailBinding>(R.layout.fragment_category_detail) {
+
+    @Inject
+    lateinit var userPreferencesDataStore: UserPreferencesDataStore
 
     private val categoryDetailViewModel: CategoryDetailViewModel by viewModels()
     private lateinit var pagingAdapter: PagingAdapter
@@ -54,7 +60,6 @@ class CategoryDetailFragment :
                 layoutManager = LinearLayoutManager(view.context)
                 categorySortAdapter = CategorySortAdapter { position ->
                     onItemClicked(position)
-//                    Preferences.sortPosition = position
                 }
 
                 categorySortAdapter.submitList(Common.sortList)
@@ -307,7 +312,9 @@ class CategoryDetailFragment :
                     // 예매 가격
                     setChipTrue(root.context, chipPrice)
                     chipPrice.text = getString(categoryDetailViewModel.priceType.value!!.res)
-                    Preferences.price = chipPrice.text.toString()
+                    lifecycleScope.launch {
+                        userPreferencesDataStore.setPrice(chipPrice.text.toString())
+                    }
                 }
             }
         }
@@ -324,7 +331,9 @@ class CategoryDetailFragment :
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Preferences.sortPosition = 1
+        lifecycleScope.launch {
+            userPreferencesDataStore.setSortPosition(1)
+        }
     }
 
     private fun setChipTrue(context: Context, chip: Chip) {
