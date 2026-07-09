@@ -13,8 +13,9 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.kakao.sdk.auth.AuthApiClient
+import com.kakao.sdk.user.UserApiClient
 import com.sypark.openTicket.Common
-import com.sypark.openTicket.PREFERENCE_KEY_ACCESS_TOKEN
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentMainBinding
@@ -23,11 +24,12 @@ import com.sypark.openTicket.excensions.hide
 import com.sypark.openTicket.excensions.show
 import com.sypark.openTicket.model.MainViewModel
 import com.sypark.openTicket.popups.showClosePopup
-import com.sypark.openTicket.util.AppPreference
+import com.sypark.openTicket.util.UserPreferencesDataStore
 import com.sypark.openTicket.view.adapter.GenreAdapter
 import com.sypark.openTicket.view.adapter.MainDefaultAdapter
 import com.sypark.openTicket.view.adapter.RankingAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -54,16 +56,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 findNavController().navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
             }
 
-            if (AppPreference.get(PREFERENCE_KEY_ACCESS_TOKEN, "").isEmpty()) {
-                // 로그인 X
-                layoutRecommand.show()
-            } else {
-                // 로그인 O
+            if (AuthApiClient.instance.hasToken()) {
                 layoutRecommand.hide()
+            } else {
+                layoutRecommand.show()
             }
 
             layoutRecommand.setOnClickListener {
-                findNavController().navigate(MainFragmentDirections.actionMainFragmentToLoginFirstFragment())
+                loginWithKakao()
             }
 
             textRecommand.run {
@@ -203,5 +203,50 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun newFilterItemClicked(position: Int) {
         newFilterAdapter.setSelectedPosition(position)
+    }
+
+    @Inject
+    lateinit var userPreferencesDataStore: UserPreferencesDataStore
+
+    private fun loginWithKakao() {
+        val context = requireContext()
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
+            UserApiClient.instance.loginWithKakaoTalk(context) { token, error ->
+                if (error != null) {
+                    Log.e(TAG, "카카오톡 로그인 실패", error)
+                    loginWithKakaoAccount(context)
+                } else if (token != null) {
+                    fetchKakaoProfile()
+                }
+            }
+        } else {
+            loginWithKakaoAccount(context)
+        }
+    }
+
+    private fun loginWithKakaoAccount(context: android.content.Context) {
+        UserApiClient.instance.loginWithKakaoAccount(context) { token, error ->
+            if (error != null) {
+                Log.e(TAG, "카카오계정 로그인 실패", error)
+                Toast.makeText(context, R.string.error_network_generic, Toast.LENGTH_SHORT).show()
+            } else if (token != null) {
+                fetchKakaoProfile()
+            }
+        }
+    }
+
+    private fun fetchKakaoProfile() {
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(TAG, "카카오 사용자 정보 조회 실패", error)
+            } else if (user != null) {
+                val nickname = user.kakaoAccount?.profile?.nickname.orEmpty()
+                val profileImageUrl = user.kakaoAccount?.profile?.profileImageUrl.orEmpty()
+                lifecycleScope.launch {
+                    userPreferencesDataStore.setKakaoProfile(nickname, profileImageUrl)
+                }
+            }
+            binding.layoutRecommand.hide()
+        }
     }
 }
