@@ -3,6 +3,7 @@ package com.sypark.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.sypark.data.BuildConfig
+import com.sypark.data.mapper.KopisGenreMapper
 import com.sypark.data.mapper.KopisXmlParser
 import com.sypark.data.service.KopisApiService
 import com.sypark.data.util.DateRange
@@ -18,7 +19,6 @@ class PagingSource @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
         return try {
-            val (today, _) = DateRange.todayToDaysAhead(0)
             val ststype = when (timePeriod) {
                 Util.ButtonType.WEEK -> "week"
                 Util.ButtonType.MONTH -> "month"
@@ -27,8 +27,8 @@ class PagingSource @Inject constructor(
             val xml = service.requestBoxOffice(
                 serviceKey = BuildConfig.KOPIS_SERVICE_KEY,
                 periodType = ststype,
-                date = today,
-                genreCode = boxOfficeGenre.ifBlank { null },
+                date = DateRange.yesterday(),
+                genreCode = KopisGenreMapper.toCatecode(boxOfficeGenre),
             )
             val item = KopisXmlParser.parseBoxOffice(xml)
 
