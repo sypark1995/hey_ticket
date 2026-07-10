@@ -29,6 +29,13 @@ class PagingRepository @Inject constructor(
         ).flow
     }
 
+    fun getCategoryPagingData(genre: String): Flow<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
+            pagingSourceFactory = { CategoryPagingSource(service, genre) }
+        ).flow
+    }
+
     fun getSearchPagingData2(query: String, searchType: Util.SearchType): Flow<PagingData<Pair<Content, Long>>> {
         return Pager(
             config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),

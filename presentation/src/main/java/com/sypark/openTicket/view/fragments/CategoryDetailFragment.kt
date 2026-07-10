@@ -53,6 +53,8 @@ class CategoryDetailFragment :
         binding.apply {
             viewModel = categoryDetailViewModel
 
+            textCategoryTitle.text = Common.genreList.find { it.code == args.item }?.genrenm.orEmpty()
+
             categoryDetailViewModel.filterType.observe(viewLifecycleOwner) {
                 Log.e("!!!", it.name)
             }

@@ -35,10 +35,10 @@
                 android:background="@drawable/icon_back" />
 
             <TextView
+                android:id="@+id/text_category_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="데이터를 넣어주세요!!!"
                 android:textColor="@color/black_111111"
                 android:textSize="17sp"
                 android:textStyle="bold" />

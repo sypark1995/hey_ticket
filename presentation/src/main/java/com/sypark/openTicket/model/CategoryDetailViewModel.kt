@@ -8,7 +8,6 @@ import androidx.paging.cachedIn
 import com.sypark.data.db.entity.Areas
 import com.sypark.domain.model.Content
 import com.sypark.data.paging.PagingRepository
-import com.sypark.data.util.Util
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseViewModel
@@ -130,10 +129,7 @@ class CategoryDetailViewModel @Inject constructor(
     fun setGenre(genre: String): Flow<PagingData<Content>> {
         _genre.value = genre
 
-        return repository.getPagingData(
-            boxOfficeGenre = _genre.value.toString(),
-            timePeriod = Util.ButtonType.DAY
-        ).cachedIn(viewModelScope)
+        return repository.getCategoryPagingData(_genre.value.toString()).cachedIn(viewModelScope)
     }
 
     private var _filterArea = MutableLiveData(true)
