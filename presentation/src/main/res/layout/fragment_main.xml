@@ -70,97 +70,10 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/layout_ranking"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/layout_recommand">
-
-                    <TextView
-                        android:id="@+id/text_ranking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/pretendard_bold"
-                        android:text="@string/main_ranking"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <RelativeLayout
-                        android:id="@+id/layout_ranking_more"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="21.5dp"
-                        android:layout_marginEnd="16dp"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/text_ranking_more"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/pretendard_light"
-                            android:gravity="center_vertical"
-                            android:text="@string/main_more"
-                            android:textColor="@color/gray"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_toEndOf="@+id/text_ranking_more"
-                            android:src="@drawable/icon_more" />
-
-                    </RelativeLayout>
-
-                    <!--                    <androidx.viewpager2.widget.ViewPager2-->
-                    <!--                        android:id="@+id/viewpager"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="match_parent"-->
-                    <!--                        android:background="@drawable/round_12"-->
-                    <!--                        android:orientation="horizontal"-->
-                    <!--                        android:requiresFadingEdge="horizontal" />-->
-
-                    <RelativeLayout
-                        android:id="@+id/layout_ranking_filter"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/text_ranking"
-                        android:layout_marginTop="10dp">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerview_ranking_filter"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:listitem="@layout/item_genre_filter" />
-                    </RelativeLayout>
-
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/layout_ranking_filter">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerview_ranking"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:listitem="@layout/item_ranking" />
-                    </com.facebook.shimmer.ShimmerFrameLayout>
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
                     android:id="@+id/layout_new_ticket"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/layout_ranking">
+                    android:layout_below="@id/layout_recommand">
 
                     <TextView
                         android:id="@+id/text_new_ticket"

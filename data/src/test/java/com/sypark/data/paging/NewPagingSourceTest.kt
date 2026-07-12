@@ -24,7 +24,6 @@ private class FakeKopisApiService : KopisApiService {
     override suspend fun requestPerformanceList(serviceKey: String, startDate: String, endDate: String, page: Int, rows: Int, genreCode: String?) = LIST_XML
     override suspend fun requestPerformanceSearch(serviceKey: String, startDate: String, endDate: String, page: Int, rows: Int, title: String) = LIST_XML
     override suspend fun requestPerformanceDetail(performanceId: String, serviceKey: String) = LIST_XML
-    override suspend fun requestBoxOffice(serviceKey: String, periodType: String, date: String, areaCode: String?, genreCode: String?) = LIST_XML
     override suspend fun requestFacilityDetail(venueId: String, serviceKey: String) = LIST_XML
 }
 

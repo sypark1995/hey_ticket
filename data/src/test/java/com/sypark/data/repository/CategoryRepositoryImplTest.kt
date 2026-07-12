@@ -25,7 +25,6 @@ class CategoryRepositoryImplTest {
         val ticketRepository = object : TicketRepository {
             override suspend fun getPerformanceList(genreCode: String?, page: Int, rows: Int) =
                 flowOf(ApiResult.Success(List(3) { contentOf("연극") }))
-            override suspend fun getRanking(periodType: String, genreCode: String?, areaCode: String?) = flowOf(ApiResult.Success(emptyList<Content>()))
             override suspend fun getNew(genreCode: String?, page: Int, rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))
             override suspend fun getDetail(performanceId: String) = flowOf(ApiResult.Error())
             override suspend fun search(query: String, page: Int, rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))
@@ -51,7 +50,6 @@ class CategoryRepositoryImplTest {
                 }
                 return flowOf(ApiResult.Success(List(size) { contentOf("x") }))
             }
-            override suspend fun getRanking(periodType: String, genreCode: String?, areaCode: String?) = flowOf(ApiResult.Success(emptyList<Content>()))
             override suspend fun getNew(genreCode: String?, page: Int, rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))
             override suspend fun getDetail(performanceId: String) = flowOf(ApiResult.Error())
             override suspend fun search(query: String, page: Int, rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))

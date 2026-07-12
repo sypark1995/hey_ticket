@@ -21,9 +21,6 @@
             android:id="@+id/action_mainFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_pagingRankingFragment"
-            app:destination="@id/pagingRankingFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_pagingNewFragment"
             app:destination="@id/pagingNewFragment" />
 
@@ -104,16 +101,6 @@
         <argument
             android:name="performanceTitle"
             app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/pagingRankingFragment"
-        android:name="com.sypark.openTicket.view.fragments.PagingRankingFragment"
-        android:label="PagingRankingFragment"
-        tools:layout="@layout/fragment_paging_ranking">
-
-        <action
-            android:id="@+id/action_pagingRankingFragment_to_ticketDetailFragment"
-            app:destination="@id/ticketDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/pagingNewFragment"

@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface TicketRepository {
     suspend fun getPerformanceList(genreCode: String?, page: Int, rows: Int): Flow<ApiResult<List<Content>>>
-    suspend fun getRanking(periodType: String, genreCode: String?, areaCode: String?): Flow<ApiResult<List<Content>>>
     suspend fun getNew(genreCode: String?, page: Int, rows: Int): Flow<ApiResult<List<Content>>>
     suspend fun getDetail(performanceId: String): Flow<ApiResult<Content>>
     suspend fun search(query: String, page: Int, rows: Int): Flow<ApiResult<List<Content>>>

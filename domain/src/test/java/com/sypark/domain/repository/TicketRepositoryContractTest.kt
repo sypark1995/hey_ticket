@@ -22,9 +22,6 @@ class TicketRepositoryContractTest {
         override suspend fun getPerformanceList(genreCode: String?, page: Int, rows: Int): Flow<ApiResult<List<Content>>> =
             flowOf(ApiResult.Success(listOf(fakeContent)))
 
-        override suspend fun getRanking(periodType: String, genreCode: String?, areaCode: String?): Flow<ApiResult<List<Content>>> =
-            flowOf(ApiResult.Success(listOf(fakeContent)))
-
         override suspend fun getNew(genreCode: String?, page: Int, rows: Int): Flow<ApiResult<List<Content>>> =
             flowOf(ApiResult.Success(listOf(fakeContent)))
 

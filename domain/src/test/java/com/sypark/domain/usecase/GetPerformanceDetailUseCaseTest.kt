@@ -21,7 +21,6 @@ class GetPerformanceDetailUseCaseTest {
 
     private val repository = object : TicketRepository {
         override suspend fun getPerformanceList(genreCode: String?, page: Int, rows: Int) = flowOf(ApiResult.Success(listOf(expected)))
-        override suspend fun getRanking(periodType: String, genreCode: String?, areaCode: String?) = flowOf(ApiResult.Success(listOf(expected)))
         override suspend fun getNew(genreCode: String?, page: Int, rows: Int) = flowOf(ApiResult.Success(listOf(expected)))
         override suspend fun getDetail(performanceId: String): Flow<ApiResult<Content>> = flowOf(ApiResult.Success(expected))
         override suspend fun search(query: String, page: Int, rows: Int) = flowOf(ApiResult.Success(listOf(expected)))

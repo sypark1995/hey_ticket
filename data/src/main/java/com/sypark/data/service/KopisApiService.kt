@@ -32,15 +32,6 @@ interface KopisApiService {
         @Query("service") serviceKey: String,
     ): String
 
-    @GET("boxoffice")
-    suspend fun requestBoxOffice(
-        @Query("service") serviceKey: String,
-        @Query("ststype") periodType: String,
-        @Query("date") date: String,
-        @Query("area") areaCode: String? = null,
-        @Query("catecode") genreCode: String? = null,
-    ): String
-
     @GET("prfplc/{id}")
     suspend fun requestFacilityDetail(
         @Path("id") venueId: String,

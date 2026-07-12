@@ -27,7 +27,6 @@ import com.sypark.openTicket.popups.showClosePopup
 import com.sypark.openTicket.util.UserPreferencesDataStore
 import com.sypark.openTicket.view.adapter.GenreAdapter
 import com.sypark.openTicket.view.adapter.MainDefaultAdapter
-import com.sypark.openTicket.view.adapter.RankingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
@@ -38,10 +37,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels()
 
-    private lateinit var genreAdapter: GenreAdapter
     private lateinit var newFilterAdapter: GenreAdapter
 
-    private lateinit var rankingAdapter: RankingAdapter
     private lateinit var newTicketAdapter: MainDefaultAdapter
     private lateinit var etcTicketAdapter: MainDefaultAdapter
     private lateinit var campusTicketAdapter: MainDefaultAdapter
@@ -83,42 +80,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 text = ssb
             }
 
-            recyclerviewRankingFilter.apply {
-                genreAdapter = GenreAdapter { position, item ->
-                    rankingFilterItemClicked(position)
-
-                    lifecycleScope.launch {
-                        viewModel.getRankingData(item.code)
-                    }
-                }
-                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
-                genreAdapter.submitList(Common.genreList)
-                adapter = genreAdapter
-                genreAdapter.setSelectedPosition(0)
-            }
-
-            layoutRankingMore.setOnClickListener {
-                findNavController().navigate(MainFragmentDirections.actionMainFragmentToPagingRankingFragment())
-            }
-
             layoutNewTicketMore.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainFragmentToPagingNewFragment())
-            }
-
-            recyclerviewRanking.apply {
-                rankingAdapter = RankingAdapter {
-                    findNavController().navigate(
-                        MainFragmentDirections.actionMainFragmentToTicketDetailFragment(
-                            it
-                        )
-                    )
-                }
-
-                lifecycleScope.launch {
-                    viewModel.getRankingData("")
-                }
-                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
-                adapter = rankingAdapter
             }
 
             recyclerviewNewTicketFilter.apply {
@@ -168,18 +131,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
         }
 
-        viewModel.rankingList.observe(viewLifecycleOwner) {
-            rankingAdapter.submitList(it)
-        }
-
-        viewModel.isShimmerLoading.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.shimmer.hideShimmer()
-            } else {
-                binding.shimmer.showShimmer(true)
-            }
-        }
-
         viewModel.newTicketList.observe(this) {
             newTicketAdapter.submitList(it)
         }
@@ -195,10 +146,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }, {
             requireActivity().finish()
         })
-    }
-
-    private fun rankingFilterItemClicked(position: Int) {
-        genreAdapter.setSelectedPosition(position)
     }
 
     private fun newFilterItemClicked(position: Int) {
