@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.sypark.data.db.entity.Areas
+import com.sypark.data.mapper.AreaCodeMapper
 import com.sypark.domain.model.Content
 import com.sypark.data.paging.PagingRepository
 import com.sypark.openTicket.Common
@@ -129,7 +130,22 @@ class CategoryDetailViewModel @Inject constructor(
     fun setGenre(genre: String): Flow<PagingData<Content>> {
         _genre.value = genre
 
-        return repository.getCategoryPagingData(_genre.value.toString()).cachedIn(viewModelScope)
+        val areaCode = AreaCodeMapper.toSigngucode(filterAreaData.value?.firstOrNull()?.code)
+        val prfstate = statusList.value?.firstOrNull()?.toPrfstate()
+
+        return repository.getCategoryPagingData(
+            genre = _genre.value.toString(),
+            areaCode = areaCode,
+            prfstate = prfstate,
+            specificDate = selectedDate,
+        ).cachedIn(viewModelScope)
+    }
+
+    private fun Status.toPrfstate(): String? = when (this) {
+        Status.ONGOING -> "01"
+        Status.UPCOMING -> "02"
+        Status.COMPLETED -> "03"
+        Status.EMPTY -> null
     }
 
     private var _filterArea = MutableLiveData(true)
@@ -178,6 +194,7 @@ class CategoryDetailViewModel @Inject constructor(
         get() = _filterPriceData
 
     private var _selectedDay = MutableLiveData<String?>()
+    private var selectedDate: String? = null
     val selectedDay: LiveData<String?>
         get() = _selectedDay
 
@@ -204,33 +221,30 @@ class CategoryDetailViewModel @Inject constructor(
             }
 
             Status.ONGOING -> {
-                if (_isPlaned.value == false) {
-                    _isPlaned.value = true
-                    mutableList.add(status)
-                } else {
-                    _isPlaned.value = false
-                    mutableList.remove(status)
-                }
+                val turningOn = _isPlaned.value == false
+                mutableList.clear()
+                _isPlaned.value = turningOn
+                _isDuring.value = false
+                _isFinished.value = false
+                if (turningOn) mutableList.add(status)
             }
 
             Status.UPCOMING -> {
-                if (_isDuring.value == false) {
-                    _isDuring.value = true
-                    mutableList.add(status)
-                } else {
-                    _isDuring.value = false
-                    mutableList.remove(status)
-                }
+                val turningOn = _isDuring.value == false
+                mutableList.clear()
+                _isPlaned.value = false
+                _isDuring.value = turningOn
+                _isFinished.value = false
+                if (turningOn) mutableList.add(status)
             }
 
             Status.COMPLETED -> {
-                if (_isFinished.value == false) {
-                    _isFinished.value = true
-                    mutableList.add(status)
-                } else {
-                    _isFinished.value = false
-                    mutableList.remove(status)
-                }
+                val turningOn = _isFinished.value == false
+                mutableList.clear()
+                _isPlaned.value = false
+                _isDuring.value = false
+                _isFinished.value = turningOn
+                if (turningOn) mutableList.add(status)
             }
         }
         _statusList.value = mutableList
@@ -247,9 +261,13 @@ class CategoryDetailViewModel @Inject constructor(
         _filterPriceData.value = null
     }
 
-    fun setSelectedDay(day: String?) = _selectedDay.postValue(day)
+    fun setSelectedDay(day: String?, rawDate: String? = null) {
+        _selectedDay.postValue(day)
+        selectedDate = rawDate
+    }
     fun clearSelectedDay() {
         _selectedDay.value = null
+        selectedDate = null
     }
 
     enum class Status(val res: Int) {
