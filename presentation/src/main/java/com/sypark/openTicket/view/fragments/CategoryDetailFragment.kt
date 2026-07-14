@@ -26,6 +26,7 @@ import com.sypark.openTicket.view.CategorySortAdapter
 import com.sypark.openTicket.view.PagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.jsoup.internal.StringUtil
 import org.threeten.bp.format.TextStyle
@@ -47,6 +48,7 @@ class CategoryDetailFragment :
 
     // 진행상태
     private lateinit var statusResources: List<String>
+    private var pagingJob: Job? = null
 
     override fun init(view: View) {
 
@@ -80,11 +82,7 @@ class CategoryDetailFragment :
                 adapter = pagingAdapter
             }
 
-            lifecycleScope.launch {
-                categoryDetailViewModel.setGenre(args.item).collectLatest {
-                    pagingAdapter.submitData(it)
-                }
-            }
+            refreshList()
 
             chipArea.apply {
                 setOnCloseIconClickListener {
@@ -161,7 +159,8 @@ class CategoryDetailFragment :
                                 Locale.KOREAN
                             )
                         })"
-                        categoryDetailViewModel.setSelectedDay(selectedDay)
+                        val rawDate = String.format("%04d%02d%02d", date.year, date.month, date.day)
+                        categoryDetailViewModel.setSelectedDay(selectedDay, rawDate)
                     }
                 }
             }
@@ -334,6 +333,8 @@ class CategoryDetailFragment :
                     lifecycleScope.launch {
                         userPreferencesDataStore.setPrice(chipPrice.text.toString())
                     }
+
+                    refreshList()
                 }
             }
         }
@@ -346,6 +347,15 @@ class CategoryDetailFragment :
 
     private fun onItemClicked(position: Int) {
         categorySortAdapter.setSelectedPosition(position)
+    }
+
+    private fun refreshList() {
+        pagingJob?.cancel()
+        pagingJob = lifecycleScope.launch {
+            categoryDetailViewModel.setGenre(args.item).collectLatest {
+                pagingAdapter.submitData(it)
+            }
+        }
     }
 
     override fun onDestroyView() {
