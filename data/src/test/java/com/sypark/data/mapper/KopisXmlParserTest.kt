@@ -73,29 +73,4 @@ class KopisXmlParserTest {
         ), result.storyUrls)
         assertEquals("공연 당일 취소 불가", result.schedule)
     }
-
-    @Test
-    fun `parseBoxOffice maps rnum to rank`() {
-        val xml = """
-            <boxofs>
-              <boxof>
-                <rnum>1</rnum>
-                <prfnm>위키드</prfnm>
-                <mt20id>PF223939</mt20id>
-                <mt10id>FC000001</mt10id>
-                <prfpdfrom>2026.07.01</prfpdfrom>
-                <prfpdto>2026.09.30</prfpdto>
-                <poster>http://kopis.or.kr/upload/poster1.jpg</poster>
-                <genrenm>뮤지컬</genrenm>
-                <prfage>8세 이상</prfage>
-              </boxof>
-            </boxofs>
-        """.trimIndent()
-
-        val result = KopisXmlParser.parseBoxOffice(xml)
-
-        assertEquals(1, result.size)
-        assertEquals(1L, result[0].rank)
-        assertEquals("PF223939", result[0].id)
-    }
 }

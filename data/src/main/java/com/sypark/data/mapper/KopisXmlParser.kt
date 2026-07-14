@@ -21,9 +21,6 @@ object KopisXmlParser {
     fun parsePerformanceDetail(xml: String): Content =
         elementsOf(xml, "db").first().toDetailContent()
 
-    fun parseBoxOffice(xml: String): List<Content> =
-        elementsOf(xml, "boxof").map { it.toBoxOfficeContent() }
-
     fun parseFacility(xml: String): KopisFacility {
         val element = elementsOf(xml, "db").first()
         return KopisFacility(
@@ -116,20 +113,4 @@ object KopisXmlParser {
         )
     }
 
-    private fun Element.toBoxOfficeContent(): Content = Content(
-        id = text("mt20id"),
-        placeId = text("mt10id"),
-        title = text("prfnm"),
-        startDate = text("prfpdfrom"),
-        endDate = text("prfpdto"),
-        theater = "", cast = "", crew = "", runtime = "", company = "", price = "", story = "",
-        age = text("prfage"),
-        poster = text("poster"),
-        genre = text("genrenm"),
-        state = "",
-        openRun = false,
-        storyUrls = emptyList(),
-        schedule = "",
-        rank = text("rnum").toLongOrNull() ?: 0,
-    )
 }

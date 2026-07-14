@@ -51,7 +51,9 @@ class CategoryHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder
                     searchCategorySort.text = it.genrenm
                 }
             }
-            searchPerformanceCount.text = item.count.toString()
+            // CategoryRepositoryImpl은 KOPIS API의 페이지당 최대 조회수(100건) 제한으로 건수를 계산하므로,
+            // 100은 실제로 "100건 이상"을 의미한다.
+            searchPerformanceCount.text = if (item.count >= 100) "100+" else item.count.toString()
 
             this.root.setOnClickListener {
                 clickListener(item.genre)
