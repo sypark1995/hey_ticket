@@ -1,5 +1,6 @@
 package com.sypark.openTicket.view
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,10 @@ import com.sypark.data.db.entity.Areas
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemFilterAreaBinding
 
-//todo_sypark RecommendAreaAdapter처럼 변경 예정
 class CategoryFilterAreaAdapter :
     ListAdapter<Areas, CategoryFilterAreaAdapter.ViewHolder>(DiffUtils()) {
 
-    private var selectedArea = arrayListOf<Areas>()
+    private var selectedArea: Areas? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemFilterAreaBinding.inflate(
@@ -30,11 +30,13 @@ class CategoryFilterAreaAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding) {
-            itemText.text = getItem(position).name
+            val area = getItem(position)
+            itemText.text = area.name
+            applyVisual(this, area == selectedArea)
 
             itemText.setOnClickListener {
-                applySelection(this, getItem(position))
-                onItemClickListener?.let { it(getItem(position)) }
+                applySelection(area)
+                onItemClickListener?.let { it(area) }
             }
         }
     }
@@ -62,39 +64,28 @@ class CategoryFilterAreaAdapter :
     }
 
     fun selectedList(): ArrayList<Areas> {
-        return selectedArea
+        return selectedArea?.let { arrayListOf(it) } ?: arrayListOf()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun clear() {
-        selectedArea.clear()
+        selectedArea = null
+        notifyDataSetChanged()
     }
 
-
-    private fun applySelection(
-        binding: ItemFilterAreaBinding,
-        categoryDetailArea: Areas
-    ) {
-        if (selectedArea.contains(categoryDetailArea)) {
-            selectedArea.remove(categoryDetailArea)
-            changeTextColor(binding, R.color.gray_B7B7B7)
-            binding.itemCheckbox.visibility = View.GONE
-        } else {
-            selectedArea.add(categoryDetailArea)
-            changeTextColor(binding, R.color.black)
-            binding.itemCheckbox.visibility = View.VISIBLE
-        }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun applySelection(area: Areas) {
+        selectedArea = if (selectedArea == area) null else area
+        notifyDataSetChanged()
     }
 
-    private fun changeTextColor(binding: ItemFilterAreaBinding, resId: Int) {
+    private fun applyVisual(binding: ItemFilterAreaBinding, isSelected: Boolean) {
+        binding.itemCheckbox.visibility = if (isSelected) View.VISIBLE else View.GONE
         binding.itemText.setTextColor(
             ContextCompat.getColor(
                 binding.root.context,
-                resId
+                if (isSelected) R.color.black else R.color.gray_B7B7B7
             )
         )
     }
 }
-
-
-
-
