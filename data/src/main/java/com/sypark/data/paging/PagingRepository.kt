@@ -19,10 +19,15 @@ class PagingRepository @Inject constructor(
         ).flow
     }
 
-    fun getCategoryPagingData(genre: String): Flow<PagingData<Content>> {
+    fun getCategoryPagingData(
+        genre: String,
+        areaCode: String? = null,
+        prfstate: String? = null,
+        specificDate: String? = null,
+    ): Flow<PagingData<Content>> {
         return Pager(
             config = PagingConfig(pageSize = PAGER_SIZE, initialLoadSize = PAGER_SIZE),
-            pagingSourceFactory = { CategoryPagingSource(service, genre) }
+            pagingSourceFactory = { CategoryPagingSource(service, genre, areaCode, prfstate, specificDate) }
         ).flow
     }
 

@@ -13,12 +13,19 @@ import javax.inject.Inject
 class CategoryPagingSource @Inject constructor(
     private val service: KopisApiService,
     private val genre: String,
+    private val areaCode: String? = null,
+    private val prfstate: String? = null,
+    private val specificDate: String? = null,
 ) : PagingSource<Int, Content>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
         return try {
             val nextPage = params.key ?: 1
-            val (start, end) = DateRange.todayToDaysAhead(90)
+            val (start, end) = if (specificDate != null) {
+                specificDate to specificDate
+            } else {
+                DateRange.todayToDaysAhead(90)
+            }
             val xml = service.requestPerformanceList(
                 serviceKey = BuildConfig.KOPIS_SERVICE_KEY,
                 startDate = start,
@@ -26,6 +33,8 @@ class CategoryPagingSource @Inject constructor(
                 page = nextPage,
                 rows = params.loadSize,
                 genreCode = KopisGenreMapper.toShcate(genre),
+                areaCode = areaCode,
+                prfstate = prfstate,
             )
             val item = KopisXmlParser.parsePerformanceList(xml)
 

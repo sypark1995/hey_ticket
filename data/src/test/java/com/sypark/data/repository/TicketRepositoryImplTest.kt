@@ -23,7 +23,7 @@ private const val LIST_XML = """
 
 class FakeKopisApiService : KopisApiService {
     override suspend fun requestPerformanceList(
-        serviceKey: String, startDate: String, endDate: String, page: Int, rows: Int, genreCode: String?
+        serviceKey: String, startDate: String, endDate: String, page: Int, rows: Int, genreCode: String?, areaCode: String?, prfstate: String?
     ) = LIST_XML
 
     override suspend fun requestPerformanceSearch(

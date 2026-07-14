@@ -14,6 +14,8 @@ interface KopisApiService {
         @Query("cpage") page: Int,
         @Query("rows") rows: Int,
         @Query("shcate") genreCode: String? = null,
+        @Query("signgucode") areaCode: String? = null,
+        @Query("prfstate") prfstate: String? = null,
     ): String
 
     @GET("pblprfr")
