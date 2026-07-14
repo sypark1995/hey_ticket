@@ -114,6 +114,8 @@
     <string name="login_email_address">이메일 주소</string>
     <string name="login_email_button">이메일로 계속하기</string>
     <string name="login_kakao_button">카카오로 계속하기</string>
+    <string name="my_login_guide">로그인하고 마이페이지를 이용해보세요</string>
+    <string name="my_logout_button">로그아웃</string>
     <string name="login_email_sample">hello@heyticket.co.kr</string>
     <string name="login_email_error">이메일 형식에 맞게 입력해 주세요</string>
 

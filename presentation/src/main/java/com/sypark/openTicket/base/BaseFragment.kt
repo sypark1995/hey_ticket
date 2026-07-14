@@ -46,7 +46,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutResId: Int
                         R.id.categoryFragment
                     }
                     R.id.menu_my -> {
-                        R.id.mainFragment
+                        R.id.myFragment
                     }
                     else -> {
                         return@setOnItemSelectedListener false

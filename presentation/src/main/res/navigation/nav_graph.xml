@@ -111,5 +111,10 @@
             android:id="@+id/action_pagingNewFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/myFragment"
+        android:name="com.sypark.openTicket.view.fragments.MyFragment"
+        android:label="MyFragment"
+        tools:layout="@layout/fragment_my" />
 
 </navigation>
