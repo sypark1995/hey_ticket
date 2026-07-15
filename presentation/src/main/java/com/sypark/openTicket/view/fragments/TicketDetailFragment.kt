@@ -33,6 +33,8 @@ import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentTicketDetailBinding
 import com.sypark.openTicket.model.TicketDetailViewModel
+import com.sypark.openTicket.util.UserPreferencesDataStore
+import javax.inject.Inject
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,6 +44,9 @@ import java.net.URLEncoder
 @AndroidEntryPoint
 class TicketDetailFragment :
     BaseFragment<FragmentTicketDetailBinding>(R.layout.fragment_ticket_detail) {
+
+    @Inject
+    lateinit var userPreferencesDataStore: UserPreferencesDataStore
 
     private val args by navArgs<TicketDetailFragmentArgs>()
     private val viewModel: TicketDetailViewModel by viewModels()
@@ -284,6 +289,29 @@ class TicketDetailFragment :
 
                 imgShare.setOnClickListener {
                     isKakaoInstall(it.context, item)
+                }
+
+                lifecycleScope.launch {
+                    imgLike.setImageResource(
+                        if (userPreferencesDataStore.isFavorite(item.id)) {
+                            R.drawable.icon_like_filled
+                        } else {
+                            R.drawable.icon_like
+                        }
+                    )
+                }
+
+                imgLike.setOnClickListener {
+                    lifecycleScope.launch {
+                        userPreferencesDataStore.toggleFavorite(item.id)
+                        imgLike.setImageResource(
+                            if (userPreferencesDataStore.isFavorite(item.id)) {
+                                R.drawable.icon_like_filled
+                            } else {
+                                R.drawable.icon_like
+                            }
+                        )
+                    }
                 }
 
                 scrollView.viewTreeObserver.addOnScrollChangedListener {
