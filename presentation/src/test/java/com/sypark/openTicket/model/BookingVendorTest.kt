@@ -8,8 +8,8 @@ class BookingVendorTest {
     @Test
     fun `interpark searchUrl encodes performance title`() {
         val url = BookingVendor.INTERPARK.searchUrl("위키드")
-        assertTrue(url.startsWith("https://ticket.interpark.com/contents/search?keyword="))
-        assertTrue(url.contains("keyword=" + java.net.URLEncoder.encode("위키드", "UTF-8")))
+        assertTrue(url.startsWith("https://tickets.interpark.com/contents/search?q="))
+        assertTrue(url.contains("q=" + java.net.URLEncoder.encode("위키드", "UTF-8")))
     }
 
     @Test

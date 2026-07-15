@@ -10,9 +10,9 @@ enum class BookingVendor(val displayName: String) {
     fun searchUrl(performanceTitle: String): String {
         val encoded = URLEncoder.encode(performanceTitle, "UTF-8")
         return when (this) {
-            INTERPARK -> "https://ticket.interpark.com/contents/search?keyword=$encoded"
-            MELON -> "https://ticket.melon.com/search/index.htm?searchGb=1&query=$encoded"
-            YES24 -> "https://ticket.yes24.com/Perf/Search?searchString=$encoded"
+            INTERPARK -> "https://tickets.interpark.com/contents/search?q=$encoded"
+            MELON -> "https://ticket.melon.com/search/index.htm?q=$encoded"
+            YES24 -> "https://ticket.yes24.com/Search/SearchList.aspx?SearchWord=$encoded"
         }
     }
 }
