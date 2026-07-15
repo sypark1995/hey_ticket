@@ -62,7 +62,7 @@ class NewTicketViewHolder(val binding: ItemDefaultTicketBinding) :
             }
 
             textPlace.text = item.theater
-            textTitle.text = item.theater
+            textTitle.text = item.title
 
             when (Common.compareDate(item.startDate, item.endDate)) {
                 Common.DateType.BEFORE -> {

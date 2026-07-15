@@ -58,12 +58,21 @@ class PagingViewHolder(
     fun binding(data: Content, clickListener: (Content) -> Unit) {
         binding.apply {
             textTicketName.text = data.title
-//            textTicketLocation.text = data.place
+            textTicketLocation.text = data.theater
             textTicketDate.text =
                 "${data.startDate}${Common.getDayOfWeek(data.startDate)} ~ ${data.endDate}${
                     Common.getDayOfWeek(data.endDate)
                 }"
-//            textTicketPrice.text = data.pcseguidance
+
+            // KOPIS의 목록 조회(pblprfr) 응답에는 가격 정보가 없음 - 상세 조회에서만 내려옴
+            if (data.price.isEmpty()) {
+                textTicketStandardPrice.visibility = View.GONE
+                textTicketPrice.visibility = View.GONE
+            } else {
+                textTicketStandardPrice.visibility = View.VISIBLE
+                textTicketPrice.visibility = View.VISIBLE
+                textTicketPrice.text = data.price
+            }
 
             when (Common.compareDate(data.startDate, data.endDate)) {
                 Common.DateType.BEFORE -> {
