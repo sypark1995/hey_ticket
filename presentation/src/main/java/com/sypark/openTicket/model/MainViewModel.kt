@@ -26,6 +26,12 @@ class MainViewModel @Inject constructor(
     private var _newTicketList = MutableLiveData<List<Content>>()
     var newTicketList: LiveData<List<Content>> = _newTicketList
 
+    private var _musicalTicketList = MutableLiveData<List<Content>>()
+    val musicalTicketList: LiveData<List<Content>> = _musicalTicketList
+
+    private var _theaterTicketList = MutableLiveData<List<Content>>()
+    val theaterTicketList: LiveData<List<Content>> = _theaterTicketList
+
     private var _mainSelector = MutableLiveData(false)
     val mainSelector: LiveData<Boolean> = _mainSelector
 
@@ -46,6 +52,22 @@ class MainViewModel @Inject constructor(
                     _errorEvent.call()
                 }
                 is ApiResult.Loading -> Unit
+            }
+        }
+    }
+
+    suspend fun getMusicalTicketData() {
+        getPerformanceNewUseCase("MUSICAL", 1, 10).collect { result ->
+            if (result is ApiResult.Success && result.value.isNotEmpty()) {
+                _musicalTicketList.value = result.value
+            }
+        }
+    }
+
+    suspend fun getTheaterTicketData() {
+        getPerformanceNewUseCase("THEATER", 1, 10).collect { result ->
+            if (result is ApiResult.Success && result.value.isNotEmpty()) {
+                _theaterTicketList.value = result.value
             }
         }
     }

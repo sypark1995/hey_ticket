@@ -116,23 +116,53 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
             recyclerviewCampusTicket.apply {
                 campusTicketAdapter = MainDefaultAdapter {
-
+                    findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToTicketDetailFragment(it)
+                    )
                 }
-//            campusTicketAdapter.submitList()
+                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
                 adapter = campusTicketAdapter
+
+                lifecycleScope.launch {
+                    viewModel.getMusicalTicketData()
+                }
             }
 
             recyclerviewEtcTicket.apply {
                 etcTicketAdapter = MainDefaultAdapter {
-
+                    findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToTicketDetailFragment(it)
+                    )
                 }
-//            etcTicketAdapter.submitList()
+                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
                 adapter = etcTicketAdapter
+
+                lifecycleScope.launch {
+                    viewModel.getTheaterTicketData()
+                }
+            }
+
+            layoutCampusTicketMore.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToPagingNewFragment())
+            }
+
+            layoutEtcTicketMore.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToPagingNewFragment())
             }
         }
 
         viewModel.newTicketList.observe(this) {
             newTicketAdapter.submitList(it)
+        }
+
+        viewModel.musicalTicketList.observe(this) {
+            binding.layoutCampusTicket.show()
+            campusTicketAdapter.submitList(it)
+        }
+
+        viewModel.theaterTicketList.observe(this) {
+            binding.layoutEtcTicket.show()
+            etcTicketAdapter.submitList(it)
         }
 
         viewModel.errorEvent.observe(viewLifecycleOwner) {

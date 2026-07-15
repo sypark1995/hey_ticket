@@ -157,7 +157,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/pretendard_bold"
-                        android:text="@string/main_campus_ticket"
+                        android:text="@string/main_musical_ticket"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -217,7 +217,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/pretendard_bold"
-                        android:text="@string/main_etc_ticket"
+                        android:text="@string/main_theater_ticket"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
