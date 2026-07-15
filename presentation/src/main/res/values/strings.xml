@@ -22,6 +22,9 @@
     <string name="main_theater_ticket">연극 공연</string>
     <string name="main_category">카테고리</string>
     <string name="main_my">마이</string>
+    <string name="favorites_title">내 찜 목록</string>
+    <string name="favorites_menu_label">찜 목록</string>
+    <string name="favorites_empty_title">찜한 공연이 없어요</string>
     <string name="recommend_selector_title">관심 카테고리 선택</string>
     <string name="recommend_selector_content">선택한 카테고리 기준으로 공연을 추천해 드려요</string>
     <string name="recommend_selector_area">지역</string>
