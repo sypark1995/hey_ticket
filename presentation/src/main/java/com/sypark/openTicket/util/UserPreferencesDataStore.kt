@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
@@ -26,6 +27,7 @@ class UserPreferencesDataStore(
         val PRICE = stringPreferencesKey("price")
         val KAKAO_NICKNAME = stringPreferencesKey("kakao_nickname")
         val KAKAO_PROFILE_IMAGE_URL = stringPreferencesKey("kakao_profile_image_url")
+        val FAVORITE_IDS = stringSetPreferencesKey("favorite_ids")
     }
 
     suspend fun getSortPosition(): Int = dataStore.data.first()[Keys.SORT_POSITION] ?: 1
@@ -45,6 +47,21 @@ class UserPreferencesDataStore(
         dataStore.edit {
             it[Keys.KAKAO_NICKNAME] = nickname
             it[Keys.KAKAO_PROFILE_IMAGE_URL] = profileImageUrl
+        }
+    }
+
+    suspend fun getFavoriteIds(): Set<String> = dataStore.data.first()[Keys.FAVORITE_IDS] ?: emptySet()
+
+    suspend fun isFavorite(performanceId: String): Boolean = getFavoriteIds().contains(performanceId)
+
+    suspend fun toggleFavorite(performanceId: String) {
+        dataStore.edit {
+            val current = it[Keys.FAVORITE_IDS] ?: emptySet()
+            it[Keys.FAVORITE_IDS] = if (current.contains(performanceId)) {
+                current - performanceId
+            } else {
+                current + performanceId
+            }
         }
     }
 }

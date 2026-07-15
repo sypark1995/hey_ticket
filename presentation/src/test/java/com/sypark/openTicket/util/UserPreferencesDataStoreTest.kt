@@ -55,4 +55,38 @@ class UserPreferencesDataStoreTest {
         assertEquals("홍길동", store.getKakaoNickname())
         assertEquals("https://example.com/profile.jpg", store.getKakaoProfileImageUrl())
     }
+
+    @Test
+    fun `favorites default to empty and can be toggled on then off`() = runTest {
+        val tempDir = kotlin.io.path.createTempDirectory().toFile()
+        val store = newStore(tempDir)
+
+        assertEquals(emptySet<String>(), store.getFavoriteIds())
+        assertEquals(false, store.isFavorite("PF223939"))
+
+        store.toggleFavorite("PF223939")
+
+        assertEquals(true, store.isFavorite("PF223939"))
+        assertEquals(setOf("PF223939"), store.getFavoriteIds())
+
+        store.toggleFavorite("PF223939")
+
+        assertEquals(false, store.isFavorite("PF223939"))
+        assertEquals(emptySet<String>(), store.getFavoriteIds())
+    }
+
+    @Test
+    fun `multiple favorites are stored independently`() = runTest {
+        val tempDir = kotlin.io.path.createTempDirectory().toFile()
+        val store = newStore(tempDir)
+
+        store.toggleFavorite("PF223939")
+        store.toggleFavorite("PF296190")
+
+        assertEquals(setOf("PF223939", "PF296190"), store.getFavoriteIds())
+
+        store.toggleFavorite("PF223939")
+
+        assertEquals(setOf("PF296190"), store.getFavoriteIds())
+    }
 }
