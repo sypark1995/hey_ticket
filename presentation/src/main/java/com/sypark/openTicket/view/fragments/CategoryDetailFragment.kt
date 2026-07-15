@@ -253,15 +253,17 @@ class CategoryDetailFragment :
                 }
 
                 CategoryDetailViewModel.FilterBtnType.CLEAR.name -> {
-                    /** clear 시 viewModel 의  status 값을 하면 X
-                     *  clear를 하더라도 DONE을 해서 확인을 한것이 아니기때문에 view의 status 를 변경
-                     *
-                     * */
-                    // 진행상태 clear
-//                    categoryDetailViewModel.isChecked(CategoryDetailViewModel.Status.EMPTY)
+                    // 진행상태 초기화 (viewModel 데이터 + 화면 둘 다 초기화 - DONE을 눌렀을 때 실제로 필터 없이 조회되도록)
+                    categoryDetailViewModel.isChecked(CategoryDetailViewModel.Status.EMPTY)
                     clearFilterStatus()
 
-                    // 예매 가격
+                    // 지역 초기화
+                    initFilterArea(root.context)
+
+                    // 공연일 초기화
+                    initFilterDay()
+
+                    // 예매 가격은 스코프 밖 - 기존 동작 유지
 //                    categoryDetailViewModel.setPriceType(CategoryDetailViewModel.PriceType.EMPTY)
                 }
 
