@@ -3,14 +3,17 @@ package com.sypark.openTicket.view
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sypark.domain.model.Content
 import com.sypark.openTicket.Common
+import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemTicketBinding
 
 class PagingAdapter(private val clickListener: (Content) -> Unit) :
@@ -61,6 +64,40 @@ class PagingViewHolder(
                     Common.getDayOfWeek(data.endDate)
                 }"
 //            textTicketPrice.text = data.pcseguidance
+
+            when (Common.compareDate(data.startDate, data.endDate)) {
+                Common.DateType.BEFORE -> {
+                    textTicketStatus.visibility = View.VISIBLE
+                    textTicketStatus.setBackgroundResource(R.drawable.round_4_blue)
+                    textTicketStatus.setTextColor(
+                        ContextCompat.getColor(root.context, R.color.blue_2C70F2)
+                    )
+                    textTicketStatus.text = Common.calculateDday(data.startDate)
+                }
+
+                Common.DateType.START -> {
+                    textTicketStatus.visibility = View.VISIBLE
+                    textTicketStatus.setBackgroundResource(R.drawable.round_4_green)
+                    textTicketStatus.setTextColor(
+                        ContextCompat.getColor(root.context, R.color.green_2C70F2)
+                    )
+                    textTicketStatus.text = "공연 중"
+                }
+
+                Common.DateType.FINISH -> {
+                    textTicketStatus.visibility = View.VISIBLE
+                    textTicketStatus.setBackgroundResource(R.drawable.round_4_gray)
+                    textTicketStatus.setTextColor(
+                        ContextCompat.getColor(root.context, R.color.gray_55555)
+                    )
+                    textTicketStatus.text = "종료"
+                }
+
+                else -> {
+                    textTicketStatus.visibility = View.GONE
+                }
+            }
+
             Glide.with(binding.root.context).load(data.poster).into(imgPoster)
             root.setOnClickListener {
                 clickListener(data)

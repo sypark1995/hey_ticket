@@ -38,8 +38,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.URLEncoder
-import java.text.SimpleDateFormat
-import java.util.*
 
 @AndroidEntryPoint
 class TicketDetailFragment :
@@ -51,7 +49,7 @@ class TicketDetailFragment :
     private lateinit var bitmap: Bitmap
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("SetTextI18n", "SimpleDateFormat")
+    @SuppressLint("SetTextI18n")
     override fun init(view: View) {
         val fm = childFragmentManager
         val mapFragment = fm.findFragmentById(R.id.layout_information_map) as MapFragment?
@@ -75,25 +73,11 @@ class TicketDetailFragment :
             binding.apply {
                 when (Common.compareDate(item.startDate, item.endDate)) {
                     Common.DateType.BEFORE -> {
-                        val startDate =
-                            Date(SimpleDateFormat("yyyy-MM-dd").parse(item.startDate)!!.time).time
-
-                        val nowDate = SimpleDateFormat("yyyy-MM-dd").parse(
-                            SimpleDateFormat("yyyy-MM-dd").format(
-                                Date(System.currentTimeMillis())
-                            )
+                        textState.setBackgroundResource(R.drawable.round_4_blue)
+                        textState.setTextColor(
+                            ContextCompat.getColor(binding.root.context, R.color.blue_2C70F2)
                         )
-
-                        try {
-                            textState.setBackgroundResource(R.drawable.round_4_blue)
-                            textState.setTextColor(
-                                ContextCompat.getColor(binding.root.context, R.color.blue_2C70F2)
-                            )
-                            textState.text =
-                                "D-${(startDate - nowDate.time) / (24 * 60 * 60 * 1000)}"
-                        } catch (e: Exception) {
-                            textState.text = ""
-                        }
+                        textState.text = Common.calculateDday(item.startDate)
                     }
 
                     Common.DateType.START -> {

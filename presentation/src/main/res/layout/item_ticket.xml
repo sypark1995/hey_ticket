@@ -26,18 +26,25 @@
         android:layout_marginStart="16dp"
         android:layout_weight="2">
 
-        <ImageView
-            android:id="@+id/img_ticket_status"
+        <TextView
+            android:id="@+id/text_ticket_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:src="@drawable/icon_ticket_performance" />
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="4dp"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:text="공연 중" />
 
         <TextView
             android:id="@+id/text_ticket_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/img_ticket_status"
+            android:layout_below="@id/text_ticket_status"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="1"

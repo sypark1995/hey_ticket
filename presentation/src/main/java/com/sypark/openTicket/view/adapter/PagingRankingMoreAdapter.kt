@@ -17,8 +17,6 @@ import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemRankingMoreBinding
 import com.sypark.openTicket.excensions.hide
-import java.text.SimpleDateFormat
-import java.util.*
 
 class RankingMoreAdapter(private val onItemClickListener: (String) -> Unit) :
     PagingDataAdapter<Content, RankingMoreViewHolder>(diffCallback) {
@@ -56,7 +54,7 @@ class RankingMoreViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("SimpleDateFormat", "SetTextI18n")
+    @SuppressLint("SetTextI18n")
     fun bind(item: Content, onItemClickListener: (String) -> Unit) {
         binding.apply {
             Glide.with(binding.root.context)
@@ -67,16 +65,9 @@ class RankingMoreViewHolder(
 
             when (Common.compareDate(item.startDate, item.endDate)) {
                 Common.DateType.BEFORE -> {
-                    val startDate =
-                        Date(SimpleDateFormat("yyyy-MM-dd").parse(item.startDate)!!.time).time
+                    val days = Common.daysUntil(item.startDate)
 
-                    val nowDate = SimpleDateFormat("yyyy-MM-dd").parse(
-                        SimpleDateFormat("yyyy-MM-dd").format(
-                            Date(System.currentTimeMillis())
-                        )
-                    )
-
-                    if (nowDate == null) {
+                    if (days == null) {
                         textState.text = ""
                     } else {
                         textState.apply {
@@ -88,10 +79,7 @@ class RankingMoreViewHolder(
                                 )
                             )
 
-                            text = context.getString(
-                                R.string.state_before,
-                                ((startDate - nowDate.time) / (24 * 60 * 60 * 1000))
-                            )
+                            text = context.getString(R.string.state_before, days)
                         }
                     }
                 }

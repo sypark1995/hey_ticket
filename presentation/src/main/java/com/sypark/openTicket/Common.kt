@@ -26,7 +26,7 @@ object Common {
     @RequiresApi(Build.VERSION_CODES.O)
     fun getDayOfWeek(string: String): String {
         try {
-            val list = string.split("-")
+            val list = string.split(".")
 
             val date = LocalDate.of(        // ex) LocalDate.of(2021,12,25)
                 list[0].toInt(),
@@ -206,10 +206,10 @@ object Common {
     @RequiresApi(Build.VERSION_CODES.O)
     fun compareDate(startDate: String, endDate: String): Any {
         try {
-            val startTime = Date(SimpleDateFormat("yyyy-MM-dd").parse(startDate)!!.time)
-            val endTime = Date(SimpleDateFormat("yyyy-MM-dd").parse(endDate)!!.time)
-            val nowDate = SimpleDateFormat("yyyy-MM-dd").parse(
-                SimpleDateFormat("yyyy-MM-dd").format(
+            val startTime = Date(SimpleDateFormat("yyyy.MM.dd").parse(startDate)!!.time)
+            val endTime = Date(SimpleDateFormat("yyyy.MM.dd").parse(endDate)!!.time)
+            val nowDate = SimpleDateFormat("yyyy.MM.dd").parse(
+                SimpleDateFormat("yyyy.MM.dd").format(
                     Date(System.currentTimeMillis())
                 )
             )?.let {
@@ -238,18 +238,38 @@ object Common {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun daysUntil(startDate: String): Long? {
+        return try {
+            val start = SimpleDateFormat("yyyy.MM.dd").parse(startDate)!!.time
+            val now = SimpleDateFormat("yyyy.MM.dd").parse(
+                SimpleDateFormat("yyyy.MM.dd").format(Date(System.currentTimeMillis()))
+            )!!.time
+            (start - now) / (24 * 60 * 60 * 1000)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun calculateDday(startDate: String): String {
+        val days = daysUntil(startDate) ?: return ""
+        return "D-$days"
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun getDayOfWeek2(day: String): String {
         return LocalDate.parse(
             day,
-            DateTimeFormatter.ISO_DATE
+            DateTimeFormatter.ofPattern("yyyy.MM.dd")
         ).dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun genStrDate(date: String, state: String = ""): String {
         return try {
-            "${date.split("-")[1].toInt()}월 ${date.split("-")[2].toInt()}일 " + "(${
+            "${date.split(".")[1].toInt()}월 ${date.split(".")[2].toInt()}일 " + "(${
                 getDayOfWeek2(date)
             }) $state"
         } catch (e: Exception) {

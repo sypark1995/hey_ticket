@@ -17,8 +17,6 @@ import com.sypark.domain.model.Content
 import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.databinding.ItemDefaultTicketBinding
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MainDefaultAdapter(private val onItemClickListener: (String) -> Unit) :
     ListAdapter<Content, NewTicketViewHolder>(MyItemCallback()) {
@@ -55,7 +53,7 @@ class MainDefaultAdapter(private val onItemClickListener: (String) -> Unit) :
 class NewTicketViewHolder(val binding: ItemDefaultTicketBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    @SuppressLint("SimpleDateFormat", "SetTextI18n")
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     fun bind(item: Content, onItemClickListener: (String) -> Unit) {
         binding.apply {
@@ -68,26 +66,11 @@ class NewTicketViewHolder(val binding: ItemDefaultTicketBinding) :
 
             when (Common.compareDate(item.startDate, item.endDate)) {
                 Common.DateType.BEFORE -> {
-                    val startDate =
-                        Date(SimpleDateFormat("yyyy-MM-dd").parse(item.startDate)!!.time).time
-
-                    val nowDate = SimpleDateFormat("yyyy-MM-dd").parse(
-                        SimpleDateFormat("yyyy-MM-dd").format(
-                            Date(System.currentTimeMillis())
-                        )
-                    )
-
                     textStatus.setTextColor(
                         ContextCompat.getColor(binding.root.context, R.color.blue_2C70F2)
                     )
 
-                    try {
-                        if (nowDate != null) {
-                            textStatus.text = "D-${(startDate - nowDate.time) / (24 * 60 * 60 * 1000)}"
-                        }
-                    } catch (e: Exception) {
-                        textStatus.text = ""
-                    }
+                    textStatus.text = Common.calculateDday(item.startDate)
 
                     textDate.text = Common.genStrDate(item.startDate, "시작")
                 }
