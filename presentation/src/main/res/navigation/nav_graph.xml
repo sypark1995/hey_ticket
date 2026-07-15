@@ -115,6 +115,20 @@
         android:id="@+id/myFragment"
         android:name="com.sypark.openTicket.view.fragments.MyFragment"
         android:label="MyFragment"
-        tools:layout="@layout/fragment_my" />
+        tools:layout="@layout/fragment_my">
+        <action
+            android:id="@+id/action_myFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.sypark.openTicket.view.fragments.FavoritesFragment"
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favoritesFragment_to_ticketDetailFragment"
+            app:destination="@id/ticketDetailFragment" />
+    </fragment>
 
 </navigation>

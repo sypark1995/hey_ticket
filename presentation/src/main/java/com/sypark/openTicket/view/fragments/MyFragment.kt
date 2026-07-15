@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.user.UserApiClient
@@ -35,6 +36,10 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
         binding.btnLogout.setOnClickListener {
             logout()
+        }
+
+        binding.textFavoritesMenu.setOnClickListener {
+            findNavController().navigate(MyFragmentDirections.actionMyFragmentToFavoritesFragment())
         }
 
         refreshLoginState()
