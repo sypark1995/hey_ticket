@@ -22,9 +22,14 @@ private const val LIST_XML = """
 """
 
 class FakeKopisApiService : KopisApiService {
+    var lastRequestedGenreCode: String? = null
+
     override suspend fun requestPerformanceList(
         serviceKey: String, startDate: String, endDate: String, page: Int, rows: Int, genreCode: String?, areaCode: String?, prfstate: String?
-    ) = LIST_XML
+    ): String {
+        lastRequestedGenreCode = genreCode
+        return LIST_XML
+    }
 
     override suspend fun requestPerformanceSearch(
         serviceKey: String, startDate: String, endDate: String, page: Int, rows: Int, title: String
@@ -47,5 +52,25 @@ class TicketRepositoryImplTest {
             assertEquals(1, list.size)
             assertEquals("위키드", list[0].title)
         }
+    }
+
+    @Test
+    fun `getNew maps the app genre code to the KOPIS shcate before requesting`() = runTest {
+        val fakeService = FakeKopisApiService()
+        val repository = TicketRepositoryImpl(fakeService, Dispatchers.Unconfined)
+
+        repository.getNew("MUSICAL", 1, 10).collect {}
+
+        assertEquals("GGGA", fakeService.lastRequestedGenreCode)
+    }
+
+    @Test
+    fun `getNew requests no genre filter when given an unmapped code`() = runTest {
+        val fakeService = FakeKopisApiService()
+        val repository = TicketRepositoryImpl(fakeService, Dispatchers.Unconfined)
+
+        repository.getNew("", 1, 10).collect {}
+
+        assertEquals(null, fakeService.lastRequestedGenreCode)
     }
 }

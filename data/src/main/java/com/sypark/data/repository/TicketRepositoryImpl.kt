@@ -4,6 +4,7 @@ import com.sypark.data.AppDispatchers
 import com.sypark.data.BuildConfig
 import com.sypark.data.Dispatcher
 import com.sypark.data.db.entity.safeFlow
+import com.sypark.data.mapper.KopisGenreMapper
 import com.sypark.data.mapper.KopisXmlParser
 import com.sypark.data.service.KopisApiService
 import com.sypark.data.util.DateRange
@@ -46,7 +47,7 @@ class TicketRepositoryImpl @Inject constructor(
                     endDate = end,
                     page = page,
                     rows = rows,
-                    genreCode = genreCode,
+                    genreCode = KopisGenreMapper.toShcate(genreCode),
                 )
                 KopisXmlParser.parsePerformanceList(xml)
             }
