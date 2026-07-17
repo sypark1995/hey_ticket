@@ -33,6 +33,8 @@
     <string name="recommend_selector_area">지역</string>
     <string name="recommend_selector_area_content">복수 선택 가능해요</string>
     <string name="recommend_selector_genre">공연 장르</string>
+    <string name="recommend_category_complete">완료</string>
+    <string name="recommend_category_menu_label">관심 카테고리 설정</string>
 
 
 
