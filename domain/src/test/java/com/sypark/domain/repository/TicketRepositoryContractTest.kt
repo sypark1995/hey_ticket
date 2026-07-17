@@ -30,6 +30,9 @@ class TicketRepositoryContractTest {
 
         override suspend fun search(query: String, page: Int, rows: Int): Flow<ApiResult<List<Content>>> =
             flowOf(ApiResult.Success(listOf(fakeContent)))
+
+        override suspend fun getClosingSoon(rows: Int): Flow<ApiResult<List<Content>>> =
+            flowOf(ApiResult.Success(listOf(fakeContent)))
     }
 
     @Test

@@ -24,6 +24,7 @@ class GetPerformanceDetailUseCaseTest {
         override suspend fun getNew(genreCode: String?, page: Int, rows: Int) = flowOf(ApiResult.Success(listOf(expected)))
         override suspend fun getDetail(performanceId: String): Flow<ApiResult<Content>> = flowOf(ApiResult.Success(expected))
         override suspend fun search(query: String, page: Int, rows: Int) = flowOf(ApiResult.Success(listOf(expected)))
+        override suspend fun getClosingSoon(rows: Int) = flowOf(ApiResult.Success(listOf(expected)))
     }
 
     @Test
