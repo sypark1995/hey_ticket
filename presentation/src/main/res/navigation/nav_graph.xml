@@ -119,6 +119,9 @@
         <action
             android:id="@+id/action_myFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_myFragment_to_recentlyViewedFragment"
+            app:destination="@id/recentlyViewedFragment" />
     </fragment>
 
     <fragment
@@ -128,6 +131,16 @@
         tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_favoritesFragment_to_ticketDetailFragment"
+            app:destination="@id/ticketDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recentlyViewedFragment"
+        android:name="com.sypark.openTicket.view.fragments.RecentlyViewedFragment"
+        android:label="RecentlyViewedFragment"
+        tools:layout="@layout/fragment_recently_viewed">
+        <action
+            android:id="@+id/action_recentlyViewedFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment" />
     </fragment>
 
