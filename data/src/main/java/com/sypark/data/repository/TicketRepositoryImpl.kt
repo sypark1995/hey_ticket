@@ -79,4 +79,22 @@ class TicketRepositoryImpl @Inject constructor(
                 KopisXmlParser.parsePerformanceList(xml)
             }
         }
+
+    override suspend fun getClosingSoon(rows: Int): Flow<ApiResult<List<Content>>> =
+        safeFlow {
+            withContext(ioDispatcher) {
+                val (start, end) = DateRange.todayToDaysAhead(90)
+                val xml = kopisApiService.requestPerformanceList(
+                    serviceKey = BuildConfig.KOPIS_SERVICE_KEY,
+                    startDate = start,
+                    endDate = end,
+                    page = 1,
+                    rows = 30,
+                    prfstate = "01",
+                )
+                KopisXmlParser.parsePerformanceList(xml)
+                    .sortedBy { it.endDate }
+                    .take(rows)
+            }
+        }
 }
