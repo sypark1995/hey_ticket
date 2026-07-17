@@ -61,7 +61,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
 
             layoutRecommand.setOnClickListener {
-                loginWithKakao()
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToRecommendCategoryFragment())
             }
 
             textRecommand.run {

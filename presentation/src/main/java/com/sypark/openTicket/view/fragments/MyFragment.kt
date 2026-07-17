@@ -46,6 +46,10 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
             findNavController().navigate(MyFragmentDirections.actionMyFragmentToRecentlyViewedFragment())
         }
 
+        binding.textRecommendCategoryMenu.setOnClickListener {
+            findNavController().navigate(MyFragmentDirections.actionMyFragmentToRecommendCategoryFragment())
+        }
+
         refreshLoginState()
     }
 

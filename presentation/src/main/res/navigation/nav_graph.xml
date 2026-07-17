@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_mainFragment_to_pagingNewFragment"
             app:destination="@id/pagingNewFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_recommendCategoryFragment"
+            app:destination="@id/recommendCategoryFragment" />
 
     </fragment>
 
@@ -122,6 +125,9 @@
         <action
             android:id="@+id/action_myFragment_to_recentlyViewedFragment"
             app:destination="@id/recentlyViewedFragment" />
+        <action
+            android:id="@+id/action_myFragment_to_recommendCategoryFragment"
+            app:destination="@id/recommendCategoryFragment" />
     </fragment>
 
     <fragment
@@ -143,5 +149,11 @@
             android:id="@+id/action_recentlyViewedFragment_to_ticketDetailFragment"
             app:destination="@id/ticketDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/recommendCategoryFragment"
+        android:name="com.sypark.openTicket.view.fragments.RecommendCategoryFragment"
+        android:label="RecommendCategoryFragment"
+        tools:layout="@layout/fragment_recommend_category" />
 
 </navigation>
