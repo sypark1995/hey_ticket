@@ -292,6 +292,10 @@ class TicketDetailFragment :
                 }
 
                 lifecycleScope.launch {
+                    userPreferencesDataStore.recordView(item.id)
+                }
+
+                lifecycleScope.launch {
                     imgLike.setImageResource(
                         if (userPreferencesDataStore.isFavorite(item.id)) {
                             R.drawable.icon_like_filled
