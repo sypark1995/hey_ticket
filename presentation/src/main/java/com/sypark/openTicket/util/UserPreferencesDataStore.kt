@@ -28,6 +28,7 @@ class UserPreferencesDataStore(
         val KAKAO_NICKNAME = stringPreferencesKey("kakao_nickname")
         val KAKAO_PROFILE_IMAGE_URL = stringPreferencesKey("kakao_profile_image_url")
         val FAVORITE_IDS = stringSetPreferencesKey("favorite_ids")
+        val RECENTLY_VIEWED_IDS = stringPreferencesKey("recently_viewed_ids")
     }
 
     suspend fun getSortPosition(): Int = dataStore.data.first()[Keys.SORT_POSITION] ?: 1
@@ -62,6 +63,21 @@ class UserPreferencesDataStore(
             } else {
                 current + performanceId
             }
+        }
+    }
+
+    suspend fun getRecentlyViewedIds(): List<String> {
+        val raw = dataStore.data.first()[Keys.RECENTLY_VIEWED_IDS] ?: ""
+        return if (raw.isEmpty()) emptyList() else raw.split(",")
+    }
+
+    suspend fun recordView(performanceId: String) {
+        dataStore.edit {
+            val current = (it[Keys.RECENTLY_VIEWED_IDS] ?: "")
+                .let { raw -> if (raw.isEmpty()) emptyList() else raw.split(",") }
+            val updated = (listOf(performanceId) + current.filterNot { id -> id == performanceId })
+                .take(20)
+            it[Keys.RECENTLY_VIEWED_IDS] = updated.joinToString(",")
         }
     }
 }

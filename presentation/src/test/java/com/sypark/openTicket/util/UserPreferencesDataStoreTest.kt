@@ -89,4 +89,41 @@ class UserPreferencesDataStoreTest {
 
         assertEquals(setOf("PF296190"), store.getFavoriteIds())
     }
+
+    @Test
+    fun `recently viewed defaults to empty and records a new view`() = runTest {
+        val tempDir = kotlin.io.path.createTempDirectory().toFile()
+        val store = newStore(tempDir)
+
+        assertEquals(emptyList<String>(), store.getRecentlyViewedIds())
+
+        store.recordView("PF223939")
+
+        assertEquals(listOf("PF223939"), store.getRecentlyViewedIds())
+    }
+
+    @Test
+    fun `viewing an already-viewed performance moves it back to the front`() = runTest {
+        val tempDir = kotlin.io.path.createTempDirectory().toFile()
+        val store = newStore(tempDir)
+
+        store.recordView("PF223939")
+        store.recordView("PF296190")
+        store.recordView("PF223939")
+
+        assertEquals(listOf("PF223939", "PF296190"), store.getRecentlyViewedIds())
+    }
+
+    @Test
+    fun `recently viewed list is capped at 20, dropping the oldest`() = runTest {
+        val tempDir = kotlin.io.path.createTempDirectory().toFile()
+        val store = newStore(tempDir)
+
+        (1..21).forEach { store.recordView("PF$it") }
+
+        val ids = store.getRecentlyViewedIds()
+        assertEquals(20, ids.size)
+        assertEquals("PF21", ids.first())
+        assertEquals(false, ids.contains("PF1"))
+    }
 }
