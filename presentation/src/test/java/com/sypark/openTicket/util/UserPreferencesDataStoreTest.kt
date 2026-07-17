@@ -126,4 +126,32 @@ class UserPreferencesDataStoreTest {
         assertEquals("PF21", ids.first())
         assertEquals(false, ids.contains("PF1"))
     }
+
+    @Test
+    fun `interested genres default to empty and can be fully replaced`() = runTest {
+        val tempDir = kotlin.io.path.createTempDirectory().toFile()
+        val store = newStore(tempDir)
+
+        assertEquals(emptySet<String>(), store.getInterestedGenres())
+
+        store.setInterestedGenres(setOf("MUSICAL", "THEATER"))
+        assertEquals(setOf("MUSICAL", "THEATER"), store.getInterestedGenres())
+
+        store.setInterestedGenres(setOf("CLASSIC"))
+        assertEquals(setOf("CLASSIC"), store.getInterestedGenres())
+    }
+
+    @Test
+    fun `interested areas default to empty and can be fully replaced`() = runTest {
+        val tempDir = kotlin.io.path.createTempDirectory().toFile()
+        val store = newStore(tempDir)
+
+        assertEquals(emptySet<String>(), store.getInterestedAreas())
+
+        store.setInterestedAreas(setOf("SEOUL", "BUSAN"))
+        assertEquals(setOf("SEOUL", "BUSAN"), store.getInterestedAreas())
+
+        store.setInterestedAreas(setOf("DAEGU"))
+        assertEquals(setOf("DAEGU"), store.getInterestedAreas())
+    }
 }

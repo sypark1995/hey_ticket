@@ -29,6 +29,8 @@ class UserPreferencesDataStore(
         val KAKAO_PROFILE_IMAGE_URL = stringPreferencesKey("kakao_profile_image_url")
         val FAVORITE_IDS = stringSetPreferencesKey("favorite_ids")
         val RECENTLY_VIEWED_IDS = stringPreferencesKey("recently_viewed_ids")
+        val INTERESTED_GENRES = stringSetPreferencesKey("interested_genres")
+        val INTERESTED_AREAS = stringSetPreferencesKey("interested_areas")
     }
 
     suspend fun getSortPosition(): Int = dataStore.data.first()[Keys.SORT_POSITION] ?: 1
@@ -79,5 +81,17 @@ class UserPreferencesDataStore(
                 .take(20)
             it[Keys.RECENTLY_VIEWED_IDS] = updated.joinToString(",")
         }
+    }
+
+    suspend fun getInterestedGenres(): Set<String> = dataStore.data.first()[Keys.INTERESTED_GENRES] ?: emptySet()
+
+    suspend fun setInterestedGenres(codes: Set<String>) {
+        dataStore.edit { it[Keys.INTERESTED_GENRES] = codes }
+    }
+
+    suspend fun getInterestedAreas(): Set<String> = dataStore.data.first()[Keys.INTERESTED_AREAS] ?: emptySet()
+
+    suspend fun setInterestedAreas(codes: Set<String>) {
+        dataStore.edit { it[Keys.INTERESTED_AREAS] = codes }
     }
 }
