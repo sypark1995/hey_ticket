@@ -1,9 +1,12 @@
 package com.sypark.openTicket.view.fragments
 
+import android.Manifest
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -29,6 +32,9 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
     @Inject
     lateinit var userPreferencesDataStore: UserPreferencesDataStore
+
+    private val requestNotificationPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
 
     override fun init(view: View) {
         binding.layoutBottom.navigationBottom.menu.getItem(2).isChecked = true
@@ -57,11 +63,14 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
         lifecycleScope.launch {
             binding.switchNotifications.isChecked = userPreferencesDataStore.getNotificationsEnabled()
-        }
 
-        binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
-            lifecycleScope.launch {
-                userPreferencesDataStore.setNotificationsEnabled(isChecked)
+            binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    requestNotificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+                lifecycleScope.launch {
+                    userPreferencesDataStore.setNotificationsEnabled(isChecked)
+                }
             }
         }
 
