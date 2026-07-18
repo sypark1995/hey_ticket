@@ -1,6 +1,9 @@
 package com.sypark.openTicket.view.fragments
 
+import android.Manifest
+import android.os.Build
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,6 +25,9 @@ class RecommendCategoryFragment : BaseFragment<FragmentRecommendCategoryBinding>
     private lateinit var areaAdapter: RecommendAreaAdapter
     private lateinit var genreAdapter: RecommendGenreAdapter
 
+    private val requestNotificationPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
+
     override fun init(view: View) {
         areaAdapter = RecommendAreaAdapter()
         binding.recyclerviewArea.apply {
@@ -40,6 +46,9 @@ class RecommendCategoryFragment : BaseFragment<FragmentRecommendCategoryBinding>
         binding.btnRecommendComplete.setOnClickListener {
             lifecycleScope.launch {
                 viewModel.saveSelections(genreAdapter.selectedCodes(), areaAdapter.selectedCodes())
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    requestNotificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
                 findNavController().popBackStack()
             }
         }
