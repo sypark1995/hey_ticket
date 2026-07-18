@@ -16,14 +16,19 @@ import com.sypark.openTicket.databinding.FragmentMyBinding
 import com.sypark.openTicket.excensions.hide
 import com.sypark.openTicket.excensions.show
 import com.sypark.openTicket.model.MyViewModel
+import com.sypark.openTicket.util.UserPreferencesDataStore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
     private val TAG = "MyFragment"
 
     private val viewModel: MyViewModel by viewModels()
+
+    @Inject
+    lateinit var userPreferencesDataStore: UserPreferencesDataStore
 
     override fun init(view: View) {
         binding.layoutBottom.navigationBottom.menu.getItem(2).isChecked = true
@@ -48,6 +53,16 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
         binding.textRecommendCategoryMenu.setOnClickListener {
             findNavController().navigate(MyFragmentDirections.actionMyFragmentToRecommendCategoryFragment())
+        }
+
+        lifecycleScope.launch {
+            binding.switchNotifications.isChecked = userPreferencesDataStore.getNotificationsEnabled()
+        }
+
+        binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                userPreferencesDataStore.setNotificationsEnabled(isChecked)
+            }
         }
 
         refreshLoginState()

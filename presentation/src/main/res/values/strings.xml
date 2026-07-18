@@ -35,6 +35,7 @@
     <string name="recommend_selector_genre">공연 장르</string>
     <string name="recommend_category_complete">완료</string>
     <string name="recommend_category_menu_label">관심 카테고리 설정</string>
+    <string name="notifications_toggle_label">관심 공연 알림 받기</string>
 
 
 

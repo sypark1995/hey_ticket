@@ -1,12 +1,14 @@
 package com.sypark.openTicket.view
 
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseActivity
 import com.sypark.openTicket.databinding.ActivityMainBinding
+import com.sypark.openTicket.worker.EXTRA_PERFORMANCE_ID
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +29,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         navGraph.setStartDestination(R.id.mainFragment)
         navController.graph = navGraph
+
+        val performanceId = intent.getStringExtra(EXTRA_PERFORMANCE_ID)
+        if (performanceId != null) {
+            navController.navigate(R.id.ticketDetailFragment, bundleOf("item" to performanceId))
+        }
     }
 
 }
