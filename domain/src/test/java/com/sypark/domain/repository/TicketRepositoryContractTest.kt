@@ -33,6 +33,8 @@ class TicketRepositoryContractTest {
 
         override suspend fun getClosingSoon(rows: Int): Flow<ApiResult<List<Content>>> =
             flowOf(ApiResult.Success(listOf(fakeContent)))
+
+        override suspend fun getMatchingNew(genreCode: String?, areaCode: String?, rows: Int): Flow<ApiResult<List<Content>>> = flowOf(ApiResult.Success(emptyList()))
     }
 
     @Test

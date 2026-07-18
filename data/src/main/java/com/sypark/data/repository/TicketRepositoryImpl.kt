@@ -4,6 +4,7 @@ import com.sypark.data.AppDispatchers
 import com.sypark.data.BuildConfig
 import com.sypark.data.Dispatcher
 import com.sypark.data.db.entity.safeFlow
+import com.sypark.data.mapper.AreaCodeMapper
 import com.sypark.data.mapper.KopisGenreMapper
 import com.sypark.data.mapper.KopisXmlParser
 import com.sypark.data.service.KopisApiService
@@ -95,6 +96,23 @@ class TicketRepositoryImpl @Inject constructor(
                 KopisXmlParser.parsePerformanceList(xml)
                     .sortedBy { it.endDate }
                     .take(rows)
+            }
+        }
+
+    override suspend fun getMatchingNew(genreCode: String?, areaCode: String?, rows: Int): Flow<ApiResult<List<Content>>> =
+        safeFlow {
+            withContext(ioDispatcher) {
+                val (start, end) = DateRange.todayToDaysAhead(30)
+                val xml = kopisApiService.requestPerformanceList(
+                    serviceKey = BuildConfig.KOPIS_SERVICE_KEY,
+                    startDate = start,
+                    endDate = end,
+                    page = 1,
+                    rows = rows,
+                    genreCode = KopisGenreMapper.toShcate(genreCode),
+                    areaCode = AreaCodeMapper.toSigngucode(areaCode),
+                )
+                KopisXmlParser.parsePerformanceList(xml)
             }
         }
 }

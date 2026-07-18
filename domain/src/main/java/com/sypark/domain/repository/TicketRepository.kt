@@ -10,4 +10,5 @@ interface TicketRepository {
     suspend fun getDetail(performanceId: String): Flow<ApiResult<Content>>
     suspend fun search(query: String, page: Int, rows: Int): Flow<ApiResult<List<Content>>>
     suspend fun getClosingSoon(rows: Int): Flow<ApiResult<List<Content>>>
+    suspend fun getMatchingNew(genreCode: String?, areaCode: String?, rows: Int): Flow<ApiResult<List<Content>>>
 }

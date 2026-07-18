@@ -58,6 +58,7 @@ private const val CLOSING_SOON_XML = """
 
 class FakeKopisApiService : KopisApiService {
     var lastRequestedGenreCode: String? = null
+    var lastRequestedAreaCode: String? = null
     var lastRequestedPrfstate: String? = null
     var responseXml: String = LIST_XML
 
@@ -65,6 +66,7 @@ class FakeKopisApiService : KopisApiService {
         serviceKey: String, startDate: String, endDate: String, page: Int, rows: Int, genreCode: String?, areaCode: String?, prfstate: String?
     ): String {
         lastRequestedGenreCode = genreCode
+        lastRequestedAreaCode = areaCode
         lastRequestedPrfstate = prfstate
         return responseXml
     }
@@ -134,5 +136,27 @@ class TicketRepositoryImplTest {
             assertEquals("가장 먼저 끝나는 공연", list[0].title)
             assertEquals("중간에 끝나는 공연", list[1].title)
         }
+    }
+
+    @Test
+    fun `getMatchingNew maps both genre and area codes to KOPIS codes before requesting`() = runTest {
+        val fakeService = FakeKopisApiService()
+        val repository = TicketRepositoryImpl(fakeService, Dispatchers.Unconfined)
+
+        repository.getMatchingNew("MUSICAL", "SEOUL", 20).collect {}
+
+        assertEquals("GGGA", fakeService.lastRequestedGenreCode)
+        assertEquals("11", fakeService.lastRequestedAreaCode)
+    }
+
+    @Test
+    fun `getMatchingNew requests no filters when given null genre and area`() = runTest {
+        val fakeService = FakeKopisApiService()
+        val repository = TicketRepositoryImpl(fakeService, Dispatchers.Unconfined)
+
+        repository.getMatchingNew(null, null, 20).collect {}
+
+        assertEquals(null, fakeService.lastRequestedGenreCode)
+        assertEquals(null, fakeService.lastRequestedAreaCode)
     }
 }

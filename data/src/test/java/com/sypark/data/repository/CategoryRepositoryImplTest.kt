@@ -29,6 +29,7 @@ class CategoryRepositoryImplTest {
             override suspend fun getDetail(performanceId: String) = flowOf(ApiResult.Error())
             override suspend fun search(query: String, page: Int, rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))
             override suspend fun getClosingSoon(rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))
+            override suspend fun getMatchingNew(genreCode: String?, areaCode: String?, rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))
         }
         val repository = CategoryRepositoryImpl(ticketRepository, Dispatchers.Unconfined)
 
@@ -55,6 +56,7 @@ class CategoryRepositoryImplTest {
             override suspend fun getDetail(performanceId: String) = flowOf(ApiResult.Error())
             override suspend fun search(query: String, page: Int, rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))
             override suspend fun getClosingSoon(rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))
+            override suspend fun getMatchingNew(genreCode: String?, areaCode: String?, rows: Int) = flowOf(ApiResult.Success(emptyList<Content>()))
         }
         val repository = CategoryRepositoryImpl(ticketRepository, Dispatchers.Unconfined)
 
