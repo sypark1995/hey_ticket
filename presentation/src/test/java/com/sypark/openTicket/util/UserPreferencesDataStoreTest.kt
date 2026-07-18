@@ -154,4 +154,32 @@ class UserPreferencesDataStoreTest {
         store.setInterestedAreas(setOf("DAEGU"))
         assertEquals(setOf("DAEGU"), store.getInterestedAreas())
     }
+
+    @Test
+    fun `notified ids default to empty and accumulate across calls`() = runTest {
+        val tempDir = kotlin.io.path.createTempDirectory().toFile()
+        val store = newStore(tempDir)
+
+        assertEquals(emptySet<String>(), store.getNotifiedIds())
+
+        store.markAsNotified(setOf("PF1", "PF2"))
+        assertEquals(setOf("PF1", "PF2"), store.getNotifiedIds())
+
+        store.markAsNotified(setOf("PF2", "PF3"))
+        assertEquals(setOf("PF1", "PF2", "PF3"), store.getNotifiedIds())
+    }
+
+    @Test
+    fun `notifications enabled defaults to true and can be toggled`() = runTest {
+        val tempDir = kotlin.io.path.createTempDirectory().toFile()
+        val store = newStore(tempDir)
+
+        assertEquals(true, store.getNotificationsEnabled())
+
+        store.setNotificationsEnabled(false)
+        assertEquals(false, store.getNotificationsEnabled())
+
+        store.setNotificationsEnabled(true)
+        assertEquals(true, store.getNotificationsEnabled())
+    }
 }

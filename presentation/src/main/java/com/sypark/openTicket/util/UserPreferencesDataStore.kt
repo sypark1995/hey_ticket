@@ -3,6 +3,7 @@ package com.sypark.openTicket.util
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -31,6 +32,8 @@ class UserPreferencesDataStore(
         val RECENTLY_VIEWED_IDS = stringPreferencesKey("recently_viewed_ids")
         val INTERESTED_GENRES = stringSetPreferencesKey("interested_genres")
         val INTERESTED_AREAS = stringSetPreferencesKey("interested_areas")
+        val NOTIFIED_IDS = stringSetPreferencesKey("notified_ids")
+        val NOTIFICATIONS_ENABLED = booleanPreferencesKey("notifications_enabled")
     }
 
     suspend fun getSortPosition(): Int = dataStore.data.first()[Keys.SORT_POSITION] ?: 1
@@ -93,5 +96,20 @@ class UserPreferencesDataStore(
 
     suspend fun setInterestedAreas(codes: Set<String>) {
         dataStore.edit { it[Keys.INTERESTED_AREAS] = codes }
+    }
+
+    suspend fun getNotifiedIds(): Set<String> = dataStore.data.first()[Keys.NOTIFIED_IDS] ?: emptySet()
+
+    suspend fun markAsNotified(ids: Set<String>) {
+        dataStore.edit {
+            val current = it[Keys.NOTIFIED_IDS] ?: emptySet()
+            it[Keys.NOTIFIED_IDS] = current + ids
+        }
+    }
+
+    suspend fun getNotificationsEnabled(): Boolean = dataStore.data.first()[Keys.NOTIFICATIONS_ENABLED] ?: true
+
+    suspend fun setNotificationsEnabled(enabled: Boolean) {
+        dataStore.edit { it[Keys.NOTIFICATIONS_ENABLED] = enabled }
     }
 }
