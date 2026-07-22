@@ -1,7 +1,9 @@
 package com.sypark.openTicket.view.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -14,12 +16,14 @@ import com.sypark.openTicket.databinding.ItemRecommendAreaBinding
 class RecommendAreaAdapter : ListAdapter<Areas, RecommendAreaAdapter.ViewHolder>(DiffCallback()) {
 
     private val selectedCodes = mutableSetOf<String>()
+    var onSelectionChanged: (() -> Unit)? = null
 
     @SuppressLint("NotifyDataSetChanged")
     fun setSelectedCodes(codes: Set<String>) {
         selectedCodes.clear()
         selectedCodes.addAll(codes)
         notifyDataSetChanged()
+        onSelectionChanged?.invoke()
     }
 
     fun selectedCodes(): Set<String> = selectedCodes.toSet()
@@ -38,21 +42,23 @@ class RecommendAreaAdapter : ListAdapter<Areas, RecommendAreaAdapter.ViewHolder>
                 selectedCodes.add(item.code)
             }
             notifyItemChanged(position)
+            onSelectionChanged?.invoke()
         }
     }
 
     class ViewHolder(private val binding: ItemRecommendAreaBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Areas, isSelected: Boolean, onClick: () -> Unit) {
-            binding.textArea.apply {
-                text = item.name
-                setOnClickListener { onClick() }
-                if (isSelected) {
-                    setBackgroundResource(R.drawable.round_16_black)
-                    setTextColor(ContextCompat.getColor(context, R.color.white))
-                } else {
-                    setBackgroundResource(R.drawable.round_16_gray_white)
-                    setTextColor(ContextCompat.getColor(context, R.color.gray_949494))
-                }
+            binding.textArea.text = item.name
+            binding.root.setOnClickListener { onClick() }
+            binding.iconCheck.visibility = if (isSelected) View.VISIBLE else View.GONE
+            if (isSelected) {
+                binding.root.setBackgroundResource(R.drawable.round_10_black_outline)
+                binding.textArea.setTextColor(ContextCompat.getColor(binding.root.context, R.color.black))
+                binding.textArea.setTypeface(binding.textArea.typeface, Typeface.BOLD)
+            } else {
+                binding.root.setBackgroundResource(R.drawable.round_10_gray_white)
+                binding.textArea.setTextColor(ContextCompat.getColor(binding.root.context, R.color.gray_949494))
+                binding.textArea.setTypeface(Typeface.DEFAULT)
             }
         }
     }

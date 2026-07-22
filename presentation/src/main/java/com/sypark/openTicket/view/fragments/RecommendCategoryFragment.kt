@@ -31,17 +31,20 @@ class RecommendCategoryFragment : BaseFragment<FragmentRecommendCategoryBinding>
     override fun init(view: View) {
         areaAdapter = RecommendAreaAdapter()
         binding.recyclerviewArea.apply {
-            layoutManager = GridLayoutManager(view.context, 3)
+            layoutManager = GridLayoutManager(view.context, 4)
             adapter = areaAdapter
         }
         areaAdapter.submitList(Common.areaList)
+        areaAdapter.onSelectionChanged = { updateSelectionSummary() }
 
         genreAdapter = RecommendGenreAdapter()
         binding.recyclerviewGenre.apply {
-            layoutManager = GridLayoutManager(view.context, 3)
+            layoutManager = GridLayoutManager(view.context, 4)
             adapter = genreAdapter
         }
         genreAdapter.submitList(Common.genreList.filterNot { it.code == "ALL" })
+        genreAdapter.onSelectionChanged = { updateSelectionSummary() }
+        updateSelectionSummary()
 
         binding.btnRecommendComplete.setOnClickListener {
             lifecycleScope.launch {
@@ -68,5 +71,13 @@ class RecommendCategoryFragment : BaseFragment<FragmentRecommendCategoryBinding>
 
     override fun backPressed() {
         findNavController().popBackStack()
+    }
+
+    private fun updateSelectionSummary() {
+        binding.textSelectionSummary.text = getString(
+            R.string.recommend_selector_summary,
+            areaAdapter.selectedCodes().size,
+            genreAdapter.selectedCodes().size
+        )
     }
 }

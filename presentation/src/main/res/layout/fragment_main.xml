@@ -70,10 +70,126 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/layout_recommended_ticket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_recommand"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/text_recommended_ticket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="@string/main_recommended_ticket"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_recommended_ticket_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="21.5dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/text_recommended_ticket_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/pretendard_light"
+                            android:gravity="center_vertical"
+                            android:text="@string/main_more"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_toEndOf="@+id/text_recommended_ticket_more"
+                            android:src="@drawable/icon_more" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_recommended_ticket"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout_recommended_ticket_more"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_default_ticket" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_favorites_ticket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_recommended_ticket"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/text_favorites_ticket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="@string/main_favorites_ticket"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_favorites_ticket_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="21.5dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/text_favorites_ticket_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/pretendard_light"
+                            android:gravity="center_vertical"
+                            android:text="@string/main_more"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_toEndOf="@+id/text_favorites_ticket_more"
+                            android:src="@drawable/icon_more" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_favorites_ticket"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout_favorites_ticket_more"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_default_ticket" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/layout_new_ticket"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/layout_recommand">
+                    android:layout_below="@id/layout_favorites_ticket">
 
                     <TextView
                         android:id="@+id/text_new_ticket"

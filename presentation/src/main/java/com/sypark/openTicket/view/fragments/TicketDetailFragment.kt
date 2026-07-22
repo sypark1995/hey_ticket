@@ -39,6 +39,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.net.URLEncoder
 
 @AndroidEntryPoint
@@ -115,6 +116,13 @@ class TicketDetailFragment :
                     .load(item.poster)
                     .error(R.drawable.icon_default_poster)
                     .into(imgPoster)
+
+                imgPosterExpand.setOnClickListener {
+                    findNavController().navigate(
+                        TicketDetailFragmentDirections
+                            .actionTicketDetailFragmentToImageViewerFragment(item.poster.orEmpty())
+                    )
+                }
 
                 if ((item.startDate.isEmpty() || item.endDate.isEmpty())) {
                     layoutInformationDate.visibility = View.GONE
@@ -218,6 +226,11 @@ class TicketDetailFragment :
                                 )
                             }
 
+                        val detailImageFile = File(requireContext().cacheDir, "detail_image_${item.id}.png")
+                        detailImageFile.outputStream().use { out ->
+                            mergeBitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                        }
+
                         withContext(Dispatchers.Main) {
 
                             if (mergeBitmap.height <= imgInformationDetail.height) {
@@ -225,6 +238,15 @@ class TicketDetailFragment :
                             }
                             imgInformationDetailFull.setImageBitmap(mergeBitmap)
                             imgInformationDetail.setImageBitmap(cropBitmap)
+
+                            imgInformationDetailExpand.setOnClickListener {
+                                findNavController().navigate(
+                                    TicketDetailFragmentDirections
+                                        .actionTicketDetailFragmentToImageViewerFragment(
+                                            Uri.fromFile(detailImageFile).toString()
+                                        )
+                                )
+                            }
                         }
                     }
                 }

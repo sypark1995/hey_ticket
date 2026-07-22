@@ -59,6 +59,18 @@
                         android:layout_marginStart="78dp"
                         android:layout_marginEnd="78dp" />
 
+                    <ImageView
+                        android:id="@+id/img_poster_expand"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignBottom="@id/img_poster"
+                        android:layout_alignEnd="@id/img_poster"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/round_6_black_cc"
+                        android:padding="6dp"
+                        android:src="@drawable/icon_expand" />
+
                     <TextView
                         android:id="@+id/text_state"
                         android:layout_width="wrap_content"
@@ -311,6 +323,18 @@
                             android:layout_marginTop="10dp"
                             android:scaleType="fitXY"
                             android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/img_information_detail_expand"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_below="@+id/text_information_detail"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/round_6_black_cc"
+                            android:padding="6dp"
+                            android:src="@drawable/icon_expand" />
 
                         <Button
                             android:id="@+id/btn_information_detail"

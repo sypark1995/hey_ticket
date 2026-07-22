@@ -22,9 +22,13 @@ class WebViewFragment : BaseFragment<FragmentWebviewBinding>(R.layout.fragment_w
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.setSupportMultipleWindows(true)
+            settings.useWideViewPort = true
+            settings.loadWithOverviewMode = true
+            settings.builtInZoomControls = true
+            settings.displayZoomControls = false
             webViewClient = WebViewClient()
 
-            loadUrl("https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=${args.item}")
+            loadUrl(args.item)
         }
 
     }

@@ -5,16 +5,24 @@ import androidx.lifecycle.MutableLiveData
 import com.sypark.domain.model.ApiResult
 import com.sypark.domain.model.Content
 import com.sypark.domain.usecase.GetClosingSoonUseCase
+import com.sypark.domain.usecase.GetMatchingNewUseCase
+import com.sypark.domain.usecase.GetPerformanceDetailUseCase
 import com.sypark.domain.usecase.GetPerformanceNewUseCase
 import com.sypark.openTicket.base.BaseViewModel
 import com.sypark.openTicket.base.SingleLiveEvent
+import com.sypark.openTicket.util.UserPreferencesDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getPerformanceNewUseCase: GetPerformanceNewUseCase,
     private val getClosingSoonUseCase: GetClosingSoonUseCase,
+    private val getMatchingNewUseCase: GetMatchingNewUseCase,
+    private val getPerformanceDetailUseCase: GetPerformanceDetailUseCase,
+    private val userPreferencesDataStore: UserPreferencesDataStore,
 ) : BaseViewModel() {
 
     private var _isLoading = MutableLiveData(false)
@@ -36,6 +44,12 @@ class MainViewModel @Inject constructor(
 
     private var _closingSoonList = MutableLiveData<List<Content>>()
     val closingSoonList: LiveData<List<Content>> = _closingSoonList
+
+    private var _recommendedList = MutableLiveData<List<Content>>()
+    val recommendedList: LiveData<List<Content>> = _recommendedList
+
+    private var _favoritesList = MutableLiveData<List<Content>>()
+    val favoritesList: LiveData<List<Content>> = _favoritesList
 
     private var _mainSelector = MutableLiveData(false)
     val mainSelector: LiveData<Boolean> = _mainSelector
@@ -83,5 +97,54 @@ class MainViewModel @Inject constructor(
                 _closingSoonList.value = result.value
             }
         }
+    }
+
+    suspend fun getRecommendedData() {
+        val genres = userPreferencesDataStore.getInterestedGenres()
+        val areas = userPreferencesDataStore.getInterestedAreas()
+
+        if (genres.isEmpty() && areas.isEmpty()) return
+
+        val genreBuckets = if (genres.isEmpty()) listOf<String?>(null) else genres.toList()
+        val areaBuckets = if (areas.isEmpty()) listOf<String?>(null) else areas.toList()
+
+        val merged = mutableListOf<Content>()
+        for (genre in genreBuckets) {
+            for (area in areaBuckets) {
+                getMatchingNewUseCase(genre, area, rows = 10).collect { result ->
+                    if (result is ApiResult.Success) {
+                        merged += result.value
+                    }
+                }
+            }
+        }
+
+        val deduped = merged.distinctBy { it.id }
+        if (deduped.isNotEmpty()) {
+            _recommendedList.value = deduped
+        }
+    }
+
+    suspend fun getFavoritesData() {
+        val ids = userPreferencesDataStore.getFavoriteIds()
+        if (ids.isEmpty()) return
+
+        val results = coroutineScope {
+            ids.map { id -> async { fetchDetailOrNull(id) } }.map { it.await() }
+        }
+        val favorites = results.filterNotNull()
+        if (favorites.isNotEmpty()) {
+            _favoritesList.value = favorites
+        }
+    }
+
+    private suspend fun fetchDetailOrNull(performanceId: String): Content? {
+        var result: Content? = null
+        getPerformanceDetailUseCase(performanceId).collect {
+            if (it is ApiResult.Success) {
+                result = it.value
+            }
+        }
+        return result
     }
 }

@@ -18,6 +18,8 @@
     <string name="main_recommend_content">관심 있는 정보 설정하고\n공연 추천 받아보세요</string>
     <string name="main_recommend_content_btn">관심 정보 설정</string>
     <string name="main_new_ticket">새로 나온 공연</string>
+    <string name="main_recommended_ticket">관심 카테고리 맞춤 공연</string>
+    <string name="main_favorites_ticket">찜한 공연</string>
     <string name="main_musical_ticket">뮤지컬 공연</string>
     <string name="main_theater_ticket">연극 공연</string>
     <string name="main_category">카테고리</string>
@@ -33,6 +35,7 @@
     <string name="recommend_selector_area">지역</string>
     <string name="recommend_selector_area_content">복수 선택 가능해요</string>
     <string name="recommend_selector_genre">공연 장르</string>
+    <string name="recommend_selector_summary">지역 %1$d개 · 장르 %2$d개 선택</string>
     <string name="recommend_category_complete">완료</string>
     <string name="recommend_category_menu_label">관심 카테고리 설정</string>
     <string name="notifications_toggle_label">관심 공연 알림 받기</string>

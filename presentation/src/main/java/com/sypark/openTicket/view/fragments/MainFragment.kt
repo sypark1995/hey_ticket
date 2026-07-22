@@ -43,6 +43,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private lateinit var etcTicketAdapter: MainDefaultAdapter
     private lateinit var campusTicketAdapter: MainDefaultAdapter
     private lateinit var closingSoonAdapter: MainDefaultAdapter
+    private lateinit var recommendedTicketAdapter: MainDefaultAdapter
+    private lateinit var favoritesTicketAdapter: MainDefaultAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun init(view: View) {
@@ -168,6 +170,42 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             layoutClosingSoonMore.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainFragmentToPagingNewFragment())
             }
+
+            recyclerviewRecommendedTicket.apply {
+                recommendedTicketAdapter = MainDefaultAdapter {
+                    findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToTicketDetailFragment(it)
+                    )
+                }
+                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
+                adapter = recommendedTicketAdapter
+
+                lifecycleScope.launch {
+                    viewModel.getRecommendedData()
+                }
+            }
+
+            layoutRecommendedTicketMore.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToPagingNewFragment())
+            }
+
+            recyclerviewFavoritesTicket.apply {
+                favoritesTicketAdapter = MainDefaultAdapter {
+                    findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToTicketDetailFragment(it)
+                    )
+                }
+                addItemDecoration(Common.MarginItemDecoration(8.dpToPx()))
+                adapter = favoritesTicketAdapter
+
+                lifecycleScope.launch {
+                    viewModel.getFavoritesData()
+                }
+            }
+
+            layoutFavoritesTicketMore.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToFavoritesFragment())
+            }
         }
 
         viewModel.newTicketList.observe(this) {
@@ -187,6 +225,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         viewModel.closingSoonList.observe(this) {
             binding.layoutClosingSoon.show()
             closingSoonAdapter.submitList(it)
+        }
+
+        viewModel.recommendedList.observe(this) {
+            binding.layoutRecommendedTicket.show()
+            recommendedTicketAdapter.submitList(it)
+        }
+
+        viewModel.favoritesList.observe(this) {
+            binding.layoutFavoritesTicket.show()
+            favoritesTicketAdapter.submitList(it)
         }
 
         viewModel.errorEvent.observe(viewLifecycleOwner) {

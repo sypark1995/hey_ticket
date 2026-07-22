@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_mainFragment_to_recommendCategoryFragment"
             app:destination="@id/recommendCategoryFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
 
     </fragment>
 
@@ -82,6 +85,20 @@
         <action
             android:id="@+id/action_ticketDetailFragment_to_bookingOptionFragment"
             app:destination="@id/bookingOptionFragment" />
+        <action
+            android:id="@+id/action_ticketDetailFragment_to_imageViewerFragment"
+            app:destination="@id/imageViewerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/imageViewerFragment"
+        android:name="com.sypark.openTicket.view.fragments.ImageViewerFragment"
+        android:label="ImageViewerFragment"
+        tools:layout="@layout/fragment_image_viewer">
+
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
     </fragment>
 
     <fragment
