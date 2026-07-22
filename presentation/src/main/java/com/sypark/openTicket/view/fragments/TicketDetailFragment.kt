@@ -32,6 +32,7 @@ import com.sypark.openTicket.Common
 import com.sypark.openTicket.R
 import com.sypark.openTicket.base.BaseFragment
 import com.sypark.openTicket.databinding.FragmentTicketDetailBinding
+import com.sypark.openTicket.model.BookingVendor
 import com.sypark.openTicket.model.TicketDetailViewModel
 import com.sypark.openTicket.util.UserPreferencesDataStore
 import javax.inject.Inject
@@ -293,8 +294,8 @@ class TicketDetailFragment :
 
                 btnWebView.setOnClickListener {
                     findNavController().navigate(
-                        TicketDetailFragmentDirections.actionTicketDetailFragmentToBookingOptionFragment(
-                            item.title
+                        TicketDetailFragmentDirections.actionTicketDetailFragmentToWebViewFragment(
+                            BookingVendor.MELON.searchUrl(item.title)
                         )
                     )
                 }
