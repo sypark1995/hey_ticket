@@ -475,6 +475,11 @@ class TicketDetailFragment :
             ) { sharingResult, error ->
                 if (error != null) {
                     Log.e("TAG", "카카오톡 공유 실패", error)
+                    Toast.makeText(
+                        context,
+                        resources.getString(R.string.error_network_generic),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else if (sharingResult != null) {
                     Log.e("TAG", "카카오톡 공유 성공 ${sharingResult.intent}")
                     startActivity(sharingResult.intent)
@@ -489,7 +494,7 @@ class TicketDetailFragment :
                 context,
                 resources.getString(R.string.kakao_not_install),
                 Toast.LENGTH_SHORT
-            )
+            ).show()
         }
     }
 
